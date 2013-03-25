@@ -73,6 +73,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	private ProgressBar progressBar;
 	private FrameLayout layout;
+
 	@Override
 	public void bottom2top(View v) {
 	}
@@ -171,12 +172,13 @@ public class DilbertActivity extends SherlockActivity implements
 				R.string.menu_datepicker)
 				.setIcon(R.drawable.ic_menu_datepicker)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
+				.setIcon(R.drawable.ic_menu_refresh)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
