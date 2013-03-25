@@ -102,7 +102,8 @@ public class DilbertActivity extends SherlockActivity implements
 
 	@Override
 	public void left2right(View v) {
-		if (!currentDate.equals(DateMidnight.parse("1989-04-16", dateFormatter)))
+		if (!currentDate
+				.equals(DateMidnight.parse("1989-04-16", dateFormatter)))
 			setCurrentDate(currentDate.minusDays(1));
 		else
 			Toast.makeText(this, R.string.no_older_strip, Toast.LENGTH_SHORT)
@@ -188,9 +189,11 @@ public class DilbertActivity extends SherlockActivity implements
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear,
 			int dayOfMonth) {
-		setCurrentDate(DateMidnight.parse(
+		DateMidnight selDate = DateMidnight.parse(
 				String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
-				dateFormatter));
+				dateFormatter);
+		if (!selDate.equals(currentDate))
+			setCurrentDate(selDate);
 	}
 
 	@Override
