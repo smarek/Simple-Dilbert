@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="app_name" translatable="false">Simple Dilbert</string>
+    <string name="apache_license_2_0" translatable="false">Apache License 2.0</string>
+    <string name="menu_datepicker">Vybrat datum</string>
+    <string name="menu_about">O aplikaci</string>
+    <string name="about_contents">Aplikaci vytvořil Marek Sebera &amp;copy;2013</string>
+    <string name="about_title">O aplikaci Simple Dilbert</string>
+    <string name="cd_dilbert_image">Dilbert</string>
+    <string name="loading_interrupted">Načítání bylo přerušeno</string>
+    <string name="loading_exception_error">Došlo k chybě při načítání</string>
+    <string name="menu_latest">Zobraz nejnovější</string>
+    <string name="menu_refresh">Aktualizovat</string>
+    <string name="no_older_strip">Starší díl již neexistuje</string>
+    <string name="no_newer_strip">Novější díl ještě neexistuje</string>
+    <string name="menu_license">Zobrazit licenci</string>
+
+</resources>
