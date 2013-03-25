@@ -15,7 +15,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.CharArrayBuffer;
 import org.joda.time.DateMidnight;
-import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -103,7 +102,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	@Override
 	public void left2right(View v) {
-		if (!currentDate.equals(new LocalDate(1989, 4, 16)))
+		if (!currentDate.equals(DateMidnight.parse("1989-04-16", dateFormatter)))
 			setCurrentDate(currentDate.minusDays(1));
 		else
 			Toast.makeText(this, R.string.no_older_strip, Toast.LENGTH_SHORT)
