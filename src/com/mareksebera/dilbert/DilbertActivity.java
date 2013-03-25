@@ -88,6 +88,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	public void displayImage(String url) {
 		if (url != null) {
+			Log.d("displayImage", url);
 			ImageLoader.getInstance().displayImage(url, imageView,
 					DilbertActivity.this);
 		}
@@ -387,11 +388,12 @@ public class DilbertActivity extends SherlockActivity implements
 			if (result != null) {
 				for (String s : FindUrls.extractUrls(result)) {
 					if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")) {
+						s = s.replace(".strip.gif", ".strip.zoom.gif");
+						s = s.replace(".sunday.gif", ".strip.zoom.gif");
+						s = s.replace(".strip.strip", ".strip");
 						saveCurrentUrl(date, s);
 						displayImage(s);
 						return;
-					} else {
-						Log.d("nURL", s);
 					}
 				}
 			}
