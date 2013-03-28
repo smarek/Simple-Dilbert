@@ -28,7 +28,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -54,16 +53,18 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
  * any better solution.
  * 
  * Supports caching images (Universal Image Loader feature) and caching parsing
- * ({@link #loadCacheUrl(String)}, {@link #saveCurrentUrl(String, String)},
- * {@link #loadLastUrl()})
+ * ({@link #loadCachedUrl(String)}, {@link #saveCurrentUrl(String, String)},
+ * {@link #getLastUrl()})
  * */
 public class DilbertActivity extends SherlockActivity implements
 		OnDateSetListener, SwipeInterface, ImageLoadingListener {
 
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
-			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5;
-	private static final String PREF_DATE = "dilbert_current_date";
-	private static final String PREF_URL = "dilbert_current_url";
+			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
+			MENU_HIGHQUALITY = 6;
+	private static final String PREF_CURRENT_DATE = "dilbert_current_date";
+	private static final String PREF_CURRENT_URL = "dilbert_current_url";
+	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
 	private DateMidnight currentDate;
 	private DateTimeFormatter dateFormatter = DateTimeFormat
 			.forPattern("yyyy-MM-dd");
@@ -87,61 +88,31 @@ public class DilbertActivity extends SherlockActivity implements
 
 	public void displayImage(String url) {
 		if (url != null) {
-			Log.d("displayImage", url);
+			if (isHighQualityOn() && !url.contains("zoom")) {
+				url = url.replace(".gif", ".zoom.gif");
+			} else if (!isHighQualityOn() && url.contains("zoom")) {
+				url = url.replace(".zoom.gif", ".gif");
+			}
 			ImageLoader.getInstance().displayImage(url, imageView,
 					DilbertActivity.this);
 		}
 	}
 
-	private void initLayout() {
-		imageView = (EnhancedImageView) findViewById(R.id.imageview);
-		progressBar = (ProgressBar) findViewById(R.id.progressbar);
-		layout = (FrameLayout) findViewById(R.id.framelayout);
-		layout.setOnTouchListener(new ActivitySwipeDetector(this));
-	}
-
-	@Override
-	public void left2right(View v) {
-		if (!currentDate
-				.equals(DateMidnight.parse("1989-04-16", dateFormatter)))
-			setCurrentDate(currentDate.minusDays(1));
-		else
-			Toast.makeText(this, R.string.no_older_strip, Toast.LENGTH_SHORT)
-					.show();
-	}
-
-	private boolean loadCacheUrl(String dateKey) {
-		String cached = PreferenceManager.getDefaultSharedPreferences(this)
-				.getString(dateKey, null);
-		if (cached == null) {
-			return false;
-		} else {
-			displayImage(cached);
-			return true;
-		}
-	}
-
-	private void loadCurrentDate() {
+	private void getCurrentDate() {
 		String savedDate = PreferenceManager.getDefaultSharedPreferences(this)
-				.getString(PREF_DATE, null);
+				.getString(PREF_CURRENT_DATE, null);
 		if (savedDate == null)
 			currentDate = DateMidnight.now();
 		else
 			currentDate = DateMidnight.parse(savedDate, dateFormatter);
 	}
 
-	private void loadImage() {
-		String dateKey = currentDate.toString(dateFormatter);
-		if (!loadCacheUrl(dateKey))
-			new GetStripUrl().execute(dateKey);
-	}
-
-	public String loadLastUrl() {
+	public String getLastUrl() {
 		return PreferenceManager.getDefaultSharedPreferences(this).getString(
-				PREF_URL, null);
+				PREF_CURRENT_URL, null);
 	}
 
-	private CharSequence loadLicenseText() {
+	private CharSequence getLicenseText() {
 		String rtn = "";
 		try {
 			InputStream stream = getAssets().open("LICENSE.txt");
@@ -156,14 +127,53 @@ public class DilbertActivity extends SherlockActivity implements
 		return rtn;
 	}
 
+	private void initLayout() {
+		imageView = (EnhancedImageView) findViewById(R.id.imageview);
+		progressBar = (ProgressBar) findViewById(R.id.progressbar);
+		layout = (FrameLayout) findViewById(R.id.framelayout);
+		layout.setOnTouchListener(new ActivitySwipeDetector(this));
+	}
+
+	private boolean isHighQualityOn() {
+		return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
+				PREF_HIGH_QUALITY_ENABLED, true);
+	}
+
+	@Override
+	public void left2right(View v) {
+		if (!currentDate
+				.equals(DateMidnight.parse("1989-04-16", dateFormatter)))
+			setCurrentDate(currentDate.minusDays(1));
+		else
+			Toast.makeText(this, R.string.no_older_strip, Toast.LENGTH_SHORT)
+					.show();
+	}
+
+	private boolean loadCachedUrl(String dateKey) {
+		String cached = PreferenceManager.getDefaultSharedPreferences(this)
+				.getString(dateKey, null);
+		if (cached == null) {
+			return false;
+		} else {
+			displayImage(cached);
+			return true;
+		}
+	}
+
+	private void loadImage() {
+		String dateKey = currentDate.toString(dateFormatter);
+		if (!loadCachedUrl(dateKey))
+			new GetStripUrl().execute(dateKey);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dilbert);
 		configureImageLoader();
-		loadCurrentDate();
+		getCurrentDate();
 		initLayout();
-		displayImage(loadLastUrl());
+		displayImage(getLastUrl());
 		setCurrentDate(currentDate);
 	}
 
@@ -179,6 +189,8 @@ public class DilbertActivity extends SherlockActivity implements
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE, "Vysoká kvalita")
+				.setCheckable(true).setChecked(isHighQualityOn());
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
@@ -243,8 +255,19 @@ public class DilbertActivity extends SherlockActivity implements
 		case MENU_LICENSE:
 			showLicenseDialog();
 			return true;
+		case MENU_HIGHQUALITY:
+			toggleHighQuality();
+			loadImage();
+			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		if (menu.findItem(MENU_HIGHQUALITY) != null)
+			menu.findItem(MENU_HIGHQUALITY).setChecked(isHighQualityOn());
+		return true;
 	}
 
 	private void putDateToTitle() {
@@ -266,14 +289,16 @@ public class DilbertActivity extends SherlockActivity implements
 	}
 
 	private void saveCurrentDate() {
-		PreferenceManager.getDefaultSharedPreferences(this).edit()
-				.putString(PREF_DATE, currentDate.toString(dateFormatter))
-				.commit();
+		PreferenceManager
+				.getDefaultSharedPreferences(this)
+				.edit()
+				.putString(PREF_CURRENT_DATE,
+						currentDate.toString(dateFormatter)).commit();
 	}
 
 	public void saveCurrentUrl(String date, String s) {
 		PreferenceManager.getDefaultSharedPreferences(this).edit()
-				.putString(PREF_URL, s);
+				.putString(PREF_CURRENT_URL, s);
 		PreferenceManager.getDefaultSharedPreferences(this).edit()
 				.putString(date, s).commit();
 	}
@@ -312,7 +337,7 @@ public class DilbertActivity extends SherlockActivity implements
 	private void showLicenseDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.apache_license_2_0);
-		builder.setMessage(loadLicenseText());
+		builder.setMessage(getLicenseText());
 		builder.setNeutralButton(android.R.string.cancel,
 				new OnClickListener() {
 
@@ -322,6 +347,12 @@ public class DilbertActivity extends SherlockActivity implements
 					}
 				});
 		builder.show();
+	}
+
+	private void toggleHighQuality() {
+		PreferenceManager.getDefaultSharedPreferences(this).edit()
+				.putBoolean(PREF_HIGH_QUALITY_ENABLED, !isHighQualityOn())
+				.commit();
 	}
 
 	@Override
