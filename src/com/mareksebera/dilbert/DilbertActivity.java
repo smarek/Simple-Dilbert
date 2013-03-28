@@ -15,8 +15,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.CharArrayBuffer;
 import org.joda.time.DateMidnight;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -26,7 +24,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,14 +59,10 @@ public class DilbertActivity extends SherlockActivity implements
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
 			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
 			MENU_HIGHQUALITY = 6;
-	private static final String PREF_CURRENT_DATE = "dilbert_current_date";
-	private static final String PREF_CURRENT_URL = "dilbert_current_url";
-	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
 	private DateMidnight currentDate;
-	private DateTimeFormatter dateFormatter = DateTimeFormat
-			.forPattern("yyyy-MM-dd");
 
 	private EnhancedImageView imageView;
+	private DilbertPreferences preferences;
 
 	private ProgressBar progressBar;
 	private FrameLayout layout;
@@ -88,28 +81,15 @@ public class DilbertActivity extends SherlockActivity implements
 
 	public void displayImage(String url) {
 		if (url != null) {
-			if (isHighQualityOn() && !url.contains("zoom")) {
+			boolean hqIsEnabled = preferences.isHighQualityOn();
+			if (hqIsEnabled && !url.contains("zoom")) {
 				url = url.replace(".gif", ".zoom.gif");
-			} else if (!isHighQualityOn() && url.contains("zoom")) {
+			} else if (!hqIsEnabled) {
 				url = url.replace(".zoom.gif", ".gif");
 			}
 			ImageLoader.getInstance().displayImage(url, imageView,
 					DilbertActivity.this);
 		}
-	}
-
-	private void getCurrentDate() {
-		String savedDate = PreferenceManager.getDefaultSharedPreferences(this)
-				.getString(PREF_CURRENT_DATE, null);
-		if (savedDate == null)
-			currentDate = DateMidnight.now();
-		else
-			currentDate = DateMidnight.parse(savedDate, dateFormatter);
-	}
-
-	public String getLastUrl() {
-		return PreferenceManager.getDefaultSharedPreferences(this).getString(
-				PREF_CURRENT_URL, null);
 	}
 
 	private CharSequence getLicenseText() {
@@ -134,13 +114,9 @@ public class DilbertActivity extends SherlockActivity implements
 		layout.setOnTouchListener(new ActivitySwipeDetector(this));
 	}
 
-	private boolean isHighQualityOn() {
-		return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
-				PREF_HIGH_QUALITY_ENABLED, true);
-	}
-
 	private DateMidnight getFirstStripDate() {
-		return DateMidnight.parse("1989-04-16", dateFormatter);
+		return DateMidnight.parse("1989-04-16",
+				DilbertPreferences.dateFormatter);
 	}
 
 	@Override
@@ -152,20 +128,12 @@ public class DilbertActivity extends SherlockActivity implements
 					.show();
 	}
 
-	private boolean loadCachedUrl(String dateKey) {
-		String cached = PreferenceManager.getDefaultSharedPreferences(this)
-				.getString(dateKey, null);
-		if (cached == null) {
-			return false;
-		} else {
-			displayImage(cached);
-			return true;
-		}
-	}
-
 	private void loadImage() {
-		String dateKey = currentDate.toString(dateFormatter);
-		if (!loadCachedUrl(dateKey))
+		String dateKey = currentDate.toString(DilbertPreferences.dateFormatter);
+		String cachedUrl = preferences.loadCachedUrl(dateKey);
+		if (cachedUrl != null)
+			displayImage(cachedUrl);
+		else
 			new GetStripUrl().execute(dateKey);
 	}
 
@@ -173,10 +141,11 @@ public class DilbertActivity extends SherlockActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dilbert);
+		preferences = new DilbertPreferences(this);
 		configureImageLoader();
-		getCurrentDate();
+		currentDate = preferences.getCurrentDate();
 		initLayout();
-		displayImage(getLastUrl());
+		displayImage(preferences.getLastUrl());
 		setCurrentDate(currentDate);
 	}
 
@@ -193,7 +162,7 @@ public class DilbertActivity extends SherlockActivity implements
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE, "Vysoká kvalita")
-				.setCheckable(true).setChecked(isHighQualityOn());
+				.setCheckable(true).setChecked(preferences.isHighQualityOn());
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
@@ -206,7 +175,7 @@ public class DilbertActivity extends SherlockActivity implements
 			int dayOfMonth) {
 		DateMidnight selDate = DateMidnight.parse(
 				String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
-				dateFormatter);
+				DilbertPreferences.dateFormatter);
 		if (selDate.isAfterNow())
 			selDate = DateMidnight.now();
 		if (selDate.isBefore(getFirstStripDate()))
@@ -256,14 +225,14 @@ public class DilbertActivity extends SherlockActivity implements
 			setCurrentDate(DateMidnight.now());
 			return true;
 		case MENU_REFRESH:
-			removeCache(currentDate);
+			preferences.removeCache(currentDate);
 			setCurrentDate(currentDate);
 			return true;
 		case MENU_LICENSE:
 			showLicenseDialog();
 			return true;
 		case MENU_HIGHQUALITY:
-			toggleHighQuality();
+			preferences.toggleHighQuality();
 			loadImage();
 			return true;
 		}
@@ -273,17 +242,13 @@ public class DilbertActivity extends SherlockActivity implements
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		if (menu.findItem(MENU_HIGHQUALITY) != null)
-			menu.findItem(MENU_HIGHQUALITY).setChecked(isHighQualityOn());
+			menu.findItem(MENU_HIGHQUALITY).setChecked(
+					preferences.isHighQualityOn());
 		return true;
 	}
 
 	private void putDateToTitle() {
-		setTitle(currentDate.toString(dateFormatter));
-	}
-
-	private void removeCache(DateMidnight currentDate) {
-		PreferenceManager.getDefaultSharedPreferences(this).edit()
-				.remove(currentDate.toString(dateFormatter)).commit();
+		setTitle(currentDate.toString(DilbertPreferences.dateFormatter));
 	}
 
 	@Override
@@ -295,24 +260,9 @@ public class DilbertActivity extends SherlockActivity implements
 					.show();
 	}
 
-	private void saveCurrentDate() {
-		PreferenceManager
-				.getDefaultSharedPreferences(this)
-				.edit()
-				.putString(PREF_CURRENT_DATE,
-						currentDate.toString(dateFormatter)).commit();
-	}
-
-	public void saveCurrentUrl(String date, String s) {
-		PreferenceManager.getDefaultSharedPreferences(this).edit()
-				.putString(PREF_CURRENT_URL, s);
-		PreferenceManager.getDefaultSharedPreferences(this).edit()
-				.putString(date, s).commit();
-	}
-
 	private void setCurrentDate(DateMidnight newDate) {
 		currentDate = newDate;
-		saveCurrentDate();
+		preferences.saveCurrentDate(currentDate);
 		putDateToTitle();
 		loadImage();
 	}
@@ -354,12 +304,6 @@ public class DilbertActivity extends SherlockActivity implements
 					}
 				});
 		builder.show();
-	}
-
-	private void toggleHighQuality() {
-		PreferenceManager.getDefaultSharedPreferences(this).edit()
-				.putBoolean(PREF_HIGH_QUALITY_ENABLED, !isHighQualityOn())
-				.commit();
 	}
 
 	@Override
@@ -431,7 +375,7 @@ public class DilbertActivity extends SherlockActivity implements
 						s = s.replace(".strip.gif", ".strip.zoom.gif");
 						s = s.replace(".sunday.gif", ".strip.zoom.gif");
 						s = s.replace(".strip.strip", ".strip");
-						saveCurrentUrl(date, s);
+						preferences.saveCurrentUrl(date, s);
 						displayImage(s);
 						return;
 					}
