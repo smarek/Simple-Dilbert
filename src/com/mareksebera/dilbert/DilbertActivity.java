@@ -139,10 +139,13 @@ public class DilbertActivity extends SherlockActivity implements
 				PREF_HIGH_QUALITY_ENABLED, true);
 	}
 
+	private DateMidnight getFirstStripDate() {
+		return DateMidnight.parse("1989-04-16", dateFormatter);
+	}
+
 	@Override
 	public void left2right(View v) {
-		if (!currentDate
-				.equals(DateMidnight.parse("1989-04-16", dateFormatter)))
+		if (!currentDate.equals(getFirstStripDate()))
 			setCurrentDate(currentDate.minusDays(1));
 		else
 			Toast.makeText(this, R.string.no_older_strip, Toast.LENGTH_SHORT)
@@ -204,6 +207,10 @@ public class DilbertActivity extends SherlockActivity implements
 		DateMidnight selDate = DateMidnight.parse(
 				String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
 				dateFormatter);
+		if (selDate.isAfterNow())
+			selDate = DateMidnight.now();
+		if (selDate.isBefore(getFirstStripDate()))
+			selDate = getFirstStripDate();
 		if (!selDate.equals(currentDate))
 			setCurrentDate(selDate);
 	}
