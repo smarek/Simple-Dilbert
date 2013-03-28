@@ -12,5 +12,6 @@
     <string name="no_older_strip">There is no older comic strip</string>
     <string name="no_newer_strip">There is no newer comic strip</string>
     <string name="menu_license">Show software license</string>
+    <string name="menu_high_quality">High quality</string>
 
 </resources>

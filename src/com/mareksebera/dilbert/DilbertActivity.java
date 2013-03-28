@@ -161,7 +161,7 @@ public class DilbertActivity extends SherlockActivity implements
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE, "Vysoká kvalita")
+		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE, R.string.menu_high_quality)
 				.setCheckable(true).setChecked(preferences.isHighQualityOn());
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);

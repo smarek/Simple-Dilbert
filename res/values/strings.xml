@@ -14,5 +14,6 @@
     <string name="no_older_strip">Starší díl již neexistuje</string>
     <string name="no_newer_strip">Novější díl ještě neexistuje</string>
     <string name="menu_license">Zobrazit licenci</string>
+    <string name="menu_high_quality">Vysoká kvalita</string>
 
 </resources>
