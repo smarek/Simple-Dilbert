@@ -19,9 +19,11 @@ import org.joda.time.DateMidnight;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -58,7 +60,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
 			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
-			MENU_HIGHQUALITY = 6;
+			MENU_HIGHQUALITY = 6, MENU_SAVE = 7;
 	private DateMidnight currentDate;
 
 	private EnhancedImageView imageView;
@@ -81,6 +83,9 @@ public class DilbertActivity extends SherlockActivity implements
 
 	public void displayImage(String url) {
 		if (url != null) {
+			preferences
+					.saveCurrentUrl(currentDate
+							.toString(DilbertPreferences.dateFormatter), url);
 			boolean hqIsEnabled = preferences.isHighQualityOn();
 			if (hqIsEnabled && !url.contains("zoom")) {
 				url = url.replace(".gif", ".zoom.gif");
@@ -145,7 +150,6 @@ public class DilbertActivity extends SherlockActivity implements
 		configureImageLoader();
 		currentDate = preferences.getCurrentDate();
 		initLayout();
-		displayImage(preferences.getLastUrl());
 		setCurrentDate(currentDate);
 	}
 
@@ -161,8 +165,16 @@ public class DilbertActivity extends SherlockActivity implements
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE, R.string.menu_high_quality)
-				.setCheckable(true).setChecked(preferences.isHighQualityOn());
+		// DownloadManager is introduced in API 9, we cannot support it in
+		// previous devices without additional permission
+		// (WRITE_EXTERNAL_STORAGE eg.)
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
+			menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
+					.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+		}
+		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE,
+				R.string.menu_high_quality).setCheckable(true)
+				.setChecked(preferences.isHighQualityOn());
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
@@ -231,12 +243,30 @@ public class DilbertActivity extends SherlockActivity implements
 		case MENU_LICENSE:
 			showLicenseDialog();
 			return true;
+		case MENU_SAVE:
+			downloadImageViaManager();
+			return true;
 		case MENU_HIGHQUALITY:
 			preferences.toggleHighQuality();
 			loadImage();
 			return true;
 		}
 		return false;
+	}
+
+	private void downloadImageViaManager() {
+		try {
+			DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+			DownloadManager.Request request = new DownloadManager.Request(
+					Uri.parse(preferences.getLastUrl()));
+			request.setVisibleInDownloadsUi(true);
+			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+			dm.enqueue(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(this, R.string.download_manager_unsupported,
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override
@@ -348,13 +378,10 @@ public class DilbertActivity extends SherlockActivity implements
 
 	private class GetStripUrl extends AsyncTask<String, Void, String> {
 
-		private String date = null;
-
 		@Override
 		protected String doInBackground(String... params) {
 			if (params.length == 0)
 				return null;
-			date = params[0];
 			HttpGet get = new HttpGet("http://dilbert.com/strips/comic/"
 					+ params[0] + "/");
 			try {
@@ -375,7 +402,6 @@ public class DilbertActivity extends SherlockActivity implements
 						s = s.replace(".strip.gif", ".strip.zoom.gif");
 						s = s.replace(".sunday.gif", ".strip.zoom.gif");
 						s = s.replace(".strip.strip", ".strip");
-						preferences.saveCurrentUrl(date, s);
 						displayImage(s);
 						return;
 					}

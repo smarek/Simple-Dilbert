@@ -13,5 +13,7 @@
     <string name="no_newer_strip">There is no newer comic strip</string>
     <string name="menu_license">Show software license</string>
     <string name="menu_high_quality">High quality</string>
+    <string name="download_manager_unsupported">Unsupported on this device</string>
+    <string name="menu_download">Save current image</string>
 
 </resources>

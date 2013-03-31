@@ -15,5 +15,7 @@
     <string name="no_newer_strip">Novější díl ještě neexistuje</string>
     <string name="menu_license">Zobrazit licenci</string>
     <string name="menu_high_quality">Vysoká kvalita</string>
+    <string name="download_manager_unsupported">Váš telefon nepodporuje ukládání obrázků</string>
+    <string name="menu_download">Uložit do telefonu</string>
 
 </resources>
