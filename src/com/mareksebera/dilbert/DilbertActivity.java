@@ -19,12 +19,10 @@ import org.joda.time.DateMidnight;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -254,7 +252,7 @@ public class DilbertActivity extends SherlockActivity implements
 			showLicenseDialog();
 			return true;
 		case MENU_SAVE:
-			downloadImageViaManager();
+			preferences.downloadImageViaManager(this);
 			return true;
 		case MENU_HIGHQUALITY:
 			preferences.toggleHighQuality();
@@ -269,21 +267,6 @@ public class DilbertActivity extends SherlockActivity implements
 			return true;
 		}
 		return false;
-	}
-
-	private void downloadImageViaManager() {
-		try {
-			DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-			DownloadManager.Request request = new DownloadManager.Request(
-					Uri.parse(preferences.getLastUrl()));
-			request.setVisibleInDownloadsUi(true);
-			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-			dm.enqueue(request);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Toast.makeText(this, R.string.download_manager_unsupported,
-					Toast.LENGTH_LONG).show();
-		}
 	}
 
 	@Override

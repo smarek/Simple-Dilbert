@@ -8,9 +8,13 @@ import org.joda.time.DateMidnight;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 public class DilbertPreferences {
 
@@ -99,6 +103,21 @@ public class DilbertPreferences {
 			}
 		}
 		return favorites;
+	}
+
+	public void downloadImageViaManager(Activity activity) {
+		try {
+			DownloadManager dm = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+			DownloadManager.Request request = new DownloadManager.Request(
+					Uri.parse(getLastUrl()));
+			request.setVisibleInDownloadsUi(true);
+			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+			dm.enqueue(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(activity, R.string.download_manager_unsupported,
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 }
