@@ -256,6 +256,9 @@ public class DilbertActivity extends SherlockActivity implements
 			preferences.toggleHighQuality();
 			loadImage();
 			return true;
+		case MENU_FAVORITE:
+			preferences.toggleIsFavorited(currentDate);
+			return true;
 		}
 		return false;
 	}
