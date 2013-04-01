@@ -73,7 +73,7 @@ public class FavoritedAdapter extends BaseAdapter {
 
 		@Override
 		public int compare(FavoritedItem lhs, FavoritedItem rhs) {
-			return lhs.date.compareTo(rhs.date);
+			return rhs.date.compareTo(lhs.date);
 		}
 
 	}
