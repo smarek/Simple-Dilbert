@@ -91,7 +91,8 @@ public class DilbertPreferences {
 		List<FavoritedItem> favorites = new ArrayList<FavoritedItem>();
 		Map<String, ?> allPreferences = preferences.getAll();
 		for (String key : allPreferences.keySet()) {
-			if (key.startsWith("favorite_")) {
+			if (key.startsWith("favorite_")
+					&& (Boolean) allPreferences.get(key)) {
 				String date = key.replace("favorite_", "");
 				favorites.add(new FavoritedItem(DateMidnight.parse(date,
 						dateFormatter), (String) allPreferences.get(date)));
