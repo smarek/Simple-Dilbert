@@ -52,11 +52,15 @@ public class FavoritedAdapter extends BaseAdapter {
 					.findViewById(R.id.item_favorite_image);
 			vh.date = (TextView) convertView
 					.findViewById(R.id.item_favorite_date);
+			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder) convertView.getTag();
 		}
-		imageLoader.displayImage(item.url, vh.image);
-		vh.date.setText(item.date.toString(DilbertPreferences.dateFormatter));
+		if (item != null) {
+			imageLoader.displayImage(item.url, vh.image);
+			vh.date.setText(item.date
+					.toString(DilbertPreferences.dateFormatter));
+		}
 		return convertView;
 	}
 
