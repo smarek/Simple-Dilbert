@@ -1,6 +1,5 @@
 package com.mareksebera.dilbert;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,22 +18,18 @@ public class ActivitySwipeDetector implements View.OnTouchListener {
 	}
 
 	public void onBottomToTopSwipe(View v) {
-		Log.i(logTag, "onBottomToTopSwipe!");
 		activity.bottom2top(v);
 	}
 
 	public void onLeftToRightSwipe(View v) {
-		Log.i(logTag, "LeftToRightSwipe!");
 		activity.left2right(v);
 	}
 
 	public void onRightToLeftSwipe(View v) {
-		Log.i(logTag, "RightToLeftSwipe!");
 		activity.right2left(v);
 	}
 
 	public void onTopToBottomSwipe(View v) {
-		Log.i(logTag, "onTopToBottomSwipe!");
 		activity.top2bottom(v);
 	}
 
@@ -63,9 +58,6 @@ public class ActivitySwipeDetector implements View.OnTouchListener {
 					this.onRightToLeftSwipe(v);
 					return true;
 				}
-			} else {
-				Log.i(logTag, "H-Swipe was only " + Math.abs(deltaX)
-						+ " long, need at least " + MIN_DISTANCE);
 			}
 
 			// swipe vertical?
@@ -80,8 +72,6 @@ public class ActivitySwipeDetector implements View.OnTouchListener {
 					return true;
 				}
 			} else {
-				Log.i(logTag, "V-Swipe was only " + Math.abs(deltaX)
-						+ " long, need at least " + MIN_DISTANCE);
 				v.performClick();
 			}
 			break;
