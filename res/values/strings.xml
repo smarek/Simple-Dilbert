@@ -17,5 +17,7 @@
     <string name="menu_high_quality">Vysoká kvalita</string>
     <string name="download_manager_unsupported">Váš telefon nepodporuje ukládání obrázků</string>
     <string name="menu_download">Uložit do telefonu</string>
+    <string name="menu_favorite_add">Přidat do oblíbených</string>
+    <string name="menu_favorite_remove">Odebrat z oblíbených</string>
 
 </resources>
