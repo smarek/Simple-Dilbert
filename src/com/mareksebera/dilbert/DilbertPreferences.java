@@ -68,4 +68,19 @@ public class DilbertPreferences {
 				.commit();
 	}
 
+	public boolean isFavorited(DateMidnight currentDay) {
+		return preferences.getBoolean(toFavoritedKey(currentDay), false);
+	}
+
+	public boolean toggleIsFavorited(DateMidnight currentDay) {
+		boolean newState = !isFavorited(currentDay);
+		editor.putBoolean(toFavoritedKey(currentDay), newState).commit();
+		return newState;
+	}
+
+	private String toFavoritedKey(DateMidnight currentDay) {
+		return "favorite_"
+				+ currentDay.toString(DilbertPreferences.dateFormatter);
+	}
+
 }
