@@ -53,7 +53,7 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
  * any better solution.
  * 
  * Supports caching images (Universal Image Loader feature) and caching parsing
- * ({@link #loadCachedUrl(String)}, {@link #saveCurrentUrl(String, String)},
+ * ({@link #getCachedUrl(String)}, {@link #saveCurrentUrl(String, String)},
  * {@link #getLastUrl()})
  * */
 public class DilbertActivity extends SherlockActivity implements
@@ -138,7 +138,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	private void loadImage() {
 		String dateKey = currentDate.toString(DilbertPreferences.dateFormatter);
-		String cachedUrl = preferences.loadCachedUrl(dateKey);
+		String cachedUrl = preferences.getCachedUrl(dateKey);
 		if (cachedUrl != null)
 			displayImage(cachedUrl);
 		else
