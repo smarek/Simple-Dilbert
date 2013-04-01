@@ -25,6 +25,7 @@ public class FavoritedActivity extends SherlockActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle(R.string.title_favorited);
 		setContentView(R.layout.activity_favorited);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		preferences = new DilbertPreferences(this);

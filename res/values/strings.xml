@@ -22,5 +22,6 @@
     <string name="menu_show_favorite">Zobrazit oblíbené</string>
     <string name="context_favorites_remove">Odstranit z oblíbených</string>
     <string name="toast_no_favorites">Nemáte žádné oblíbené</string>
+    <string name="title_favorited">Oblíbené díly</string>
 
 </resources>
