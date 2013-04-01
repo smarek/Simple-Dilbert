@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
@@ -36,6 +35,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -60,7 +60,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
 			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
-			MENU_HIGHQUALITY = 6, MENU_SAVE = 7;
+			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8;
 	private DateMidnight currentDate;
 
 	private EnhancedImageView imageView;
@@ -162,6 +162,12 @@ public class DilbertActivity extends SherlockActivity implements
 		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
 				.setIcon(R.drawable.ic_menu_refresh)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_FAVORITE, Menu.NONE,
+				R.string.menu_favorite_remove)
+				.setShowAsActionFlags(
+						MenuItem.SHOW_AS_ACTION_IF_ROOM
+								| MenuItem.SHOW_AS_ACTION_WITH_TEXT)
+				.setIcon(R.drawable.ic_menu_not_favorited);
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -274,6 +280,14 @@ public class DilbertActivity extends SherlockActivity implements
 		if (menu.findItem(MENU_HIGHQUALITY) != null)
 			menu.findItem(MENU_HIGHQUALITY).setChecked(
 					preferences.isHighQualityOn());
+		if (menu.findItem(MENU_FAVORITE) != null) {
+			MenuItem favorite = menu.findItem(MENU_FAVORITE);
+			boolean isFavorite = preferences.isFavorited(currentDate);
+			favorite.setTitle(isFavorite ? R.string.menu_favorite_remove
+					: R.string.menu_favorite_add);
+			favorite.setIcon(isFavorite ? R.drawable.ic_menu_favorited
+					: R.drawable.ic_menu_not_favorited);
+		}
 		return true;
 	}
 
