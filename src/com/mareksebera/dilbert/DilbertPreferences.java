@@ -1,6 +1,7 @@
 package com.mareksebera.dilbert;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateMidnight;
@@ -85,14 +86,15 @@ public class DilbertPreferences {
 		return "favorite_"
 				+ currentDay.toString(DilbertPreferences.dateFormatter);
 	}
-	
-	public Map<String, String> getFavoritedItems(){
-		Map<String, String> favorites = new HashMap<String, String>();
+
+	public List<FavoritedItem> getFavoritedItems() {
+		List<FavoritedItem> favorites = new ArrayList<FavoritedItem>();
 		Map<String, ?> allPreferences = preferences.getAll();
-		for(String key : allPreferences.keySet()){
-			if(key.startsWith("favorite_")){
+		for (String key : allPreferences.keySet()) {
+			if (key.startsWith("favorite_")) {
 				String date = key.replace("favorite_", "");
-				favorites.put(date, getCachedUrl(date));
+				favorites.add(new FavoritedItem(DateMidnight.parse(date,
+						dateFormatter), (String) allPreferences.get(date)));
 			}
 		}
 		return favorites;
