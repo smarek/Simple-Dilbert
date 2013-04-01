@@ -22,6 +22,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -60,7 +61,8 @@ public class DilbertActivity extends SherlockActivity implements
 
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
 			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
-			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8;
+			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8,
+			MENU_SHOW_FAVORITE = 9;
 	private DateMidnight currentDate;
 
 	private EnhancedImageView imageView;
@@ -83,6 +85,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	public void displayImage(String url) {
 		if (url != null) {
+			invalidateOptionsMenu();
 			preferences
 					.saveCurrentUrl(currentDate
 							.toString(DilbertPreferences.dateFormatter), url);
@@ -159,15 +162,13 @@ public class DilbertActivity extends SherlockActivity implements
 				R.string.menu_datepicker)
 				.setIcon(R.drawable.ic_menu_datepicker)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		menu.add(Menu.NONE, MENU_FAVORITE, Menu.NONE,
+				R.string.menu_favorite_remove)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+				.setIcon(R.drawable.ic_menu_not_favorited);
 		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
 				.setIcon(R.drawable.ic_menu_refresh)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_FAVORITE, Menu.NONE,
-				R.string.menu_favorite_remove)
-				.setShowAsActionFlags(
-						MenuItem.SHOW_AS_ACTION_IF_ROOM
-								| MenuItem.SHOW_AS_ACTION_WITH_TEXT)
-				.setIcon(R.drawable.ic_menu_not_favorited);
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -181,6 +182,8 @@ public class DilbertActivity extends SherlockActivity implements
 		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE,
 				R.string.menu_high_quality).setCheckable(true)
 				.setChecked(preferences.isHighQualityOn());
+		menu.add(Menu.NONE, MENU_SHOW_FAVORITE, Menu.NONE, R.string.menu_show_favorite)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
@@ -258,6 +261,10 @@ public class DilbertActivity extends SherlockActivity implements
 			return true;
 		case MENU_FAVORITE:
 			preferences.toggleIsFavorited(currentDate);
+			invalidateOptionsMenu();
+			return true;
+		case MENU_SHOW_FAVORITE:
+			startActivity(new Intent(this, FavoritedActivity.class));
 			return true;
 		}
 		return false;
