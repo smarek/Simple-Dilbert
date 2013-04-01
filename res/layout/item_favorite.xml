@@ -8,6 +8,7 @@
         android:id="@+id/item_favorite_date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:textColor="#000000"
         android:textSize="22sp" />
 
@@ -15,6 +16,6 @@
         android:id="@+id/item_favorite_image"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp" />
+        android:layout_marginBottom="3dp" />
 
 </LinearLayout>
