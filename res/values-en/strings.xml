@@ -17,5 +17,6 @@
     <string name="menu_download">Save current image</string>
     <string name="menu_favorite_add">Favorite</string>
     <string name="menu_favorite_remove">Unfavorite</string>
+    <string name="menu_show_favorite">Show favorites</string>
 
 </resources>

@@ -19,5 +19,6 @@
     <string name="menu_download">Uložit do telefonu</string>
     <string name="menu_favorite_add">Přidat do oblíbených</string>
     <string name="menu_favorite_remove">Odebrat z oblíbených</string>
+    <string name="menu_show_favorite">Zobrazit oblíbené</string>
 
 </resources>
