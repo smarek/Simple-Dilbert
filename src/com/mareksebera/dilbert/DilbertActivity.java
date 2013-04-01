@@ -169,9 +169,11 @@ public class DilbertActivity extends SherlockActivity implements
 		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
 				.setIcon(R.drawable.ic_menu_refresh)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
-				.setIcon(R.drawable.ic_menu_about)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_SHOW_FAVORITE, Menu.NONE,
+				R.string.menu_show_favorite).setShowAsActionFlags(
+				MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		// DownloadManager is introduced in API 9, we cannot support it in
 		// previous devices without additional permission
 		// (WRITE_EXTERNAL_STORAGE eg.)
@@ -182,12 +184,11 @@ public class DilbertActivity extends SherlockActivity implements
 		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE,
 				R.string.menu_high_quality).setCheckable(true)
 				.setChecked(preferences.isHighQualityOn());
-		menu.add(Menu.NONE, MENU_SHOW_FAVORITE, Menu.NONE, R.string.menu_show_favorite)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
+				.setIcon(R.drawable.ic_menu_about)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		return true;
 	}
 
