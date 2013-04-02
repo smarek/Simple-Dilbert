@@ -109,8 +109,9 @@ public class DilbertPreferences {
 		try {
 			DownloadManager dm = (DownloadManager) activity
 					.getSystemService(Context.DOWNLOAD_SERVICE);
+			String url = toHighQuality(getLastUrl());
 			DownloadManager.Request request = new DownloadManager.Request(
-					Uri.parse(toHighQuality(getLastUrl())));
+					Uri.parse(url));
 			request.setVisibleInDownloadsUi(true);
 			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 			dm.enqueue(request);
@@ -122,11 +123,11 @@ public class DilbertPreferences {
 	}
 
 	public String toHighQuality(String url) {
-		return url.replace(".zoom.gif", ".gif");
+		return url.replace(".gif", ".zoom.gif").replace("zoom.zoom", "zoom");
 	}
 
 	public String toLowQuality(String url) {
-		return url.replace(".gif", ".zoom.gif");
+		return url.replace(".zoom.gif", ".gif").replace("zoom.zoom", "zoom");
 	}
 
 }
