@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.CharArrayBuffer;
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTimeZone;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -62,6 +63,8 @@ public class DilbertActivity extends SherlockActivity implements
 			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8,
 			MENU_SHOW_FAVORITE = 9;
 	private DateMidnight currentDate;
+	private static final DateTimeZone timeZone = DateTimeZone
+			.forID("America/New_York");
 
 	private EnhancedImageView imageView;
 	private DilbertPreferences preferences;
@@ -69,16 +72,22 @@ public class DilbertActivity extends SherlockActivity implements
 	private ProgressBar progressBar;
 	private FrameLayout layout;
 
+	static {
+		DateTimeZone.setDefault(timeZone);
+	}
+
 	@Override
 	public void bottom2top(View v) {
 	}
 
 	private void configureImageLoader() {
-		DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
-				.cacheInMemory().cacheOnDisc().build();
-		ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(
-				this).defaultDisplayImageOptions(displayOptions).build();
-		ImageLoader.getInstance().init(configuration);
+		if (!ImageLoader.getInstance().isInited()) {
+			DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
+					.cacheInMemory().cacheOnDisc().build();
+			ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(
+					this).defaultDisplayImageOptions(displayOptions).build();
+			ImageLoader.getInstance().init(configuration);
+		}
 	}
 
 	public void displayImage(String url) {
@@ -96,6 +105,11 @@ public class DilbertActivity extends SherlockActivity implements
 			ImageLoader.getInstance().displayImage(url, imageView,
 					DilbertActivity.this);
 		}
+	}
+
+	private DateMidnight getFirstStripDate() {
+		return DateMidnight.parse("1989-04-16",
+				DilbertPreferences.dateFormatter);
 	}
 
 	private CharSequence getLicenseText() {
@@ -118,11 +132,6 @@ public class DilbertActivity extends SherlockActivity implements
 		progressBar = (ProgressBar) findViewById(R.id.progressbar);
 		layout = (FrameLayout) findViewById(R.id.framelayout);
 		layout.setOnTouchListener(new ActivitySwipeDetector(this));
-	}
-
-	private DateMidnight getFirstStripDate() {
-		return DateMidnight.parse("1989-04-16",
-				DilbertPreferences.dateFormatter);
 	}
 
 	@Override
@@ -197,7 +206,7 @@ public class DilbertActivity extends SherlockActivity implements
 				String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
 				DilbertPreferences.dateFormatter);
 		if (selDate.isAfterNow())
-			selDate = DateMidnight.now();
+			selDate = DateMidnight.now(timeZone);
 		if (selDate.isBefore(getFirstStripDate()))
 			selDate = getFirstStripDate();
 		if (!selDate.equals(currentDate))
@@ -242,7 +251,7 @@ public class DilbertActivity extends SherlockActivity implements
 			showAboutDialog();
 			return true;
 		case MENU_LATEST:
-			setCurrentDate(DateMidnight.now());
+			setCurrentDate(DateMidnight.now(timeZone));
 			return true;
 		case MENU_REFRESH:
 			preferences.removeCache(currentDate);
@@ -291,7 +300,7 @@ public class DilbertActivity extends SherlockActivity implements
 
 	@Override
 	public void right2left(View v) {
-		if (!currentDate.equals(DateMidnight.now()))
+		if (!currentDate.equals(DateMidnight.now(timeZone)))
 			setCurrentDate(currentDate.plusDays(1));
 		else
 			Toast.makeText(this, R.string.no_newer_strip, Toast.LENGTH_SHORT)
