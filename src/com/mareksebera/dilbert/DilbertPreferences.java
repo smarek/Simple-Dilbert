@@ -107,9 +107,10 @@ public class DilbertPreferences {
 
 	public void downloadImageViaManager(Activity activity) {
 		try {
-			DownloadManager dm = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+			DownloadManager dm = (DownloadManager) activity
+					.getSystemService(Context.DOWNLOAD_SERVICE);
 			DownloadManager.Request request = new DownloadManager.Request(
-					Uri.parse(getLastUrl()));
+					Uri.parse(toHighQuality(getLastUrl())));
 			request.setVisibleInDownloadsUi(true);
 			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 			dm.enqueue(request);
@@ -118,6 +119,14 @@ public class DilbertPreferences {
 			Toast.makeText(activity, R.string.download_manager_unsupported,
 					Toast.LENGTH_LONG).show();
 		}
+	}
+
+	public String toHighQuality(String url) {
+		return url.replace(".zoom.gif", ".gif");
+	}
+
+	public String toLowQuality(String url) {
+		return url.replace(".gif", ".zoom.gif");
 	}
 
 }

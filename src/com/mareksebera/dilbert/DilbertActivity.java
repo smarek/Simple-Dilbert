@@ -97,11 +97,8 @@ public class DilbertActivity extends SherlockActivity implements
 					.saveCurrentUrl(currentDate
 							.toString(DilbertPreferences.dateFormatter), url);
 			boolean hqIsEnabled = preferences.isHighQualityOn();
-			if (hqIsEnabled && !url.contains("zoom")) {
-				url = url.replace(".gif", ".zoom.gif");
-			} else if (!hqIsEnabled) {
-				url = url.replace(".zoom.gif", ".gif");
-			}
+			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
+					.toLowQuality(url);
 			ImageLoader.getInstance().displayImage(url, imageView,
 					DilbertActivity.this);
 		}
