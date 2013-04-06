@@ -10,4 +10,6 @@ Package keys are hidden, so if you're interested in updating my uploaded applica
 
 Project is published on Google Play: https://play.google.com/store/apps/details?id=com.mareksebera.dilbert
 
-Javadoc is published on gh-pages repository and available on: http://smarek.github.io/Simple-Dilbert/
+Screenshots can be seen on gh-pages: http://smarek.github.io/Simple-Dilbert/
+
+Javadoc is published on gh-pages repository and available on: http://smarek.github.io/Simple-Dilbert/javadoc/
