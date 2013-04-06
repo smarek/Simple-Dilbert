@@ -55,8 +55,7 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
  * ({@link #getCachedUrl(String)}, {@link #saveCurrentUrl(String, String)},
  * {@link #getLastUrl()})
  * */
-public class DilbertActivity extends SherlockActivity implements OnDateSetListener, SwipeInterface,
-		ImageLoadingListener {
+public class DilbertActivity extends SherlockActivity {
 
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2, MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
 			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8, MENU_SHOW_FAVORITE = 9;
@@ -70,13 +69,97 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 	private FrameLayout layout;
 
 	static {
+		/**
+		 * Set default time-zone, because strips are published in New York
+		 * timezone on midnight
+		 * */
 		DateTimeZone.setDefault(timeZone);
 	}
 
-	@Override
-	public void bottom2top(View v) {
-	}
+	private ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
+		/**
+		 * Displays error only if cancel occured for current url (according to
+		 * current date)
+		 * */
+		@Override
+		public void onLoadingCancelled(String imageUri, View view) {
+			if (imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
+				imageView.setImageResource(R.drawable.cancel);
+				Toast.makeText(DilbertActivity.this, R.string.loading_interrupted, Toast.LENGTH_SHORT).show();
+				progressBar.setVisibility(View.GONE);
+			}
+		}
 
+		@Override
+		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+			progressBar.setVisibility(View.GONE);
+		}
+
+		/**
+		 * Displays error only if request failed for current url (according to
+		 * current date)
+		 * */
+		@Override
+		public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+			if (imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
+				imageView.setImageResource(R.drawable.cancel);
+				Toast.makeText(DilbertActivity.this, R.string.loading_exception_error, Toast.LENGTH_SHORT).show();
+				progressBar.setVisibility(View.GONE);
+			}
+		}
+
+		@Override
+		public void onLoadingStarted(String imageUri, View view) {
+			progressBar.setVisibility(View.VISIBLE);
+		}
+	};
+
+	private OnDateSetListener dilbertOnDateSetListener = new OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			DateMidnight selDate = DateMidnight.parse(String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
+					DilbertPreferences.dateFormatter);
+			if (selDate.isAfterNow())
+				selDate = DateMidnight.now(timeZone);
+			if (selDate.isBefore(getFirstStripDate()))
+				selDate = getFirstStripDate();
+			if (!selDate.equals(currentDate))
+				setCurrentDate(selDate);
+		}
+	};
+
+	private SwipeInterface dilbertSwipeInterfaceListener = new SwipeInterface() {
+
+		@Override
+		public void bottom2top(View v) {
+		}
+
+		@Override
+		public void left2right(View v) {
+			if (!currentDate.equals(getFirstStripDate()))
+				setCurrentDate(currentDate.minusDays(1));
+			else
+				Toast.makeText(DilbertActivity.this, R.string.no_older_strip, Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void right2left(View v) {
+			if (!currentDate.equals(DateMidnight.now(timeZone)))
+				setCurrentDate(currentDate.plusDays(1));
+			else
+				Toast.makeText(DilbertActivity.this, R.string.no_newer_strip, Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void top2bottom(View v) {
+		}
+	};
+
+	/**
+	 * Set default configuration, allow disk and memory caching.
+	 * 
+	 * */
 	private void configureImageLoader() {
 		if (!ImageLoader.getInstance().isInited()) {
 			DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc()
@@ -87,19 +170,32 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 		}
 	}
 
+	/**
+	 * Shows image for url only if it's current date's url (for moving multiple
+	 * images at once via swiping)
+	 * */
 	public void displayImage(String url) {
 		if (url != null && url.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
 			invalidateOptionsMenu();
 			boolean hqIsEnabled = preferences.isHighQualityOn();
 			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences.toLowQuality(url);
-			ImageLoader.getInstance().displayImage(url, imageView, DilbertActivity.this);
+			ImageLoader.getInstance().displayImage(url, imageView, dilbertImageLoadingListener);
 		}
 	}
 
+	/**
+	 * First strip was published on 16.4.1989
+	 * 
+	 * @see <a href="http://en.wikipedia.org/wiki/Dilbert">Wikipedia</a>
+	 * */
 	private DateMidnight getFirstStripDate() {
 		return DateMidnight.parse("1989-04-16", DilbertPreferences.dateFormatter);
 	}
 
+	/**
+	 * Loads license contents from assets file "/LICENSE.txt", which contains
+	 * Apache 2.0 license
+	 * */
 	private CharSequence getLicenseText() {
 		String rtn = "";
 		try {
@@ -114,21 +210,20 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 		return rtn;
 	}
 
+	/**
+	 * Initializes layout attributes and adds swipe listener
+	 * */
 	private void initLayout() {
 		imageView = (EnhancedImageView) findViewById(R.id.imageview);
 		progressBar = (ProgressBar) findViewById(R.id.progressbar);
 		layout = (FrameLayout) findViewById(R.id.framelayout);
-		layout.setOnTouchListener(new ActivitySwipeDetector(this));
+		layout.setOnTouchListener(new ActivitySwipeDetector(dilbertSwipeInterfaceListener));
 	}
 
-	@Override
-	public void left2right(View v) {
-		if (!currentDate.equals(getFirstStripDate()))
-			setCurrentDate(currentDate.minusDays(1));
-		else
-			Toast.makeText(this, R.string.no_older_strip, Toast.LENGTH_SHORT).show();
-	}
-
+	/**
+	 * Loads image for current date, if url is not already cached, it starts new
+	 * asynctask to parse and save it
+	 * */
 	private void loadImage() {
 		String dateKey = currentDate.toString(DilbertPreferences.dateFormatter);
 		String cachedUrl = preferences.getCachedUrl(dateKey);
@@ -175,46 +270,6 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about).setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		return true;
-	}
-
-	@Override
-	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-		DateMidnight selDate = DateMidnight.parse(String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
-				DilbertPreferences.dateFormatter);
-		if (selDate.isAfterNow())
-			selDate = DateMidnight.now(timeZone);
-		if (selDate.isBefore(getFirstStripDate()))
-			selDate = getFirstStripDate();
-		if (!selDate.equals(currentDate))
-			setCurrentDate(selDate);
-	}
-
-	@Override
-	public void onLoadingCancelled(String imageUri, View view) {
-		if (imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
-			imageView.setImageResource(R.drawable.cancel);
-			Toast.makeText(this, R.string.loading_interrupted, Toast.LENGTH_SHORT).show();
-			progressBar.setVisibility(View.GONE);
-		}
-	}
-
-	@Override
-	public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-		progressBar.setVisibility(View.GONE);
-	}
-
-	@Override
-	public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-		if (imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
-			imageView.setImageResource(R.drawable.cancel);
-			Toast.makeText(this, R.string.loading_exception_error, Toast.LENGTH_SHORT).show();
-			progressBar.setVisibility(View.GONE);
-		}
-	}
-
-	@Override
-	public void onLoadingStarted(String imageUri, View view) {
-		progressBar.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -267,18 +322,17 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 		return true;
 	}
 
+	/**
+	 * Formats date and sets up title, it's separated only for readability
+	 * purposes
+	 * */
 	private void putDateToTitle() {
 		setTitle(currentDate.toString(DilbertPreferences.dateFormatter));
 	}
 
-	@Override
-	public void right2left(View v) {
-		if (!currentDate.equals(DateMidnight.now(timeZone)))
-			setCurrentDate(currentDate.plusDays(1));
-		else
-			Toast.makeText(this, R.string.no_newer_strip, Toast.LENGTH_SHORT).show();
-	}
-
+	/**
+	 * Saves current date and loads image
+	 * */
 	private void setCurrentDate(DateMidnight newDate) {
 		currentDate = newDate;
 		preferences.saveCurrentDate(currentDate);
@@ -286,6 +340,9 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 		loadImage();
 	}
 
+	/**
+	 * About dialog, which strings are contained in resources
+	 * */
 	private void showAboutDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.about_title);
@@ -300,14 +357,22 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 		builder.show();
 	}
 
+	/**
+	 * Ugly works with java.util.Calendar, unfortunately it's needed, as there
+	 * is no other way. to work with DatePickerDialog class through JodaTime
+	 * */
 	private void showDatePicker() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(currentDate.toDate());
-		DatePickerDialog dialog = new DatePickerDialog(this, this, c.get(Calendar.YEAR), c.get(Calendar.MONTH),
-				c.get(Calendar.DAY_OF_MONTH));
+		DatePickerDialog dialog = new DatePickerDialog(this, dilbertOnDateSetListener, c.get(Calendar.YEAR),
+				c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 		dialog.show();
 	}
 
+	/**
+	 * Shows license text, this is needed by license of project itself and
+	 * contained libraries
+	 * */
 	private void showLicenseDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.apache_license_2_0);
@@ -320,10 +385,6 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 			}
 		});
 		builder.show();
-	}
-
-	@Override
-	public void top2bottom(View v) {
 	}
 
 	/**
@@ -394,7 +455,7 @@ public class DilbertActivity extends SherlockActivity implements OnDateSetListen
 					}
 				}
 			}
-			onLoadingFailed(null, null, null);
+			dilbertImageLoadingListener.onLoadingFailed(null, null, null);
 		}
 
 		@Override
