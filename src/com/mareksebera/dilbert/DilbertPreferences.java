@@ -25,8 +25,7 @@ public class DilbertPreferences {
 	private static final String PREF_CURRENT_URL = "dilbert_current_url";
 	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
 
-	public static final DateTimeFormatter dateFormatter = DateTimeFormat
-			.forPattern("yyyy-MM-dd");
+	public static final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
 
 	public DilbertPreferences(Context _context) {
 		preferences = PreferenceManager.getDefaultSharedPreferences(_context);
@@ -42,8 +41,7 @@ public class DilbertPreferences {
 	}
 
 	public boolean saveCurrentDate(DateMidnight currentDate) {
-		editor.putString(PREF_CURRENT_DATE,
-				currentDate.toString(DilbertPreferences.dateFormatter));
+		editor.putString(PREF_CURRENT_DATE, currentDate.toString(DilbertPreferences.dateFormatter));
 		return editor.commit();
 	}
 
@@ -62,8 +60,11 @@ public class DilbertPreferences {
 	}
 
 	public boolean toggleHighQuality() {
-		return editor.putBoolean(PREF_HIGH_QUALITY_ENABLED, !isHighQualityOn())
-				.commit();
+		return editor.putBoolean(PREF_HIGH_QUALITY_ENABLED, !isHighQualityOn()).commit();
+	}
+
+	public String getCachedUrl(DateMidnight dateKey) {
+		return getCachedUrl(dateKey.toString(dateFormatter));
 	}
 
 	public String getCachedUrl(String dateKey) {
@@ -71,9 +72,7 @@ public class DilbertPreferences {
 	}
 
 	public boolean removeCache(DateMidnight currentDate) {
-		return editor.remove(
-				currentDate.toString(DilbertPreferences.dateFormatter))
-				.commit();
+		return editor.remove(currentDate.toString(DilbertPreferences.dateFormatter)).commit();
 	}
 
 	public boolean isFavorited(DateMidnight currentDay) {
@@ -87,19 +86,17 @@ public class DilbertPreferences {
 	}
 
 	private String toFavoritedKey(DateMidnight currentDay) {
-		return "favorite_"
-				+ currentDay.toString(DilbertPreferences.dateFormatter);
+		return "favorite_" + currentDay.toString(DilbertPreferences.dateFormatter);
 	}
 
 	public List<FavoritedItem> getFavoritedItems() {
 		List<FavoritedItem> favorites = new ArrayList<FavoritedItem>();
 		Map<String, ?> allPreferences = preferences.getAll();
 		for (String key : allPreferences.keySet()) {
-			if (key.startsWith("favorite_")
-					&& (Boolean) allPreferences.get(key)) {
+			if (key.startsWith("favorite_") && (Boolean) allPreferences.get(key)) {
 				String date = key.replace("favorite_", "");
-				favorites.add(new FavoritedItem(DateMidnight.parse(date,
-						dateFormatter), (String) allPreferences.get(date)));
+				favorites.add(new FavoritedItem(DateMidnight.parse(date, dateFormatter), (String) allPreferences
+						.get(date)));
 			}
 		}
 		return favorites;
@@ -107,18 +104,15 @@ public class DilbertPreferences {
 
 	public void downloadImageViaManager(Activity activity) {
 		try {
-			DownloadManager dm = (DownloadManager) activity
-					.getSystemService(Context.DOWNLOAD_SERVICE);
+			DownloadManager dm = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
 			String url = toHighQuality(getLastUrl());
-			DownloadManager.Request request = new DownloadManager.Request(
-					Uri.parse(url));
+			DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 			request.setVisibleInDownloadsUi(true);
 			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 			dm.enqueue(request);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(activity, R.string.download_manager_unsupported,
-					Toast.LENGTH_LONG).show();
+			Toast.makeText(activity, R.string.download_manager_unsupported, Toast.LENGTH_LONG).show();
 		}
 	}
 
