@@ -7,3 +7,4 @@
 [submodule "doc"]
 	path = doc
 	url = git://github.com/smarek/Simple-Dilbert.git
+	branch = gh-pages
