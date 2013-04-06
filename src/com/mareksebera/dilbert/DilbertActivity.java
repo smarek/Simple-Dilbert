@@ -392,10 +392,13 @@ public class DilbertActivity extends SherlockActivity implements
 
 	private class GetStripUrl extends AsyncTask<String, Void, String> {
 
+		String date = null;
+		
 		@Override
 		protected String doInBackground(String... params) {
 			if (params.length == 0)
 				return null;
+			date = params[0];
 			HttpGet get = new HttpGet("http://dilbert.com/strips/comic/"
 					+ params[0] + "/");
 			try {
@@ -416,7 +419,8 @@ public class DilbertActivity extends SherlockActivity implements
 						s = s.replace(".strip.gif", ".strip.zoom.gif");
 						s = s.replace(".sunday.gif", ".strip.zoom.gif");
 						s = s.replace(".strip.strip", ".strip");
-						displayImage(s);
+						preferences.saveCurrentUrl(date, date);
+						loadImage();
 						return;
 					}
 				}
