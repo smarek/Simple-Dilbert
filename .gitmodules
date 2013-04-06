@@ -4,3 +4,6 @@
 [submodule "libraries/ActionBarSherlock"]
 	path = libraries/ActionBarSherlock
 	url = https://mareksebera@bitbucket.org/mareksebera/actionbarsherlock-eclipse.git
+[submodule "doc"]
+	path = doc
+	url = git://github.com/smarek/Simple-Dilbert.git
