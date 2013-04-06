@@ -1,6 +1,6 @@
-[submodule "libraries/ActionBarSherlock"]
-	path = libraries/ActionBarSherlock
-	url = git@bitbucket.org:mareksebera/actionbarsherlock-eclipse.git
 [submodule "libraries/Android-Universal-Image-Loader"]
 	path = libraries/Android-Universal-Image-Loader
 	url = git://github.com/nostra13/Android-Universal-Image-Loader.git
+[submodule "libraries/ActionBarSherlock"]
+	path = libraries/ActionBarSherlock
+	url = https://mareksebera@bitbucket.org/mareksebera/actionbarsherlock-eclipse.git
