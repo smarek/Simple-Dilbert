@@ -108,6 +108,10 @@ public class DilbertActivity extends SherlockActivity {
 			}
 		}
 
+		/**
+		 * Progressbar should be visible on loading image, no matter if there is
+		 * running async task, so this is not a duplicate call, if it seems to
+		 * */
 		@Override
 		public void onLoadingStarted(String imageUri, View view) {
 			progressBar.setVisibility(View.VISIBLE);
@@ -116,6 +120,11 @@ public class DilbertActivity extends SherlockActivity {
 
 	private OnDateSetListener dilbertOnDateSetListener = new OnDateSetListener() {
 
+		/**
+		 * User selected date, so the dialog was not canceled by him or system.
+		 * We can use it to set current date and therefore display image for the
+		 * date
+		 * */
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 			DateMidnight selDate = DateMidnight.parse(String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
@@ -129,6 +138,9 @@ public class DilbertActivity extends SherlockActivity {
 		}
 	};
 
+	/**
+	 * Implementation for listening on swipe left2right and right2left gestures
+	 * */
 	private SwipeInterface dilbertSwipeInterfaceListener = new SwipeInterface() {
 
 		@Override
@@ -445,19 +457,38 @@ public class DilbertActivity extends SherlockActivity {
 		protected void onPostExecute(String result) {
 			if (result != null) {
 				for (String s : FindUrls.extractUrls(result)) {
+					/**
+					 * This method can only accept gif URLs with appropriate
+					 * suffixes
+					 * */
 					if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")) {
 						s = s.replace(".strip.gif", ".strip.zoom.gif");
 						s = s.replace(".sunday.gif", ".strip.zoom.gif");
 						s = s.replace(".strip.strip", ".strip");
+						/**
+						 * This is the only place where pair date-url is saved
+						 * into preferences
+						 * */
 						preferences.saveCurrentUrl(date, s);
+						/**
+						 * Not using method loadImage() as it would be
+						 * inefficient
+						 * */
 						displayImage(s);
 						return;
 					}
 				}
 			}
+			/**
+			 * If gif url could not be found in parsed HTML, we will throw error
+			 * via UIL library listener
+			 * */
 			dilbertImageLoadingListener.onLoadingFailed(null, null, null);
 		}
 
+		/**
+		 * Indicates that there is any work in progress
+		 * */
 		@Override
 		protected void onPreExecute() {
 			progressBar.setVisibility(View.VISIBLE);
