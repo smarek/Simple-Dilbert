@@ -52,8 +52,6 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
  * any better solution.
  * 
  * Supports caching images (Universal Image Loader feature) and caching parsing
- * ({@link #getCachedUrl(String)}, {@link #saveCurrentUrl(String, String)},
- * {@link #getLastUrl()})
  * */
 public class DilbertActivity extends SherlockActivity {
 
