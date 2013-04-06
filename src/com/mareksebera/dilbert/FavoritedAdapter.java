@@ -46,20 +46,16 @@ public class FavoritedAdapter extends BaseAdapter {
 		FavoritedItem item = items.get(position);
 		if (convertView == null) {
 			vh = new ViewHolder();
-			convertView = inflater.inflate(R.layout.item_favorite, parent,
-					false);
-			vh.image = (EnhancedImageView) convertView
-					.findViewById(R.id.item_favorite_image);
-			vh.date = (TextView) convertView
-					.findViewById(R.id.item_favorite_date);
+			convertView = inflater.inflate(R.layout.item_favorite, parent, false);
+			vh.image = (EnhancedImageView) convertView.findViewById(R.id.item_favorite_image);
+			vh.date = (TextView) convertView.findViewById(R.id.item_favorite_date);
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder) convertView.getTag();
 		}
 		if (item != null) {
 			imageLoader.displayImage(item.url, vh.image);
-			vh.date.setText(item.date
-					.toString(DilbertPreferences.dateFormatter));
+			vh.date.setText(item.date.toString(DilbertPreferences.dateFormatter));
 		}
 		return convertView;
 	}

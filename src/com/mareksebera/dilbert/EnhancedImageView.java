@@ -27,8 +27,7 @@ public class EnhancedImageView extends ImageView {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		if (getDrawable() != null) {
 			int width = MeasureSpec.getSize(widthMeasureSpec);
-			int height = width * getDrawable().getIntrinsicHeight()
-					/ getDrawable().getIntrinsicWidth();
+			int height = width * getDrawable().getIntrinsicHeight() / getDrawable().getIntrinsicWidth();
 			setMeasuredDimension(width, height);
 		} else {
 			setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);

@@ -30,8 +30,7 @@ public class FavoritedActivity extends SherlockActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		preferences = new DilbertPreferences(this);
 		listView = (ListView) findViewById(R.id.activity_favorited_listview);
-		listAdapter = new FavoritedAdapter(this,
-				getFavoritedOrNotifyAndFinish());
+		listAdapter = new FavoritedAdapter(this, getFavoritedOrNotifyAndFinish());
 		listView.setAdapter(listAdapter);
 		registerForContextMenu(listView);
 	}
@@ -39,25 +38,20 @@ public class FavoritedActivity extends SherlockActivity {
 	private List<FavoritedItem> getFavoritedOrNotifyAndFinish() {
 		List<FavoritedItem> list = preferences.getFavoritedItems();
 		if (list != null && list.isEmpty()) {
-			Toast.makeText(this, R.string.toast_no_favorites, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(this, R.string.toast_no_favorites, Toast.LENGTH_LONG).show();
 			finish();
 		}
 		return list;
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		contextMenuItem = (FavoritedItem) listAdapter.getItem(info.position);
 		if (contextMenuItem != null) {
-			menu.setHeaderTitle(contextMenuItem.date
-					.toString(DilbertPreferences.dateFormatter));
-			menu.add(Menu.NONE, CONTEXT_REMOVE, Menu.NONE,
-					R.string.context_favorites_remove);
-			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE,
-					R.string.menu_download);
+			menu.setHeaderTitle(contextMenuItem.date.toString(DilbertPreferences.dateFormatter));
+			menu.add(Menu.NONE, CONTEXT_REMOVE, Menu.NONE, R.string.context_favorites_remove);
+			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE, R.string.menu_download);
 		}
 	}
 
@@ -67,8 +61,7 @@ public class FavoritedActivity extends SherlockActivity {
 		case CONTEXT_REMOVE:
 			if (contextMenuItem != null) {
 				preferences.toggleIsFavorited(contextMenuItem.date);
-				listAdapter = new FavoritedAdapter(this,
-						getFavoritedOrNotifyAndFinish());
+				listAdapter = new FavoritedAdapter(this, getFavoritedOrNotifyAndFinish());
 				listView.setAdapter(listAdapter);
 			}
 			return true;
