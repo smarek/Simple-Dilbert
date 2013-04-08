@@ -27,7 +27,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
@@ -101,7 +100,6 @@ public class DilbertActivity extends SherlockActivity {
 		 * */
 		@Override
 		public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-			Log.d("onLoadingFailed", imageUri + ", " + failReason.toString());
 			if (imageUri == null || imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
 				imageView.setImageResource(R.drawable.cancel);
 				Toast.makeText(DilbertActivity.this, R.string.loading_exception_error, Toast.LENGTH_SHORT).show();
