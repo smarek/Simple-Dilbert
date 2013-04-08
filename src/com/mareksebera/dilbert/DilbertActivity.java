@@ -27,6 +27,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
@@ -40,6 +41,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 /**
@@ -81,7 +83,7 @@ public class DilbertActivity extends SherlockActivity {
 		 * */
 		@Override
 		public void onLoadingCancelled(String imageUri, View view) {
-			if (imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
+			if (imageUri != null && imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
 				imageView.setImageResource(R.drawable.cancel);
 				Toast.makeText(DilbertActivity.this, R.string.loading_interrupted, Toast.LENGTH_SHORT).show();
 				progressBar.setVisibility(View.GONE);
@@ -99,7 +101,8 @@ public class DilbertActivity extends SherlockActivity {
 		 * */
 		@Override
 		public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-			if (imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
+			Log.d("onLoadingFailed", imageUri + ", " + failReason.toString());
+			if (imageUri == null || imageUri.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
 				imageView.setImageResource(R.drawable.cancel);
 				Toast.makeText(DilbertActivity.this, R.string.loading_exception_error, Toast.LENGTH_SHORT).show();
 				progressBar.setVisibility(View.GONE);
@@ -481,7 +484,8 @@ public class DilbertActivity extends SherlockActivity {
 			 * If gif url could not be found in parsed HTML, we will throw error
 			 * via UIL library listener
 			 * */
-			dilbertImageLoadingListener.onLoadingFailed(null, null, null);
+			dilbertImageLoadingListener.onLoadingFailed(preferences.getCachedUrl(currentDate), imageView, new FailReason(FailType.UNKNOWN,
+					new ParseException()));
 		}
 
 		/**
