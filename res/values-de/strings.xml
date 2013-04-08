@@ -11,12 +11,12 @@
     <string name="menu_refresh">Aktualisieren</string>
     <string name="no_older_strip">Es gib keinen älteren Strip</string>
     <string name="no_newer_strip">Es gibt keinen neueren Strip</string>
-    <string name="menu_license">Softwarelincenzierung anzeigen</string>
+    <string name="menu_license">Softwarelizensierung anzeigen</string>
     <string name="menu_high_quality">Hohe Qualität</string>
     <string name="download_manager_unsupported">Nicht auf diesem Gerät unterstützt</string>
     <string name="menu_download">Speichere aktuelles Bild</string>
-    <string name="menu_favorite_add">Favorit</string>
-    <string name="menu_favorite_remove">Kein Favorit</string>
+    <string name="menu_favorite_add">Zu Favoriten hinzufügen</string>
+    <string name="menu_favorite_remove">Aus Favoriten entfernen</string>
     <string name="menu_show_favorite">Favoriten anzeigen</string>
     <string name="context_favorites_remove">Aus Favoriten entfernen</string>
     <string name="toast_no_favorites">Sie haben keine favoritizierten Strips</string>
