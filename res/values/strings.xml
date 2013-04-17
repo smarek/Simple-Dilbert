@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="app_name" translatable="false">Simple Dilbert</string>
+    <string name="apache_license_2_0" translatable="false">Apache License 2.0</string>
     <string name="menu_datepicker">Choose date</string>
     <string name="menu_about">About</string>
     <string name="about_contents">Made by Marek Sebera &amp;copy;2013</string>
