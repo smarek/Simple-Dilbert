@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="menu_datepicker">Escolher data</string>
+    <string name="menu_about">About</string>
+    <string name="about_contents">Conteudo</string>
+    <string name="about_title">Sobre Simple Dilbert</string>
+    <string name="cd_dilbert_image">Simple Dilbert</string>
+    <string name="loading_interrupted">Carregamento interrompido</string>
+    <string name="loading_exception_error">Os quadrinhos  não puderam ser carregados</string>
+    <string name="menu_latest">Mostrar o último</string>
+    <string name="menu_refresh">Atualizar</string>
+    <string name="no_older_strip">Não existe quadrinho anterior</string>
+    <string name="no_newer_strip">Não existe quadrinho novo</string>
+    <string name="menu_license">Mostrar a licença do produto</string>
+    <string name="menu_high_quality">Alta qualidade</string>
+    <string name="download_manager_unsupported">Não suportado para esse computador</string>
+    <string name="menu_download">Salvar a imagem</string>
+    <string name="menu_favorite_add">Favoritos</string>
+    <string name="menu_favorite_remove">Remova dos favoritos</string>
+    <string name="menu_show_favorite">Mostrar os favoritos</string>
+    <string name="context_favorites_remove">Remover dos favoritos </string>
+    <string name="toast_no_favorites">Voce não tem nehuma tira favorita</string>
+    <string name="title_favorited">Quadrinhos favoritos</string>
+
+</resources>
