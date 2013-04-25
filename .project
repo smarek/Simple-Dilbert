@@ -3,6 +3,8 @@
 	<name>SimpleDilbert</name>
 	<comment></comment>
 	<projects>
+		<project>SD_ActionBarSherlock</project>
+		<project>SD_UIL</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
