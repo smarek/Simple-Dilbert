@@ -297,13 +297,8 @@ public class DilbertActivity extends SherlockActivity {
 				MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		// DownloadManager is introduced in API 9, we cannot support it in
-		// previous devices without additional permission
-		// (WRITE_EXTERNAL_STORAGE eg.)
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
-			menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
-					.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		}
+		menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE,
 				R.string.menu_high_quality).setCheckable(true)
 				.setChecked(preferences.isHighQualityOn());

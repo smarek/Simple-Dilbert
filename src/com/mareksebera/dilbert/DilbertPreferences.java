@@ -12,6 +12,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -111,6 +112,18 @@ public class DilbertPreferences {
 		return favorites;
 	}
 
+	public void downloadImageViaBrowser(Activity activity, String download_url) {
+		try {
+			Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse(download_url));
+			activity.startActivity(downloadIntent);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(activity, R.string.download_manager_unsupported,
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	public void downloadImageViaManager(Activity activity, String download_url) {
 		try {
@@ -120,13 +133,14 @@ public class DilbertPreferences {
 			DownloadManager.Request request = new DownloadManager.Request(
 					Uri.parse(url));
 			request.setVisibleInDownloadsUi(true);
-			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
+			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+				request.allowScanningByMediaScanner();
 				request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+			}
 			dm.enqueue(request);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(activity, R.string.download_manager_unsupported,
-					Toast.LENGTH_LONG).show();
+			downloadImageViaBrowser(activity, download_url);
 		}
 	}
 
