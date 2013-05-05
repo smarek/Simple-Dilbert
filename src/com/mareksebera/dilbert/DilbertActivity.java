@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.Calendar;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,6 +18,7 @@ import org.apache.http.util.CharArrayBuffer;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -25,6 +27,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -140,8 +143,8 @@ public class DilbertActivity extends SherlockActivity {
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
-			DateMidnight selDate = DateMidnight.parse(String.format("%d-%d-%d",
-					year, monthOfYear + 1, dayOfMonth),
+			DateMidnight selDate = DateMidnight.parse(String.format(new Locale(
+					"en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
 					DilbertPreferences.dateFormatter);
 			if (selDate.isAfterNow())
 				selDate = DateMidnight.now(timeZone);
@@ -202,11 +205,11 @@ public class DilbertActivity extends SherlockActivity {
 	 * Shows image for url only if it's current date's url (for moving multiple
 	 * images at once via swiping)
 	 * */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void displayImage(String url) {
 		if (url != null
 				&& url.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
-			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD)
-				invalidateOptionsMenu();
+			supportInvalidateOptionsMenu();
 			boolean hqIsEnabled = preferences.isHighQualityOn();
 			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
 					.toLowQuality(url);
@@ -340,8 +343,7 @@ public class DilbertActivity extends SherlockActivity {
 			return true;
 		case MENU_FAVORITE:
 			preferences.toggleIsFavorited(currentDate);
-			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD)
-				invalidateOptionsMenu();
+			supportInvalidateOptionsMenu();
 			return true;
 		case MENU_SHOW_FAVORITE:
 			startActivity(new Intent(this, FavoritedActivity.class));
