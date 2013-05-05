@@ -66,7 +66,7 @@ public class FavoritedActivity extends SherlockActivity {
 			}
 			return true;
 		case CONTEXT_DOWNLOAD:
-			preferences.downloadImageViaManager(this, contextMenuItem.url);
+			preferences.downloadImageViaManager(this, contextMenuItem.url, contextMenuItem.date);
 			return true;
 		}
 		return false;

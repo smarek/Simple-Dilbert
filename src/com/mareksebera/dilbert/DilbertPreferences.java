@@ -8,14 +8,15 @@ import org.joda.time.DateMidnight;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class DilbertPreferences {
 	public static final DateTimeFormatter dateFormatter = DateTimeFormat
 			.forPattern("yyyy-MM-dd");
 
+	@SuppressLint("CommitPrefEdits")
 	public DilbertPreferences(Context _context) {
 		preferences = PreferenceManager.getDefaultSharedPreferences(_context);
 		editor = preferences.edit();
@@ -112,26 +114,18 @@ public class DilbertPreferences {
 		return favorites;
 	}
 
-	public void downloadImageViaBrowser(Activity activity, String download_url) {
-		try {
-			Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse(download_url));
-			activity.startActivity(downloadIntent);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Toast.makeText(activity, R.string.download_manager_unsupported,
-					Toast.LENGTH_LONG).show();
-		}
-	}
-
-	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
-	public void downloadImageViaManager(Activity activity, String download_url) {
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public void downloadImageViaManager(Activity activity, String download_url,
+			DateMidnight strip_date) {
 		try {
 			DownloadManager dm = (DownloadManager) activity
 					.getSystemService(Context.DOWNLOAD_SERVICE);
 			String url = toHighQuality(download_url);
 			DownloadManager.Request request = new DownloadManager.Request(
 					Uri.parse(url));
+			request.setDestinationInExternalPublicDir(
+					Environment.DIRECTORY_DOWNLOADS,
+					dateFormatter.print(strip_date) + ".gif");
 			request.setVisibleInDownloadsUi(true);
 			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 				request.allowScanningByMediaScanner();
@@ -140,7 +134,12 @@ public class DilbertPreferences {
 			dm.enqueue(request);
 		} catch (Exception e) {
 			e.printStackTrace();
-			downloadImageViaBrowser(activity, download_url);
+			Toast.makeText(activity, R.string.download_manager_unsupported,
+					Toast.LENGTH_LONG).show();
+		} catch (Error e) {
+			e.printStackTrace();
+			Toast.makeText(activity, R.string.download_manager_unsupported,
+					Toast.LENGTH_LONG).show();
 		}
 	}
 

@@ -335,7 +335,7 @@ public class DilbertActivity extends SherlockActivity {
 			return true;
 		case MENU_SAVE:
 			preferences.downloadImageViaManager(this,
-					preferences.getCachedUrl(currentDate));
+					preferences.getCachedUrl(currentDate), currentDate);
 			return true;
 		case MENU_HIGHQUALITY:
 			preferences.toggleHighQuality();
