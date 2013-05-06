@@ -158,11 +158,7 @@ public class DilbertActivity extends SherlockActivity {
 	/**
 	 * Implementation for listening on swipe left2right and right2left gestures
 	 * */
-	private SwipeInterface dilbertSwipeInterfaceListener = new SwipeInterface() {
-
-		@Override
-		public void bottom2top(View v) {
-		}
+	private SwipeInterface dilbertSwipeInterfaceListener = new SimpleSwipeInterface() {
 
 		@Override
 		public void left2right(View v) {
@@ -182,9 +178,6 @@ public class DilbertActivity extends SherlockActivity {
 						Toast.LENGTH_SHORT).show();
 		}
 
-		@Override
-		public void top2bottom(View v) {
-		}
 	};
 
 	/**
@@ -523,9 +516,9 @@ public class DilbertActivity extends SherlockActivity {
 			 * If gif url could not be found in parsed HTML, we will throw error
 			 * via UIL library listener
 			 * */
-			dilbertImageLoadingListener.onLoadingFailed(
-					preferences.getCachedUrl(currentDate), imageView,
-					new FailReason(FailType.UNKNOWN, new ParseException()));
+			dilbertImageLoadingListener.onLoadingFailed(preferences
+					.getCachedUrl(currentDate), imageView, new FailReason(
+					FailType.NETWORK_DENIED, new ParseException()));
 		}
 
 		/**
