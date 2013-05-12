@@ -58,7 +58,7 @@ public class FavoritedAdapter extends BaseAdapter {
 		if (item != null) {
 			imageLoader.displayImage(item.getUrl(), vh.getImage());
 			vh.getDate().setText(
-					item.getDate().toString(DilbertPreferences.dateFormatter));
+					item.getDate().toString(DilbertPreferences.DATE_FORMATTER));
 		}
 		return rtnView;
 	}

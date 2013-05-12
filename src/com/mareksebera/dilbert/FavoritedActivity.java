@@ -49,7 +49,7 @@ public class FavoritedActivity extends SherlockActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		contextMenuItem = (FavoritedItem) listAdapter.getItem(info.position);
 		if (contextMenuItem != null) {
-			menu.setHeaderTitle(contextMenuItem.getDate().toString(DilbertPreferences.dateFormatter));
+			menu.setHeaderTitle(contextMenuItem.getDate().toString(DilbertPreferences.DATE_FORMATTER));
 			menu.add(Menu.NONE, CONTEXT_REMOVE, Menu.NONE, R.string.context_favorites_remove);
 			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE, R.string.menu_download);
 		}
