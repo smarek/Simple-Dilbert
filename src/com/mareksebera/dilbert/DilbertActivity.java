@@ -30,6 +30,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
@@ -64,21 +65,21 @@ public class DilbertActivity extends SherlockActivity {
 			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8,
 			MENU_SHOW_FAVORITE = 9;
 	private DateMidnight currentDate;
-	private static final DateTimeZone timeZone = DateTimeZone
+	private static final String TAG = "DilbertActivity";
+	private static final DateTimeZone TIME_ZONE = DateTimeZone
 			.forID("America/New_York");
 
 	private EnhancedImageView imageView;
 	private DilbertPreferences preferences;
 
 	private ProgressBar progressBar;
-	private FrameLayout layout;
 
 	static {
 		/**
 		 * Set default time-zone, because strips are published in New York
 		 * timezone on midnight
 		 * */
-		DateTimeZone.setDefault(timeZone);
+		DateTimeZone.setDefault(TIME_ZONE);
 	}
 
 	private ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
@@ -145,13 +146,16 @@ public class DilbertActivity extends SherlockActivity {
 				int dayOfMonth) {
 			DateMidnight selDate = DateMidnight.parse(String.format(new Locale(
 					"en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
-					DilbertPreferences.dateFormatter);
-			if (selDate.isAfterNow())
-				selDate = DateMidnight.now(timeZone);
-			if (selDate.isBefore(getFirstStripDate()))
+					DilbertPreferences.DATE_FORMATTER);
+			if (selDate.isAfterNow()) {
+				selDate = DateMidnight.now(TIME_ZONE);
+			}
+			if (selDate.isBefore(getFirstStripDate())) {
 				selDate = getFirstStripDate();
-			if (!selDate.equals(currentDate))
+			}
+			if (!selDate.equals(currentDate)) {
 				setCurrentDate(selDate);
+			}
 		}
 	};
 
@@ -162,20 +166,22 @@ public class DilbertActivity extends SherlockActivity {
 
 		@Override
 		public void left2right(View v) {
-			if (!currentDate.equals(getFirstStripDate()))
+			if (!currentDate.equals(getFirstStripDate())) {
 				setCurrentDate(currentDate.minusDays(1));
-			else
+			} else {
 				Toast.makeText(DilbertActivity.this, R.string.no_older_strip,
 						Toast.LENGTH_SHORT).show();
+			}
 		}
 
 		@Override
 		public void right2left(View v) {
-			if (!currentDate.equals(DateMidnight.now(timeZone)))
+			if (!currentDate.equals(DateMidnight.now(TIME_ZONE))) {
 				setCurrentDate(currentDate.plusDays(1));
-			else
+			} else {
 				Toast.makeText(DilbertActivity.this, R.string.no_newer_strip,
 						Toast.LENGTH_SHORT).show();
+			}
 		}
 
 	};
@@ -200,13 +206,14 @@ public class DilbertActivity extends SherlockActivity {
 	 * */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void displayImage(String url) {
-		if (url != null
-				&& url.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
+		String imageUrl = url;
+		if (imageUrl != null
+				&& imageUrl.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
 			supportInvalidateOptionsMenu();
 			boolean hqIsEnabled = preferences.isHighQualityOn();
-			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
-					.toLowQuality(url);
-			ImageLoader.getInstance().displayImage(url, imageView,
+			imageUrl = hqIsEnabled ? preferences.toHighQuality(imageUrl) : preferences
+					.toLowQuality(imageUrl);
+			ImageLoader.getInstance().displayImage(imageUrl, imageView,
 					dilbertImageLoadingListener);
 		}
 	}
@@ -218,7 +225,7 @@ public class DilbertActivity extends SherlockActivity {
 	 * */
 	private DateMidnight getFirstStripDate() {
 		return DateMidnight.parse("1989-04-16",
-				DilbertPreferences.dateFormatter);
+				DilbertPreferences.DATE_FORMATTER);
 	}
 
 	/**
@@ -233,9 +240,9 @@ public class DilbertActivity extends SherlockActivity {
 					.useDelimiter("\\A");
 			rtn = s.hasNext() ? s.next() : "";
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, "License couldn't be retrieved", e);
 		} catch (Error e) {
-			e.printStackTrace();
+			Log.e(TAG, "License couldn't be retrieved", e);
 		}
 		return rtn;
 	}
@@ -246,7 +253,7 @@ public class DilbertActivity extends SherlockActivity {
 	private void initLayout() {
 		imageView = (EnhancedImageView) findViewById(R.id.imageview);
 		progressBar = (ProgressBar) findViewById(R.id.progressbar);
-		layout = (FrameLayout) findViewById(R.id.framelayout);
+		FrameLayout layout = (FrameLayout) findViewById(R.id.framelayout);
 		layout.setOnTouchListener(new ActivitySwipeDetector(
 				dilbertSwipeInterfaceListener));
 	}
@@ -256,12 +263,14 @@ public class DilbertActivity extends SherlockActivity {
 	 * asynctask to parse and save it
 	 * */
 	private void loadImage() {
-		String dateKey = currentDate.toString(DilbertPreferences.dateFormatter);
+		String dateKey = currentDate
+				.toString(DilbertPreferences.DATE_FORMATTER);
 		String cachedUrl = preferences.getCachedUrl(dateKey);
-		if (cachedUrl != null)
+		if (cachedUrl != null) {
 			displayImage(cachedUrl);
-		else
+		} else {
 			new GetStripUrl().execute(dateKey);
+		}
 	}
 
 	@Override
@@ -317,7 +326,7 @@ public class DilbertActivity extends SherlockActivity {
 			showAboutDialog();
 			return true;
 		case MENU_LATEST:
-			setCurrentDate(DateMidnight.now(timeZone));
+			setCurrentDate(DateMidnight.now(TIME_ZONE));
 			return true;
 		case MENU_REFRESH:
 			preferences.removeCache(currentDate);
@@ -347,9 +356,10 @@ public class DilbertActivity extends SherlockActivity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		if (menu.findItem(MENU_HIGHQUALITY) != null)
+		if (menu.findItem(MENU_HIGHQUALITY) != null) {
 			menu.findItem(MENU_HIGHQUALITY).setChecked(
 					preferences.isHighQualityOn());
+		}
 		if (menu.findItem(MENU_FAVORITE) != null) {
 			MenuItem favorite = menu.findItem(MENU_FAVORITE);
 			boolean isFavorite = preferences.isFavorited(currentDate);
@@ -366,7 +376,7 @@ public class DilbertActivity extends SherlockActivity {
 	 * purposes
 	 * */
 	private void putDateToTitle() {
-		setTitle(currentDate.toString(DilbertPreferences.dateFormatter));
+		setTitle(currentDate.toString(DilbertPreferences.DATE_FORMATTER));
 	}
 
 	/**
@@ -433,8 +443,7 @@ public class DilbertActivity extends SherlockActivity {
 	 * Taken from EntityUtils HttpCore 4.2.3 and altered so the utf-8lias is
 	 * handled correctly
 	 * */
-	public static String toString(final HttpEntity entity) throws IOException,
-			ParseException {
+	public static String toString(final HttpEntity entity) throws IOException {
 		if (entity == null) {
 			throw new IllegalArgumentException("HTTP entity may not be null");
 		}
@@ -467,12 +476,13 @@ public class DilbertActivity extends SherlockActivity {
 
 	private class GetStripUrl extends AsyncTask<String, Void, String> {
 
-		String date = null;
+		private String date = null;
 
 		@Override
 		protected String doInBackground(String... params) {
-			if (params.length == 0)
+			if (params.length == 0) {
 				return null;
+			}
 			date = params[0];
 			HttpGet get = new HttpGet("http://dilbert.com/strips/comic/"
 					+ params[0] + "/");
@@ -481,7 +491,7 @@ public class DilbertActivity extends SherlockActivity {
 				HttpResponse response = client.execute(get);
 				return DilbertActivity.toString(response.getEntity());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e(TAG, "HttpGet failed", e);
 			}
 			return null;
 		}

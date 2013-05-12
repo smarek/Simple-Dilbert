@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 public class DilbertPreferences {
@@ -28,27 +29,29 @@ public class DilbertPreferences {
 	private static final String PREF_CURRENT_DATE = "dilbert_current_date";
 	private static final String PREF_CURRENT_URL = "dilbert_current_url";
 	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
+	private static final String TAG = "DilbertPreferences";
 
-	public static final DateTimeFormatter dateFormatter = DateTimeFormat
+	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("yyyy-MM-dd");
 
 	@SuppressLint("CommitPrefEdits")
-	public DilbertPreferences(Context _context) {
-		preferences = PreferenceManager.getDefaultSharedPreferences(_context);
+	public DilbertPreferences(Context context) {
+		preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		editor = preferences.edit();
 	}
 
 	public DateMidnight getCurrentDate() {
 		String savedDate = preferences.getString(PREF_CURRENT_DATE, null);
-		if (savedDate == null)
+		if (savedDate == null) {
 			return DateMidnight.now();
-		else
-			return DateMidnight.parse(savedDate, dateFormatter);
+		} else {
+			return DateMidnight.parse(savedDate, DATE_FORMATTER);
+		}
 	}
 
 	public boolean saveCurrentDate(DateMidnight currentDate) {
 		editor.putString(PREF_CURRENT_DATE,
-				currentDate.toString(DilbertPreferences.dateFormatter));
+				currentDate.toString(DilbertPreferences.DATE_FORMATTER));
 		return editor.commit();
 	}
 
@@ -72,7 +75,7 @@ public class DilbertPreferences {
 	}
 
 	public String getCachedUrl(DateMidnight dateKey) {
-		return getCachedUrl(dateKey.toString(dateFormatter));
+		return getCachedUrl(dateKey.toString(DATE_FORMATTER));
 	}
 
 	public String getCachedUrl(String dateKey) {
@@ -81,7 +84,7 @@ public class DilbertPreferences {
 
 	public boolean removeCache(DateMidnight currentDate) {
 		return editor.remove(
-				currentDate.toString(DilbertPreferences.dateFormatter))
+				currentDate.toString(DilbertPreferences.DATE_FORMATTER))
 				.commit();
 	}
 
@@ -97,7 +100,7 @@ public class DilbertPreferences {
 
 	private String toFavoritedKey(DateMidnight currentDay) {
 		return "favorite_"
-				+ currentDay.toString(DilbertPreferences.dateFormatter);
+				+ currentDay.toString(DilbertPreferences.DATE_FORMATTER);
 	}
 
 	public List<FavoritedItem> getFavoritedItems() {
@@ -108,24 +111,24 @@ public class DilbertPreferences {
 					&& (Boolean) allPreferences.get(key)) {
 				String date = key.replace("favorite_", "");
 				favorites.add(new FavoritedItem(DateMidnight.parse(date,
-						dateFormatter), (String) allPreferences.get(date)));
+						DATE_FORMATTER), (String) allPreferences.get(date)));
 			}
 		}
 		return favorites;
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void downloadImageViaManager(Activity activity, String download_url,
-			DateMidnight strip_date) {
+	public void downloadImageViaManager(final Activity activity,
+			final String downloadUrl, DateMidnight stripDate) {
 		try {
 			DownloadManager dm = (DownloadManager) activity
 					.getSystemService(Context.DOWNLOAD_SERVICE);
-			String url = toHighQuality(download_url);
+			String url = toHighQuality(downloadUrl);
 			DownloadManager.Request request = new DownloadManager.Request(
 					Uri.parse(url));
 			request.setDestinationInExternalPublicDir(
 					Environment.DIRECTORY_DOWNLOADS,
-					dateFormatter.print(strip_date) + ".gif");
+					DATE_FORMATTER.print(stripDate) + ".gif");
 			request.setVisibleInDownloadsUi(true);
 			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 				request.allowScanningByMediaScanner();
@@ -133,11 +136,11 @@ public class DilbertPreferences {
 			}
 			dm.enqueue(request);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, "Should not happen", e);
 			Toast.makeText(activity, R.string.download_manager_unsupported,
 					Toast.LENGTH_LONG).show();
 		} catch (Error e) {
-			e.printStackTrace();
+			Log.e(TAG, "Should not happen", e);
 			Toast.makeText(activity, R.string.download_manager_unsupported,
 					Toast.LENGTH_LONG).show();
 		}

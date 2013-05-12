@@ -4,14 +4,30 @@ import org.joda.time.DateMidnight;
 
 public class FavoritedItem {
 
+	private DateMidnight date;
+
+	private String url;
+
 	public FavoritedItem(DateMidnight d, String u) {
 		assert (d != null);
 		assert (u != null);
-		this.date = d;
-		this.url = u;
+		date = d;
+		url = u;
 	}
 
-	public DateMidnight date;
-	public String url;
+	public DateMidnight getDate() {
+		return date;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setDate(DateMidnight date) {
+		this.date = date;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 }

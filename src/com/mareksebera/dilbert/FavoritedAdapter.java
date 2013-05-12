@@ -37,39 +37,58 @@ public class FavoritedAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return items.get(position).date.getMillis();
+		return items.get(position).getDate().getMillis();
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View rtnView = convertView;
 		ViewHolder vh = null;
 		FavoritedItem item = items.get(position);
 		if (convertView == null) {
 			vh = new ViewHolder();
-			convertView = inflater.inflate(R.layout.item_favorite, parent, false);
-			vh.image = (EnhancedImageView) convertView.findViewById(R.id.item_favorite_image);
-			vh.date = (TextView) convertView.findViewById(R.id.item_favorite_date);
-			convertView.setTag(vh);
+			rtnView = inflater.inflate(R.layout.item_favorite, parent, false);
+			vh.setImage((EnhancedImageView) rtnView
+					.findViewById(R.id.item_favorite_image));
+			vh.setDate((TextView) rtnView.findViewById(R.id.item_favorite_date));
+			rtnView.setTag(vh);
 		} else {
-			vh = (ViewHolder) convertView.getTag();
+			vh = (ViewHolder) rtnView.getTag();
 		}
 		if (item != null) {
-			imageLoader.displayImage(item.url, vh.image);
-			vh.date.setText(item.date.toString(DilbertPreferences.dateFormatter));
+			imageLoader.displayImage(item.getUrl(), vh.getImage());
+			vh.getDate().setText(
+					item.getDate().toString(DilbertPreferences.dateFormatter));
 		}
-		return convertView;
+		return rtnView;
 	}
 
 	static class ViewHolder {
-		TextView date;
-		EnhancedImageView image;
+		private TextView date;
+		private EnhancedImageView image;
+
+		public TextView getDate() {
+			return date;
+		}
+
+		public void setDate(TextView date) {
+			this.date = date;
+		}
+
+		public EnhancedImageView getImage() {
+			return image;
+		}
+
+		public void setImage(EnhancedImageView image) {
+			this.image = image;
+		}
 	}
 
 	private class FavoritedComparator implements Comparator<FavoritedItem> {
 
 		@Override
 		public int compare(FavoritedItem lhs, FavoritedItem rhs) {
-			return rhs.date.compareTo(lhs.date);
+			return rhs.getDate().compareTo(lhs.getDate());
 		}
 
 	}

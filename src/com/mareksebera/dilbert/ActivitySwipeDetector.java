@@ -8,7 +8,7 @@ import android.view.View;
  * */
 public class ActivitySwipeDetector implements View.OnTouchListener {
 
-	static final String logTag = "ActivitySwipeDetector";
+	static final String TAG = "ActivitySwipeDetector";
 	private SwipeInterface activity;
 	static final int MIN_DISTANCE = 100;
 	private float downX, downY, upX, upY;

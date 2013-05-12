@@ -49,7 +49,7 @@ public class FavoritedActivity extends SherlockActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		contextMenuItem = (FavoritedItem) listAdapter.getItem(info.position);
 		if (contextMenuItem != null) {
-			menu.setHeaderTitle(contextMenuItem.date.toString(DilbertPreferences.dateFormatter));
+			menu.setHeaderTitle(contextMenuItem.getDate().toString(DilbertPreferences.dateFormatter));
 			menu.add(Menu.NONE, CONTEXT_REMOVE, Menu.NONE, R.string.context_favorites_remove);
 			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE, R.string.menu_download);
 		}
@@ -60,13 +60,13 @@ public class FavoritedActivity extends SherlockActivity {
 		switch (item.getItemId()) {
 		case CONTEXT_REMOVE:
 			if (contextMenuItem != null) {
-				preferences.toggleIsFavorited(contextMenuItem.date);
+				preferences.toggleIsFavorited(contextMenuItem.getDate());
 				listAdapter = new FavoritedAdapter(this, getFavoritedOrNotifyAndFinish());
 				listView.setAdapter(listAdapter);
 			}
 			return true;
 		case CONTEXT_DOWNLOAD:
-			preferences.downloadImageViaManager(this, contextMenuItem.url, contextMenuItem.date);
+			preferences.downloadImageViaManager(this, contextMenuItem.getUrl(), contextMenuItem.getDate());
 			return true;
 		}
 		return false;
