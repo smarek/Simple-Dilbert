@@ -18,6 +18,7 @@
     <string name="menu_favorite_add">Zu Favoriten hinzufügen</string>
     <string name="menu_favorite_remove">Aus Favoriten entfernen</string>
     <string name="menu_show_favorite">Favoriten anzeigen</string>
+    <string name="menu_zoom">Zoom</string>
     <string name="context_favorites_remove">Aus Favoriten entfernen</string>
     <string name="toast_no_favorites">Sie haben keine favorisierten Strips</string>
     <string name="title_favorited">Favorisierte Strips</string>

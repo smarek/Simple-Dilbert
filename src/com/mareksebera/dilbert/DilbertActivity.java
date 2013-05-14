@@ -299,7 +299,7 @@ public class DilbertActivity extends SherlockActivity {
 		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
 				.setIcon(R.drawable.ic_menu_refresh)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_ZOOM, Menu.NONE, "Přiblížit")
+		menu.add(Menu.NONE, MENU_ZOOM, Menu.NONE, R.string.menu_zoom)
 				.setIcon(R.drawable.ic_menu_zoom)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_SHOW_FAVORITE, Menu.NONE,

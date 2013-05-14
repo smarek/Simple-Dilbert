@@ -2,11 +2,14 @@ package com.mareksebera.dilbert;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,8 +22,17 @@ public class FavoritedActivity extends SherlockActivity {
 	private DilbertPreferences preferences = null;
 	private ListView listView;
 	private FavoritedAdapter listAdapter;
-	private static final int CONTEXT_REMOVE = 1, CONTEXT_DOWNLOAD = 2;
+	private static final int CONTEXT_REMOVE = 1, CONTEXT_DOWNLOAD = 2,
+			CONTEXT_ZOOM = 3;
 	private FavoritedItem contextMenuItem = null;
+
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			openContextMenu(view);
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +42,36 @@ public class FavoritedActivity extends SherlockActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		preferences = new DilbertPreferences(this);
 		listView = (ListView) findViewById(R.id.activity_favorited_listview);
-		listAdapter = new FavoritedAdapter(this, getFavoritedOrNotifyAndFinish());
+		listAdapter = new FavoritedAdapter(this,
+				getFavoritedOrNotifyAndFinish());
 		listView.setAdapter(listAdapter);
 		registerForContextMenu(listView);
+		listView.setOnItemClickListener(onItemClickListener);
 	}
 
 	private List<FavoritedItem> getFavoritedOrNotifyAndFinish() {
 		List<FavoritedItem> list = preferences.getFavoritedItems();
 		if (list != null && list.isEmpty()) {
-			Toast.makeText(this, R.string.toast_no_favorites, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.toast_no_favorites, Toast.LENGTH_LONG)
+					.show();
 			finish();
 		}
 		return list;
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		contextMenuItem = (FavoritedItem) listAdapter.getItem(info.position);
 		if (contextMenuItem != null) {
-			menu.setHeaderTitle(contextMenuItem.getDate().toString(DilbertPreferences.DATE_FORMATTER));
-			menu.add(Menu.NONE, CONTEXT_REMOVE, Menu.NONE, R.string.context_favorites_remove);
-			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE, R.string.menu_download);
+			menu.setHeaderTitle(contextMenuItem.getDate().toString(
+					DilbertPreferences.DATE_FORMATTER));
+			menu.add(Menu.NONE, CONTEXT_REMOVE, Menu.NONE,
+					R.string.context_favorites_remove);
+			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE,
+					R.string.menu_download);
+			menu.add(Menu.NONE, CONTEXT_ZOOM, Menu.NONE, R.string.menu_zoom);
 		}
 	}
 
@@ -61,12 +81,26 @@ public class FavoritedActivity extends SherlockActivity {
 		case CONTEXT_REMOVE:
 			if (contextMenuItem != null) {
 				preferences.toggleIsFavorited(contextMenuItem.getDate());
-				listAdapter = new FavoritedAdapter(this, getFavoritedOrNotifyAndFinish());
+				listAdapter = new FavoritedAdapter(this,
+						getFavoritedOrNotifyAndFinish());
 				listView.setAdapter(listAdapter);
 			}
 			return true;
 		case CONTEXT_DOWNLOAD:
-			preferences.downloadImageViaManager(this, contextMenuItem.getUrl(), contextMenuItem.getDate());
+			preferences.downloadImageViaManager(this, contextMenuItem.getUrl(),
+					contextMenuItem.getDate());
+			return true;
+		case CONTEXT_ZOOM:
+			if (contextMenuItem != null) {
+				Intent doubleTap = new Intent(this, ImageZoomActivity.class);
+				doubleTap.putExtra(
+						ImageZoomActivity.IN_IMAGE_DATE,
+						contextMenuItem.getDate().toString(
+								DilbertPreferences.DATE_FORMATTER));
+				doubleTap.putExtra(ImageZoomActivity.IN_IMAGE_URL,
+						preferences.getCachedUrl(contextMenuItem.getDate()));
+				startActivity(doubleTap);
+			}
 			return true;
 		}
 		return false;
