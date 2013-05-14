@@ -19,6 +19,7 @@
     <string name="menu_favorite_remove">Remova dos favoritos</string>
     <string name="menu_show_favorite">Mostrar os favoritos</string>
     <string name="menu_zoom">Ampliar</string>
+    <string name="zoom_hint">Use os dedos para ampliar a imagem</string>
     <string name="context_favorites_remove">Remover dos favoritos </string>
     <string name="toast_no_favorites">Voce não tem nehuma tira favorita</string>
     <string name="title_favorited">Quadrinhos favoritos</string>

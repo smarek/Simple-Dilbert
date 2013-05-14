@@ -18,7 +18,8 @@
     <string name="menu_favorite_add">Přidat do oblíbených</string>
     <string name="menu_favorite_remove">Odebrat z oblíbených</string>
     <string name="menu_show_favorite">Zobrazit oblíbené</string>
-    <string name="menu_zoom">Přiblížit</string>
+    <string name="menu_zoom">Zvětšit</string>
+    <string name="zoom_hint">Použijte prsty pro zvětšení obrázku</string>
     <string name="context_favorites_remove">Odstranit z oblíbených</string>
     <string name="toast_no_favorites">Nemáte žádné oblíbené</string>
     <string name="title_favorited">Oblíbené díly</string>

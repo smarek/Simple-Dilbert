@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
@@ -58,6 +59,7 @@ public class ImageZoomActivity extends SherlockActivity {
 		imageViewAttacher = new PhotoViewAttacher(imageView);
 		imageLoader.displayImage(getIntent().getStringExtra(IN_IMAGE_URL),
 				imageView, imageLoadingListener);
+		Toast.makeText(this, R.string.zoom_hint, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
