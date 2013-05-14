@@ -22,7 +22,6 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -32,10 +31,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -68,7 +64,7 @@ public class DilbertActivity extends SherlockActivity {
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
 			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
 			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8,
-			MENU_SHOW_FAVORITE = 9;
+			MENU_SHOW_FAVORITE = 9, MENU_ZOOM = 10;
 	private DateMidnight currentDate;
 	private static final String TAG = "DilbertActivity";
 	private static final DateTimeZone TIME_ZONE = DateTimeZone
@@ -86,42 +82,6 @@ public class DilbertActivity extends SherlockActivity {
 		 * */
 		DateTimeZone.setDefault(TIME_ZONE);
 	}
-
-	/**
-	 * Listener for double-tap event on imageView, as we don't want to provide
-	 * zooming image function directly in here
-	 * */
-	private View.OnTouchListener doubleTapListener = new OnTouchListener() {
-
-		private GestureDetector gestureDetectorSingleton = null;
-
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			return getGestureDetector(v.getContext()).onTouchEvent(event);
-		}
-
-		private GestureDetector getGestureDetector(Context context) {
-			if (gestureDetectorSingleton == null) {
-				gestureDetectorSingleton = new GestureDetector(context,
-						new GestureDetector.SimpleOnGestureListener() {
-
-							@Override
-							public boolean onDown(MotionEvent e) {
-								return true;
-							}
-
-							// event when double tap occurs
-							@Override
-							public boolean onDoubleTap(MotionEvent e) {
-								handleDoubleTap();
-								return true;
-							}
-						});
-			}
-			return gestureDetectorSingleton;
-		}
-
-	};
 
 	private ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
 		/**
@@ -296,7 +256,6 @@ public class DilbertActivity extends SherlockActivity {
 		imageView = (ImageView) findViewById(R.id.imageview);
 		progressBar = (ProgressBar) findViewById(R.id.progressbar);
 		FrameLayout layout = (FrameLayout) findViewById(R.id.framelayout);
-		imageView.setOnTouchListener(doubleTapListener);
 		layout.setOnTouchListener(new ActivitySwipeDetector(
 				dilbertSwipeInterfaceListener));
 	}
@@ -339,6 +298,9 @@ public class DilbertActivity extends SherlockActivity {
 				.setIcon(R.drawable.ic_menu_not_favorited);
 		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
 				.setIcon(R.drawable.ic_menu_refresh)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_ZOOM, Menu.NONE, "Přiblížit")
+				.setIcon(R.drawable.ic_menu_search)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_SHOW_FAVORITE, Menu.NONE,
 				R.string.menu_show_favorite).setShowAsActionFlags(
@@ -392,6 +354,9 @@ public class DilbertActivity extends SherlockActivity {
 			return true;
 		case MENU_SHOW_FAVORITE:
 			startActivity(new Intent(this, FavoritedActivity.class));
+			return true;
+		case MENU_ZOOM:
+			displayImageZoom();
 			return true;
 		}
 		return false;
@@ -451,10 +416,10 @@ public class DilbertActivity extends SherlockActivity {
 	}
 
 	/**
-	 * When image is double-tapped, ImageZoomActivity is launched, showing only
-	 * current image
+	 * When menu item is selected, ImageZoomActivity is launched, showing only
+	 * current image, but in PhotoView, so it can be zoomed via finger pinch
 	 * */
-	private void handleDoubleTap() {
+	private void displayImageZoom() {
 		Intent doubleTap = new Intent(this, ImageZoomActivity.class);
 		doubleTap.putExtra(ImageZoomActivity.IN_IMAGE_DATE,
 				currentDate.toString(DilbertPreferences.DATE_FORMATTER));
