@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -61,10 +62,13 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
  * */
 public class DilbertActivity extends SherlockActivity {
 
+	/**
+	 * Identifiers for menu items
+	 * */
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
 			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
 			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8,
-			MENU_SHOW_FAVORITE = 9, MENU_ZOOM = 10;
+			MENU_SHOW_FAVORITE = 9, MENU_ZOOM = 10, MENU_SHUFFLE = 11;
 	private DateMidnight currentDate;
 	private static final String TAG = "DilbertActivity";
 	private static final DateTimeZone TIME_ZONE = DateTimeZone
@@ -148,15 +152,7 @@ public class DilbertActivity extends SherlockActivity {
 			DateMidnight selDate = DateMidnight.parse(String.format(new Locale(
 					"en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
 					DilbertPreferences.DATE_FORMATTER);
-			if (selDate.isAfterNow()) {
-				selDate = DateMidnight.now(TIME_ZONE);
-			}
-			if (selDate.isBefore(getFirstStripDate())) {
-				selDate = getFirstStripDate();
-			}
-			if (!selDate.equals(currentDate)) {
-				setCurrentDate(selDate);
-			}
+			DilbertActivity.this.onDateSet(selDate);
 		}
 	};
 
@@ -291,16 +287,19 @@ public class DilbertActivity extends SherlockActivity {
 		menu.add(Menu.NONE, MENU_DATEPICKER, Menu.NONE,
 				R.string.menu_datepicker)
 				.setIcon(R.drawable.ic_menu_datepicker)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_FAVORITE, Menu.NONE,
 				R.string.menu_favorite_remove)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-				.setIcon(R.drawable.ic_menu_not_favorited);
-		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
-				.setIcon(R.drawable.ic_menu_refresh)
+				.setIcon(R.drawable.ic_menu_not_favorited)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_SHUFFLE, Menu.NONE, "Random")
+				.setIcon(R.drawable.ic_menu_shuffle)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		menu.add(Menu.NONE, MENU_ZOOM, Menu.NONE, R.string.menu_zoom)
 				.setIcon(R.drawable.ic_menu_zoom)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
+				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_SHOW_FAVORITE, Menu.NONE,
 				R.string.menu_show_favorite).setShowAsActionFlags(
@@ -314,9 +313,6 @@ public class DilbertActivity extends SherlockActivity {
 				.setChecked(preferences.isHighQualityOn());
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
-				.setIcon(R.drawable.ic_menu_about)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		return true;
 	}
 
@@ -358,8 +354,42 @@ public class DilbertActivity extends SherlockActivity {
 		case MENU_ZOOM:
 			displayImageZoom();
 			return true;
+		case MENU_SHUFFLE:
+			displayRandom();
+			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Selects random date in range 1989-now, and passes it through
+	 * {#onDateSet(DateMidnight)} filter
+	 * */
+	private void displayRandom() {
+		Random random = new Random();
+		DateMidnight now = DateMidnight.now();
+		int year = 1989 + random.nextInt(now.getYear() - 1989);
+		int month = 1 + random.nextInt(12);
+		int day = random.nextInt(31);
+		onDateSet(DateMidnight.parse(
+				String.format(new Locale("en"), "%d-%d-1", year, month))
+				.plusDays(day));
+	}
+
+	/**
+	 * Extracted method onDateSet from OnDateSetListener, to be available to
+	 * {#displayRandom()} function
+	 * */
+	public void onDateSet(DateMidnight selDate) {
+		if (selDate.isAfterNow()) {
+			selDate = DateMidnight.now(TIME_ZONE);
+		}
+		if (selDate.isBefore(getFirstStripDate())) {
+			selDate = getFirstStripDate();
+		}
+		if (!selDate.equals(currentDate)) {
+			setCurrentDate(selDate);
+		}
 	}
 
 	@Override
@@ -495,6 +525,9 @@ public class DilbertActivity extends SherlockActivity {
 		}
 	}
 
+	/**
+	 * AsyncTask to get and parse url from dilbert html pages
+	 * */
 	private class GetStripUrl extends AsyncTask<String, Void, String> {
 
 		private String date = null;
