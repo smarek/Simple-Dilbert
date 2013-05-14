@@ -22,6 +22,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -31,9 +32,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -69,7 +74,7 @@ public class DilbertActivity extends SherlockActivity {
 	private static final DateTimeZone TIME_ZONE = DateTimeZone
 			.forID("America/New_York");
 
-	private EnhancedImageView imageView;
+	private ImageView imageView;
 	private DilbertPreferences preferences;
 
 	private ProgressBar progressBar;
@@ -81,6 +86,42 @@ public class DilbertActivity extends SherlockActivity {
 		 * */
 		DateTimeZone.setDefault(TIME_ZONE);
 	}
+
+	/**
+	 * Listener for double-tap event on imageView, as we don't want to provide
+	 * zooming image function directly in here
+	 * */
+	private View.OnTouchListener doubleTapListener = new OnTouchListener() {
+
+		private GestureDetector gestureDetectorSingleton = null;
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			return getGestureDetector(v.getContext()).onTouchEvent(event);
+		}
+
+		private GestureDetector getGestureDetector(Context context) {
+			if (gestureDetectorSingleton == null) {
+				gestureDetectorSingleton = new GestureDetector(context,
+						new GestureDetector.SimpleOnGestureListener() {
+
+							@Override
+							public boolean onDown(MotionEvent e) {
+								return true;
+							}
+
+							// event when double tap occurs
+							@Override
+							public boolean onDoubleTap(MotionEvent e) {
+								handleDoubleTap();
+								return true;
+							}
+						});
+			}
+			return gestureDetectorSingleton;
+		}
+
+	};
 
 	private ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
 		/**
@@ -208,11 +249,12 @@ public class DilbertActivity extends SherlockActivity {
 	public void displayImage(String url) {
 		String imageUrl = url;
 		if (imageUrl != null
-				&& imageUrl.equalsIgnoreCase(preferences.getCachedUrl(currentDate))) {
+				&& imageUrl.equalsIgnoreCase(preferences
+						.getCachedUrl(currentDate))) {
 			supportInvalidateOptionsMenu();
 			boolean hqIsEnabled = preferences.isHighQualityOn();
-			imageUrl = hqIsEnabled ? preferences.toHighQuality(imageUrl) : preferences
-					.toLowQuality(imageUrl);
+			imageUrl = hqIsEnabled ? preferences.toHighQuality(imageUrl)
+					: preferences.toLowQuality(imageUrl);
 			ImageLoader.getInstance().displayImage(imageUrl, imageView,
 					dilbertImageLoadingListener);
 		}
@@ -251,9 +293,10 @@ public class DilbertActivity extends SherlockActivity {
 	 * Initializes layout attributes and adds swipe listener
 	 * */
 	private void initLayout() {
-		imageView = (EnhancedImageView) findViewById(R.id.imageview);
+		imageView = (ImageView) findViewById(R.id.imageview);
 		progressBar = (ProgressBar) findViewById(R.id.progressbar);
 		FrameLayout layout = (FrameLayout) findViewById(R.id.framelayout);
+		imageView.setOnTouchListener(doubleTapListener);
 		layout.setOnTouchListener(new ActivitySwipeDetector(
 				dilbertSwipeInterfaceListener));
 	}
@@ -405,6 +448,19 @@ public class DilbertActivity extends SherlockActivity {
 					}
 				});
 		builder.show();
+	}
+
+	/**
+	 * When image is double-tapped, ImageZoomActivity is launched, showing only
+	 * current image
+	 * */
+	private void handleDoubleTap() {
+		Intent doubleTap = new Intent(this, ImageZoomActivity.class);
+		doubleTap.putExtra(ImageZoomActivity.IN_IMAGE_DATE,
+				currentDate.toString(DilbertPreferences.DATE_FORMATTER));
+		doubleTap.putExtra(ImageZoomActivity.IN_IMAGE_URL,
+				preferences.getCachedUrl(currentDate));
+		startActivity(doubleTap);
 	}
 
 	/**

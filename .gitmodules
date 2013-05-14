@@ -8,3 +8,6 @@
 	path = doc
 	url = git://github.com/smarek/Simple-Dilbert.git
 	branch = gh-pages
+[submodule "libraries/PhotoView"]
+	path = libraries/PhotoView
+	url = git@github.com:chrisbanes/PhotoView.git

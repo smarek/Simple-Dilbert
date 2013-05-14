@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -48,7 +49,7 @@ public class FavoritedAdapter extends BaseAdapter {
 		if (convertView == null) {
 			vh = new ViewHolder();
 			rtnView = inflater.inflate(R.layout.item_favorite, parent, false);
-			vh.setImage((EnhancedImageView) rtnView
+			vh.setImage((ImageView) rtnView
 					.findViewById(R.id.item_favorite_image));
 			vh.setDate((TextView) rtnView.findViewById(R.id.item_favorite_date));
 			rtnView.setTag(vh);
@@ -65,7 +66,7 @@ public class FavoritedAdapter extends BaseAdapter {
 
 	static class ViewHolder {
 		private TextView date;
-		private EnhancedImageView image;
+		private ImageView image;
 
 		public TextView getDate() {
 			return date;
@@ -75,11 +76,11 @@ public class FavoritedAdapter extends BaseAdapter {
 			this.date = date;
 		}
 
-		public EnhancedImageView getImage() {
+		public ImageView getImage() {
 			return image;
 		}
 
-		public void setImage(EnhancedImageView image) {
+		public void setImage(ImageView image) {
 			this.image = image;
 		}
 	}

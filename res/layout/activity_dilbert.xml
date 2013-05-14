@@ -5,13 +5,12 @@
     android:layout_height="fill_parent"
     android:padding="1dip" >
 
-    <com.mareksebera.dilbert.EnhancedImageView
+    <ImageView
         android:id="@+id/imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_gravity="center_vertical"
-        android:contentDescription="@string/cd_dilbert_image"
-        android:scaleType="centerCrop" />
+        android:contentDescription="@string/cd_dilbert_image" />
 
     <ProgressBar
         android:id="@+id/progressbar"
