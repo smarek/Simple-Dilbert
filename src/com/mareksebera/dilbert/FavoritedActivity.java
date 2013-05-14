@@ -92,14 +92,14 @@ public class FavoritedActivity extends SherlockActivity {
 			return true;
 		case CONTEXT_ZOOM:
 			if (contextMenuItem != null) {
-				Intent doubleTap = new Intent(this, ImageZoomActivity.class);
-				doubleTap.putExtra(
+				Intent zoomImage = new Intent(this, ImageZoomActivity.class);
+				zoomImage.putExtra(
 						ImageZoomActivity.IN_IMAGE_DATE,
 						contextMenuItem.getDate().toString(
 								DilbertPreferences.DATE_FORMATTER));
-				doubleTap.putExtra(ImageZoomActivity.IN_IMAGE_URL,
+				zoomImage.putExtra(ImageZoomActivity.IN_IMAGE_URL,
 						preferences.getCachedUrl(contextMenuItem.getDate()));
-				startActivity(doubleTap);
+				startActivity(zoomImage);
 			}
 			return true;
 		}

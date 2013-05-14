@@ -420,12 +420,12 @@ public class DilbertActivity extends SherlockActivity {
 	 * current image, but in PhotoView, so it can be zoomed via finger pinch
 	 * */
 	private void displayImageZoom() {
-		Intent doubleTap = new Intent(this, ImageZoomActivity.class);
-		doubleTap.putExtra(ImageZoomActivity.IN_IMAGE_DATE,
+		Intent zoomImage = new Intent(this, ImageZoomActivity.class);
+		zoomImage.putExtra(ImageZoomActivity.IN_IMAGE_DATE,
 				currentDate.toString(DilbertPreferences.DATE_FORMATTER));
-		doubleTap.putExtra(ImageZoomActivity.IN_IMAGE_URL,
+		zoomImage.putExtra(ImageZoomActivity.IN_IMAGE_URL,
 				preferences.getCachedUrl(currentDate));
-		startActivity(doubleTap);
+		startActivity(zoomImage);
 	}
 
 	/**
