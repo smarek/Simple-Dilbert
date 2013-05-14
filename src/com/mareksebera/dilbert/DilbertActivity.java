@@ -298,6 +298,9 @@ public class DilbertActivity extends SherlockActivity {
 		menu.add(Menu.NONE, MENU_ZOOM, Menu.NONE, R.string.menu_zoom)
 				.setIcon(R.drawable.ic_menu_zoom)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
+				.setIcon(R.drawable.ic_menu_save)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -305,8 +308,6 @@ public class DilbertActivity extends SherlockActivity {
 				R.string.menu_show_favorite).setShowAsActionFlags(
 				MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE,
 				R.string.menu_high_quality).setCheckable(true)
