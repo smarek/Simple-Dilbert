@@ -23,5 +23,6 @@
     <string name="context_favorites_remove">Odstranit z oblíbených</string>
     <string name="toast_no_favorites">Nemáte žádné oblíbené</string>
     <string name="title_favorited">Oblíbené díly</string>
+    <string name="menu_random">Náhodný díl</string>
 
 </resources>

@@ -23,5 +23,6 @@
     <string name="context_favorites_remove">Remover dos favoritos </string>
     <string name="toast_no_favorites">Voce não tem nehuma tira favorita</string>
     <string name="title_favorited">Quadrinhos favoritos</string>
+    <string name="menu_random">Acaso</string>
 
 </resources>
