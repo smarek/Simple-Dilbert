@@ -292,12 +292,15 @@ public class DilbertActivity extends SherlockActivity {
 				R.string.menu_favorite_remove)
 				.setIcon(R.drawable.ic_menu_not_favorited)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_SHUFFLE, Menu.NONE, "Random")
+		menu.add(Menu.NONE, MENU_SHUFFLE, Menu.NONE, R.string.menu_random)
 				.setIcon(R.drawable.ic_menu_shuffle)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		menu.add(Menu.NONE, MENU_ZOOM, Menu.NONE, R.string.menu_zoom)
 				.setIcon(R.drawable.ic_menu_zoom)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
+				.setIcon(R.drawable.ic_menu_refresh)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
 				.setIcon(R.drawable.ic_menu_save)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
