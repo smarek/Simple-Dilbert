@@ -68,7 +68,8 @@ public class DilbertActivity extends SherlockActivity {
 	private static final int MENU_DATEPICKER = 1, MENU_ABOUT = 2,
 			MENU_LATEST = 3, MENU_REFRESH = 4, MENU_LICENSE = 5,
 			MENU_HIGHQUALITY = 6, MENU_SAVE = 7, MENU_FAVORITE = 8,
-			MENU_SHOW_FAVORITE = 9, MENU_ZOOM = 10, MENU_SHUFFLE = 11;
+			MENU_SHOW_FAVORITE = 9, MENU_ZOOM = 10, MENU_SHUFFLE = 11,
+			MENU_SHARE = 12;
 	private DateMidnight currentDate;
 	private static final String TAG = "DilbertActivity";
 	private static final DateTimeZone TIME_ZONE = DateTimeZone
@@ -304,6 +305,9 @@ public class DilbertActivity extends SherlockActivity {
 		menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
 				.setIcon(R.drawable.ic_menu_save)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(Menu.NONE, MENU_SHARE, Menu.NONE, R.string.menu_share)
+				.setIcon(R.drawable.ic_menu_share)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -361,8 +365,29 @@ public class DilbertActivity extends SherlockActivity {
 		case MENU_SHUFFLE:
 			displayRandom();
 			return true;
+		case MENU_SHARE:
+			shareCurrentStrip();
+			return true;
 		}
 		return false;
+	}
+
+	private void shareCurrentStrip() {
+		try {
+			String date = currentDate
+					.toString(DilbertPreferences.DATE_FORMATTER);
+			Intent i = new Intent(Intent.ACTION_SEND);
+			i.setType("text/plain");
+			i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
+					+ " #simpledilbert");
+			i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
+					+ " #simpledilbert http://dilbert.com/strips/comic/" + date);
+			startActivity(Intent.createChooser(i,
+					getString(R.string.share_chooser)));
+		} catch (Exception e) {
+			Toast.makeText(this, R.string.loading_exception_error,
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	/**

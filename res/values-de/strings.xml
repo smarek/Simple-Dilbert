@@ -24,5 +24,7 @@
     <string name="context_favorites_remove">Aus Favoriten entfernen</string>
     <string name="toast_no_favorites">Sie haben keine favorisierten Strips</string>
     <string name="title_favorited">Favorisierte Strips</string>
+    <string name="share_chooser">Teile Dilbert Comics</string>
+    <string name="menu_share">Teilen diese!</string>
 
 </resources>

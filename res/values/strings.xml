@@ -26,5 +26,7 @@
     <string name="toast_no_favorites">You have no favorite strips</string>
     <string name="title_favorited">Favorite strips</string>
     <string name="menu_random">Random</string>
+    <string name="share_chooser">Share Dilbert Comics</string>
+    <string name="menu_share">Share this!</string>
 
 </resources>

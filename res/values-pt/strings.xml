@@ -24,5 +24,7 @@
     <string name="toast_no_favorites">Voce não tem nehuma tira favorita</string>
     <string name="title_favorited">Quadrinhos favoritos</string>
     <string name="menu_random">Acaso</string>
+    <string name="share_chooser">Compartilhe Dilbert Comics</string>
+    <string name="menu_share">Compartilhar esta!</string>
 
 </resources>
