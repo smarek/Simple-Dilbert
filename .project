@@ -3,8 +3,8 @@
 	<name>SimpleDilbert</name>
 	<comment></comment>
 	<projects>
-		<project>SD_ActionBarSherlock</project>
-		<project>SD_PhotoView</project>
+		<project>SD_ABS</project>
+		<project>SD_PV</project>
 		<project>SD_UIL</project>
 	</projects>
 	<buildSpec>
