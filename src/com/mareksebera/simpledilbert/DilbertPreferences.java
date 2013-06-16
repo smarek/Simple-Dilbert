@@ -1,4 +1,4 @@
-package com.mareksebera.dilbert;
+package com.mareksebera.simpledilbert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+import com.mareksebera.simpledilbert.R;
 
 public class DilbertPreferences {
 

@@ -1,4 +1,4 @@
-package com.mareksebera.dilbert;
+package com.mareksebera.simpledilbert;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mareksebera.dilbert;
+package com.mareksebera.simpledilbert;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.mareksebera.simpledilbert.R;
 
 public class FavoritedActivity extends SherlockActivity {
 

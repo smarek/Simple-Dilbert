@@ -1,4 +1,4 @@
-package com.mareksebera.dilbert;
+package com.mareksebera.simpledilbert;
 
 import android.view.View;
 

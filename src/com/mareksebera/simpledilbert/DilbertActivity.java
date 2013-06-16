@@ -1,4 +1,4 @@
-package com.mareksebera.dilbert;
+package com.mareksebera.simpledilbert;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,6 +42,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.mareksebera.simpledilbert.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

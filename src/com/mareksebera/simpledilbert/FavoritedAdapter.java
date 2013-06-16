@@ -1,4 +1,4 @@
-package com.mareksebera.dilbert;
+package com.mareksebera.simpledilbert;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mareksebera.simpledilbert.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class FavoritedAdapter extends BaseAdapter {

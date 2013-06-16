@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mareksebera.dilbert"
+    package="com.mareksebera.simpledilbert"
     android:versionCode="13"
     android:versionName="2.1" >
 
@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name="com.mareksebera.dilbert.DilbertActivity"
+            android:name="com.mareksebera.simpledilbert.DilbertActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mareksebera.dilbert.FavoritedActivity" />
-        <activity android:name="com.mareksebera.dilbert.ImageZoomActivity" />
+        <activity android:name="com.mareksebera.simpledilbert.FavoritedActivity" />
+        <activity android:name="com.mareksebera.simpledilbert.ImageZoomActivity" />
     </application>
 
 </manifest>
