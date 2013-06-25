@@ -42,10 +42,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.mareksebera.simpledilbert.R;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
@@ -186,20 +183,6 @@ public class DilbertActivity extends SherlockActivity {
 	};
 
 	/**
-	 * Set default configuration, allow disk and memory caching.
-	 * 
-	 * */
-	private void configureImageLoader() {
-		if (!ImageLoader.getInstance().isInited()) {
-			DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
-					.cacheInMemory().cacheOnDisc().build();
-			ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(
-					this).defaultDisplayImageOptions(displayOptions).build();
-			ImageLoader.getInstance().init(configuration);
-		}
-	}
-
-	/**
 	 * Shows image for url only if it's current date's url (for moving multiple
 	 * images at once via swiping)
 	 * */
@@ -278,7 +261,6 @@ public class DilbertActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dilbert);
 		preferences = new DilbertPreferences(this);
-		configureImageLoader();
 		currentDate = preferences.getCurrentDate();
 		initLayout();
 		setCurrentDate(currentDate);
