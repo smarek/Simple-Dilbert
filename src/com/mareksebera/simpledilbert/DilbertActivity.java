@@ -271,7 +271,7 @@ public class DilbertActivity extends SherlockActivity {
 		menu.add(Menu.NONE, MENU_DATEPICKER, Menu.NONE,
 				R.string.menu_datepicker)
 				.setIcon(R.drawable.ic_menu_datepicker)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, MENU_FAVORITE, Menu.NONE,
 				R.string.menu_favorite_remove)
 				.setIcon(R.drawable.ic_menu_not_favorited)
@@ -284,15 +284,12 @@ public class DilbertActivity extends SherlockActivity {
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_REFRESH, Menu.NONE, R.string.menu_refresh)
 				.setIcon(R.drawable.ic_menu_refresh)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
 				.setIcon(R.drawable.ic_menu_save)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_SHARE, Menu.NONE, R.string.menu_share)
 				.setIcon(R.drawable.ic_menu_share)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
-				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_SHOW_FAVORITE, Menu.NONE,
 				R.string.menu_show_favorite).setShowAsActionFlags(
@@ -302,6 +299,9 @@ public class DilbertActivity extends SherlockActivity {
 		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE,
 				R.string.menu_high_quality).setCheckable(true)
 				.setChecked(preferences.isHighQualityOn());
+		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
+				.setIcon(R.drawable.ic_menu_about)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		return true;
