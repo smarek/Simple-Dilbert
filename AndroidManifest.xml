@@ -28,6 +28,19 @@
         </activity>
         <activity android:name="com.mareksebera.simpledilbert.FavoritedActivity" />
         <activity android:name="com.mareksebera.simpledilbert.ImageZoomActivity" />
+
+        <receiver
+            android:name="com.mareksebera.simpledilbert.WidgetProvider"
+            android:icon="@drawable/ic_launcher"
+            android:label="Simple Dilbert Widget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/daily_widget" />
+        </receiver>
     </application>
 
 </manifest>
