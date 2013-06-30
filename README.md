@@ -8,7 +8,7 @@ I'll be happy if anybody wants to improve this application.
 
 Package keys are hidden, so if you're interested in updating my uploaded application, just give me know after changes are pulled into master.
 
-Project is published on Google Play: https://play.google.com/store/apps/details?id=com.mareksebera.dilbert
+Project is published on Google Play: https://play.google.com/store/apps/details?id=com.mareksebera.simpledilbert
 
 Screenshots can be seen on gh-pages: http://smarek.github.io/Simple-Dilbert/
 
