@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F0"
+    android:background="@drawable/widget_background"
     android:orientation="vertical"
     android:padding="5dp" >
 
@@ -11,7 +11,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/widget_image"
