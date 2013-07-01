@@ -10,11 +10,6 @@ import java.util.Locale;
 import java.util.Random;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.CharArrayBuffer;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
@@ -27,7 +22,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -44,7 +38,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 /**
@@ -85,6 +78,19 @@ public class DilbertActivity extends SherlockActivity {
 		 * */
 		DateTimeZone.setDefault(TIME_ZONE);
 	}
+
+	private GetStripUrlInterface imageLoadingListener = new GetStripUrlInterface() {
+
+		@Override
+		public void imageLoadFailed(String url, FailReason reason) {
+			dilbertImageLoadingListener.onLoadingFailed(url, imageView, reason);
+		}
+
+		@Override
+		public void displayImage(String url) {
+			DilbertActivity.this.displayImage(url);
+		}
+	};
 
 	private ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
 		/**
@@ -252,7 +258,8 @@ public class DilbertActivity extends SherlockActivity {
 		if (cachedUrl != null) {
 			displayImage(cachedUrl);
 		} else {
-			new GetStripUrl().execute(dateKey);
+			new GetStripUrl(imageLoadingListener, preferences, currentDate,
+					progressBar).execute(dateKey);
 		}
 	}
 
@@ -535,76 +542,6 @@ public class DilbertActivity extends SherlockActivity {
 		} finally {
 			instream.close();
 		}
-	}
-
-	/**
-	 * AsyncTask to get and parse url from dilbert html pages
-	 * */
-	private class GetStripUrl extends AsyncTask<String, Void, String> {
-
-		private String date = null;
-
-		@Override
-		protected String doInBackground(String... params) {
-			if (params.length == 0) {
-				return null;
-			}
-			date = params[0];
-			HttpGet get = new HttpGet("http://dilbert.com/strips/comic/"
-					+ params[0] + "/");
-			try {
-				HttpClient client = new DefaultHttpClient();
-				HttpResponse response = client.execute(get);
-				return DilbertActivity.toString(response.getEntity());
-			} catch (Exception e) {
-				Log.e(TAG, "HttpGet failed", e);
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			if (result != null) {
-				for (String s : FindUrls.extractUrls(result)) {
-					/**
-					 * This method can only accept gif URLs with appropriate
-					 * suffixes
-					 * */
-					if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")) {
-						s = s.replace(".strip.gif", ".strip.zoom.gif");
-						s = s.replace(".sunday.gif", ".strip.zoom.gif");
-						s = s.replace(".strip.strip", ".strip");
-						/**
-						 * This is the only place where pair date-url is saved
-						 * into preferences
-						 * */
-						preferences.saveCurrentUrl(date, s);
-						/**
-						 * Not using method loadImage() as it would be
-						 * inefficient
-						 * */
-						displayImage(s);
-						return;
-					}
-				}
-			}
-			/**
-			 * If gif url could not be found in parsed HTML, we will throw error
-			 * via UIL library listener
-			 * */
-			dilbertImageLoadingListener.onLoadingFailed(preferences
-					.getCachedUrl(currentDate), imageView, new FailReason(
-					FailType.NETWORK_DENIED, new ParseException()));
-		}
-
-		/**
-		 * Indicates that there is any work in progress
-		 * */
-		@Override
-		protected void onPreExecute() {
-			progressBar.setVisibility(View.VISIBLE);
-		}
-
 	}
 
 }

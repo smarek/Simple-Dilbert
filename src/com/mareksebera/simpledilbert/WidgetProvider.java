@@ -15,6 +15,11 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 public class WidgetProvider extends AppWidgetProvider {
 
+	/**
+	 * TODO: Widget configuration class, allow rotation +-90
+	 * TODO: Add widget buttons for browsing and launching internal classes (zoom, favorite)
+	 * */
+	
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
