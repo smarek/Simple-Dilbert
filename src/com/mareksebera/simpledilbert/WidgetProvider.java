@@ -96,7 +96,7 @@ public class WidgetProvider extends AppWidgetProvider {
 										loadedImage);
 								views.setTextViewText(
 										R.id.widget_title,
-										prefs.getCurrentDate()
+										prefs.getDateForWidgetId(appWidgetId)
 												.toString(
 														DilbertPreferences.DATE_FORMATTER));
 								appWidgetManager.updateAppWidget(appWidgetId,
