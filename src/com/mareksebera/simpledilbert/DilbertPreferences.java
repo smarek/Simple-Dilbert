@@ -2,7 +2,9 @@ package com.mareksebera.simpledilbert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.format.DateTimeFormat;
@@ -153,6 +155,30 @@ public class DilbertPreferences {
 
 	public String toLowQuality(String url) {
 		return url.replace(".zoom.gif", ".gif").replace("zoom.zoom", "zoom");
+	}
+
+	public boolean saveDateForWidgetId(int appWidgetId, DateMidnight date) {
+		return editor.putString("widget_" + appWidgetId,
+				date.toString(DATE_FORMATTER)).commit();
+	}
+
+	public DateMidnight getDateForWidgetId(int appWidgetId) {
+		String savedDate = preferences.getString("widget_" + appWidgetId, null);
+		if (savedDate == null)
+			return DateMidnight.now();
+		else
+			return DateMidnight.parse(savedDate, DATE_FORMATTER);
+	}
+
+	public static DateMidnight getRandomDateMidnight() {
+		Random random = new Random();
+		DateMidnight now = DateMidnight.now();
+		int year = 1989 + random.nextInt(now.getYear() - 1989);
+		int month = 1 + random.nextInt(12);
+		int day = random.nextInt(31);
+		return DateMidnight.parse(
+				String.format(new Locale("en"), "%d-%d-1", year, month))
+				.plusDays(day);
 	}
 
 }

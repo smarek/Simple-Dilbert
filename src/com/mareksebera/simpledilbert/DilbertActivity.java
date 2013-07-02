@@ -7,7 +7,6 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Random;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.util.CharArrayBuffer;
@@ -385,14 +384,7 @@ public class DilbertActivity extends SherlockActivity {
 	 * {#onDateSet(DateMidnight)} filter
 	 * */
 	private void displayRandom() {
-		Random random = new Random();
-		DateMidnight now = DateMidnight.now();
-		int year = 1989 + random.nextInt(now.getYear() - 1989);
-		int month = 1 + random.nextInt(12);
-		int day = random.nextInt(31);
-		onDateSet(DateMidnight.parse(
-				String.format(new Locale("en"), "%d-%d-1", year, month))
-				.plusDays(day));
+		onDateSet(DilbertPreferences.getRandomDateMidnight());
 	}
 
 	/**
