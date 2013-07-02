@@ -31,7 +31,7 @@
         <ImageButton
             android:id="@+id/widget_random"
             android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:background="@drawable/widget_button_background"
             android:contentDescription="@string/widget_cd_random"
             android:padding="5dp"
@@ -42,7 +42,7 @@
         <ImageButton
             android:id="@+id/widget_previous"
             android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:layout_margin="0dp"
             android:background="@drawable/widget_button_background"
             android:contentDescription="@string/widget_cd_previous"
@@ -54,7 +54,7 @@
         <ImageButton
             android:id="@+id/widget_next"
             android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:layout_margin="0dp"
             android:background="@drawable/widget_button_background"
             android:contentDescription="@string/widget_cd_next"
@@ -65,7 +65,7 @@
         <ImageButton
             android:id="@+id/widget_latest"
             android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:layout_margin="0dp"
             android:background="@drawable/widget_button_background"
             android:contentDescription="@string/widget_cd_latest"
