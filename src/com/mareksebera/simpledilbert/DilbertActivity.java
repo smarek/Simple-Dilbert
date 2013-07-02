@@ -258,7 +258,7 @@ public class DilbertActivity extends SherlockActivity {
 			displayImage(cachedUrl);
 		} else {
 			new GetStripUrl(imageLoadingListener, preferences, currentDate,
-					progressBar).execute(dateKey);
+					progressBar).execute();
 		}
 	}
 

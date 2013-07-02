@@ -40,12 +40,12 @@ class GetStripUrl extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected String doInBackground(String... params) {
-		if (params.length == 0) {
+		if (currDate == null) {
+			Log.e(TAG, "Cannot load for null date");
 			return null;
 		}
-		date = params[0];
 		HttpGet get = new HttpGet("http://dilbert.com/strips/comic/"
-				+ params[0] + "/");
+				+ currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
 		try {
 			HttpClient client = new DefaultHttpClient();
 			HttpResponse response = client.execute(get);
