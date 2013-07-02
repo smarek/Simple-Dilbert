@@ -28,5 +28,9 @@
     <string name="menu_random">Random</string>
     <string name="share_chooser">Share Dilbert Comics</string>
     <string name="menu_share">Share this!</string>
+    <string name="widget_cd_next">Next</string>
+    <string name="widget_cd_latest">Latest</string>
+    <string name="widget_cd_previous">Previous</string>
+    <string name="widget_cd_random">Random</string>
 
 </resources>
