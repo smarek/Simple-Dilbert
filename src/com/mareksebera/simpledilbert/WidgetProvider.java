@@ -88,16 +88,20 @@ public class WidgetProvider extends AppWidgetProvider {
 						@Override
 						public void onLoadingComplete(String imageUri,
 								View view, Bitmap loadedImage) {
-							views.setViewVisibility(R.id.widget_progress,
-									View.GONE);
-							views.setImageViewBitmap(R.id.widget_image,
-									loadedImage);
-							views.setTextViewText(
-									R.id.widget_title,
-									prefs.getCurrentDate().toString(
-											DilbertPreferences.DATE_FORMATTER));
-							appWidgetManager
-									.updateAppWidget(appWidgetId, views);
+							if (imageUri.equals(prefs.getCachedUrl(prefs
+									.getDateForWidgetId(appWidgetId)))) {
+								views.setViewVisibility(R.id.widget_progress,
+										View.GONE);
+								views.setImageViewBitmap(R.id.widget_image,
+										loadedImage);
+								views.setTextViewText(
+										R.id.widget_title,
+										prefs.getCurrentDate()
+												.toString(
+														DilbertPreferences.DATE_FORMATTER));
+								appWidgetManager.updateAppWidget(appWidgetId,
+										views);
+							}
 						}
 					});
 		}
