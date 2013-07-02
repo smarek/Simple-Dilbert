@@ -22,7 +22,6 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
-import com.mareksebera.simpledilbert.R;
 
 public class DilbertPreferences {
 
@@ -179,6 +178,10 @@ public class DilbertPreferences {
 		return DateMidnight.parse(
 				String.format(new Locale("en"), "%d-%d-1", year, month))
 				.plusDays(day);
+	}
+
+	public boolean deleteDateForWidgetId(int widgetId) {
+		return editor.remove("widget_" + widgetId).commit();
 	}
 
 }

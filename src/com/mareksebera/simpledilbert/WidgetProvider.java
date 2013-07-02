@@ -14,36 +14,18 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 public class WidgetProvider extends AppWidgetProvider {
 
-	/**
-	 * TODO: Widget configuration class, allow rotation +-90 TODO: Add widget
-	 * buttons for browsing and launching internal classes (zoom, favorite)
-	 * */
-
-	@Override
-	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-			int[] appWidgetIds) {
-
-		final int widgetCount = appWidgetIds.length;
-		for (int i = 0; i < widgetCount; i++) {
-			int appWidgetId = appWidgetIds[i];
-			updateAppWidget(context, appWidgetManager, appWidgetId);
-		}
-	}
-
-	@Override
-	public void onEnabled(Context context) {
-		AppController.configureImageLoader(context);
-	}
-
 	public static final String TAG = "Dilbert Widget";
+
 	private static final String INTENT_PREVIOUS = "com.mareksebera.simpledilbert.widget.PREVIOUS";
 	private static final String INTENT_NEXT = "com.mareksebera.simpledilbert.widget.NEXT";
 	private static final String INTENT_LATEST = "com.mareksebera.simpledilbert.widget.LATEST";
 	private static final String INTENT_RANDOM = "com.mareksebera.simpledilbert.widget.RANDOM";
+
 	private static Toast currentToast = null;
 
 	private static PendingIntent getPendingIntent(String INTENT,
@@ -52,6 +34,71 @@ public class WidgetProvider extends AppWidgetProvider {
 		intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 		return PendingIntent.getBroadcast(context, 0, intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
+	}
+
+	static void updateAppWidget(final Context context,
+			final AppWidgetManager appWidgetManager, final int appWidgetId) {
+		Log.d(TAG, "updateAppWidget for " + appWidgetId);
+
+		final RemoteViews views = new RemoteViews(context.getPackageName(),
+				R.layout.widget_layout);
+		views.setOnClickPendingIntent(R.id.widget_previous,
+				getPendingIntent(INTENT_PREVIOUS, context, appWidgetId));
+		views.setOnClickPendingIntent(R.id.widget_next,
+				getPendingIntent(INTENT_NEXT, context, appWidgetId));
+		views.setOnClickPendingIntent(R.id.widget_latest,
+				getPendingIntent(INTENT_LATEST, context, appWidgetId));
+		views.setOnClickPendingIntent(R.id.widget_random,
+				getPendingIntent(INTENT_RANDOM, context, appWidgetId));
+
+		final DilbertPreferences prefs = new DilbertPreferences(context);
+		final DateMidnight currentDate = prefs.getDateForWidgetId(appWidgetId);
+		final String cachedUrl = prefs.getCachedUrl(currentDate);
+		if (cachedUrl == null) {
+			Log.d(TAG,
+					"Must load url for "
+							+ currentDate
+									.toString(DilbertPreferences.DATE_FORMATTER));
+			new GetStripUrl(new GetStripUrlInterface() {
+
+				@Override
+				public void imageLoadFailed(String url, FailReason reason) {
+					Log.d(TAG, "url: " + url);
+					Toast.makeText(context, "Image Loading failed",
+							Toast.LENGTH_SHORT).show();
+					views.setImageViewResource(R.id.widget_image,
+							R.drawable.cancel);
+					appWidgetManager.updateAppWidget(appWidgetId, views);
+				}
+
+				@Override
+				public void displayImage(String url) {
+					updateAppWidget(context, appWidgetManager, appWidgetId);
+				}
+			}, prefs, currentDate).execute();
+		} else {
+			ImageLoader.getInstance().loadImage(cachedUrl,
+					new SimpleImageLoadingListener() {
+						@Override
+						public void onLoadingComplete(String imageUri,
+								View view, Bitmap loadedImage) {
+							views.setImageViewBitmap(R.id.widget_image,
+									loadedImage);
+							views.setTextViewText(
+									R.id.widget_title,
+									prefs.getCurrentDate().toString(
+											DilbertPreferences.DATE_FORMATTER));
+							appWidgetManager
+									.updateAppWidget(appWidgetId, views);
+						}
+					});
+		}
+
+	}
+
+	@Override
+	public void onEnabled(Context context) {
+		AppController.configureImageLoader(context);
 	}
 
 	@Override
@@ -82,7 +129,8 @@ public class WidgetProvider extends AppWidgetProvider {
 			currentToast = Toast.makeText(context, "Showing Latest",
 					Toast.LENGTH_SHORT);
 		} else if (action.equals(INTENT_RANDOM)) {
-			preferences.saveDateForWidgetId(appWidgetId, DilbertPreferences.getRandomDateMidnight());
+			preferences.saveDateForWidgetId(appWidgetId,
+					DilbertPreferences.getRandomDateMidnight());
 			currentToast = Toast.makeText(context, "Showing Random",
 					Toast.LENGTH_SHORT);
 		}
@@ -93,46 +141,23 @@ public class WidgetProvider extends AppWidgetProvider {
 		super.onReceive(context, intent);
 	}
 
-	static void updateAppWidget(Context context,
-			final AppWidgetManager appWidgetManager, final int appWidgetId) {
-		Log.d(TAG, "updateAppWidget for " + appWidgetId);
-		// create views and hook buttons
-		final RemoteViews views = new RemoteViews(context.getPackageName(),
-				R.layout.widget_layout);
-		views.setOnClickPendingIntent(R.id.widget_previous,
-				getPendingIntent(INTENT_PREVIOUS, context, appWidgetId));
-		views.setOnClickPendingIntent(R.id.widget_next,
-				getPendingIntent(INTENT_NEXT, context, appWidgetId));
-		views.setOnClickPendingIntent(R.id.widget_latest,
-				getPendingIntent(INTENT_LATEST, context, appWidgetId));
-		views.setOnClickPendingIntent(R.id.widget_random,
-				getPendingIntent(INTENT_RANDOM, context, appWidgetId));
-		// display image to widget
-		final DilbertPreferences prefs = new DilbertPreferences(context);
-		final DateMidnight currentDate = prefs.getDateForWidgetId(appWidgetId);
-		final String cachedUrl = prefs.getCachedUrl(currentDate);
-		if (cachedUrl == null) {
-			Log.d(TAG,
-					"Must load url for "
-							+ currentDate
-									.toString(DilbertPreferences.DATE_FORMATTER));
-		} else {
-			ImageLoader.getInstance().loadImage(cachedUrl,
-					new SimpleImageLoadingListener() {
-						@Override
-						public void onLoadingComplete(String imageUri,
-								View view, Bitmap loadedImage) {
-							views.setImageViewBitmap(R.id.widget_image,
-									loadedImage);
-							views.setTextViewText(
-									R.id.widget_title,
-									prefs.getCurrentDate().toString(
-											DilbertPreferences.DATE_FORMATTER));
-							appWidgetManager
-									.updateAppWidget(appWidgetId, views);
-						}
-					});
-		}
+	@Override
+	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
+			int[] appWidgetIds) {
 
+		final int widgetCount = appWidgetIds.length;
+		for (int i = 0; i < widgetCount; i++) {
+			updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+		}
+	}
+	
+	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		if(appWidgetIds == null)
+			return;
+		DilbertPreferences prefs = new DilbertPreferences(context);
+		for(int widgetId : appWidgetIds){
+			prefs.deleteDateForWidgetId(widgetId);
+		}
 	}
 }
