@@ -1,6 +1,7 @@
 package com.mareksebera.simpledilbert;
 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTimeZone;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -20,7 +21,13 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 public class WidgetProvider extends AppWidgetProvider {
 
 	public static final String TAG = "Dilbert Widget";
-
+	static {
+		/**
+		 * Set default time-zone, because strips are published in New York
+		 * timezone on midnight
+		 * */
+		DateTimeZone.setDefault(DilbertPreferences.TIME_ZONE);
+	}
 	private static final String INTENT_PREVIOUS = "com.mareksebera.simpledilbert.widget.PREVIOUS";
 	private static final String INTENT_NEXT = "com.mareksebera.simpledilbert.widget.NEXT";
 	private static final String INTENT_LATEST = "com.mareksebera.simpledilbert.widget.LATEST";
@@ -54,11 +61,9 @@ public class WidgetProvider extends AppWidgetProvider {
 		final DilbertPreferences prefs = new DilbertPreferences(context);
 		final DateMidnight currentDate = prefs.getDateForWidgetId(appWidgetId);
 		final String cachedUrl = prefs.getCachedUrl(currentDate);
+		views.setViewVisibility(R.id.widget_progress, View.VISIBLE);
+		appWidgetManager.updateAppWidget(appWidgetId, views);
 		if (cachedUrl == null) {
-			Log.d(TAG,
-					"Must load url for "
-							+ currentDate
-									.toString(DilbertPreferences.DATE_FORMATTER));
 			new GetStripUrl(new GetStripUrlInterface() {
 
 				@Override
@@ -68,6 +73,7 @@ public class WidgetProvider extends AppWidgetProvider {
 							Toast.LENGTH_SHORT).show();
 					views.setImageViewResource(R.id.widget_image,
 							R.drawable.cancel);
+					views.setViewVisibility(R.id.widget_progress, View.GONE);
 					appWidgetManager.updateAppWidget(appWidgetId, views);
 				}
 
@@ -82,6 +88,8 @@ public class WidgetProvider extends AppWidgetProvider {
 						@Override
 						public void onLoadingComplete(String imageUri,
 								View view, Bitmap loadedImage) {
+							views.setViewVisibility(R.id.widget_progress,
+									View.GONE);
 							views.setImageViewBitmap(R.id.widget_image,
 									loadedImage);
 							views.setTextViewText(
@@ -98,6 +106,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	@Override
 	public void onEnabled(Context context) {
+		super.onEnabled(context);
 		AppController.configureImageLoader(context);
 	}
 
@@ -117,22 +126,14 @@ public class WidgetProvider extends AppWidgetProvider {
 		if (action.equals(INTENT_PREVIOUS)) {
 			preferences.saveDateForWidgetId(appWidgetId, preferences
 					.getDateForWidgetId(appWidgetId).minusDays(1));
-			currentToast = Toast.makeText(context, "Showing Previous",
-					Toast.LENGTH_SHORT);
 		} else if (action.equals(INTENT_NEXT)) {
 			preferences.saveDateForWidgetId(appWidgetId, preferences
 					.getDateForWidgetId(appWidgetId).plusDays(1));
-			currentToast = Toast.makeText(context, "Showing Next",
-					Toast.LENGTH_SHORT);
 		} else if (action.equals(INTENT_LATEST)) {
 			preferences.saveDateForWidgetId(appWidgetId, DateMidnight.now());
-			currentToast = Toast.makeText(context, "Showing Latest",
-					Toast.LENGTH_SHORT);
 		} else if (action.equals(INTENT_RANDOM)) {
 			preferences.saveDateForWidgetId(appWidgetId,
 					DilbertPreferences.getRandomDateMidnight());
-			currentToast = Toast.makeText(context, "Showing Random",
-					Toast.LENGTH_SHORT);
 		}
 		updateAppWidget(context, AppWidgetManager.getInstance(context),
 				appWidgetId);
@@ -150,13 +151,13 @@ public class WidgetProvider extends AppWidgetProvider {
 			updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
 		}
 	}
-	
+
 	@Override
 	public void onDeleted(Context context, int[] appWidgetIds) {
-		if(appWidgetIds == null)
+		if (appWidgetIds == null)
 			return;
 		DilbertPreferences prefs = new DilbertPreferences(context);
-		for(int widgetId : appWidgetIds){
+		for (int widgetId : appWidgetIds) {
 			prefs.deleteDateForWidgetId(widgetId);
 		}
 	}

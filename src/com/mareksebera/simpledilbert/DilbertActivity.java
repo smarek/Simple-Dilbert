@@ -13,7 +13,6 @@ import org.apache.http.util.CharArrayBuffer;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -21,7 +20,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -62,8 +60,6 @@ public class DilbertActivity extends SherlockActivity {
 			MENU_SHARE = 12;
 	private DateMidnight currentDate;
 	private static final String TAG = "DilbertActivity";
-	private static final DateTimeZone TIME_ZONE = DateTimeZone
-			.forID("America/New_York");
 
 	private ImageView imageView;
 	private DilbertPreferences preferences;
@@ -75,7 +71,7 @@ public class DilbertActivity extends SherlockActivity {
 		 * Set default time-zone, because strips are published in New York
 		 * timezone on midnight
 		 * */
-		DateTimeZone.setDefault(TIME_ZONE);
+		DateTimeZone.setDefault(DilbertPreferences.TIME_ZONE);
 	}
 
 	private GetStripUrlInterface imageLoadingListener = new GetStripUrlInterface() {
@@ -167,7 +163,7 @@ public class DilbertActivity extends SherlockActivity {
 
 		@Override
 		public void left2right(View v) {
-			if (!currentDate.equals(getFirstStripDate())) {
+			if (!currentDate.equals(DilbertPreferences.getFirstStripDate())) {
 				setCurrentDate(currentDate.minusDays(1));
 			} else {
 				Toast.makeText(DilbertActivity.this, R.string.no_older_strip,
@@ -177,7 +173,8 @@ public class DilbertActivity extends SherlockActivity {
 
 		@Override
 		public void right2left(View v) {
-			if (!currentDate.equals(DateMidnight.now(TIME_ZONE))) {
+			if (!currentDate.equals(DateMidnight
+					.now(DilbertPreferences.TIME_ZONE))) {
 				setCurrentDate(currentDate.plusDays(1));
 			} else {
 				Toast.makeText(DilbertActivity.this, R.string.no_newer_strip,
@@ -191,7 +188,6 @@ public class DilbertActivity extends SherlockActivity {
 	 * Shows image for url only if it's current date's url (for moving multiple
 	 * images at once via swiping)
 	 * */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void displayImage(String url) {
 		String imageUrl = url;
 		if (imageUrl != null
@@ -204,16 +200,6 @@ public class DilbertActivity extends SherlockActivity {
 			ImageLoader.getInstance().displayImage(imageUrl, imageView,
 					dilbertImageLoadingListener);
 		}
-	}
-
-	/**
-	 * First strip was published on 16.4.1989
-	 * 
-	 * @see <a href="http://en.wikipedia.org/wiki/Dilbert">Wikipedia</a>
-	 * */
-	private DateMidnight getFirstStripDate() {
-		return DateMidnight.parse("1989-04-16",
-				DilbertPreferences.DATE_FORMATTER);
 	}
 
 	/**
@@ -324,7 +310,7 @@ public class DilbertActivity extends SherlockActivity {
 			showAboutDialog();
 			return true;
 		case MENU_LATEST:
-			setCurrentDate(DateMidnight.now(TIME_ZONE));
+			setCurrentDate(DateMidnight.now(DilbertPreferences.TIME_ZONE));
 			return true;
 		case MENU_REFRESH:
 			preferences.removeCache(currentDate);
@@ -392,12 +378,7 @@ public class DilbertActivity extends SherlockActivity {
 	 * {#displayRandom()} function
 	 * */
 	public void onDateSet(DateMidnight selDate) {
-		if (selDate.isAfterNow()) {
-			selDate = DateMidnight.now(TIME_ZONE);
-		}
-		if (selDate.isBefore(getFirstStripDate())) {
-			selDate = getFirstStripDate();
-		}
+		selDate = DilbertPreferences.validateDate(selDate);
 		if (!selDate.equals(currentDate)) {
 			setCurrentDate(selDate);
 		}

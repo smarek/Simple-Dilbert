@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -32,6 +33,8 @@ public class DilbertPreferences {
 	private static final String PREF_CURRENT_URL = "dilbert_current_url";
 	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
 	private static final String TAG = "DilbertPreferences";
+	public static final DateTimeZone TIME_ZONE = DateTimeZone
+			.forID("America/New_York");
 
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("yyyy-MM-dd");
@@ -157,6 +160,7 @@ public class DilbertPreferences {
 	}
 
 	public boolean saveDateForWidgetId(int appWidgetId, DateMidnight date) {
+		date = validateDate(date);
 		return editor.putString("widget_" + appWidgetId,
 				date.toString(DATE_FORMATTER)).commit();
 	}
@@ -180,8 +184,28 @@ public class DilbertPreferences {
 				.plusDays(day);
 	}
 
+	/**
+	 * First strip was published on 16.4.1989
+	 * 
+	 * @see <a href="http://en.wikipedia.org/wiki/Dilbert">Wikipedia</a>
+	 * */
+	public static DateMidnight getFirstStripDate() {
+		return DateMidnight.parse("1989-04-16",
+				DilbertPreferences.DATE_FORMATTER);
+	}
+
 	public boolean deleteDateForWidgetId(int widgetId) {
 		return editor.remove("widget_" + widgetId).commit();
+	}
+
+	public static DateMidnight validateDate(DateMidnight selDate) {
+		if (selDate.isAfterNow()) {
+			selDate = DateMidnight.now(DilbertPreferences.TIME_ZONE);
+		}
+		if (selDate.isBefore(DilbertPreferences.getFirstStripDate())) {
+			selDate = DilbertPreferences.getFirstStripDate();
+		}
+		return selDate;
 	}
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:layout_margin="0dp"
     android:background="@drawable/widget_background"
     android:orientation="vertical"
@@ -74,13 +74,27 @@
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/widget_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/cd_dilbert_image"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/widget_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/cd_dilbert_image"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp" />
+
+        <ProgressBar
+            android:id="@+id/widget_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </LinearLayout>

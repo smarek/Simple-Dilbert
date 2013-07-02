@@ -15,10 +15,9 @@ import android.widget.ProgressBar;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 
-class GetStripUrl extends AsyncTask<String, Void, String> {
+class GetStripUrl extends AsyncTask<Void, Void, String> {
 
 	private static final String TAG = "GetStripUrl";
-	private String date = null;
 	private DilbertPreferences preferences;
 	private ProgressBar progressBar;
 	private DateMidnight currDate;
@@ -39,12 +38,12 @@ class GetStripUrl extends AsyncTask<String, Void, String> {
 	}
 
 	@Override
-	protected String doInBackground(String... params) {
-		if (currDate == null) {
+	protected String doInBackground(Void... params) {
+		if (this.currDate == null) {
 			Log.e(TAG, "Cannot load for null date");
 			return null;
 		}
-		HttpGet get = new HttpGet("http://dilbert.com/strips/comic/"
+		HttpGet get = new HttpGet("http://www.dilbert.com/strips/comic/"
 				+ currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
 		try {
 			HttpClient client = new DefaultHttpClient();
@@ -59,12 +58,15 @@ class GetStripUrl extends AsyncTask<String, Void, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		if (result != null) {
+			result = result.replace("\"/dyn/str_strip",
+					"\"http://www.dilbert.com/dyn/str_strip");
 			for (String s : FindUrls.extractUrls(result)) {
 				/**
 				 * This method can only accept gif URLs with appropriate
 				 * suffixes
 				 * */
-				if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")) {
+				if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")
+						|| s.endsWith(".strip.zoom.gif")) {
 					s = s.replace(".strip.gif", ".strip.zoom.gif");
 					s = s.replace(".sunday.gif", ".strip.zoom.gif");
 					s = s.replace(".strip.strip", ".strip");
@@ -72,7 +74,8 @@ class GetStripUrl extends AsyncTask<String, Void, String> {
 					 * This is the only place where pair date-url is saved into
 					 * preferences
 					 * */
-					preferences.saveCurrentUrl(date, s);
+					preferences.saveCurrentUrl(currDate
+							.toString(DilbertPreferences.DATE_FORMATTER), s);
 					/**
 					 * Not using method loadImage() as it would be inefficient
 					 * */
