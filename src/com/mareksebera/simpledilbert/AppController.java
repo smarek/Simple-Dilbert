@@ -1,5 +1,7 @@
 package com.mareksebera.simpledilbert;
 
+import org.joda.time.DateTimeZone;
+
 import android.app.Application;
 import android.content.Context;
 
@@ -13,6 +15,14 @@ public class AppController extends Application {
 	public void onCreate() {
 		super.onCreate();
 		configureImageLoader(this);
+	}
+
+	static {
+		/**
+		 * Set default time-zone, because strips are published in New York
+		 * timezone on midnight
+		 * */
+		DateTimeZone.setDefault(DilbertPreferences.TIME_ZONE);
 	}
 
 	public static void configureImageLoader(Context c) {

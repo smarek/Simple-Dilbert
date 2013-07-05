@@ -2,7 +2,6 @@ package com.mareksebera.simpledilbert;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -16,15 +15,13 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.mareksebera.simpledilbert.R;
 
 public class FavoritedActivity extends SherlockActivity {
 
 	private DilbertPreferences preferences = null;
 	private ListView listView;
 	private FavoritedAdapter listAdapter;
-	private static final int CONTEXT_REMOVE = 1, CONTEXT_DOWNLOAD = 2,
-			CONTEXT_ZOOM = 3;
+	private static final int CONTEXT_REMOVE = 1, CONTEXT_DOWNLOAD = 2;
 	private FavoritedItem contextMenuItem = null;
 
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
@@ -72,7 +69,6 @@ public class FavoritedActivity extends SherlockActivity {
 					R.string.context_favorites_remove);
 			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE,
 					R.string.menu_download);
-			menu.add(Menu.NONE, CONTEXT_ZOOM, Menu.NONE, R.string.menu_zoom);
 		}
 	}
 
@@ -91,18 +87,7 @@ public class FavoritedActivity extends SherlockActivity {
 			preferences.downloadImageViaManager(this, contextMenuItem.getUrl(),
 					contextMenuItem.getDate());
 			return true;
-		case CONTEXT_ZOOM:
-			if (contextMenuItem != null) {
-				Intent zoomImage = new Intent(this, ImageZoomActivity.class);
-				zoomImage.putExtra(
-						ImageZoomActivity.IN_IMAGE_DATE,
-						contextMenuItem.getDate().toString(
-								DilbertPreferences.DATE_FORMATTER));
-				zoomImage.putExtra(ImageZoomActivity.IN_IMAGE_URL,
-						preferences.getCachedUrl(contextMenuItem.getDate()));
-				startActivity(zoomImage);
-			}
-			return true;
+
 		}
 		return false;
 	}

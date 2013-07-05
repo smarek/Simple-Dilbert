@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name="com.mareksebera.simpledilbert.DilbertActivity"
+            android:name="com.mareksebera.simpledilbert.DilbertFragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

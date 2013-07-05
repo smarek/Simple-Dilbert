@@ -43,20 +43,20 @@ class GetStripUrl extends AsyncTask<Void, Void, String> {
 			Log.e(TAG, "Cannot load for null date");
 			return null;
 		}
+		String cached = this.preferences.getCachedUrl(this.currDate);
+		if (cached != null) {
+			return cached;
+		}
 		HttpGet get = new HttpGet("http://www.dilbert.com/strips/comic/"
 				+ currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
+		String result = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
 			HttpResponse response = client.execute(get);
-			return DilbertActivity.toString(response.getEntity());
+			result = EntityUtils.toString(response.getEntity());
 		} catch (Exception e) {
 			Log.e(TAG, "HttpGet failed", e);
 		}
-		return null;
-	}
-
-	@Override
-	protected void onPostExecute(String result) {
 		if (result != null) {
 			result = result.replace("\"/dyn/str_strip",
 					"\"http://www.dilbert.com/dyn/str_strip");
@@ -79,24 +79,28 @@ class GetStripUrl extends AsyncTask<Void, Void, String> {
 					/**
 					 * Not using method loadImage() as it would be inefficient
 					 * */
-					if (listener != null)
-						listener.displayImage(s);
-					else
-						Log.e(TAG, "listener is NULL");
-					return;
+					return s;
 				}
 			}
 		}
-		/**
-		 * If gif url could not be found in parsed HTML, we will throw error via
-		 * UIL library listener
-		 * */
-		if (listener != null)
-			listener.imageLoadFailed(preferences.getCachedUrl(currDate),
-					new FailReason(FailType.NETWORK_DENIED,
-							new ParseException()));
-		else
-			Log.e(TAG, "Listener is NULL");
+		return null;
+	}
+
+	@Override
+	protected void onPostExecute(String result) {
+		if (result == null) {
+			if (listener != null)
+				listener.imageLoadFailed(preferences.getCachedUrl(currDate),
+						new FailReason(FailType.NETWORK_DENIED,
+								new ParseException()));
+			else
+				Log.e(TAG, "Listener is NULL");
+		} else {
+			if (listener != null)
+				listener.displayImage(result);
+			else
+				Log.e(TAG, "listener is NULL");
+		}
 	}
 
 	/**
