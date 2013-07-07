@@ -26,6 +26,7 @@ public class FavoritedItem {
 	public void setDate(DateMidnight date) {
 		this.date = date;
 	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}

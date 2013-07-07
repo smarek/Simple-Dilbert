@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 public class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
@@ -35,7 +34,6 @@ public class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public Fragment getItem(int position) {
-		Log.d("getItem", "pos:" + position + ",countcache: " + countCache);
 		Fragment f = new DilbertFragment();
 		Bundle bundle = new Bundle();
 		bundle.putString(
@@ -58,8 +56,6 @@ public class DilbertFragmentAdapter extends FragmentPagerAdapter {
 	}
 
 	public int getPositionForDate(DateMidnight date) {
-		Log.d("getPositionForDate",
-				date.toString(DilbertPreferences.DATE_FORMATTER));
 		return getCount()
 				- Days.daysBetween(date, DateMidnight.now()).getDays();
 	}
