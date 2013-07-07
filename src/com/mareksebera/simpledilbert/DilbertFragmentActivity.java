@@ -118,7 +118,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	private void showAboutDialog() {
@@ -172,7 +172,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 			setCurrentDate(DilbertPreferences.getRandomDateMidnight());
 			return true;
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void showLicenseDialog() {

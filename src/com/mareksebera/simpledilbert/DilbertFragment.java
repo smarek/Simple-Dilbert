@@ -120,6 +120,10 @@ public class DilbertFragment extends SherlockFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case MENU_FAVORITE:
+			preferences.toggleIsFavorited(getDateFromArguments());
+			modifyFavoriteItem(item);
+			return true;
 		case MENU_ZOOM:
 			if (image != null && image.canZoom()) {
 				image.zoomTo(image.getMidScale(), image.getDisplayRect()
@@ -129,17 +133,13 @@ public class DilbertFragment extends SherlockFragment {
 		case MENU_SHARE:
 			shareCurrentStrip();
 			return true;
-		case MENU_FAVORITE:
-			preferences.toggleIsFavorited(getDateFromArguments());
-			modifyFavoriteItem(item);
-			return true;
 		case MENU_SAVE:
 			preferences.downloadImageViaManager(getSherlockActivity(),
 					preferences.getCachedUrl(getDateFromArguments()),
 					getDateFromArguments());
 			return true;
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void shareCurrentStrip() {
