@@ -162,17 +162,18 @@ public class DilbertFragment extends SherlockFragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		menu.add(Menu.NONE, MENU_FAVORITE, Menu.NONE,
+		int category = 0;
+		menu.add(category, MENU_FAVORITE, 1,
 				R.string.menu_favorite_remove)
 				.setIcon(R.drawable.ic_menu_not_favorited)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_ZOOM, Menu.NONE, R.string.menu_zoom)
+		menu.add(category, MENU_ZOOM, 4, R.string.menu_zoom)
 				.setIcon(R.drawable.ic_menu_zoom)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_SAVE, Menu.NONE, R.string.menu_download)
+		menu.add(category, MENU_SAVE, 3, R.string.menu_download)
 				.setIcon(R.drawable.ic_menu_save)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_SHARE, Menu.NONE, R.string.menu_share)
+		menu.add(category, MENU_SHARE, 2, R.string.menu_share)
 				.setIcon(R.drawable.ic_menu_share)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}

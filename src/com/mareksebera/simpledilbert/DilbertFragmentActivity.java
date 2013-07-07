@@ -98,25 +98,26 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(Menu.NONE, MENU_DATEPICKER, Menu.NONE,
+		int category = 0;
+		menu.add(category, MENU_DATEPICKER, 4,
 				R.string.menu_datepicker)
 				.setIcon(R.drawable.ic_menu_datepicker)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, MENU_SHUFFLE, Menu.NONE, R.string.menu_random)
+		menu.add(category, MENU_SHUFFLE, 1, R.string.menu_random)
 				.setIcon(R.drawable.ic_menu_shuffle)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		menu.add(Menu.NONE, MENU_SHOW_FAVORITES, Menu.NONE,
+		menu.add(category, MENU_SHOW_FAVORITES, 6,
 				R.string.menu_show_favorite).setShowAsActionFlags(
 				MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, MENU_LATEST, Menu.NONE, R.string.menu_latest)
+		menu.add(category, MENU_LATEST, 5, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, MENU_HIGHQUALITY, Menu.NONE,
+		menu.add(category, MENU_HIGHQUALITY, 5,
 				R.string.menu_high_quality).setCheckable(true)
 				.setChecked(preferences.isHighQualityOn());
-		menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about)
+		menu.add(category, MENU_ABOUT, 7, R.string.menu_about)
 				.setIcon(R.drawable.ic_menu_about)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(Menu.NONE, MENU_LICENSE, Menu.NONE, R.string.menu_license)
+		menu.add(category, MENU_LICENSE, 8, R.string.menu_license)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		return super.onCreateOptionsMenu(menu);
 	}
