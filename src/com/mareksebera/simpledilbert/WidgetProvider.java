@@ -9,7 +9,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -46,8 +45,6 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	static void updateAppWidget(final Context context,
 			final AppWidgetManager appWidgetManager, final int appWidgetId) {
-		Log.d(TAG, "updateAppWidget for " + appWidgetId);
-
 		final RemoteViews views = new RemoteViews(context.getPackageName(),
 				R.layout.widget_layout);
 		views.setOnClickPendingIntent(R.id.widget_previous,
@@ -71,7 +68,6 @@ public class WidgetProvider extends AppWidgetProvider {
 
 				@Override
 				public void imageLoadFailed(String url, FailReason reason) {
-					Log.d(TAG, "url: " + url);
 					Toast.makeText(context, "Image Loading failed",
 							Toast.LENGTH_SHORT).show();
 					views.setImageViewResource(R.id.widget_image,
