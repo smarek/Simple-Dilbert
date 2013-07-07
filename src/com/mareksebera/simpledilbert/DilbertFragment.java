@@ -3,7 +3,6 @@ package com.mareksebera.simpledilbert;
 import org.joda.time.DateMidnight;
 
 import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -30,7 +29,6 @@ public class DilbertFragment extends SherlockFragment {
 	private ProgressBar progress;
 	private DilbertPreferences preferences;
 	private GetStripUrl loadTask;
-	PhotoViewAttacher mAttacher;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	private GetStripUrlInterface getStripUrilListener = new GetStripUrlInterface() {
 
@@ -123,9 +121,10 @@ public class DilbertFragment extends SherlockFragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MENU_ZOOM:
-			mAttacher.zoomTo(mAttacher.getMidScale(), mAttacher
-					.getDisplayRect().centerX(), mAttacher.getDisplayRect()
-					.centerY());
+			if (image != null && image.canZoom()) {
+				image.zoomTo(image.getMidScale(), image.getDisplayRect()
+						.centerX(), image.getDisplayRect().centerY());
+			}
 			return true;
 		case MENU_SHARE:
 			shareCurrentStrip();
