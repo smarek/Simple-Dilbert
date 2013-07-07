@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
-import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.widget.DatePicker;
@@ -63,7 +62,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 		return rtn;
 	}
 
-	private ViewPager viewPager;
+	private FixedViewPager viewPager;
 	private DilbertFragmentAdapter adapter;
 	private DilbertPreferences preferences;
 	private PagerTitleStrip titles;
@@ -77,7 +76,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_dilbert_fragments);
-		viewPager = (ViewPager) findViewById(R.id.view_pager);
+		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
 		titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
 		preferences = new DilbertPreferences(this);
 		adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
