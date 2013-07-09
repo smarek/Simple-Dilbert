@@ -5,6 +5,7 @@ import org.joda.time.DateMidnight;
 import uk.co.senab.photoview.PhotoView;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 public class DilbertFragment extends SherlockFragment {
 
 	private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
-			MENU_ZOOM = -3, MENU_SHARE = -4;
+			MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5;
 	public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
 	private PhotoView image;
 	private ProgressBar progress;
@@ -65,8 +66,10 @@ public class DilbertFragment extends SherlockFragment {
 				FailReason failReason) {
 			progress.setVisibility(View.GONE);
 			image.setImageResource(R.drawable.cancel);
-			Toast.makeText(getActivity(), R.string.loading_exception_error,
-					Toast.LENGTH_SHORT).show();
+			if (getSherlockActivity() != null)
+				Toast.makeText(getSherlockActivity(),
+						R.string.loading_exception_error, Toast.LENGTH_SHORT)
+						.show();
 		}
 
 		@Override
@@ -133,6 +136,14 @@ public class DilbertFragment extends SherlockFragment {
 		case MENU_SHARE:
 			shareCurrentStrip();
 			return true;
+		case MENU_REFRESH:
+			preferences.removeCache(getDateFromArguments());
+			if (this.loadTask != null
+					&& this.loadTask.getStatus() != Status.PENDING) {
+				this.loadTask = new GetStripUrl(getStripUrilListener,
+						preferences, getDateFromArguments());
+			}
+			this.loadTask.execute();
 		case MENU_SAVE:
 			preferences.downloadImageViaManager(getSherlockActivity(),
 					preferences.getCachedUrl(getDateFromArguments()),
@@ -155,16 +166,17 @@ public class DilbertFragment extends SherlockFragment {
 			startActivity(Intent.createChooser(i,
 					getString(R.string.share_chooser)));
 		} catch (Exception e) {
-			Toast.makeText(getSherlockActivity(),
-					R.string.loading_exception_error, Toast.LENGTH_LONG).show();
+			if (getSherlockActivity() != null)
+				Toast.makeText(getSherlockActivity(),
+						R.string.loading_exception_error, Toast.LENGTH_LONG)
+						.show();
 		}
 	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		int category = 0;
-		menu.add(category, MENU_FAVORITE, 1,
-				R.string.menu_favorite_remove)
+		menu.add(category, MENU_FAVORITE, 1, R.string.menu_favorite_remove)
 				.setIcon(R.drawable.ic_menu_not_favorited)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(category, MENU_ZOOM, 4, R.string.menu_zoom)
@@ -176,6 +188,9 @@ public class DilbertFragment extends SherlockFragment {
 		menu.add(category, MENU_SHARE, 2, R.string.menu_share)
 				.setIcon(R.drawable.ic_menu_share)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(category, MENU_REFRESH, 5, R.string.menu_refresh)
+				.setIcon(R.drawable.ic_menu_refresh)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 	}
 
 }
