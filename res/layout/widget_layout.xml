@@ -29,6 +29,17 @@
             android:textSize="20sp" />
 
         <ImageButton
+            android:id="@+id/widget_refresh"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/widget_button_background"
+            android:contentDescription="@string/widget_cd_random"
+            android:padding="5dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_menu_refresh"
+            android:textColor="#FFFFFF" />
+
+        <ImageButton
             android:id="@+id/widget_random"
             android:layout_width="30dp"
             android:layout_height="30dp"

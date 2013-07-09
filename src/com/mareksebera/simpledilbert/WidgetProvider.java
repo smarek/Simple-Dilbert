@@ -31,6 +31,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	private static final String INTENT_NEXT = "com.mareksebera.simpledilbert.widget.NEXT";
 	private static final String INTENT_LATEST = "com.mareksebera.simpledilbert.widget.LATEST";
 	private static final String INTENT_RANDOM = "com.mareksebera.simpledilbert.widget.RANDOM";
+	private static final String INTENT_REFRESH = "com.mareksebera.simpledilbert.widget.REFRESH";
 	private static final String INTENT_DISPLAY = "com.mareksebera.simpledilbert.widget.DISPLAY";
 
 	private static Toast currentToast = null;
@@ -57,6 +58,8 @@ public class WidgetProvider extends AppWidgetProvider {
 				getPendingIntent(INTENT_RANDOM, context, appWidgetId));
 		views.setOnClickPendingIntent(R.id.widget_image,
 				getPendingIntent(INTENT_DISPLAY, context, appWidgetId));
+		views.setOnClickPendingIntent(R.id.widget_refresh,
+				getPendingIntent(INTENT_REFRESH, context, appWidgetId));
 
 		final DilbertPreferences prefs = new DilbertPreferences(context);
 		final DateMidnight currentDate = prefs.getDateForWidgetId(appWidgetId);
@@ -137,6 +140,9 @@ public class WidgetProvider extends AppWidgetProvider {
 		} else if (action.equals(INTENT_RANDOM)) {
 			preferences.saveDateForWidgetId(appWidgetId,
 					DilbertPreferences.getRandomDateMidnight());
+		} else if (action.equals(INTENT_REFRESH)) {
+			preferences
+					.removeCache(preferences.getDateForWidgetId(appWidgetId));
 		} else if (action.equals(INTENT_DISPLAY)) {
 			preferences.saveCurrentDate(preferences
 					.getDateForWidgetId(appWidgetId));
