@@ -144,6 +144,7 @@ public class DilbertFragment extends SherlockFragment {
 						preferences, getDateFromArguments());
 			}
 			this.loadTask.execute();
+			break;
 		case MENU_SAVE:
 			preferences.downloadImageViaManager(getSherlockActivity(),
 					preferences.getCachedUrl(getDateFromArguments()),
