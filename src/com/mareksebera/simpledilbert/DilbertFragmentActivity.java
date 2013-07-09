@@ -41,7 +41,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			DateMidnight selDate = DateMidnight.parse(String.format(new Locale(
-					"en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
+					"en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth - 1),
 					DilbertPreferences.DATE_FORMATTER);
 			setCurrentDate(selDate);
 		}
