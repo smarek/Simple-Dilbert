@@ -32,5 +32,6 @@
     <string name="widget_cd_latest">Latest</string>
     <string name="widget_cd_previous">Previous</string>
     <string name="widget_cd_random">Random</string>
+    <string name="menu_open">Show</string>
 
 </resources>

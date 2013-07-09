@@ -21,7 +21,8 @@ public class FavoritedActivity extends SherlockActivity {
 	private DilbertPreferences preferences = null;
 	private ListView listView;
 	private FavoritedAdapter listAdapter;
-	private static final int CONTEXT_REMOVE = 1, CONTEXT_DOWNLOAD = 2;
+	private static final int CONTEXT_REMOVE = 1, CONTEXT_DOWNLOAD = 2,
+			CONTEXT_DISPLAY = 3;
 	private FavoritedItem contextMenuItem = null;
 
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
@@ -69,6 +70,7 @@ public class FavoritedActivity extends SherlockActivity {
 					R.string.context_favorites_remove);
 			menu.add(Menu.NONE, CONTEXT_DOWNLOAD, Menu.NONE,
 					R.string.menu_download);
+			menu.add(Menu.NONE, CONTEXT_DISPLAY, Menu.NONE, R.string.menu_open);
 		}
 	}
 
@@ -86,6 +88,10 @@ public class FavoritedActivity extends SherlockActivity {
 		case CONTEXT_DOWNLOAD:
 			preferences.downloadImageViaManager(this, contextMenuItem.getUrl(),
 					contextMenuItem.getDate());
+			return true;
+		case CONTEXT_DISPLAY:
+			preferences.saveCurrentDate(contextMenuItem.getDate());
+			finish();
 			return true;
 
 		}
