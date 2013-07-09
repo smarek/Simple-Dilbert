@@ -90,7 +90,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		viewPager.setCurrentItem(adapter.getPositionForDate(preferences
-				.getCurrentDate().minusDays(1)));
+				.getCurrentDate()));
 	}
 
 	@Override

@@ -90,7 +90,7 @@ public class FavoritedActivity extends SherlockActivity {
 					contextMenuItem.getDate());
 			return true;
 		case CONTEXT_DISPLAY:
-			preferences.saveCurrentDate(contextMenuItem.getDate());
+			preferences.saveCurrentDate(contextMenuItem.getDate().minusDays(1));
 			finish();
 			return true;
 
