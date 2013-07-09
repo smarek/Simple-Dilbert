@@ -82,8 +82,6 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 		adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
 		titles.setTextColor(Color.WHITE);
 		viewPager.setAdapter(adapter);
-		viewPager.setCurrentItem(adapter.getPositionForDate(preferences
-				.getCurrentDate()));
 	}
 
 	@Override
