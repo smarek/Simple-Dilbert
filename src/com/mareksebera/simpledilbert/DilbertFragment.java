@@ -59,6 +59,7 @@ public class DilbertFragment extends SherlockFragment {
 		public void onLoadingComplete(String imageUri, View view,
 				Bitmap loadedImage) {
 			progress.setVisibility(View.GONE);
+			image.setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -74,6 +75,7 @@ public class DilbertFragment extends SherlockFragment {
 
 		@Override
 		public void onLoadingStarted(String imageUri, View view) {
+			image.setVisibility(View.GONE);
 			progress.setVisibility(View.VISIBLE);
 		}
 	};
@@ -100,6 +102,7 @@ public class DilbertFragment extends SherlockFragment {
 				.findViewById(R.id.fragment_progressbar);
 		this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
 				getDateFromArguments());
+		this.image.setVisibility(View.GONE);
 		this.loadTask.execute();
 		return fragment;
 	}
