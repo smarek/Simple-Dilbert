@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.util.Log;
 import android.widget.DatePicker;
@@ -40,8 +41,9 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
-			DateMidnight selDate = DateMidnight.parse(String.format(new Locale(
-					"en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
+			DateMidnight selDate = DateMidnight.parse(
+					String.format(new Locale("en"), "%d-%d-%d", year,
+							monthOfYear + 1, dayOfMonth),
 					DilbertPreferences.DATE_FORMATTER).minusDays(1);
 			setCurrentDate(selDate);
 		}
@@ -66,6 +68,22 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 	private DilbertFragmentAdapter adapter;
 	private DilbertPreferences preferences;
 	private PagerTitleStrip titles;
+	private OnPageChangeListener pageChangedListener = new OnPageChangeListener() {
+
+		@Override
+		public void onPageSelected(int position) {
+			preferences.saveCurrentDate(adapter.getDateForPosition(position)
+					.minusDays(1));
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+		}
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+		}
+	};
 
 	private void setCurrentDate(DateMidnight date) {
 		preferences.saveCurrentDate(date);
@@ -82,6 +100,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 		adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
 		titles.setTextColor(Color.WHITE);
 		viewPager.setAdapter(adapter);
+		viewPager.setOnPageChangeListener(pageChangedListener);
 	}
 
 	@Override
