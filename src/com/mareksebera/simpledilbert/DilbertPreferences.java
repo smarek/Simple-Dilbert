@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -33,7 +34,8 @@ public class DilbertPreferences {
 	private static final String PREF_CURRENT_URL = "dilbert_current_url";
 	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
 	private static final String TAG = "DilbertPreferences";
-	public static final DateTimeZone TIME_ZONE = DateTimeZone.forOffsetHours(-3);
+	public static final DateTimeZone TIME_ZONE = DateTimeZone
+			.forOffsetHours(-3);
 
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("yyyy-MM-dd");
@@ -154,7 +156,11 @@ public class DilbertPreferences {
 		return url.replace(".gif", ".zoom.gif").replace("zoom.zoom", "zoom");
 	}
 
-	public String toLowQuality(String url) {
+	public String toLowQuality(DateMidnight date, String url) {
+		if (date.getDayOfWeek() == DateTimeConstants.SUNDAY) {
+			return url.replace(".zoom.gif", ".sunday.gif").replace("zoom.zoom",
+					"zoom");
+		}
 		return url.replace(".zoom.gif", ".gif").replace("zoom.zoom", "zoom");
 	}
 

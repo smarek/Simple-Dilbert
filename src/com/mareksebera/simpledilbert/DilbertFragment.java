@@ -42,7 +42,7 @@ public class DilbertFragment extends SherlockFragment {
 		public void displayImage(String url) {
 			boolean hqIsEnabled = preferences.isHighQualityOn();
 			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
-					.toLowQuality(url);
+					.toLowQuality(getDateFromArguments(), url);
 			imageLoader.displayImage(url, image, dilbertImageLoadingListener);
 		}
 	};
