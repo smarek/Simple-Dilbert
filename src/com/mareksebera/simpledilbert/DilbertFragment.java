@@ -106,6 +106,12 @@ public class DilbertFragment extends SherlockFragment {
 		this.loadTask.execute();
 		return fragment;
 	}
+	
+	@Override
+	public void onStop() {
+		imageLoader.cancelDisplayTask(this.image);
+		super.onStop();
+	}
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
