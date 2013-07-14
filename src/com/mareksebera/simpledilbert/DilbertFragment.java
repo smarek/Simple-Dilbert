@@ -106,7 +106,7 @@ public class DilbertFragment extends SherlockFragment {
 		this.loadTask.execute();
 		return fragment;
 	}
-	
+
 	@Override
 	public void onStop() {
 		imageLoader.cancelDisplayTask(this.image);
@@ -129,6 +129,8 @@ public class DilbertFragment extends SherlockFragment {
 				: R.drawable.ic_menu_not_favorited);
 	}
 
+	private int zoomLevel = 0;
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -138,8 +140,21 @@ public class DilbertFragment extends SherlockFragment {
 			return true;
 		case MENU_ZOOM:
 			if (image != null && image.canZoom()) {
-				image.zoomTo(image.getMidScale(), image.getDisplayRect()
-						.centerX(), image.getDisplayRect().centerY());
+				switch (zoomLevel) {
+				case 0:
+					image.zoomTo(image.getMidScale(), image.getPivotX(),
+							image.getPivotY());
+					break;
+				case 1:
+					image.zoomTo(image.getMaxScale(), image.getPivotX(),
+							image.getPivotY());
+					break;
+				case 2:
+					image.zoomTo(image.getMinScale(), image.getPivotX(),
+							image.getPivotY());
+					break;
+				}
+				zoomLevel = (zoomLevel + 1) % 3;
 			}
 			return true;
 		case MENU_SHARE:
