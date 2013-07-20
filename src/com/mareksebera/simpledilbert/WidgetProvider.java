@@ -145,7 +145,7 @@ public class WidgetProvider extends AppWidgetProvider {
 					.removeCache(preferences.getDateForWidgetId(appWidgetId));
 		} else if (action.equals(INTENT_DISPLAY)) {
 			preferences.saveCurrentDate(preferences
-					.getDateForWidgetId(appWidgetId));
+					.getDateForWidgetId(appWidgetId).minusDays(1));
 			Intent display = new Intent(context, DilbertFragmentActivity.class);
 			display.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(display);
