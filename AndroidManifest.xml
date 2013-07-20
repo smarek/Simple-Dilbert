@@ -40,6 +40,7 @@
                 <action android:name="com.mareksebera.simpledilbert.widget.NEXT" />
                 <action android:name="com.mareksebera.simpledilbert.widget.LATEST" />
                 <action android:name="com.mareksebera.simpledilbert.widget.RANDOM" />
+                <action android:name="com.mareksebera.simpledilbert.widget.REFRESH" />
                 <action android:name="com.mareksebera.simpledilbert.widget.DISPLAY" />
             </intent-filter>
 

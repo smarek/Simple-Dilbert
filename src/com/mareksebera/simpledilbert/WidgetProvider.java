@@ -118,7 +118,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		final String action = intent.getAction();
+		String action = intent.getAction();
 		final int appWidgetId = intent
 				.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_ID) ? intent
 				.getExtras().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID) : -1;
@@ -129,26 +129,32 @@ public class WidgetProvider extends AppWidgetProvider {
 		}
 		if (currentToast != null)
 			currentToast.cancel();
-		if (action.equals(INTENT_PREVIOUS)) {
+		if (INTENT_PREVIOUS.equals(action)) {
 			preferences.saveDateForWidgetId(appWidgetId, preferences
 					.getDateForWidgetId(appWidgetId).minusDays(1));
-		} else if (action.equals(INTENT_NEXT)) {
+		} else if (INTENT_NEXT.equals(action)) {
 			preferences.saveDateForWidgetId(appWidgetId, preferences
 					.getDateForWidgetId(appWidgetId).plusDays(1));
-		} else if (action.equals(INTENT_LATEST)) {
+		} else if (INTENT_LATEST.equals(action)) {
 			preferences.saveDateForWidgetId(appWidgetId, DateMidnight.now());
-		} else if (action.equals(INTENT_RANDOM)) {
+		} else if (INTENT_RANDOM.equals(action)) {
 			preferences.saveDateForWidgetId(appWidgetId,
 					DilbertPreferences.getRandomDateMidnight());
-		} else if (action.equals(INTENT_REFRESH)) {
+		} else if (INTENT_REFRESH.equals(action)) {
 			preferences
 					.removeCache(preferences.getDateForWidgetId(appWidgetId));
-		} else if (action.equals(INTENT_DISPLAY)) {
-			preferences.saveCurrentDate(preferences
-					.getDateForWidgetId(appWidgetId).minusDays(1));
+		} else if (INTENT_DISPLAY.equals(action)) {
+			preferences.saveCurrentDate(preferences.getDateForWidgetId(
+					appWidgetId).minusDays(1));
 			Intent display = new Intent(context, DilbertFragmentActivity.class);
 			display.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(display);
+		} else if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
+			DateMidnight current = preferences.getDateForWidgetId(appWidgetId);
+			if (current.equals(DateMidnight.now().minusDays(1))) {
+				preferences
+						.saveDateForWidgetId(appWidgetId, DateMidnight.now());
+			}
 		}
 		updateAppWidget(context, AppWidgetManager.getInstance(context),
 				appWidgetId);
