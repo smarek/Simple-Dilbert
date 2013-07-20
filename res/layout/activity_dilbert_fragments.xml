@@ -2,7 +2,8 @@
 <com.mareksebera.simpledilbert.FixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view_pager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize" >
 
     <android.support.v4.view.PagerTitleStrip
         android:id="@+id/pager_title_strip"

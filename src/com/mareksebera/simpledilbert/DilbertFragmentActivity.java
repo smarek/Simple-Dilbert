@@ -19,6 +19,7 @@ import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.util.Log;
+import android.view.Window;
 import android.widget.DatePicker;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -91,8 +92,9 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 	}
 
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
+	protected void onCreate(Bundle savedInstance) {
+		super.onCreate(savedInstance);
+		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		setContentView(R.layout.activity_dilbert_fragments);
 		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
 		titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);

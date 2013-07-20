@@ -3,12 +3,14 @@ package com.mareksebera.simpledilbert;
 import org.joda.time.DateMidnight;
 
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -66,6 +68,7 @@ public class DilbertFragment extends SherlockFragment {
 		public void onLoadingFailed(String imageUri, View view,
 				FailReason failReason) {
 			progress.setVisibility(View.GONE);
+			image.setVisibility(View.VISIBLE);
 			image.setImageResource(R.drawable.cancel);
 			if (getSherlockActivity() != null)
 				Toast.makeText(getSherlockActivity(),
@@ -77,6 +80,28 @@ public class DilbertFragment extends SherlockFragment {
 		public void onLoadingStarted(String imageUri, View view) {
 			image.setVisibility(View.GONE);
 			progress.setVisibility(View.VISIBLE);
+		}
+	};
+	private OnLongClickListener imageLongClickListener = new OnLongClickListener() {
+
+		@Override
+		public boolean onLongClick(View v) {
+			try {
+				if (getSherlockActivity().getSupportActionBar().isShowing())
+					getSherlockActivity().getSupportActionBar().hide();
+				else
+					getSherlockActivity().getSupportActionBar().show();
+			} catch (Throwable t) {
+				t.printStackTrace();
+			}
+			return true;
+		}
+	};
+	private OnPhotoTapListener photoTapListener = new OnPhotoTapListener() {
+		
+		@Override
+		public void onPhotoTap(View view, float x, float y) {
+			refreshAction();
 		}
 	};
 
@@ -98,6 +123,8 @@ public class DilbertFragment extends SherlockFragment {
 		View fragment = inflater.inflate(R.layout.fragment_dilbert, container,
 				false);
 		this.image = (PhotoView) fragment.findViewById(R.id.fragment_imageview);
+		this.image.setOnLongClickListener(imageLongClickListener);
+		this.image.setOnPhotoTapListener(photoTapListener);
 		this.progress = (ProgressBar) fragment
 				.findViewById(R.id.fragment_progressbar);
 		this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
@@ -161,13 +188,7 @@ public class DilbertFragment extends SherlockFragment {
 			shareCurrentStrip();
 			return true;
 		case MENU_REFRESH:
-			preferences.removeCache(getDateFromArguments());
-			if (this.loadTask != null
-					&& this.loadTask.getStatus() != Status.PENDING) {
-				this.loadTask = new GetStripUrl(getStripUrilListener,
-						preferences, getDateFromArguments());
-			}
-			this.loadTask.execute();
+			refreshAction();
 			break;
 		case MENU_SAVE:
 			preferences.downloadImageViaManager(getSherlockActivity(),
@@ -176,6 +197,16 @@ public class DilbertFragment extends SherlockFragment {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void refreshAction() {
+		preferences.removeCache(getDateFromArguments());
+		if (this.loadTask != null
+				&& this.loadTask.getStatus() != Status.PENDING) {
+			this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
+					getDateFromArguments());
+		}
+		this.loadTask.execute();
 	}
 
 	private void shareCurrentStrip() {
