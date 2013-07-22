@@ -33,6 +33,9 @@ public class DilbertPreferences {
 	private static final String PREF_CURRENT_DATE = "dilbert_current_date";
 	private static final String PREF_CURRENT_URL = "dilbert_current_url";
 	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
+	private static final String PREF_DARK_LAYOUT = "dilbert_dark_layout";
+	private static final String PREF_FORCE_LANDSCAPE = "dilbert_force_landscape";
+	private static final String PREF_HIDE_TOOLBARS = "dilbert_hide_toolbars";
 	private static final String TAG = "DilbertPreferences";
 	public static final DateTimeZone TIME_ZONE = DateTimeZone
 			.forID("America/Chicago");
@@ -210,6 +213,34 @@ public class DilbertPreferences {
 			selDate = DilbertPreferences.getFirstStripDate();
 		}
 		return selDate;
+	}
+
+	public boolean isForceLandscape() {
+		return preferences.getBoolean(PREF_FORCE_LANDSCAPE, false);
+	}
+
+	public boolean setIsForceLandscape(boolean force) {
+		return editor.putBoolean(PREF_FORCE_LANDSCAPE, force).commit();
+	}
+
+	public boolean isDarkLayoutEnabled() {
+		return preferences.getBoolean(PREF_DARK_LAYOUT, false);
+	}
+
+	public boolean setIsDarkLayoutEnabled(boolean dark) {
+		return editor.putBoolean(PREF_DARK_LAYOUT, dark).commit();
+	}
+
+	public boolean isToolbarsHidden() {
+		return preferences.getBoolean(PREF_HIDE_TOOLBARS, false);
+	}
+
+	public boolean setIsToolbarsHidden(boolean hidden) {
+		return editor.putBoolean(PREF_HIDE_TOOLBARS, hidden).commit();
+	}
+
+	public boolean setIsHighQualityOn(boolean enabled) {
+		return editor.putBoolean(PREF_HIGH_QUALITY_ENABLED, enabled).commit();
 	}
 
 }

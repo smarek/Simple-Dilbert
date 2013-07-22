@@ -33,5 +33,6 @@
     <string name="widget_cd_previous">Previous</string>
     <string name="widget_cd_random">Random</string>
     <string name="menu_open">Show</string>
+    <string name="title_preferences">Preferences</string>
 
 </resources>

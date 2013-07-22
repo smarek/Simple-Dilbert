@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.mareksebera.simpledilbert.FavoritedActivity" />
-        <activity android:name="com.mareksebera.simpledilbert.ImageZoomActivity" />
+        <activity android:name="com.mareksebera.simpledilbert.DilbertPreferencesActivity" />
 
         <receiver
             android:name="com.mareksebera.simpledilbert.WidgetProvider"

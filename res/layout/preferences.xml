@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp" >
+
+        <CheckBox
+            android:id="@+id/pref_force_landscape"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Force Landscape Orientation" />
+
+        <CheckBox
+            android:id="@+id/pref_enable_high_quality"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Download High Quality Images" />
+
+        <CheckBox
+            android:id="@+id/pref_force_dark_background"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Use Dark Backgrounds" />
+
+        <CheckBox
+            android:id="@+id/pref_hide_toolbars"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Hide Toolbars By Default" />
+
+        <TextView
+            android:id="@+id/pref_show_license"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Display License Info" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Made by Marek Sebera ©2013" />
+    </LinearLayout>
+
+</ScrollView>
