@@ -167,18 +167,20 @@ public class DilbertFragment extends SherlockFragment {
 			return true;
 		case MENU_ZOOM:
 			if (image != null && image.canZoom()) {
+				int center_x = image.getWidth() / 2;
+				int center_y = image.getHeight() / 2;
 				switch (zoomLevel) {
 				case 0:
-					image.zoomTo(image.getMidScale(), image.getPivotX(),
-							image.getPivotY());
+					image.zoomTo(image.getMidScale(), center_x,
+							center_y);
 					break;
 				case 1:
-					image.zoomTo(image.getMaxScale(), image.getPivotX(),
-							image.getPivotY());
+					image.zoomTo(image.getMaxScale(), center_x,
+							center_y);
 					break;
 				case 2:
-					image.zoomTo(image.getMinScale(), image.getPivotX(),
-							image.getPivotY());
+					image.zoomTo(image.getMinScale(), center_x,
+							center_y);
 					break;
 				}
 				zoomLevel = (zoomLevel + 1) % 3;
