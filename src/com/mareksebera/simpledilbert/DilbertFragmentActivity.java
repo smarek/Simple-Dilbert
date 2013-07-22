@@ -184,7 +184,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 			}
 			viewPager.setLayoutParams(lp);
 		} catch (Throwable t) {
-			t.printStackTrace();
+			Log.e("DilbertFragmentActivity", "Toggle ActionBar failed", t);
 		}
 	}
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -90,7 +91,7 @@ public class DilbertFragment extends SherlockFragment {
 				((DilbertFragmentActivity) getSherlockActivity())
 						.toggleActionBar();
 			} catch (Throwable t) {
-				t.printStackTrace();
+				Log.e("DilbertFragment", "Toggle ActionBar failed", t);
 			}
 			return true;
 		}
