@@ -2522,7 +2522,6 @@ uk.co.senab.photoview.PhotoView:
     100:101:public void setMidScale(float)
     105:106:public void setMaxScale(float)
     135:136:public void setOnMatrixChangeListener(uk.co.senab.photoview.PhotoViewAttacher$OnMatrixChangedListener)
-    145:146:public void setOnPhotoTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener)
     150:151:public void setOnViewTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnViewTapListener)
     164:165:public void setZoomable(boolean)
 uk.co.senab.photoview.PhotoViewAttacher:
@@ -2540,7 +2539,6 @@ uk.co.senab.photoview.PhotoViewAttacher:
     461:463:public void setMidScale(float)
     467:469:public void setMaxScale(float)
     478:479:public final void setOnMatrixChangeListener(uk.co.senab.photoview.PhotoViewAttacher$OnMatrixChangedListener)
-    483:484:public final void setOnPhotoTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener)
     488:489:public final void setOnViewTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnViewTapListener)
 uk.co.senab.photoview.PhotoViewAttacher$AnimatedZoomRunnable:
     static final float ANIMATION_SCALE_PER_ITERATION_IN

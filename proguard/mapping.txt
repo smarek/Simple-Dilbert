@@ -5970,7 +5970,9 @@ com.mareksebera.simpledilbert.DilbertFragment -> com.mareksebera.simpledilbert.a
     com.nostra13.universalimageloader.core.ImageLoader imageLoader -> e
     com.mareksebera.simpledilbert.GetStripUrlInterface getStripUrilListener -> f
     com.nostra13.universalimageloader.core.assist.ImageLoadingListener dilbertImageLoadingListener -> g
-    int zoomLevel -> h
+    android.view.View$OnLongClickListener imageLongClickListener -> h
+    uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener photoTapListener -> i
+    int zoomLevel -> j
     void onCreate(android.os.Bundle) -> onCreate
     org.joda.time.DateMidnight getDateFromArguments() -> a
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
@@ -5978,6 +5980,7 @@ com.mareksebera.simpledilbert.DilbertFragment -> com.mareksebera.simpledilbert.a
     void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu) -> onPrepareOptionsMenu
     void modifyFavoriteItem(com.actionbarsherlock.view.MenuItem) -> a
     boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
+    void refreshAction() -> b
     void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     com.nostra13.universalimageloader.core.assist.ImageLoadingListener access$0(com.mareksebera.simpledilbert.DilbertFragment) -> a
     uk.co.senab.photoview.PhotoView access$1(com.mareksebera.simpledilbert.DilbertFragment) -> b
@@ -5985,6 +5988,7 @@ com.mareksebera.simpledilbert.DilbertFragment -> com.mareksebera.simpledilbert.a
     org.joda.time.DateMidnight access$3(com.mareksebera.simpledilbert.DilbertFragment) -> d
     com.nostra13.universalimageloader.core.ImageLoader access$4(com.mareksebera.simpledilbert.DilbertFragment) -> e
     android.widget.ProgressBar access$5(com.mareksebera.simpledilbert.DilbertFragment) -> f
+    void access$6(com.mareksebera.simpledilbert.DilbertFragment) -> g
 com.mareksebera.simpledilbert.DilbertFragment$1 -> com.mareksebera.simpledilbert.b:
     com.mareksebera.simpledilbert.DilbertFragment this$0 -> a
     void imageLoadFailed$14437b68() -> a
@@ -5995,6 +5999,12 @@ com.mareksebera.simpledilbert.DilbertFragment$2 -> com.mareksebera.simpledilbert
     void onLoadingComplete$5848811b(java.lang.String,android.graphics.Bitmap) -> a
     void onLoadingFailed$55580a0c() -> b
     void onLoadingStarted$4f77f073() -> c
+com.mareksebera.simpledilbert.DilbertFragment$3 -> com.mareksebera.simpledilbert.d:
+    com.mareksebera.simpledilbert.DilbertFragment this$0 -> a
+    boolean onLongClick(android.view.View) -> onLongClick
+com.mareksebera.simpledilbert.DilbertFragment$4 -> com.mareksebera.simpledilbert.e:
+    com.mareksebera.simpledilbert.DilbertFragment this$0 -> a
+    void onPhotoTap$17e2ac03() -> a
 com.mareksebera.simpledilbert.DilbertFragmentActivity -> com.mareksebera.simpledilbert.DilbertFragmentActivity:
     android.app.DatePickerDialog$OnDateSetListener dilbertOnDateSetListener -> a
     com.mareksebera.simpledilbert.FixedViewPager viewPager -> b
@@ -6002,38 +6012,39 @@ com.mareksebera.simpledilbert.DilbertFragmentActivity -> com.mareksebera.simpled
     com.mareksebera.simpledilbert.DilbertPreferences preferences -> d
     android.support.v4.view.PagerTitleStrip titles -> e
     android.support.v4.view.ViewPager$OnPageChangeListener pageChangedListener -> f
-    java.lang.CharSequence getLicenseText() -> a
+    java.lang.CharSequence getLicenseText() -> b
     void setCurrentDate(org.joda.time.DateMidnight) -> a
     void onCreate(android.os.Bundle) -> onCreate
     void onResume() -> onResume
     boolean onPrepareOptionsMenu(com.actionbarsherlock.view.Menu) -> onPrepareOptionsMenu
     boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu) -> onCreateOptionsMenu
+    void toggleActionBar() -> a
     boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     void access$0(com.mareksebera.simpledilbert.DilbertFragmentActivity,org.joda.time.DateMidnight) -> a
     com.mareksebera.simpledilbert.DilbertPreferences access$1(com.mareksebera.simpledilbert.DilbertFragmentActivity) -> a
     com.mareksebera.simpledilbert.DilbertFragmentAdapter access$2(com.mareksebera.simpledilbert.DilbertFragmentActivity) -> b
-com.mareksebera.simpledilbert.DilbertFragmentActivity$1 -> com.mareksebera.simpledilbert.d:
+com.mareksebera.simpledilbert.DilbertFragmentActivity$1 -> com.mareksebera.simpledilbert.f:
     com.mareksebera.simpledilbert.DilbertFragmentActivity this$0 -> a
     void onDateSet(android.widget.DatePicker,int,int,int) -> onDateSet
-com.mareksebera.simpledilbert.DilbertFragmentActivity$2 -> com.mareksebera.simpledilbert.e:
+com.mareksebera.simpledilbert.DilbertFragmentActivity$2 -> com.mareksebera.simpledilbert.g:
     com.mareksebera.simpledilbert.DilbertFragmentActivity this$0 -> a
     void onPageSelected(int) -> a
     void onPageScrolled$486775f1(int,float) -> a
     void onPageScrollStateChanged(int) -> b
-com.mareksebera.simpledilbert.DilbertFragmentActivity$3 -> com.mareksebera.simpledilbert.f:
+com.mareksebera.simpledilbert.DilbertFragmentActivity$3 -> com.mareksebera.simpledilbert.h:
     com.mareksebera.simpledilbert.DilbertFragmentActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mareksebera.simpledilbert.DilbertFragmentActivity$4 -> com.mareksebera.simpledilbert.g:
+com.mareksebera.simpledilbert.DilbertFragmentActivity$4 -> com.mareksebera.simpledilbert.i:
     com.mareksebera.simpledilbert.DilbertFragmentActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.mareksebera.simpledilbert.DilbertFragmentAdapter -> com.mareksebera.simpledilbert.h:
+com.mareksebera.simpledilbert.DilbertFragmentAdapter -> com.mareksebera.simpledilbert.j:
     int countCache -> a
     java.lang.CharSequence getPageTitle(int) -> getPageTitle
     android.support.v4.app.Fragment getItem(int) -> getItem
     org.joda.time.DateMidnight getDateForPosition(int) -> a
     int getCount() -> getCount
     int getPositionForDate(org.joda.time.DateMidnight) -> a
-com.mareksebera.simpledilbert.DilbertPreferences -> com.mareksebera.simpledilbert.i:
+com.mareksebera.simpledilbert.DilbertPreferences -> com.mareksebera.simpledilbert.k:
     android.content.SharedPreferences preferences -> c
     android.content.SharedPreferences$Editor editor -> d
     org.joda.time.DateTimeZone TIME_ZONE -> a
@@ -6057,9 +6068,9 @@ com.mareksebera.simpledilbert.DilbertPreferences -> com.mareksebera.simpledilber
     org.joda.time.DateMidnight getRandomDateMidnight() -> e
     org.joda.time.DateMidnight getFirstStripDate() -> f
     boolean deleteDateForWidgetId(int) -> b
-com.mareksebera.simpledilbert.EntityUtils -> com.mareksebera.simpledilbert.j:
+com.mareksebera.simpledilbert.EntityUtils -> com.mareksebera.simpledilbert.l:
     java.lang.String toString(org.apache.http.HttpEntity) -> a
-com.mareksebera.simpledilbert.FailSafeBitmapDisplayer -> com.mareksebera.simpledilbert.k:
+com.mareksebera.simpledilbert.FailSafeBitmapDisplayer -> com.mareksebera.simpledilbert.m:
     android.graphics.Bitmap display(android.graphics.Bitmap,android.widget.ImageView) -> a
 com.mareksebera.simpledilbert.FavoritedActivity -> com.mareksebera.simpledilbert.FavoritedActivity:
     com.mareksebera.simpledilbert.DilbertPreferences preferences -> a
@@ -6072,10 +6083,10 @@ com.mareksebera.simpledilbert.FavoritedActivity -> com.mareksebera.simpledilbert
     void onCreateContextMenu(android.view.ContextMenu,android.view.View,android.view.ContextMenu$ContextMenuInfo) -> onCreateContextMenu
     boolean onContextItemSelected(android.view.MenuItem) -> onContextItemSelected
     boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-com.mareksebera.simpledilbert.FavoritedActivity$1 -> com.mareksebera.simpledilbert.l:
+com.mareksebera.simpledilbert.FavoritedActivity$1 -> com.mareksebera.simpledilbert.n:
     com.mareksebera.simpledilbert.FavoritedActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.mareksebera.simpledilbert.FavoritedAdapter -> com.mareksebera.simpledilbert.m:
+com.mareksebera.simpledilbert.FavoritedAdapter -> com.mareksebera.simpledilbert.o:
     java.util.List items -> a
     android.view.LayoutInflater inflater -> b
     com.nostra13.universalimageloader.core.ImageLoader imageLoader -> c
@@ -6083,29 +6094,29 @@ com.mareksebera.simpledilbert.FavoritedAdapter -> com.mareksebera.simpledilbert.
     java.lang.Object getItem(int) -> getItem
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-com.mareksebera.simpledilbert.FavoritedAdapter$FavoritedComparator -> com.mareksebera.simpledilbert.n:
+com.mareksebera.simpledilbert.FavoritedAdapter$FavoritedComparator -> com.mareksebera.simpledilbert.p:
     com.mareksebera.simpledilbert.FavoritedAdapter this$0 -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
-com.mareksebera.simpledilbert.FavoritedAdapter$ViewHolder -> com.mareksebera.simpledilbert.o:
+com.mareksebera.simpledilbert.FavoritedAdapter$ViewHolder -> com.mareksebera.simpledilbert.q:
     android.widget.TextView date -> a
     android.widget.ImageView image -> b
     android.widget.TextView getDate() -> a
     void setDate(android.widget.TextView) -> a
     android.widget.ImageView getImage() -> b
     void setImage(android.widget.ImageView) -> a
-com.mareksebera.simpledilbert.FavoritedItem -> com.mareksebera.simpledilbert.p:
+com.mareksebera.simpledilbert.FavoritedItem -> com.mareksebera.simpledilbert.r:
     org.joda.time.DateMidnight date -> b
     java.lang.String url -> c
     boolean $assertionsDisabled -> a
     org.joda.time.DateMidnight getDate() -> a
     java.lang.String getUrl() -> b
-com.mareksebera.simpledilbert.FindUrls -> com.mareksebera.simpledilbert.q:
+com.mareksebera.simpledilbert.FindUrls -> com.mareksebera.simpledilbert.s:
     java.util.List extractUrls(java.lang.String) -> a
 com.mareksebera.simpledilbert.FixedViewPager -> com.mareksebera.simpledilbert.FixedViewPager:
     boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
     boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
     boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
-com.mareksebera.simpledilbert.GetStripUrl -> com.mareksebera.simpledilbert.r:
+com.mareksebera.simpledilbert.GetStripUrl -> com.mareksebera.simpledilbert.t:
     com.mareksebera.simpledilbert.DilbertPreferences preferences -> a
     android.widget.ProgressBar progressBar -> b
     org.joda.time.DateMidnight currDate -> c
@@ -6114,7 +6125,7 @@ com.mareksebera.simpledilbert.GetStripUrl -> com.mareksebera.simpledilbert.r:
     void onPreExecute() -> onPreExecute
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.mareksebera.simpledilbert.GetStripUrlInterface -> com.mareksebera.simpledilbert.s:
+com.mareksebera.simpledilbert.GetStripUrlInterface -> com.mareksebera.simpledilbert.u:
     void displayImage(java.lang.String) -> a
     void imageLoadFailed$14437b68() -> a
 com.mareksebera.simpledilbert.WidgetProvider -> com.mareksebera.simpledilbert.WidgetProvider:
@@ -6125,14 +6136,14 @@ com.mareksebera.simpledilbert.WidgetProvider -> com.mareksebera.simpledilbert.Wi
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
     void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
     void onDeleted(android.content.Context,int[]) -> onDeleted
-com.mareksebera.simpledilbert.WidgetProvider$1 -> com.mareksebera.simpledilbert.t:
+com.mareksebera.simpledilbert.WidgetProvider$1 -> com.mareksebera.simpledilbert.v:
     android.content.Context val$context -> a
     android.widget.RemoteViews val$views -> b
     android.appwidget.AppWidgetManager val$appWidgetManager -> c
     int val$appWidgetId -> d
     void imageLoadFailed$14437b68() -> a
     void displayImage(java.lang.String) -> a
-com.mareksebera.simpledilbert.WidgetProvider$2 -> com.mareksebera.simpledilbert.u:
+com.mareksebera.simpledilbert.WidgetProvider$2 -> com.mareksebera.simpledilbert.w:
     com.mareksebera.simpledilbert.DilbertPreferences val$prefs -> a
     int val$appWidgetId -> b
     android.widget.RemoteViews val$views -> c
@@ -8254,6 +8265,7 @@ uk.co.senab.photoview.PhotoView -> uk.co.senab.photoview.PhotoView:
     void setImageResource(int) -> setImageResource
     void setImageURI(android.net.Uri) -> setImageURI
     void setOnLongClickListener(android.view.View$OnLongClickListener) -> setOnLongClickListener
+    void setOnPhotoTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener) -> a
     void setScaleType(android.widget.ImageView$ScaleType) -> setScaleType
     void zoomTo(float,float,float) -> a
     void onDetachedFromWindow() -> onDetachedFromWindow
@@ -8305,6 +8317,7 @@ uk.co.senab.photoview.PhotoViewAttacher -> uk.co.senab.photoview.b:
     boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
     boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
     void setOnLongClickListener(android.view.View$OnLongClickListener) -> a
+    void setOnPhotoTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener) -> a
     void setScaleType(android.widget.ImageView$ScaleType) -> a
     void update() -> j
     void zoomTo(float,float,float) -> b
@@ -8341,6 +8354,7 @@ uk.co.senab.photoview.PhotoViewAttacher$FlingRunnable -> uk.co.senab.photoview.e
     void run() -> run
 uk.co.senab.photoview.PhotoViewAttacher$OnMatrixChangedListener -> uk.co.senab.photoview.f:
 uk.co.senab.photoview.PhotoViewAttacher$OnPhotoTapListener -> uk.co.senab.photoview.g:
+    void onPhotoTap$17e2ac03() -> a
 uk.co.senab.photoview.PhotoViewAttacher$OnViewTapListener -> uk.co.senab.photoview.h:
 uk.co.senab.photoview.ScrollerProxy -> uk.co.senab.photoview.i:
     boolean computeScrollOffset() -> a
