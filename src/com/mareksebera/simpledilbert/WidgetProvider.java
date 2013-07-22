@@ -136,7 +136,8 @@ public class WidgetProvider extends AppWidgetProvider {
 			preferences.saveDateForWidgetId(appWidgetId, preferences
 					.getDateForWidgetId(appWidgetId).plusDays(1));
 		} else if (INTENT_LATEST.equals(action)) {
-			preferences.saveDateForWidgetId(appWidgetId, DateMidnight.now());
+			preferences.saveDateForWidgetId(appWidgetId,
+					DateMidnight.now(DilbertPreferences.TIME_ZONE));
 		} else if (INTENT_RANDOM.equals(action)) {
 			preferences.saveDateForWidgetId(appWidgetId,
 					DilbertPreferences.getRandomDateMidnight());
@@ -144,16 +145,17 @@ public class WidgetProvider extends AppWidgetProvider {
 			preferences
 					.removeCache(preferences.getDateForWidgetId(appWidgetId));
 		} else if (INTENT_DISPLAY.equals(action)) {
-			preferences.saveCurrentDate(preferences.getDateForWidgetId(
-					appWidgetId).minusDays(1));
+			preferences.saveCurrentDate(preferences
+					.getDateForWidgetId(appWidgetId));
 			Intent display = new Intent(context, DilbertFragmentActivity.class);
 			display.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(display);
 		} else if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
 			DateMidnight current = preferences.getDateForWidgetId(appWidgetId);
-			if (current.equals(DateMidnight.now().minusDays(1))) {
-				preferences
-						.saveDateForWidgetId(appWidgetId, DateMidnight.now());
+			if (current.equals(DateMidnight.now(DilbertPreferences.TIME_ZONE)
+					.minusDays(1))) {
+				preferences.saveDateForWidgetId(appWidgetId,
+						DateMidnight.now(DilbertPreferences.TIME_ZONE));
 			}
 		}
 		updateAppWidget(context, AppWidgetManager.getInstance(context),

@@ -28,8 +28,8 @@ public class DilbertFragmentAdapter extends FragmentPagerAdapter {
 	public DilbertFragmentAdapter(FragmentManager fm) {
 		super(fm);
 		this.countCache = Days.daysBetween(
-				DilbertPreferences.getFirstStripDate(), DateMidnight.now())
-				.getDays() + 1;
+				DilbertPreferences.getFirstStripDate(),
+				DateMidnight.now(DilbertPreferences.TIME_ZONE)).getDays() + 1;
 	}
 
 	@Override
@@ -45,7 +45,8 @@ public class DilbertFragmentAdapter extends FragmentPagerAdapter {
 	}
 
 	public DateMidnight getDateForPosition(int position) {
-		return DateMidnight.now().minusDays((getCount() - position) - 1);
+		return DateMidnight.now(DilbertPreferences.TIME_ZONE).minusDays(
+				(getCount() - position) - 1);
 	}
 
 	private int countCache = 0;
@@ -57,7 +58,9 @@ public class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
 	public int getPositionForDate(DateMidnight date) {
 		return getCount()
-				- Days.daysBetween(date, DateMidnight.now()).getDays();
+				- Days.daysBetween(date,
+						DateMidnight.now(DilbertPreferences.TIME_ZONE))
+						.plus(Days.ONE).getDays();
 	}
 
 }

@@ -48,7 +48,7 @@ public class DilbertPreferences {
 	public DateMidnight getCurrentDate() {
 		String savedDate = preferences.getString(PREF_CURRENT_DATE, null);
 		if (savedDate == null) {
-			return DateMidnight.now();
+			return DateMidnight.now(DilbertPreferences.TIME_ZONE);
 		} else {
 			return DateMidnight.parse(savedDate, DATE_FORMATTER);
 		}
@@ -172,14 +172,14 @@ public class DilbertPreferences {
 	public DateMidnight getDateForWidgetId(int appWidgetId) {
 		String savedDate = preferences.getString("widget_" + appWidgetId, null);
 		if (savedDate == null)
-			return DateMidnight.now();
+			return DateMidnight.now(DilbertPreferences.TIME_ZONE);
 		else
 			return DateMidnight.parse(savedDate, DATE_FORMATTER);
 	}
 
 	public static DateMidnight getRandomDateMidnight() {
 		Random random = new Random();
-		DateMidnight now = DateMidnight.now();
+		DateMidnight now = DateMidnight.now(DilbertPreferences.TIME_ZONE);
 		int year = 1989 + random.nextInt(now.getYear() - 1989);
 		int month = 1 + random.nextInt(12);
 		int day = random.nextInt(31);
