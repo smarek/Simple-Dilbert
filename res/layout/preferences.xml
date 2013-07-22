@@ -16,41 +16,41 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Force Landscape Orientation" />
+            android:text="@string/pref_force_landscape" />
 
         <CheckBox
             android:id="@+id/pref_enable_high_quality"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Download High Quality Images" />
+            android:text="@string/pref_enable_high_quality" />
 
         <CheckBox
             android:id="@+id/pref_force_dark_background"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Use Dark Backgrounds" />
+            android:text="@string/pref_force_dark_background" />
 
         <CheckBox
             android:id="@+id/pref_hide_toolbars"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Hide Toolbars By Default" />
+            android:text="@string/pref_hide_toolbars" />
 
         <TextView
             android:id="@+id/pref_show_license"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Display License Info" />
+            android:text="@string/pref_show_license" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Made by Marek Sebera ©2013" />
+            android:text="@string/about_contents" />
     </LinearLayout>
 
 </ScrollView>
