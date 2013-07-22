@@ -2,6 +2,7 @@ package com.mareksebera.simpledilbert;
 
 import java.util.List;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -38,6 +39,8 @@ public class FavoritedActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.title_favorited);
 		preferences = new DilbertPreferences(this);
+		if (preferences.isForceLandscape())
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
 				: R.style.AppThemeLight);
 		setContentView(R.layout.activity_favorited);

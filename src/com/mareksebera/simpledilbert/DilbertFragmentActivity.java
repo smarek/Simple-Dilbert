@@ -9,6 +9,7 @@ import org.joda.time.DateTimeZone;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
@@ -75,6 +76,8 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstance);
 		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		preferences = new DilbertPreferences(this);
+		if (preferences.isForceLandscape())
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
 				: R.style.AppThemeLight);
 		setContentView(R.layout.activity_dilbert_fragments);
