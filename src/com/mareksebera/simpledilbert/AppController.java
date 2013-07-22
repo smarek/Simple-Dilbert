@@ -29,7 +29,7 @@ public class AppController extends Application {
 		if (!ImageLoader.getInstance().isInited()) {
 			DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
 					.cacheInMemory().cacheOnDisc()
-					.displayer(new FailSafeBitmapDisplayer(200)).build();
+					.displayer(new FailSafeBitmapDisplayer(50)).build();
 			ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(
 					c).defaultDisplayImageOptions(displayOptions).build();
 			ImageLoader.getInstance().init(configuration);
