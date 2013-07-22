@@ -1,30 +1,30 @@
 <resources>
 
     <string name="menu_datepicker">Vybrat datum</string>
-    <string name="menu_about">O aplikaci</string>
     <string name="about_contents">Aplikaci vytvořil Marek Sebera &amp;copy;2013</string>
-    <string name="about_title">O aplikaci Simple Dilbert</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_interrupted">Načítání bylo přerušeno</string>
     <string name="loading_exception_error">Došlo k chybě při načítání</string>
     <string name="menu_latest">Zobraz nejnovější</string>
     <string name="menu_refresh">Aktualizovat</string>
-    <string name="no_older_strip">Starší díl již neexistuje</string>
-    <string name="no_newer_strip">Novější díl ještě neexistuje</string>
-    <string name="menu_license">Zobrazit licenci</string>
-    <string name="menu_high_quality">Vysoká kvalita</string>
     <string name="download_manager_unsupported">Váš telefon nepodporuje ukládání obrázků</string>
     <string name="menu_download">Uložit do telefonu</string>
     <string name="menu_favorite_add">Přidat do oblíbených</string>
     <string name="menu_favorite_remove">Odebrat z oblíbených</string>
     <string name="menu_show_favorite">Zobrazit oblíbené</string>
     <string name="menu_zoom">Zvětšit</string>
-    <string name="zoom_hint">Použijte prsty pro zvětšení obrázku</string>
     <string name="context_favorites_remove">Odstranit z oblíbených</string>
     <string name="toast_no_favorites">Nemáte žádné oblíbené</string>
     <string name="title_favorited">Oblíbené díly</string>
     <string name="menu_random">Náhodný díl</string>
     <string name="share_chooser">Sdílet komiks Dilbert</string>
     <string name="menu_share">Sdílet</string>
+    <string name="menu_open">Zobrazit</string>
+    <string name="title_preferences">Nastavení</string>
+    <string name="pref_force_landscape">Vynutit horizontální zobrazení</string>
+    <string name="pref_enable_high_quality">Vysoká kvalita komiksu</string>
+    <string name="pref_force_dark_background">Použít tmavé zobrazení</string>
+    <string name="pref_hide_toolbars">Skrývat lišty</string>
+    <string name="pref_show_license">Zobrazit softwarovou licenci</string>
 
 </resources>

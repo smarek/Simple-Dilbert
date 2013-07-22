@@ -4,39 +4,32 @@
     <string name="apache_license_2_0" translatable="false">Apache License 2.0</string>
     <string name="menu_datepicker">Choose date</string>
     <string name="about_contents">Made by Marek Sebera &amp;copy;2013</string>
-    <string name="about_title">About Simple Dilbert</string>
     <string name="cd_dilbert_image">Dilbert</string>
-    <string name="loading_interrupted">Loading was interrupted</string>
     <string name="loading_exception_error">Strip could not be loaded</string>
     <string name="menu_latest">Show latest</string>
     <string name="menu_refresh">Refresh</string>
-    <string name="no_older_strip">There is no older comic strip</string>
-    <string name="no_newer_strip">There is no newer comic strip</string>
-    <string name="menu_license">Show software license</string>
-    <string name="menu_high_quality">High quality</string>
     <string name="download_manager_unsupported">Unsupported on this device</string>
     <string name="menu_download">Save current image</string>
     <string name="menu_favorite_add">Favorite</string>
     <string name="menu_favorite_remove">Unfavorite</string>
     <string name="menu_show_favorite">Show favorites</string>
     <string name="menu_zoom">Zoom</string>
-    <string name="zoom_hint">Use fingers to enlarge image</string>
     <string name="context_favorites_remove">Remove from favorites</string>
     <string name="toast_no_favorites">You have no favorite strips</string>
     <string name="title_favorited">Favorite strips</string>
     <string name="menu_random">Random</string>
     <string name="share_chooser">Share Dilbert Comics</string>
     <string name="menu_share">Share this!</string>
-    <string name="widget_cd_next">Next</string>
-    <string name="widget_cd_latest">Latest</string>
-    <string name="widget_cd_previous">Previous</string>
-    <string name="widget_cd_random">Random</string>
+    <string name="widget_cd_next" translatable="false">Next</string>
+    <string name="widget_cd_latest" translatable="false">Latest</string>
+    <string name="widget_cd_previous" translatable="false">Previous</string>
+    <string name="widget_cd_random" translatable="false">Random</string>
     <string name="menu_open">Show</string>
     <string name="title_preferences">Preferences</string>
     <string name="pref_force_landscape">Force Landscape Orientation</string>
     <string name="pref_enable_high_quality">Enable High Quality Images</string>
     <string name="pref_force_dark_background">Use Dark Backgrounds</string>
     <string name="pref_hide_toolbars">Hide Toolbars By Default</string>
-    <string name="pref_show_license">Display License Info</string>
+    <string name="pref_show_license">Display Software License</string>
 
 </resources>
