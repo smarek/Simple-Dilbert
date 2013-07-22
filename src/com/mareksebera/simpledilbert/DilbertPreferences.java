@@ -35,8 +35,7 @@ public class DilbertPreferences {
 	private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
 	private static final String TAG = "DilbertPreferences";
 	public static final DateTimeZone TIME_ZONE = DateTimeZone
-			.forOffsetHours(-3);
-
+			.forID("America/Chicago");
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
 			.forPattern("yyyy-MM-dd");
 
