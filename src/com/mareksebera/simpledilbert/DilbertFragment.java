@@ -121,7 +121,7 @@ public class DilbertFragment extends SherlockFragment {
 		View fragment = inflater.inflate(R.layout.fragment_dilbert, container,
 				false);
 		this.image = (PhotoView) fragment.findViewById(R.id.fragment_imageview);
-		this.image.setOnLongClickListener(imageLongClickListener);
+		fragment.setOnLongClickListener(imageLongClickListener);
 		this.image.setOnPhotoTapListener(photoTapListener);
 		this.progress = (ProgressBar) fragment
 				.findViewById(R.id.fragment_progressbar);
