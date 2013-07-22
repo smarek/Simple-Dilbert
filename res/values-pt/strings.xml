@@ -3,7 +3,6 @@
     <string name="menu_datepicker">Escolher data</string>
     <string name="about_contents">Conteudo</string>
     <string name="cd_dilbert_image">Simple Dilbert</string>
-    <string name="loading_interrupted">Carregamento interrompido</string>
     <string name="loading_exception_error">Os quadrinhos  não puderam ser carregados</string>
     <string name="menu_latest">Mostrar o último</string>
     <string name="menu_refresh">Atualizar</string>

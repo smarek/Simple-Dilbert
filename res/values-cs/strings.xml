@@ -3,7 +3,6 @@
     <string name="menu_datepicker">Vybrat datum</string>
     <string name="about_contents">Aplikaci vytvořil Marek Sebera &amp;copy;2013</string>
     <string name="cd_dilbert_image">Dilbert</string>
-    <string name="loading_interrupted">Načítání bylo přerušeno</string>
     <string name="loading_exception_error">Došlo k chybě při načítání</string>
     <string name="menu_latest">Zobraz nejnovější</string>
     <string name="menu_refresh">Aktualizovat</string>

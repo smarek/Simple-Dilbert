@@ -3,12 +3,9 @@
     <string name="menu_datepicker">Datum auswählen</string>
     <string name="about_contents">Die Applikation wurde von Marek Sebera erstellt &amp;copy;2013</string>
     <string name="cd_dilbert_image">Dilbert</string>
-    <string name="loading_interrupted">Laden wurde unterbrochen</string>
     <string name="loading_exception_error">Strip konnte nicht geladen werden</string>
     <string name="menu_latest">Neuestes anzeigen</string>
     <string name="menu_refresh">Aktualisieren</string>
-    <string name="menu_license">Softwarelizensierung anzeigen</string>
-    <string name="menu_high_quality">Hohe Qualität</string>
     <string name="download_manager_unsupported">Nicht auf diesem Gerät unterstützt</string>
     <string name="menu_download">Speichere aktuelles Bild</string>
     <string name="menu_favorite_add">Zu Favoriten hinzufügen</string>
