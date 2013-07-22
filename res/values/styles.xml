@@ -1,7 +1,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppThemeLight" parent="@style/Theme.Sherlock.Light.DarkActionBar"></style>
+    <style name="AppThemeLight" parent="@style/Theme.Sherlock.Light.DarkActionBar">
+        <item name="titlesBackground">@drawable/abs__ab_solid_dark_holo</item>
+    </style>
 
-    <style name="AppThemeDark" parent="@style/Theme.Sherlock"></style>
+    <style name="AppThemeDark" parent="@style/Theme.Sherlock">
+        <item name="titlesBackground">@android:color/transparent</item>
+    </style>
 
 </resources>
