@@ -87,10 +87,8 @@ public class DilbertFragment extends SherlockFragment {
 		@Override
 		public boolean onLongClick(View v) {
 			try {
-				if (getSherlockActivity().getSupportActionBar().isShowing())
-					getSherlockActivity().getSupportActionBar().hide();
-				else
-					getSherlockActivity().getSupportActionBar().show();
+				((DilbertFragmentActivity) getSherlockActivity())
+						.toggleActionBar();
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
@@ -98,7 +96,7 @@ public class DilbertFragment extends SherlockFragment {
 		}
 	};
 	private OnPhotoTapListener photoTapListener = new OnPhotoTapListener() {
-		
+
 		@Override
 		public void onPhotoTap(View view, float x, float y) {
 			refreshAction();
@@ -171,16 +169,13 @@ public class DilbertFragment extends SherlockFragment {
 				int center_y = image.getHeight() / 2;
 				switch (zoomLevel) {
 				case 0:
-					image.zoomTo(image.getMidScale(), center_x,
-							center_y);
+					image.zoomTo(image.getMidScale(), center_x, center_y);
 					break;
 				case 1:
-					image.zoomTo(image.getMaxScale(), center_x,
-							center_y);
+					image.zoomTo(image.getMaxScale(), center_x, center_y);
 					break;
 				case 2:
-					image.zoomTo(image.getMinScale(), center_x,
-							center_y);
+					image.zoomTo(image.getMinScale(), center_x, center_y);
 					break;
 				}
 				zoomLevel = (zoomLevel + 1) % 3;

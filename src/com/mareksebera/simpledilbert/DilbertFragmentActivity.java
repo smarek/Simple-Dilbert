@@ -21,6 +21,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Window;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -167,6 +168,24 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 				dilbertOnDateSetListener, c.get(Calendar.YEAR),
 				c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 		dialog.show();
+	}
+
+	public void toggleActionBar() {
+		try {
+			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+					FrameLayout.LayoutParams.MATCH_PARENT,
+					FrameLayout.LayoutParams.WRAP_CONTENT);
+			if (getSupportActionBar().isShowing()) {
+				getSupportActionBar().hide();
+				lp.topMargin = 0;
+			} else {
+				getSupportActionBar().show();
+				lp.topMargin = getSupportActionBar().getHeight();
+			}
+			viewPager.setLayoutParams(lp);
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
 	}
 
 	@Override
