@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
@@ -73,14 +74,18 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
 		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		preferences = new DilbertPreferences(this);
+		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
+				: R.style.AppThemeLight);
 		setContentView(R.layout.activity_dilbert_fragments);
 		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
 		titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
-		preferences = new DilbertPreferences(this);
 		adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
 		titles.setTextColor(Color.WHITE);
 		viewPager.setAdapter(adapter);
 		viewPager.setOnPageChangeListener(pageChangedListener);
+		if (preferences.isToolbarsHidden())
+			toggleActionBar();
 	}
 
 	@Override
@@ -128,7 +133,11 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 				lp.topMargin = 0;
 			} else {
 				getSupportActionBar().show();
-				lp.topMargin = getSupportActionBar().getHeight();
+				TypedValue tv = new TypedValue();
+				getTheme().resolveAttribute(android.R.attr.actionBarSize, tv,
+						true);
+				lp.topMargin = getResources().getDimensionPixelSize(
+						tv.resourceId);
 			}
 			viewPager.setLayoutParams(lp);
 		} catch (Throwable t) {
@@ -154,6 +163,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 			return true;
 		case MENU_SETTINGS:
 			startActivity(new Intent(this, DilbertPreferencesActivity.class));
+			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

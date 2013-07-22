@@ -37,9 +37,11 @@ public class FavoritedActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.title_favorited);
+		preferences = new DilbertPreferences(this);
+		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
+				: R.style.AppThemeLight);
 		setContentView(R.layout.activity_favorited);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		preferences = new DilbertPreferences(this);
 		listView = (ListView) findViewById(R.id.activity_favorited_listview);
 		listAdapter = new FavoritedAdapter(this,
 				getFavoritedOrNotifyAndFinish());

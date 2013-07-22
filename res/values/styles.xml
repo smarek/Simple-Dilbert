@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppBaseTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar"></style>
+    <style name="AppThemeLight" parent="@style/Theme.Sherlock.Light.DarkActionBar"></style>
 
-    <style name="AppTheme" parent="AppBaseTheme"></style>
+    <style name="AppThemeDark" parent="@style/Theme.Sherlock"></style>
 
 </resources>

@@ -3,7 +3,7 @@
     android:id="@+id/activity_favorited_listview"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:divider="@android:color/black"
+    android:divider="@color/abs__holo_blue_light"
     android:dividerHeight="2dp" >
 
 </ListView>

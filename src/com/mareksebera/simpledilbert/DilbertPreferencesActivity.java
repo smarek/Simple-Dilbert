@@ -4,6 +4,7 @@ import java.io.InputStream;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,15 +61,23 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		preferences = new DilbertPreferences(this);
+		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
+				: R.style.AppThemeLight);
 		setContentView(R.layout.preferences);
 		setTitle(R.string.title_preferences);
-		preferences = new DilbertPreferences(this);
 		force_landscape = (CheckBox) findViewById(R.id.pref_force_landscape);
 		enable_hq = (CheckBox) findViewById(R.id.pref_enable_high_quality);
 		force_dark = (CheckBox) findViewById(R.id.pref_force_dark_background);
 		hide_toolbars = (CheckBox) findViewById(R.id.pref_hide_toolbars);
 		license = (TextView) findViewById(R.id.pref_show_license);
 		license.setOnClickListener(licenseOnClickListener);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		startActivity(new Intent(this, DilbertFragmentActivity.class));
+		finish();
 	}
 
 	@Override
