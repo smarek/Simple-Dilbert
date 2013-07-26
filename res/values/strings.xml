@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">Simple Dilbert</string>
     <string name="apache_license_2_0" translatable="false">Apache License 2.0</string>
     <string name="menu_datepicker">Choose date</string>
-    <string name="about_contents">Made by Marek Sebera &amp;copy;2013</string>
+    <string name="about_contents">Made by Marek Sebera 2013</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Strip could not be loaded</string>
     <string name="menu_latest">Show latest</string>
@@ -31,5 +31,6 @@
     <string name="pref_force_dark_background">Use Dark Backgrounds</string>
     <string name="pref_hide_toolbars">Hide Toolbars By Default</string>
     <string name="pref_show_license">Display Software License</string>
+    <string name="pref_force_dark_background_widget">Use dark background for widget</string>
 
 </resources>

@@ -1,7 +1,7 @@
 <resources>
 
     <string name="menu_datepicker">Datum auswählen</string>
-    <string name="about_contents">Die Applikation wurde von Marek Sebera erstellt &amp;copy;2013</string>
+    <string name="about_contents">Die Applikation wurde von Marek Sebera erstellt 2013</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Strip konnte nicht geladen werden</string>
     <string name="menu_latest">Neuestes anzeigen</string>
