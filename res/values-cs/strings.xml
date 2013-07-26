@@ -23,6 +23,7 @@
     <string name="pref_force_landscape">Vynutit horizontální zobrazení</string>
     <string name="pref_enable_high_quality">Vysoká kvalita komiksu</string>
     <string name="pref_force_dark_background">Použít tmavé zobrazení</string>
+    <string name="pref_force_dark_background_widget">Použít tmavé zobrazení pro widget</string>
     <string name="pref_hide_toolbars">Skrývat lišty</string>
     <string name="pref_show_license">Zobrazit softwarovou licenci</string>
 

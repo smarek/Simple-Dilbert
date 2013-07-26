@@ -23,6 +23,7 @@
     <string name="pref_force_landscape">Kraft Landschaft</string>
     <string name="pref_enable_high_quality">Hohe Qualität</string>
     <string name="pref_force_dark_background">Verwenden dunklen Hintergrund</string>
+    <string name="pref_force_dark_background_widget">Verwenden dunklen Hintergrund für Widget</string>
     <string name="pref_hide_toolbars">Symbolleisten verbergen standardmäßig</string>
     <string name="pref_show_license">Anzeige Software Lizenz</string>
 
