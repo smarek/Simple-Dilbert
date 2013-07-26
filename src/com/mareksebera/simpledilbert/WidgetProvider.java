@@ -9,6 +9,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -46,8 +47,11 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	static void updateAppWidget(final Context context,
 			final AppWidgetManager appWidgetManager, final int appWidgetId) {
+		final DilbertPreferences prefs = new DilbertPreferences(context);
 		final RemoteViews views = new RemoteViews(context.getPackageName(),
 				R.layout.widget_layout);
+		views.setInt(R.id.widget_layout, "setBackgroundColor",
+				prefs.isDarkWidgetLayoutEnabled() ? Color.BLACK : Color.WHITE);
 		views.setOnClickPendingIntent(R.id.widget_previous,
 				getPendingIntent(INTENT_PREVIOUS, context, appWidgetId));
 		views.setOnClickPendingIntent(R.id.widget_next,
@@ -61,7 +65,6 @@ public class WidgetProvider extends AppWidgetProvider {
 		views.setOnClickPendingIntent(R.id.widget_refresh,
 				getPendingIntent(INTENT_REFRESH, context, appWidgetId));
 
-		final DilbertPreferences prefs = new DilbertPreferences(context);
 		final DateMidnight currentDate = prefs.getDateForWidgetId(appWidgetId);
 		final String cachedUrl = prefs.getCachedUrl(currentDate);
 		views.setViewVisibility(R.id.widget_progress, View.VISIBLE);

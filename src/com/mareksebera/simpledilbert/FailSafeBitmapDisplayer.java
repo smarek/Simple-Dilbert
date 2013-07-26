@@ -21,4 +21,5 @@ public class FailSafeBitmapDisplayer extends FadeInBitmapDisplayer {
 			return bitmap;
 		}
 	}
+	
 }
