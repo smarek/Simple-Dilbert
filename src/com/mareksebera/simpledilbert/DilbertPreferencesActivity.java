@@ -17,7 +17,8 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
-	private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars;
+	private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
+			force_dark_widget;
 	private TextView license;
 	private DilbertPreferences preferences;
 	private static final String TAG = "DilbertPreferencesActivity";
@@ -72,11 +73,12 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		force_landscape = (CheckBox) findViewById(R.id.pref_force_landscape);
 		enable_hq = (CheckBox) findViewById(R.id.pref_enable_high_quality);
 		force_dark = (CheckBox) findViewById(R.id.pref_force_dark_background);
+		force_dark_widget = (CheckBox) findViewById(R.id.pref_force_dark_background_widget);
 		hide_toolbars = (CheckBox) findViewById(R.id.pref_hide_toolbars);
 		license = (TextView) findViewById(R.id.pref_show_license);
 		license.setOnClickListener(licenseOnClickListener);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		startActivity(new Intent(this, DilbertFragmentActivity.class));
@@ -89,6 +91,7 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		force_landscape.setChecked(preferences.isForceLandscape());
 		enable_hq.setChecked(preferences.isHighQualityOn());
 		force_dark.setChecked(preferences.isDarkLayoutEnabled());
+		force_dark_widget.setChecked(preferences.isDarkWidgetLayoutEnabled());
 		hide_toolbars.setChecked(preferences.isToolbarsHidden());
 	}
 
@@ -99,6 +102,7 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		preferences.setIsForceLandscape(force_landscape.isChecked());
 		preferences.setIsToolbarsHidden(hide_toolbars.isChecked());
 		preferences.setIsHighQualityOn(enable_hq.isChecked());
+		preferences.setIsDarkWidgetLayoutEnabled(force_dark_widget.isChecked());
 	}
 
 }
