@@ -6012,11 +6012,9 @@ com.mareksebera.simpledilbert.DilbertFragmentActivity -> com.mareksebera.simpled
     com.mareksebera.simpledilbert.DilbertPreferences preferences -> d
     android.support.v4.view.PagerTitleStrip titles -> e
     android.support.v4.view.ViewPager$OnPageChangeListener pageChangedListener -> f
-    java.lang.CharSequence getLicenseText() -> b
     void setCurrentDate(org.joda.time.DateMidnight) -> a
     void onCreate(android.os.Bundle) -> onCreate
     void onResume() -> onResume
-    boolean onPrepareOptionsMenu(com.actionbarsherlock.view.Menu) -> onPrepareOptionsMenu
     boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu) -> onCreateOptionsMenu
     void toggleActionBar() -> a
     boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
@@ -6031,20 +6029,14 @@ com.mareksebera.simpledilbert.DilbertFragmentActivity$2 -> com.mareksebera.simpl
     void onPageSelected(int) -> a
     void onPageScrolled$486775f1(int,float) -> a
     void onPageScrollStateChanged(int) -> b
-com.mareksebera.simpledilbert.DilbertFragmentActivity$3 -> com.mareksebera.simpledilbert.h:
-    com.mareksebera.simpledilbert.DilbertFragmentActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.mareksebera.simpledilbert.DilbertFragmentActivity$4 -> com.mareksebera.simpledilbert.i:
-    com.mareksebera.simpledilbert.DilbertFragmentActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.mareksebera.simpledilbert.DilbertFragmentAdapter -> com.mareksebera.simpledilbert.j:
+com.mareksebera.simpledilbert.DilbertFragmentAdapter -> com.mareksebera.simpledilbert.h:
     int countCache -> a
     java.lang.CharSequence getPageTitle(int) -> getPageTitle
     android.support.v4.app.Fragment getItem(int) -> getItem
     org.joda.time.DateMidnight getDateForPosition(int) -> a
     int getCount() -> getCount
     int getPositionForDate(org.joda.time.DateMidnight) -> a
-com.mareksebera.simpledilbert.DilbertPreferences -> com.mareksebera.simpledilbert.k:
+com.mareksebera.simpledilbert.DilbertPreferences -> com.mareksebera.simpledilbert.i:
     android.content.SharedPreferences preferences -> c
     android.content.SharedPreferences$Editor editor -> d
     org.joda.time.DateTimeZone TIME_ZONE -> a
@@ -6053,21 +6045,47 @@ com.mareksebera.simpledilbert.DilbertPreferences -> com.mareksebera.simpledilber
     boolean saveCurrentDate(org.joda.time.DateMidnight) -> a
     boolean isHighQualityOn() -> b
     boolean saveCurrentUrl(java.lang.String,java.lang.String) -> a
-    boolean toggleHighQuality() -> c
     java.lang.String getCachedUrl(org.joda.time.DateMidnight) -> b
     boolean removeCache(org.joda.time.DateMidnight) -> c
     boolean isFavorited(org.joda.time.DateMidnight) -> d
     boolean toggleIsFavorited(org.joda.time.DateMidnight) -> e
     java.lang.String toFavoritedKey(org.joda.time.DateMidnight) -> f
-    java.util.List getFavoritedItems() -> d
+    java.util.List getFavoritedItems() -> c
     void downloadImageViaManager(android.app.Activity,java.lang.String,org.joda.time.DateMidnight) -> a
     java.lang.String toHighQuality(java.lang.String) -> a
     java.lang.String toLowQuality(org.joda.time.DateMidnight,java.lang.String) -> a
     boolean saveDateForWidgetId(int,org.joda.time.DateMidnight) -> a
     org.joda.time.DateMidnight getDateForWidgetId(int) -> a
-    org.joda.time.DateMidnight getRandomDateMidnight() -> e
-    org.joda.time.DateMidnight getFirstStripDate() -> f
+    org.joda.time.DateMidnight getRandomDateMidnight() -> d
+    org.joda.time.DateMidnight getFirstStripDate() -> e
     boolean deleteDateForWidgetId(int) -> b
+    boolean isForceLandscape() -> f
+    boolean setIsForceLandscape(boolean) -> a
+    boolean isDarkLayoutEnabled() -> g
+    boolean setIsDarkLayoutEnabled(boolean) -> b
+    boolean isToolbarsHidden() -> h
+    boolean setIsToolbarsHidden(boolean) -> c
+    boolean setIsHighQualityOn(boolean) -> d
+com.mareksebera.simpledilbert.DilbertPreferencesActivity -> com.mareksebera.simpledilbert.DilbertPreferencesActivity:
+    android.widget.CheckBox force_landscape -> a
+    android.widget.CheckBox enable_hq -> b
+    android.widget.CheckBox force_dark -> c
+    android.widget.CheckBox hide_toolbars -> d
+    android.widget.TextView license -> e
+    com.mareksebera.simpledilbert.DilbertPreferences preferences -> f
+    android.view.View$OnClickListener licenseOnClickListener -> g
+    java.lang.CharSequence getLicenseText() -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onBackPressed() -> onBackPressed
+    void onResume() -> onResume
+    void onPause() -> onPause
+    void access$0(com.mareksebera.simpledilbert.DilbertPreferencesActivity) -> a
+com.mareksebera.simpledilbert.DilbertPreferencesActivity$1 -> com.mareksebera.simpledilbert.j:
+    com.mareksebera.simpledilbert.DilbertPreferencesActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.mareksebera.simpledilbert.DilbertPreferencesActivity$2 -> com.mareksebera.simpledilbert.k:
+    com.mareksebera.simpledilbert.DilbertPreferencesActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
 com.mareksebera.simpledilbert.EntityUtils -> com.mareksebera.simpledilbert.l:
     java.lang.String toString(org.apache.http.HttpEntity) -> a
 com.mareksebera.simpledilbert.FailSafeBitmapDisplayer -> com.mareksebera.simpledilbert.m:
@@ -6765,7 +6783,6 @@ org.joda.time.Chronology -> a.a.a.a:
     org.joda.time.DurationField eras() -> J
     org.joda.time.DateTimeField era() -> K
 org.joda.time.DateMidnight -> a.a.a.b:
-    org.joda.time.DateMidnight now() -> a_
     org.joda.time.DateMidnight now(org.joda.time.DateTimeZone) -> a
     org.joda.time.DateMidnight parse(java.lang.String) -> a
     org.joda.time.DateMidnight parse(java.lang.String,org.joda.time.format.DateTimeFormatter) -> a
@@ -6891,18 +6908,16 @@ org.joda.time.DateTimeZone -> a.a.a.j:
     org.joda.time.DateTimeZone getDefault() -> a
     void setDefault(org.joda.time.DateTimeZone) -> a
     org.joda.time.DateTimeZone forID(java.lang.String) -> a
-    org.joda.time.DateTimeZone forOffsetHours$19c934d0() -> b
-    org.joda.time.DateTimeZone forOffsetHoursMinutes$203d6997$19c934d0() -> f
     org.joda.time.DateTimeZone forOffsetMillis(int) -> a
     org.joda.time.DateTimeZone fixedOffsetZone(java.lang.String,int) -> a
-    java.util.Set getAvailableIDs() -> c
-    org.joda.time.tz.Provider getDefaultProvider() -> g
-    org.joda.time.tz.NameProvider getDefaultNameProvider() -> h
+    java.util.Set getAvailableIDs() -> b
+    org.joda.time.tz.Provider getDefaultProvider() -> e
+    org.joda.time.tz.NameProvider getDefaultNameProvider() -> f
     java.lang.String getConvertedId(java.lang.String) -> b
     int parseOffset(java.lang.String) -> c
     java.lang.String printOffset(int) -> b
-    org.joda.time.format.DateTimeFormatter offsetFormatter() -> i
-    java.lang.String getID() -> d
+    org.joda.time.format.DateTimeFormatter offsetFormatter() -> g
+    java.lang.String getID() -> c
     java.lang.String getNameKey(long) -> a
     java.lang.String getShortName(long,java.util.Locale) -> a
     java.lang.String getName(long,java.util.Locale) -> b
@@ -6910,7 +6925,7 @@ org.joda.time.DateTimeZone -> a.a.a.j:
     int getOffsetFromLocal(long) -> c
     long convertUTCToLocal(long) -> d
     long convertLocalToUTC$487ea893(long,long) -> a
-    boolean isFixed() -> e
+    boolean isFixed() -> d
     long nextTransition(long) -> e
     long previousTransition(long) -> f
     boolean equals(java.lang.Object) -> equals
@@ -6933,10 +6948,12 @@ org.joda.time.Days -> a.a.a.l:
     org.joda.time.Days MAX_VALUE -> i
     org.joda.time.Days MIN_VALUE -> j
     org.joda.time.format.PeriodFormatter PARSER -> k
+    org.joda.time.Days days(int) -> a
     org.joda.time.Days daysBetween(org.joda.time.ReadableInstant,org.joda.time.ReadableInstant) -> a
     org.joda.time.DurationFieldType getFieldType() -> a
     org.joda.time.PeriodType getPeriodType() -> b
     int getDays() -> c
+    org.joda.time.Days plus(org.joda.time.Days) -> a
     java.lang.String toString() -> toString
 org.joda.time.DurationField -> a.a.a.m:
     org.joda.time.DurationFieldType getType() -> a
@@ -7639,7 +7656,6 @@ org.joda.time.field.FieldUtils -> a.a.a.c.g:
     int safeAdd(int,int) -> a
     long safeAdd(long,long) -> a
     long safeSubtract(long,long) -> b
-    int safeMultiply(int,int) -> b
     int safeToInt(long) -> a
     void verifyValueBounds(org.joda.time.DateTimeField,int,int,int) -> a
     boolean equals(java.lang.Object,java.lang.Object) -> a
@@ -8149,7 +8165,7 @@ org.joda.time.tz.CachedDateTimeZone -> a.a.a.e.a:
     org.joda.time.tz.CachedDateTimeZone forZone(org.joda.time.DateTimeZone) -> b
     java.lang.String getNameKey(long) -> a
     int getOffset(long) -> b
-    boolean isFixed() -> e
+    boolean isFixed() -> d
     long nextTransition(long) -> e
     long previousTransition(long) -> f
     int hashCode() -> hashCode
@@ -8173,7 +8189,7 @@ org.joda.time.tz.DateTimeZoneBuilder$DSTZone -> a.a.a.e.d:
     org.joda.time.tz.DateTimeZoneBuilder$Recurrence iEndRecurrence -> d
     java.lang.String getNameKey(long) -> a
     int getOffset(long) -> b
-    boolean isFixed() -> e
+    boolean isFixed() -> d
     long nextTransition(long) -> e
     long previousTransition(long) -> f
     boolean equals(java.lang.Object) -> equals
@@ -8201,7 +8217,7 @@ org.joda.time.tz.DateTimeZoneBuilder$PrecalculatedZone -> a.a.a.e.f:
     org.joda.time.tz.DateTimeZoneBuilder$PrecalculatedZone readFrom(java.io.DataInput,java.lang.String) -> a
     java.lang.String getNameKey(long) -> a
     int getOffset(long) -> b
-    boolean isFixed() -> e
+    boolean isFixed() -> d
     long nextTransition(long) -> e
     long previousTransition(long) -> f
     boolean equals(java.lang.Object) -> equals
@@ -8226,7 +8242,7 @@ org.joda.time.tz.FixedDateTimeZone -> a.a.a.e.i:
     java.lang.String getNameKey(long) -> a
     int getOffset(long) -> b
     int getOffsetFromLocal(long) -> c
-    boolean isFixed() -> e
+    boolean isFixed() -> d
     long nextTransition(long) -> e
     long previousTransition(long) -> f
     boolean equals(java.lang.Object) -> equals

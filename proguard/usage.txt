@@ -700,19 +700,23 @@ com.mareksebera.simpledilbert.DilbertFragment:
     public static final java.lang.String ARGUMENT_DATE
 com.mareksebera.simpledilbert.DilbertFragmentActivity:
     private static final int MENU_DATEPICKER
-    private static final int MENU_ABOUT
     private static final int MENU_LATEST
-    private static final int MENU_LICENSE
     private static final int MENU_SHOW_FAVORITES
     private static final int MENU_SHUFFLE
-    private static final int MENU_HIGHQUALITY
-    private static final java.lang.String TAG
+    private static final int MENU_SETTINGS
+    protected static final java.lang.String TAG
 com.mareksebera.simpledilbert.DilbertPreferences:
     private static final java.lang.String PREF_CURRENT_DATE
     private static final java.lang.String PREF_CURRENT_URL
     private static final java.lang.String PREF_HIGH_QUALITY_ENABLED
+    private static final java.lang.String PREF_DARK_LAYOUT
+    private static final java.lang.String PREF_FORCE_LANDSCAPE
+    private static final java.lang.String PREF_HIDE_TOOLBARS
     private static final java.lang.String TAG
-    65:65:public java.lang.String getLastUrl()
+    67:67:public java.lang.String getLastUrl()
+    81:81:public boolean toggleHighQuality()
+com.mareksebera.simpledilbert.DilbertPreferencesActivity:
+    private static final java.lang.String TAG
 com.mareksebera.simpledilbert.EntityUtils:
     12:12:public EntityUtils()
 com.mareksebera.simpledilbert.FavoritedActivity:
@@ -1048,6 +1052,7 @@ org.joda.time.Chronology:
     public abstract java.lang.String toString()
 org.joda.time.DateMidnight:
     private static final long serialVersionUID
+    88:88:public static org.joda.time.DateMidnight now()
     117:120:public static org.joda.time.DateMidnight now(org.joda.time.Chronology)
     186:187:public DateMidnight(org.joda.time.Chronology)
     198:199:public DateMidnight(long)
@@ -1303,6 +1308,8 @@ org.joda.time.DateTimeUtils$FixedMillisProvider
 org.joda.time.DateTimeUtils$OffsetMillisProvider
 org.joda.time.DateTimeZone:
     private static final long serialVersionUID
+    237:237:public static org.joda.time.DateTimeZone forOffsetHours(int)
+    254:272:public static org.joda.time.DateTimeZone forOffsetHoursMinutes(int,int)
     387:387:public static org.joda.time.tz.Provider getProvider()
     401:406:public static void setProvider(org.joda.time.tz.Provider)
     486:486:public static org.joda.time.tz.NameProvider getNameProvider()
@@ -1330,8 +1337,6 @@ org.joda.time.Days:
     296:296:public org.joda.time.Minutes toStandardMinutes()
     314:314:public org.joda.time.Seconds toStandardSeconds()
     332:333:public org.joda.time.Duration toStandardDuration()
-    357:360:public org.joda.time.Days plus(int)
-    373:376:public org.joda.time.Days plus(org.joda.time.Days)
     390:390:public org.joda.time.Days minus(int)
     403:406:public org.joda.time.Days minus(org.joda.time.Days)
     420:420:public org.joda.time.Days multipliedBy(int)
@@ -1984,6 +1989,7 @@ org.joda.time.field.DividedDateTimeField:
 org.joda.time.field.FieldUtils:
     36:37:private FieldUtils()
     49:52:public static int safeNegate(int)
+    119:124:public static int safeMultiply(int,int)
     201:202:public static int safeMultiplyToInt(long,long)
     234:239:public static void verifyValueBounds(org.joda.time.DateTimeFieldType,int,int,int)
     251:256:public static void verifyValueBounds(java.lang.String,int,int,int)

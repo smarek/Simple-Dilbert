@@ -5741,6 +5741,8 @@ com.mareksebera.simpledilbert.AppController
 com.mareksebera.simpledilbert.AppController: AppController()
 com.mareksebera.simpledilbert.DilbertFragmentActivity
 com.mareksebera.simpledilbert.DilbertFragmentActivity: DilbertFragmentActivity()
+com.mareksebera.simpledilbert.DilbertPreferencesActivity
+com.mareksebera.simpledilbert.DilbertPreferencesActivity: DilbertPreferencesActivity()
 com.mareksebera.simpledilbert.FavoritedActivity
 com.mareksebera.simpledilbert.FavoritedActivity: FavoritedActivity()
 com.mareksebera.simpledilbert.FixedViewPager
