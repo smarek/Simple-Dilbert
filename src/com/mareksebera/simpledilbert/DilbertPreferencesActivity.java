@@ -6,12 +6,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -19,7 +21,7 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
 	private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
 			force_dark_widget;
-	private TextView license;
+	private TextView license, rating;
 	private DilbertPreferences preferences;
 	private static final String TAG = "DilbertPreferencesActivity";
 	private OnClickListener licenseOnClickListener = new OnClickListener() {
@@ -27,6 +29,21 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		@Override
 		public void onClick(View v) {
 			showLicenseDialog();
+		}
+	};
+	private OnClickListener ratingOnClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			try {
+				startActivity(new Intent(
+						Intent.ACTION_VIEW,
+						Uri.parse("market://details?id=com.mareksebera.simpledilbert")));
+			} catch (Throwable t) {
+				t.printStackTrace();
+				Toast.makeText(DilbertPreferencesActivity.this,
+						"Cannot open Google Play", Toast.LENGTH_SHORT).show();
+			}
 		}
 	};
 
@@ -77,6 +94,8 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		hide_toolbars = (CheckBox) findViewById(R.id.pref_hide_toolbars);
 		license = (TextView) findViewById(R.id.pref_show_license);
 		license.setOnClickListener(licenseOnClickListener);
+		rating = (TextView) findViewById(R.id.pref_rating);
+		rating.setOnClickListener(ratingOnClickListener);
 	}
 
 	@Override

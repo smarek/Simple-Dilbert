@@ -26,5 +26,7 @@
     <string name="pref_force_dark_background_widget">Usar fundos escuros para o widget</string>
     <string name="pref_hide_toolbars">Ocultar barras de ferramentas</string>
     <string name="pref_show_license">Exibição de Licença de Software</string>
+    <string name="pref_rating">Classifique este aplicativo no Google Play</string>
+    <string name="pref_settings">Preferências</string>
 
 </resources>

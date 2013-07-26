@@ -111,7 +111,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(category, MENU_LATEST, 5, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(category, MENU_SETTINGS, 8, "Settings").setShowAsActionFlags(
+		menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings).setShowAsActionFlags(
 				MenuItem.SHOW_AS_ACTION_NEVER);
 		return super.onCreateOptionsMenu(menu);
 	}
