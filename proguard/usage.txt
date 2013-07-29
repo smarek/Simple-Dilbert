@@ -710,11 +710,12 @@ com.mareksebera.simpledilbert.DilbertPreferences:
     private static final java.lang.String PREF_CURRENT_URL
     private static final java.lang.String PREF_HIGH_QUALITY_ENABLED
     private static final java.lang.String PREF_DARK_LAYOUT
+    private static final java.lang.String PREF_DARK_WIDGET_LAYOUT
     private static final java.lang.String PREF_FORCE_LANDSCAPE
     private static final java.lang.String PREF_HIDE_TOOLBARS
     private static final java.lang.String TAG
-    67:67:public java.lang.String getLastUrl()
-    81:81:public boolean toggleHighQuality()
+    68:68:public java.lang.String getLastUrl()
+    82:82:public boolean toggleHighQuality()
 com.mareksebera.simpledilbert.DilbertPreferencesActivity:
     private static final java.lang.String TAG
 com.mareksebera.simpledilbert.EntityUtils:
@@ -752,13 +753,15 @@ com.mareksebera.simpledilbert.WidgetProvider:
     private static final java.lang.String INTENT_REFRESH
     private static final java.lang.String INTENT_DISPLAY
 com.nostra13.universalimageloader.cache.disc.BaseDiscCache:
-    38:39:public BaseDiscCache(java.io.File)
-    54:60:public void clear()
+    private static final java.lang.String ERROR_ARG_NULL
+    40:41:public BaseDiscCache(java.io.File)
+    63:69:public void clear()
 com.nostra13.universalimageloader.cache.disc.DiscCacheAware:
     public abstract void clear()
 com.nostra13.universalimageloader.cache.disc.LimitedDiscCache:
-    53:54:public LimitedDiscCache(java.io.File,int)
-    116:119:public void clear()
+    private static final int INVALID_SIZE
+    55:56:public LimitedDiscCache(java.io.File,int)
+    119:122:public void clear()
 com.nostra13.universalimageloader.cache.disc.impl.FileCountLimitedDiscCache:
     40:41:public FileCountLimitedDiscCache(java.io.File,int)
 com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiscCache
@@ -769,11 +772,11 @@ com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache:
     36:37:public UnlimitedDiscCache(java.io.File)
 com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator
 com.nostra13.universalimageloader.cache.memory.BaseMemoryCache:
-    67:68:public void clear()
+    63:64:public void clear()
 com.nostra13.universalimageloader.cache.memory.LimitedMemoryCache:
     private static final int MAX_NORMAL_CACHE_SIZE_IN_MB
     private static final int MAX_NORMAL_CACHE_SIZE
-    100:103:public void clear()
+    98:101:public void clear()
 com.nostra13.universalimageloader.cache.memory.MemoryCacheAware:
     public abstract void clear()
 com.nostra13.universalimageloader.cache.memory.impl.FIFOLimitedMemoryCache
@@ -782,66 +785,58 @@ com.nostra13.universalimageloader.cache.memory.impl.FuzzyKeyMemoryCache:
 com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache:
     private static final int INITIAL_CAPACITY
     private static final float LOAD_FACTOR
-    79:81:public void clear()
+    76:78:public void clear()
 com.nostra13.universalimageloader.cache.memory.impl.LargestLimitedMemoryCache
 com.nostra13.universalimageloader.cache.memory.impl.LimitedAgeMemoryCache
 com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache:
-    129:130:public void clear()
+    126:127:public void clear()
 com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache
 com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache
 com.nostra13.universalimageloader.core.DefaultConfigurationFactory:
-    56:56:public DefaultConfigurationFactory()
+    50:50:public DefaultConfigurationFactory()
+com.nostra13.universalimageloader.core.DisplayBitmapTask:
+    private static final java.lang.String LOG_DISPLAY_IMAGE_IN_IMAGEVIEW
+    private static final java.lang.String LOG_TASK_CANCELLED_IMAGEVIEW_REUSED
+    private static final java.lang.String LOG_TASK_CANCELLED_IMAGEVIEW_LOST
 com.nostra13.universalimageloader.core.DisplayImageOptions$Builder:
-    206:207:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder showStubImage(int)
-    217:218:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder showImageForEmptyUri(int)
-    228:229:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder showImageOnFail(int)
-    234:235:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder resetViewBeforeLoading()
-    261:262:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder bitmapConfig(android.graphics.Bitmap$Config)
-    274:275:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder decodingOptions(android.graphics.BitmapFactory$Options)
-    280:281:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder delayBeforeLoading(int)
-    286:287:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder extraForDownloader(java.lang.Object)
-    296:297:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder preProcessor(com.nostra13.universalimageloader.core.process.BitmapProcessor)
-    305:306:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder postProcessor(com.nostra13.universalimageloader.core.process.BitmapProcessor)
-    323:324:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder handler(android.os.Handler)
+    205:206:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder showStubImage(int)
+    216:217:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder showImageForEmptyUri(int)
+    227:228:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder showImageOnFail(int)
+    237:238:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder resetViewBeforeLoading()
+    243:244:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder resetViewBeforeLoading(boolean)
+    253:254:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder cacheInMemory()
+    269:270:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder cacheOnDisc()
+    290:292:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder bitmapConfig(android.graphics.Bitmap$Config)
+    304:306:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder decodingOptions(android.graphics.BitmapFactory$Options)
+    311:312:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder delayBeforeLoading(int)
+    317:318:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder extraForDownloader(java.lang.Object)
+    327:328:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder preProcessor(com.nostra13.universalimageloader.core.process.BitmapProcessor)
+    336:337:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder postProcessor(com.nostra13.universalimageloader.core.process.BitmapProcessor)
+    355:356:public com.nostra13.universalimageloader.core.DisplayImageOptions$Builder handler(android.os.Handler)
 com.nostra13.universalimageloader.core.ImageLoader:
     static final java.lang.String LOG_INIT_CONFIG
     static final java.lang.String LOG_DESTROY
-    static final java.lang.String LOG_WAITING_FOR_RESUME
-    static final java.lang.String LOG_RESUME_AFTER_PAUSE
-    static final java.lang.String LOG_DELAY_BEFORE_LOADING
-    static final java.lang.String LOG_START_DISPLAY_IMAGE_TASK
-    static final java.lang.String LOG_WAITING_FOR_IMAGE_LOADED
-    static final java.lang.String LOG_GET_IMAGE_FROM_MEMORY_CACHE_AFTER_WAITING
     static final java.lang.String LOG_LOAD_IMAGE_FROM_MEMORY_CACHE
-    static final java.lang.String LOG_LOAD_IMAGE_FROM_NETWORK
-    static final java.lang.String LOG_LOAD_IMAGE_FROM_DISC_CACHE
-    static final java.lang.String LOG_PREPROCESS_IMAGE
-    static final java.lang.String LOG_POSTPROCESS_IMAGE
-    static final java.lang.String LOG_CACHE_IMAGE_IN_MEMORY
-    static final java.lang.String LOG_CACHE_IMAGE_ON_DISC
-    static final java.lang.String LOG_DISPLAY_IMAGE_IN_IMAGEVIEW
-    static final java.lang.String LOG_TASK_CANCELLED
-    static final java.lang.String LOG_TASK_INTERRUPTED
     private static final java.lang.String WARNING_RE_INIT_CONFIG
     private static final java.lang.String ERROR_WRONG_ARGUMENTS
     private static final java.lang.String ERROR_NOT_INIT
     private static final java.lang.String ERROR_INIT_CONFIG_WITH_NULL
-    156:157:public void displayImage(java.lang.String,android.widget.ImageView,com.nostra13.universalimageloader.core.DisplayImageOptions)
-    281:282:public void loadImage(java.lang.String,com.nostra13.universalimageloader.core.assist.ImageSize,com.nostra13.universalimageloader.core.assist.ImageLoadingListener)
-    301:302:public void loadImage(java.lang.String,com.nostra13.universalimageloader.core.DisplayImageOptions,com.nostra13.universalimageloader.core.assist.ImageLoadingListener)
-    364:365:public com.nostra13.universalimageloader.cache.memory.MemoryCacheAware getMemoryCache()
-    374:376:public void clearMemoryCache()
-    384:385:public com.nostra13.universalimageloader.cache.disc.DiscCacheAware getDiscCache()
-    394:396:public void clearDiscCache()
-    400:400:public java.lang.String getLoadingUriForView(android.widget.ImageView)
-    423:424:public void denyNetworkDownloads(boolean)
-    434:435:public void handleSlowNetwork(boolean)
-    442:443:public void pause()
-    447:448:public void resume()
-    455:456:public void stop()
-    464:468:public void destroy()
+    134:135:public void displayImage(java.lang.String,android.widget.ImageView,com.nostra13.universalimageloader.core.DisplayImageOptions)
+    254:255:public void loadImage(java.lang.String,com.nostra13.universalimageloader.core.assist.ImageSize,com.nostra13.universalimageloader.core.assist.ImageLoadingListener)
+    273:274:public void loadImage(java.lang.String,com.nostra13.universalimageloader.core.DisplayImageOptions,com.nostra13.universalimageloader.core.assist.ImageLoadingListener)
+    335:336:public com.nostra13.universalimageloader.cache.memory.MemoryCacheAware getMemoryCache()
+    345:347:public void clearMemoryCache()
+    355:356:public com.nostra13.universalimageloader.cache.disc.DiscCacheAware getDiscCache()
+    365:367:public void clearDiscCache()
+    371:371:public java.lang.String getLoadingUriForView(android.widget.ImageView)
+    394:395:public void denyNetworkDownloads(boolean)
+    405:406:public void handleSlowNetwork(boolean)
+    413:414:public void pause()
+    418:419:public void resume()
+    426:427:public void stop()
+    435:439:public void destroy()
 com.nostra13.universalimageloader.core.ImageLoaderConfiguration:
-    131:131:public static com.nostra13.universalimageloader.core.ImageLoaderConfiguration createDefault(android.content.Context)
+    134:134:public static com.nostra13.universalimageloader.core.ImageLoaderConfiguration createDefault(android.content.Context)
 com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder:
     private static final java.lang.String WARNING_OVERLAP_DISC_CACHE_PARAMS
     private static final java.lang.String WARNING_OVERLAP_DISC_CACHE_NAME_GENERATOR
@@ -849,44 +844,67 @@ com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder:
     private static final java.lang.String WARNING_OVERLAP_EXECUTOR
     public static final int DEFAULT_THREAD_POOL_SIZE
     public static final int DEFAULT_THREAD_PRIORITY
-    199:201:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder memoryCacheExtraOptions(int,int)
-    216:220:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheExtraOptions(int,int,android.graphics.Bitmap$CompressFormat,int)
-    237:242:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder taskExecutor(java.util.concurrent.Executor)
-    264:269:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder taskExecutorForCachedImages(java.util.concurrent.Executor)
-    277:282:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder threadPoolSize(int)
-    291:304:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder threadPriority(int)
-    316:317:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder denyCacheImageMultipleSizesInMemory()
-    325:330:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder tasksProcessingOrder(com.nostra13.universalimageloader.core.assist.QueueProcessingType)
-    342:349:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder memoryCacheSize(int)
-    363:368:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder memoryCache(com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
-    380:387:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheSize(int)
-    399:407:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheFileCount(int)
-    417:422:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheFileNameGenerator(com.nostra13.universalimageloader.cache.disc.naming.FileNameGenerator)
-    432:433:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder imageDownloader(com.nostra13.universalimageloader.core.download.ImageDownloader)
-    443:444:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder imageDecoder(com.nostra13.universalimageloader.core.decode.ImageDecoder)
-    462:470:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCache(com.nostra13.universalimageloader.cache.disc.DiscCacheAware)
-    486:487:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder enableLogging()
+    203:205:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder memoryCacheExtraOptions(int,int)
+    221:226:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheExtraOptions(int,int,android.graphics.Bitmap$CompressFormat,int,com.nostra13.universalimageloader.core.process.BitmapProcessor)
+    243:248:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder taskExecutor(java.util.concurrent.Executor)
+    270:275:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder taskExecutorForCachedImages(java.util.concurrent.Executor)
+    283:288:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder threadPoolSize(int)
+    297:310:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder threadPriority(int)
+    322:323:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder denyCacheImageMultipleSizesInMemory()
+    331:336:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder tasksProcessingOrder(com.nostra13.universalimageloader.core.assist.QueueProcessingType)
+    348:355:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder memoryCacheSize(int)
+    368:377:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder memoryCacheSizePercentage(int)
+    391:396:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder memoryCache(com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
+    408:415:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheSize(int)
+    427:435:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheFileCount(int)
+    445:450:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCacheFileNameGenerator(com.nostra13.universalimageloader.cache.disc.naming.FileNameGenerator)
+    460:461:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder imageDownloader(com.nostra13.universalimageloader.core.download.ImageDownloader)
+    471:472:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder imageDecoder(com.nostra13.universalimageloader.core.decode.ImageDecoder)
+    490:498:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder discCache(com.nostra13.universalimageloader.cache.disc.DiscCacheAware)
+    517:518:public com.nostra13.universalimageloader.core.ImageLoaderConfiguration$Builder writeDebugLogs()
 com.nostra13.universalimageloader.core.ImageLoaderEngine:
-    133:134:void denyNetworkDownloads(boolean)
-    144:145:void handleSlowNetwork(boolean)
-    152:153:void pause()
-    157:161:void resume()
-    165:174:void stop()
+    132:133:void denyNetworkDownloads(boolean)
+    143:144:void handleSlowNetwork(boolean)
+    151:152:void pause()
+    156:160:void resume()
+    164:173:void stop()
 com.nostra13.universalimageloader.core.LoadAndDisplayImageTask:
+    private static final java.lang.String LOG_WAITING_FOR_RESUME
+    private static final java.lang.String LOG_RESUME_AFTER_PAUSE
+    private static final java.lang.String LOG_DELAY_BEFORE_LOADING
+    private static final java.lang.String LOG_START_DISPLAY_IMAGE_TASK
+    private static final java.lang.String LOG_WAITING_FOR_IMAGE_LOADED
+    private static final java.lang.String LOG_GET_IMAGE_FROM_MEMORY_CACHE_AFTER_WAITING
+    private static final java.lang.String LOG_LOAD_IMAGE_FROM_NETWORK
+    private static final java.lang.String LOG_LOAD_IMAGE_FROM_DISC_CACHE
+    private static final java.lang.String LOG_PREPROCESS_IMAGE
+    private static final java.lang.String LOG_POSTPROCESS_IMAGE
+    private static final java.lang.String LOG_CACHE_IMAGE_IN_MEMORY
+    private static final java.lang.String LOG_CACHE_IMAGE_ON_DISC
+    private static final java.lang.String LOG_PROCESS_IMAGE_BEFORE_CACHE_ON_DISC
+    private static final java.lang.String LOG_TASK_CANCELLED_IMAGEVIEW_REUSED
+    private static final java.lang.String LOG_TASK_CANCELLED_IMAGEVIEW_LOST
+    private static final java.lang.String LOG_TASK_INTERRUPTED
+    private static final java.lang.String ERROR_PRE_PROCESSOR_NULL
+    private static final java.lang.String ERROR_POST_PROCESSOR_NULL
+    private static final java.lang.String ERROR_PROCESSOR_FOR_DISC_CACHE_NULL
     private static final int BUFFER_SIZE
+com.nostra13.universalimageloader.core.ProcessAndDisplayImageTask:
+    private static final java.lang.String LOG_POSTPROCESS_IMAGE
 com.nostra13.universalimageloader.core.assist.DiscCacheUtil
 com.nostra13.universalimageloader.core.assist.FailReason:
-    39:39:public com.nostra13.universalimageloader.core.assist.FailReason$FailType getType()
-    46:46:public java.lang.Throwable getCause()
+    37:37:public com.nostra13.universalimageloader.core.assist.FailReason$FailType getType()
+    42:42:public java.lang.Throwable getCause()
 com.nostra13.universalimageloader.core.assist.ImageSize:
-    private static final java.lang.String TO_STRING_PATTERN
+    private static final int TO_STRING_MAX_LENGHT
+    private static final java.lang.String SEPARATOR
 com.nostra13.universalimageloader.core.assist.MemoryCacheUtil:
     private static final java.lang.String URI_AND_SIZE_SEPARATOR
-    private static final java.lang.String MEMORY_CACHE_KEY_FORMAT
-    38:39:private MemoryCacheUtil()
-    68:74:public static java.util.List findCachedBitmapsForImageUri(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
-    84:90:public static java.util.List findCacheKeysForImageUri(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
-    100:109:public static void removeFromCache(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
+    private static final java.lang.String WIDTH_AND_HEIGHT_SEPARATOR
+    37:38:private MemoryCacheUtil()
+    66:72:public static java.util.List findCachedBitmapsForImageUri(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
+    82:88:public static java.util.List findCacheKeysForImageUri(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
+    98:107:public static void removeFromCache(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
 com.nostra13.universalimageloader.core.assist.PauseOnScrollListener
 com.nostra13.universalimageloader.core.assist.deque.BlockingDeque:
     public abstract void addFirst(java.lang.Object)
@@ -973,30 +991,32 @@ com.nostra13.universalimageloader.core.decode.BaseImageDecoder:
     protected static final java.lang.String LOG_ROTATE_IMAGE
     protected static final java.lang.String LOG_FLIP_IMAGE
     protected static final java.lang.String ERROR_CANT_DECODE_IMAGE
-    199:200:public void setLoggingEnabled(boolean)
 com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer
 com.nostra13.universalimageloader.core.download.BaseImageDownloader:
     public static final int DEFAULT_HTTP_CONNECT_TIMEOUT
     public static final int DEFAULT_HTTP_READ_TIMEOUT
     protected static final int BUFFER_SIZE
     protected static final java.lang.String ALLOWED_URI_CHARS
-    private static final int MAX_REDIRECT_COUNT
+    protected static final int MAX_REDIRECT_COUNT
     private static final java.lang.String ERROR_UNSUPPORTED_SCHEME
-    73:77:public BaseImageDownloader(android.content.Context,int,int)
+    65:69:public BaseImageDownloader(android.content.Context,int,int)
 com.nostra13.universalimageloader.core.download.HttpClientImageDownloader
 com.nostra13.universalimageloader.utils.ImageSizeUtils:
-    36:37:private ImageSizeUtils()
+    35:36:private ImageSizeUtils()
 com.nostra13.universalimageloader.utils.IoUtils:
     private static final int BUFFER_SIZE
     33:34:private IoUtils()
 com.nostra13.universalimageloader.utils.L:
     private static final java.lang.String LOG_FORMAT
     32:33:private L()
-    56:57:public static varargs void e(java.lang.Throwable,java.lang.String,java.lang.Object[])
+    37:38:public static void enableLogging()
+    42:43:public static void disableLogging()
+    66:67:public static varargs void e(java.lang.Throwable,java.lang.String,java.lang.Object[])
 com.nostra13.universalimageloader.utils.StorageUtils:
+    private static final java.lang.String EXTERNAL_STORAGE_PERMISSION
     private static final java.lang.String INDIVIDUAL_DIR_NAME
-    34:35:private StorageUtils()
-    84:91:public static java.io.File getOwnCacheDirectory(android.content.Context,java.lang.String)
+    38:39:private StorageUtils()
+    91:98:public static java.io.File getOwnCacheDirectory(android.content.Context,java.lang.String)
 org.joda.convert.FromString
 org.joda.convert.FromStringConverter
 org.joda.convert.JDKStringConverter
@@ -2540,12 +2560,12 @@ uk.co.senab.photoview.PhotoViewAttacher:
     public static final float DEFAULT_MID_SCALE
     public static final float DEFAULT_MIN_SCALE
     62:69:private static void checkZoomLevels(float,float,float)
-    450:451:public void setAllowParentInterceptOnEdge(boolean)
-    455:457:public void setMinScale(float)
-    461:463:public void setMidScale(float)
-    467:469:public void setMaxScale(float)
-    478:479:public final void setOnMatrixChangeListener(uk.co.senab.photoview.PhotoViewAttacher$OnMatrixChangedListener)
-    488:489:public final void setOnViewTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnViewTapListener)
+    451:452:public void setAllowParentInterceptOnEdge(boolean)
+    456:458:public void setMinScale(float)
+    462:464:public void setMidScale(float)
+    468:470:public void setMaxScale(float)
+    479:480:public final void setOnMatrixChangeListener(uk.co.senab.photoview.PhotoViewAttacher$OnMatrixChangedListener)
+    489:490:public final void setOnViewTapListener(uk.co.senab.photoview.PhotoViewAttacher$OnViewTapListener)
 uk.co.senab.photoview.PhotoViewAttacher$AnimatedZoomRunnable:
     static final float ANIMATION_SCALE_PER_ITERATION_IN
     static final float ANIMATION_SCALE_PER_ITERATION_OUT
