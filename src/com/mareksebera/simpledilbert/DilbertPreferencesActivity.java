@@ -3,6 +3,8 @@ package com.mareksebera.simpledilbert;
 import java.io.InputStream;
 
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -122,6 +124,25 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		preferences.setIsToolbarsHidden(hide_toolbars.isChecked());
 		preferences.setIsHighQualityOn(enable_hq.isChecked());
 		preferences.setIsDarkWidgetLayoutEnabled(force_dark_widget.isChecked());
+		updateWidgets();
+	}
+
+	private void updateWidgets() {
+		try {
+			int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(
+					new ComponentName(this, WidgetProvider.class));
+			if (ids != null)
+				for (int id : ids) {
+					Intent updateIntent = new Intent();
+					updateIntent
+							.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+					updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+							id);
+					sendBroadcast(updateIntent);
+				}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 }
