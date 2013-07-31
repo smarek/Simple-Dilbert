@@ -13,12 +13,10 @@
     <string name="menu_show_favorite">Favoriten anzeigen</string>
     <string name="menu_zoom">Zoom</string>
     <string name="menu_random">Zufällig</string>
-    <string name="context_favorites_remove">Aus Favoriten entfernen</string>
     <string name="toast_no_favorites">Sie haben keine favorisierten Strips</string>
     <string name="title_favorited">Favorisierte Strips</string>
     <string name="share_chooser">Teile Dilbert Comics</string>
     <string name="menu_share">Teilen diese!</string>
-    <string name="menu_open">Zeigen</string>
     <string name="title_preferences">Einstellungen</string>
     <string name="pref_force_landscape">Kraft Landschaft</string>
     <string name="pref_enable_high_quality">Hohe Qualität</string>

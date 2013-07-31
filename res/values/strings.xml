@@ -14,7 +14,6 @@
     <string name="menu_favorite_remove">Unfavorite</string>
     <string name="menu_show_favorite">Show favorites</string>
     <string name="menu_zoom">Zoom</string>
-    <string name="context_favorites_remove">Remove from favorites</string>
     <string name="toast_no_favorites">You have no favorite strips</string>
     <string name="title_favorited">Favorite strips</string>
     <string name="menu_random">Random</string>
@@ -24,7 +23,6 @@
     <string name="widget_cd_latest" translatable="false">Latest</string>
     <string name="widget_cd_previous" translatable="false">Previous</string>
     <string name="widget_cd_random" translatable="false">Random</string>
-    <string name="menu_open">Show</string>
     <string name="title_preferences">Preferences</string>
     <string name="pref_force_landscape">Force Landscape Orientation</string>
     <string name="pref_enable_high_quality">Enable High Quality Images</string>

@@ -12,13 +12,11 @@
     <string name="menu_favorite_remove">Remova dos favoritos</string>
     <string name="menu_show_favorite">Mostrar os favoritos</string>
     <string name="menu_zoom">Ampliar</string>
-    <string name="context_favorites_remove">Remover dos favoritos </string>
     <string name="toast_no_favorites">Voce não tem nehuma tira favorita</string>
     <string name="title_favorited">Quadrinhos favoritos</string>
     <string name="menu_random">Acaso</string>
     <string name="share_chooser">Compartilhe Dilbert Comics</string>
     <string name="menu_share">Compartilhar esta!</string>
-    <string name="menu_open">Mostrar</string>
     <string name="title_preferences">Preferências</string>
     <string name="pref_force_landscape">Força Orientação Paisagem</string>
     <string name="pref_enable_high_quality">Ativar Alta Qualidade</string>

@@ -12,13 +12,11 @@
     <string name="menu_favorite_remove">Odebrat z oblíbených</string>
     <string name="menu_show_favorite">Zobrazit oblíbené</string>
     <string name="menu_zoom">Zvětšit</string>
-    <string name="context_favorites_remove">Odstranit z oblíbených</string>
     <string name="toast_no_favorites">Nemáte žádné oblíbené</string>
     <string name="title_favorited">Oblíbené díly</string>
     <string name="menu_random">Náhodný díl</string>
     <string name="share_chooser">Sdílet komiks Dilbert</string>
     <string name="menu_share">Sdílet</string>
-    <string name="menu_open">Zobrazit</string>
     <string name="title_preferences">Nastavení</string>
     <string name="pref_force_landscape">Vynutit horizontální zobrazení</string>
     <string name="pref_enable_high_quality">Vysoká kvalita komiksu</string>
