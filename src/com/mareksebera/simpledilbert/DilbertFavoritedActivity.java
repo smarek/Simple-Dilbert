@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 
 public class DilbertFavoritedActivity extends SherlockFragmentActivity {
 
@@ -38,6 +39,7 @@ public class DilbertFavoritedActivity extends SherlockFragmentActivity {
 		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
 				: R.style.AppThemeLight);
 		setContentView(R.layout.activity_dilbert_fragments);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
 		titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
 		adapter = new DilbertFavoritedFragmentAdapter(
@@ -51,6 +53,17 @@ public class DilbertFavoritedActivity extends SherlockFragmentActivity {
 		viewPager.setAdapter(adapter);
 		if (preferences.isToolbarsHidden())
 			toggleActionBar();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void toggleActionBar() {
