@@ -159,7 +159,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 			setCurrentDate(DateMidnight.now(DilbertPreferences.TIME_ZONE));
 			return true;
 		case MENU_SHOW_FAVORITES:
-			startActivity(new Intent(this, FavoritedActivity.class));
+			startActivity(new Intent(this, DilbertFavoritedActivity.class));
 			return true;
 		case MENU_SHUFFLE:
 			setCurrentDate(DilbertPreferences.getRandomDateMidnight());

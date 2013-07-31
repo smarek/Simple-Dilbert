@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mareksebera.simpledilbert.FavoritedActivity" />
+        <activity android:name="com.mareksebera.simpledilbert.DilbertFavoritedActivity" />
         <activity android:name="com.mareksebera.simpledilbert.DilbertPreferencesActivity" />
 
         <receiver
