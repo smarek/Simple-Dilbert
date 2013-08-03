@@ -49,18 +49,15 @@ class GetStripUrl extends AsyncTask<Void, Void, String> {
 		}
 		HttpGet get = new HttpGet("http://www.dilbert.com/strips/comic/"
 				+ currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
-		String result = null;
+		HttpResponse response = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-			HttpResponse response = client.execute(get);
-			result = EntityUtils.toString(response.getEntity());
-		} catch (Exception e) {
+			response = client.execute(get);
+		} catch (Throwable e) {
 			Log.e(TAG, "HttpGet failed", e);
 		}
-		if (result != null) {
-			result = result.replace("\"/dyn/str_strip",
-					"\"http://www.dilbert.com/dyn/str_strip");
-			for (String s : FindUrls.extractUrls(result)) {
+		if (response != null) {
+			for (String s : FindUrls.extractUrls(response)) {
 				/**
 				 * This method can only accept gif URLs with appropriate
 				 * suffixes

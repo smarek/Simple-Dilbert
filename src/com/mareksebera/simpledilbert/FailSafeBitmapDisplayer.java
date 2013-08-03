@@ -5,22 +5,20 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 
-public class FailSafeBitmapDisplayer extends FadeInBitmapDisplayer {
-
-	public FailSafeBitmapDisplayer(int durationMillis) {
-		super(durationMillis);
-	}
+public class FailSafeBitmapDisplayer implements BitmapDisplayer {
 
 	@Override
-	public Bitmap display(Bitmap bitmap, ImageView imageView, LoadedFrom loadedFrom) {
+	public Bitmap display(Bitmap bitmap, ImageView imageView,
+			LoadedFrom loadedFrom) {
 		try {
-			return super.display(bitmap, imageView, loadedFrom);
+			imageView.setImageBitmap(bitmap);
+			return bitmap;
 		} catch (IllegalStateException e) {
 			Log.e("debug", e.getMessage(), e);
 			return bitmap;
 		}
 	}
-	
+
 }

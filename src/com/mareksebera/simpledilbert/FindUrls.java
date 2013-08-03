@@ -2,38 +2,32 @@ package com.mareksebera.simpledilbert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
-/**
- * Taken from :
- * "http://stackoverflow.com/questions/1806017/extracting-urls-from-a-text-document-using-java-regular-expressions"
- * Credits to : "http://stackoverflow.com/users/210114/philip-daubmeier"
- * */
+import org.apache.http.HttpResponse;
+
+import android.util.Log;
+
 public final class FindUrls {
 	private FindUrls() {
 	}
 
-	public static List<String> extractUrls(String input) {
-		List<String> result = new ArrayList<String>();
+	private static final Pattern url_match_pattern = Pattern
+			.compile("/dyn/str_strip(.*).gif");
 
-		Pattern pattern = Pattern
-				.compile("\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)"
-						+ "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov"
-						+ "|mil|biz|info|mobi|name|aero|jobs|museum"
-						+ "|travel|[a-z]{2}))(:[\\d]{1,5})?"
-						+ "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?"
-						+ "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
-						+ "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)"
-						+ "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
-						+ "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
-						+ "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
-
-		Matcher matcher = pattern.matcher(input);
-		while (matcher.find()) {
-			result.add(matcher.group());
+	public static List<String> extractUrls(HttpResponse response) {
+		List<String> found = new ArrayList<String>();
+		try {
+			Scanner scan = new Scanner(response.getEntity().getContent());
+			String match = null;
+			while ((match = scan.findWithinHorizon(url_match_pattern, 0)) != null) {
+				found.add(match.replace("/dyn/str_strip",
+						"http://www.dilbert.com/dyn/str_strip"));
+			}
+		} catch (Throwable t) {
+			Log.e("FindUrls", "Error Occured", t);
 		}
-
-		return result;
+		return found;
 	}
 }

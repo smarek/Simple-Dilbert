@@ -34,6 +34,22 @@ public class DilbertFragment extends SherlockFragment {
 	private DilbertPreferences preferences;
 	private GetStripUrl loadTask;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
+
+	@Override
+	public void onDestroyView() {
+		progress = null;
+		image = null;
+		imageLoader = null;
+		if (loadTask != null) {
+			try {
+				loadTask.cancel(true);
+			} catch (Throwable t) {
+				t.printStackTrace();
+			}
+		}
+		super.onDestroyView();
+	}
+
 	private GetStripUrlInterface getStripUrilListener = new GetStripUrlInterface() {
 
 		@Override
@@ -54,15 +70,19 @@ public class DilbertFragment extends SherlockFragment {
 
 		@Override
 		public void onLoadingCancelled(String imageUri, View view) {
-			image.setImageResource(R.drawable.cancel);
-			progress.setVisibility(View.GONE);
+			if (image != null)
+				image.setImageResource(R.drawable.cancel);
+			if (progress != null)
+				progress.setVisibility(View.GONE);
 		}
 
 		@Override
 		public void onLoadingComplete(String imageUri, View view,
 				Bitmap loadedImage) {
-			progress.setVisibility(View.GONE);
-			image.setVisibility(View.VISIBLE);
+			if (progress != null)
+				progress.setVisibility(View.GONE);
+			if (image != null)
+				image.setVisibility(View.VISIBLE);
 		}
 
 		@Override
