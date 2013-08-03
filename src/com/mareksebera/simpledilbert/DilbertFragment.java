@@ -33,13 +33,11 @@ public class DilbertFragment extends SherlockFragment {
 	private ProgressBar progress;
 	private DilbertPreferences preferences;
 	private GetStripUrl loadTask;
-	private ImageLoader imageLoader = ImageLoader.getInstance();
 
 	@Override
 	public void onDestroyView() {
 		progress = null;
 		image = null;
-		imageLoader = null;
 		if (loadTask != null) {
 			try {
 				loadTask.cancel(true);
@@ -62,7 +60,7 @@ public class DilbertFragment extends SherlockFragment {
 			boolean hqIsEnabled = preferences.isHighQualityOn();
 			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
 					.toLowQuality(getDateFromArguments(), url);
-			imageLoader.displayImage(url, image, dilbertImageLoadingListener);
+			ImageLoader.getInstance().displayImage(url, image, dilbertImageLoadingListener);
 		}
 	};
 
@@ -156,7 +154,7 @@ public class DilbertFragment extends SherlockFragment {
 
 	@Override
 	public void onStop() {
-		imageLoader.cancelDisplayTask(this.image);
+		ImageLoader.getInstance().cancelDisplayTask(this.image);
 		super.onStop();
 	}
 
