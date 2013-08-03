@@ -1,6 +1,8 @@
 package com.mareksebera.simpledilbert;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -123,6 +125,13 @@ public class DilbertPreferences {
 						DATE_FORMATTER), (String) allPreferences.get(date)));
 			}
 		}
+		Collections.sort(favorites, new Comparator<FavoritedItem>() {
+
+			@Override
+			public int compare(FavoritedItem lhs, FavoritedItem rhs) {
+				return lhs.getDate().compareTo(rhs.getDate());
+			}
+		});
 		return favorites;
 	}
 
