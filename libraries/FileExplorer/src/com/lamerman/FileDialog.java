@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.TreeMap;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,13 +18,16 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 /**
  * Activity para escolha de arquivos/diretorios.
  * 
  * @author android
  * 
  */
-public class FileDialog extends ListActivity {
+public class FileDialog extends SherlockListActivity {
 
 	/**
 	 * Chave de um item da lista de paths.
@@ -40,7 +42,8 @@ public class FileDialog extends ListActivity {
 	/**
 	 * Diretorio raiz.
 	 * 
-	 * Update: Root must be external storage directory because of DownloadManager
+	 * Update: Root must be external storage directory because of
+	 * DownloadManager
 	 */
 	private static final String ROOT = Environment
 			.getExternalStorageDirectory().toString();
@@ -206,6 +209,7 @@ public class FileDialog extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setResult(RESULT_CANCELED, getIntent());
 
 		setContentView(R.layout.file_dialog_main);
@@ -280,5 +284,15 @@ public class FileDialog extends ListActivity {
 			v.setSelected(true);
 			selectButton.setEnabled(true);
 		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
