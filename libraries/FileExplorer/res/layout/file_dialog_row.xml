@@ -21,7 +21,6 @@
         android:layout_alignTop="@+id/fdrowimage"
         android:layout_toRightOf="@+id/fdrowimage"
         android:gravity="center_vertical"
-        android:text="@+id/fdrowtext"
         android:textSize="23sp" >
     </TextView>
 
