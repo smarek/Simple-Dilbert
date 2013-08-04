@@ -56,6 +56,28 @@
             android:layout_marginTop="5dp"
             android:text="@string/pref_hide_toolbars" />
 
+        <LinearLayout
+            android:id="@+id/pref_download_path_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="10dp"
+                android:text="@string/pref_download_path" />
+
+            <TextView
+                android:id="@+id/pref_download_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:padding="10dp" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/pref_rating"
             android:layout_width="fill_parent"

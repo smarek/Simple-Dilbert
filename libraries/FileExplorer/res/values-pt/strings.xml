@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="location">"Localização :"</string>
+    <string name="cant_read_folder">A pasta não pode ser lido!</string>
+    <string name="select">Selecionar</string>
+    <string name="err">Erro</string>
+
+</resources>

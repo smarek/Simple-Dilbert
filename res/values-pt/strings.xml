@@ -26,5 +26,6 @@
     <string name="pref_show_license">Exibição de Licença de Software</string>
     <string name="pref_rating">Classifique este aplicativo no Google Play</string>
     <string name="menu_settings">Preferências</string>
+    <string name="pref_download_path">Pasta de destino de downloads:</string>
 
 </resources>

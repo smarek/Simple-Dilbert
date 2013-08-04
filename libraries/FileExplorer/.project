@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>SimpleDilbert</name>
+	<name>FileExplorer</name>
 	<comment></comment>
 	<projects>
-		<project>SD_ABS</project>
-		<project>SD_FileExplorer</project>
-		<project>SD_PV</project>
-		<project>SD_UIL</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

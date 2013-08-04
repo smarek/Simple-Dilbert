@@ -32,5 +32,6 @@
     <string name="pref_force_dark_background_widget">Use dark background for widget</string>
     <string name="pref_rating">Rate this application on Google Play</string>
     <string name="menu_settings">Settings</string>
+    <string name="pref_download_path">Downloads target folder:</string>
 
 </resources>

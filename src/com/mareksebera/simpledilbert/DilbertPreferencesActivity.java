@@ -1,5 +1,6 @@
 package com.mareksebera.simpledilbert;
 
+import java.io.File;
 import java.io.InputStream;
 
 import android.app.AlertDialog;
@@ -14,17 +15,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.lamerman.FileDialog;
 
 public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
 	private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
 			force_dark_widget;
-	private TextView license, rating;
+	private TextView license, rating, download_path;
+	private LinearLayout download_path_layout;
 	private DilbertPreferences preferences;
+	private static final int REQUEST_DOWNLOAD_TARGET = 1;
 	private static final String TAG = "DilbertPreferencesActivity";
 	private OnClickListener licenseOnClickListener = new OnClickListener() {
 
@@ -45,6 +50,36 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 				t.printStackTrace();
 				Toast.makeText(DilbertPreferencesActivity.this,
 						"Cannot open Google Play", Toast.LENGTH_SHORT).show();
+			}
+		}
+	};
+	private OnClickListener downloadPathClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Intent downloadPathSelector = new Intent(
+					DilbertPreferencesActivity.this, FileDialog.class);
+			downloadPathSelector.putExtra(FileDialog.CAN_SELECT_DIR, true);
+			downloadPathSelector.putExtra(FileDialog.START_PATH,
+					preferences.getDownloadTarget());
+			startActivityForResult(downloadPathSelector,
+					REQUEST_DOWNLOAD_TARGET);
+		}
+	};
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode != REQUEST_DOWNLOAD_TARGET) {
+			super.onActivityResult(requestCode, resultCode, data);
+			return;
+		}
+		if (data != null && data.getExtras() != null) {
+			String result = data.getExtras().getString(FileDialog.RESULT_PATH);
+			if (result != null) {
+				File tmp = new File(result);
+				if (!tmp.isDirectory())
+					tmp = tmp.getParentFile();
+				if (tmp != null)
+					preferences.setDownloadTarget(tmp.getAbsolutePath());
 			}
 		}
 	};
@@ -94,10 +129,14 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		force_dark = (CheckBox) findViewById(R.id.pref_force_dark_background);
 		force_dark_widget = (CheckBox) findViewById(R.id.pref_force_dark_background_widget);
 		hide_toolbars = (CheckBox) findViewById(R.id.pref_hide_toolbars);
+		download_path = (TextView) findViewById(R.id.pref_download_path);
+		download_path_layout = (LinearLayout) findViewById(R.id.pref_download_path_layout);
 		license = (TextView) findViewById(R.id.pref_show_license);
-		license.setOnClickListener(licenseOnClickListener);
 		rating = (TextView) findViewById(R.id.pref_rating);
+		download_path_layout.setOnClickListener(downloadPathClickListener);
+		license.setOnClickListener(licenseOnClickListener);
 		rating.setOnClickListener(ratingOnClickListener);
+
 	}
 
 	@Override
@@ -114,6 +153,7 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		force_dark.setChecked(preferences.isDarkLayoutEnabled());
 		force_dark_widget.setChecked(preferences.isDarkWidgetLayoutEnabled());
 		hide_toolbars.setChecked(preferences.isToolbarsHidden());
+		download_path.setText(preferences.getDownloadTarget());
 	}
 
 	@Override

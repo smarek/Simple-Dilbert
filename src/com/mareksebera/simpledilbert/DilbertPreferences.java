@@ -39,6 +39,7 @@ public class DilbertPreferences {
 	private static final String PREF_DARK_WIDGET_LAYOUT = "dilbert_dark_layout_widget";
 	private static final String PREF_FORCE_LANDSCAPE = "dilbert_force_landscape";
 	private static final String PREF_HIDE_TOOLBARS = "dilbert_hide_toolbars";
+	private static final String PREF_DOWNLOAD_TARGET = "dilbert_download_target_folder";
 	private static final String TAG = "DilbertPreferences";
 	public static final DateTimeZone TIME_ZONE = DateTimeZone
 			.forID("America/Chicago");
@@ -144,9 +145,11 @@ public class DilbertPreferences {
 			String url = toHighQuality(downloadUrl);
 			DownloadManager.Request request = new DownloadManager.Request(
 					Uri.parse(url));
-			request.setDestinationInExternalPublicDir(
-					Environment.DIRECTORY_DOWNLOADS,
+			Uri dest = Uri.withAppendedPath(
+					Uri.parse("file://" + getDownloadTarget()),
 					DATE_FORMATTER.print(stripDate) + ".gif");
+			request.setDestinationUri(dest);
+			Log.d("Download to:", dest.toString());
 			request.setVisibleInDownloadsUi(true);
 			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 				request.allowScanningByMediaScanner();
@@ -259,6 +262,19 @@ public class DilbertPreferences {
 
 	public boolean setIsDarkWidgetLayoutEnabled(boolean dark) {
 		return editor.putBoolean(PREF_DARK_WIDGET_LAYOUT, dark).commit();
+	}
+
+	public String getDownloadTarget() {
+		return preferences.getString(
+				PREF_DOWNLOAD_TARGET,
+				Environment.getExternalStoragePublicDirectory(
+						Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+	}
+
+	public boolean setDownloadTarget(String absolutePath) {
+		if (absolutePath == null)
+			return false;
+		return editor.putString(PREF_DOWNLOAD_TARGET, absolutePath).commit();
 	}
 
 }

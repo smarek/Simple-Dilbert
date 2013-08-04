@@ -26,5 +26,6 @@
     <string name="pref_show_license">Anzeige Software Lizenz</string>
     <string name="pref_rating">Bewerten Sie diese Anwendung auf Google Play</string>
     <string name="menu_settings">Einstellungen</string>
+    <string name="pref_download_path">Downloads Zielordner:</string>
 
 </resources>

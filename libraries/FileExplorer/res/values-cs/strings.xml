@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="location">"Aktuální: "</string>
+    <string name="cant_read_folder">Nelze číst z adresáře</string>
+    <string name="select">Vybrat</string>
+    <string name="err">Chyba</string>
+
+</resources>

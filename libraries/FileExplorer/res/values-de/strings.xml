@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="location">"Stelle: "</string>
+    <string name="cant_read_folder">Ordner kann nicht gelesen werden!</string>
+    <string name="select">Wählen</string>
+    <string name="err">Fehler</string>
+
+</resources>
