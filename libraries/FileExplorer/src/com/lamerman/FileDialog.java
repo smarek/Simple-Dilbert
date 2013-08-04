@@ -265,7 +265,6 @@ public class FileDialog extends SherlockListActivity {
 				}
 			} else {
 				new AlertDialog.Builder(this)
-						.setIcon(R.drawable.icon)
 						.setTitle(
 								"[" + file.getName() + "] "
 										+ getText(R.string.cant_read_folder))
