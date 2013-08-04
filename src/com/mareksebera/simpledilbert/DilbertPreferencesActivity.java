@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.lamerman.FileDialog;
 
 public class DilbertPreferencesActivity extends SherlockFragmentActivity {
@@ -122,6 +123,7 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
 				: R.style.AppThemeLight);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.preferences);
 		setTitle(R.string.title_preferences);
 		force_landscape = (CheckBox) findViewById(R.id.pref_force_landscape);
@@ -154,6 +156,16 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		force_dark_widget.setChecked(preferences.isDarkWidgetLayoutEnabled());
 		hide_toolbars.setChecked(preferences.isToolbarsHidden());
 		download_path.setText(preferences.getDownloadTarget());
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
