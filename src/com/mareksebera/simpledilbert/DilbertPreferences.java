@@ -145,11 +145,9 @@ public class DilbertPreferences {
 			String url = toHighQuality(downloadUrl);
 			DownloadManager.Request request = new DownloadManager.Request(
 					Uri.parse(url));
-			Uri dest = Uri.withAppendedPath(
+			request.setDestinationUri(Uri.withAppendedPath(
 					Uri.parse("file://" + getDownloadTarget()),
-					DATE_FORMATTER.print(stripDate) + ".gif");
-			request.setDestinationUri(dest);
-			Log.d("Download to:", dest.toString());
+					DATE_FORMATTER.print(stripDate) + ".gif"));
 			request.setVisibleInDownloadsUi(true);
 			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 				request.allowScanningByMediaScanner();
