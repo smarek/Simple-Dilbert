@@ -60,7 +60,8 @@ public class DilbertFragment extends SherlockFragment {
 			boolean hqIsEnabled = preferences.isHighQualityOn();
 			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
 					.toLowQuality(getDateFromArguments(), url);
-			ImageLoader.getInstance().displayImage(url, image, dilbertImageLoadingListener);
+			ImageLoader.getInstance().displayImage(url, image,
+					dilbertImageLoadingListener);
 		}
 	};
 
@@ -86,9 +87,12 @@ public class DilbertFragment extends SherlockFragment {
 		@Override
 		public void onLoadingFailed(String imageUri, View view,
 				FailReason failReason) {
-			progress.setVisibility(View.GONE);
-			image.setVisibility(View.VISIBLE);
-			image.setImageResource(R.drawable.cancel);
+			if (progress != null)
+				progress.setVisibility(View.GONE);
+			if (image != null) {
+				image.setVisibility(View.VISIBLE);
+				image.setImageResource(R.drawable.cancel);
+			}
 			if (getSherlockActivity() != null)
 				Toast.makeText(getSherlockActivity(),
 						R.string.loading_exception_error, Toast.LENGTH_SHORT)
