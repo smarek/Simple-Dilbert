@@ -1,11 +1,16 @@
 package com.mareksebera.simpledilbert;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import org.joda.time.DateMidnight;
 
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.net.Uri;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.util.Log;
@@ -101,8 +106,10 @@ public class DilbertFragment extends SherlockFragment {
 
 		@Override
 		public void onLoadingStarted(String imageUri, View view) {
-			image.setVisibility(View.GONE);
-			progress.setVisibility(View.VISIBLE);
+			if (image != null)
+				image.setVisibility(View.GONE);
+			if (progress != null)
+				progress.setVisibility(View.VISIBLE);
 		}
 	};
 	private OnLongClickListener imageLongClickListener = new OnLongClickListener() {
@@ -231,23 +238,67 @@ public class DilbertFragment extends SherlockFragment {
 	}
 
 	private void shareCurrentStrip() {
-		try {
-			String date = getDateFromArguments().toString(
-					DilbertPreferences.DATE_FORMATTER);
-			Intent i = new Intent(Intent.ACTION_SEND);
-			i.setType("text/plain");
-			i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
-					+ " #simpledilbert");
-			i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
-					+ " #simpledilbert http://dilbert.com/strips/comic/" + date);
-			startActivity(Intent.createChooser(i,
-					getString(R.string.share_chooser)));
-		} catch (Exception e) {
-			if (getSherlockActivity() != null)
-				Toast.makeText(getSherlockActivity(),
-						R.string.loading_exception_error, Toast.LENGTH_LONG)
-						.show();
-		}
+		String url = preferences.isHighQualityOn() ? preferences
+				.toHighQuality(preferences.getCachedUrl(getDateFromArguments()))
+				: preferences.toLowQuality(getDateFromArguments(),
+						preferences.getCachedUrl(getDateFromArguments()));
+		ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
+
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+			}
+
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				shareBitmap(null);
+			}
+
+			@Override
+			public void onLoadingComplete(String imageUri, View view,
+					Bitmap loadedImage) {
+				shareBitmap(loadedImage);
+			}
+
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				shareBitmap(null);
+			}
+
+			private void shareBitmap(Bitmap b) {
+				try {
+					String date = getDateFromArguments().toString(
+							DilbertPreferences.DATE_FORMATTER);
+					Intent i = new Intent(Intent.ACTION_SEND);
+					i.setType("image/jpeg");
+					i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
+							+ " #simpledilbert");
+					i.putExtra(
+							Intent.EXTRA_TEXT,
+							"Dilbert "
+									+ date
+									+ " #simpledilbert");
+					if (b != null) {
+						File tmp = File.createTempFile("dilbert_", ".jpg",
+								getSherlockActivity().getExternalCacheDir());
+						FileOutputStream out = new FileOutputStream(tmp);
+						b.compress(CompressFormat.JPEG, 100, out);
+						out.close();
+						Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
+						Log.d("TMP URI", u.toString());
+						i.putExtra(Intent.EXTRA_STREAM, u);
+					}
+					startActivity(Intent.createChooser(i,
+							getString(R.string.share_chooser)));
+
+				} catch (Exception e) {
+					if (getSherlockActivity() != null)
+						Toast.makeText(getSherlockActivity(),
+								R.string.loading_exception_error,
+								Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 	}
 
 	@Override

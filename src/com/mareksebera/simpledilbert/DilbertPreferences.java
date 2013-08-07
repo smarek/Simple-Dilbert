@@ -166,10 +166,14 @@ public class DilbertPreferences {
 	}
 
 	public String toHighQuality(String url) {
+		if (url == null)
+			return null;
 		return url.replace(".gif", ".zoom.gif").replace("zoom.zoom", "zoom");
 	}
 
 	public String toLowQuality(DateMidnight date, String url) {
+		if (url == null)
+			return null;
 		if (date.getDayOfWeek() == DateTimeConstants.SUNDAY) {
 			return url.replace(".zoom.gif", ".sunday.gif").replace("zoom.zoom",
 					"zoom");
