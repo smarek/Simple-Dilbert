@@ -290,7 +290,7 @@ public class DilbertFragment extends SherlockFragment {
 						}
 					} else {
 						i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
-								+ " #simpledilbert");
+								+ " #simpledilbert http://dilbert.com/strips/comic/" + date);
 					}
 					startActivity(Intent.createChooser(i,
 							getString(R.string.share_chooser)));
