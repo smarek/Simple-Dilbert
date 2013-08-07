@@ -273,20 +273,24 @@ public class DilbertFragment extends SherlockFragment {
 					i.setType("image/jpeg");
 					i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
 							+ " #simpledilbert");
-					i.putExtra(
-							Intent.EXTRA_TEXT,
-							"Dilbert "
-									+ date
-									+ " #simpledilbert");
-					if (b != null) {
-						File tmp = File.createTempFile("dilbert_", ".jpg",
-								getSherlockActivity().getExternalCacheDir());
-						FileOutputStream out = new FileOutputStream(tmp);
-						b.compress(CompressFormat.JPEG, 100, out);
-						out.close();
-						Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
-						Log.d("TMP URI", u.toString());
-						i.putExtra(Intent.EXTRA_STREAM, u);
+					if (preferences.isSharingImage()) {
+						i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
+								+ " #simpledilbert");
+						if (b != null) {
+							File tmp = File
+									.createTempFile("dilbert_", ".jpg",
+											getSherlockActivity()
+													.getExternalCacheDir());
+							FileOutputStream out = new FileOutputStream(tmp);
+							b.compress(CompressFormat.JPEG, 100, out);
+							out.close();
+							Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
+							Log.d("TMP URI", u.toString());
+							i.putExtra(Intent.EXTRA_STREAM, u);
+						}
+					} else {
+						i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
+								+ " #simpledilbert");
 					}
 					startActivity(Intent.createChooser(i,
 							getString(R.string.share_chooser)));

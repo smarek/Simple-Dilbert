@@ -40,6 +40,7 @@ public class DilbertPreferences {
 	private static final String PREF_FORCE_LANDSCAPE = "dilbert_force_landscape";
 	private static final String PREF_HIDE_TOOLBARS = "dilbert_hide_toolbars";
 	private static final String PREF_DOWNLOAD_TARGET = "dilbert_download_target_folder";
+	private static final String PREF_SHARE_IMAGE = "dilbert_share_with_image";
 	private static final String TAG = "DilbertPreferences";
 	public static final DateTimeZone TIME_ZONE = DateTimeZone
 			.forID("America/Chicago");
@@ -277,6 +278,14 @@ public class DilbertPreferences {
 		if (absolutePath == null)
 			return false;
 		return editor.putString(PREF_DOWNLOAD_TARGET, absolutePath).commit();
+	}
+
+	public boolean isSharingImage() {
+		return preferences.getBoolean(PREF_SHARE_IMAGE, true);
+	}
+	
+	public boolean setIsSharingImage(boolean shouldShareImage){
+		return editor.putBoolean(PREF_SHARE_IMAGE, shouldShareImage).commit();
 	}
 
 }
