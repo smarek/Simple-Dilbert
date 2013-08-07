@@ -27,5 +27,6 @@
     <string name="pref_rating">Ohodnotit aplikaci v obchodu Google Play</string>
     <string name="menu_settings">Nastavení</string>
     <string name="pref_download_path">Adresář pro stahování:</string>
+    <string name="pref_share_image">Nesdílet obrázek, pouze odkaz</string>
 
 </resources>

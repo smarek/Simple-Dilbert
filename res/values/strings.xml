@@ -33,5 +33,6 @@
     <string name="pref_rating">Rate this application on Google Play</string>
     <string name="menu_settings">Settings</string>
     <string name="pref_download_path">Downloads target folder:</string>
+    <string name="pref_share_image">Don\'t share image, just an URL</string>
 
 </resources>
