@@ -5,6 +5,8 @@ import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.joda.time.DateMidnight;
 
 import android.os.AsyncTask;
@@ -52,6 +54,9 @@ class GetStripUrl extends AsyncTask<Void, Void, String> {
 		HttpResponse response = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
+			final HttpParams httpParameters = client.getParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters, 10000);
+			HttpConnectionParams.setSoTimeout        (httpParameters, 10000);
 			response = client.execute(get);
 		} catch (Throwable e) {
 			Log.e(TAG, "HttpGet failed", e);
