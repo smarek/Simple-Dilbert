@@ -1,13 +1,13 @@
 [submodule "libraries/Android-Universal-Image-Loader"]
 	path = libraries/Android-Universal-Image-Loader
-	url = git@github.com:nostra13/Android-Universal-Image-Loader.git
+	url = https://github.com/nostra13/Android-Universal-Image-Loader.git
 [submodule "libraries/ActionBarSherlock"]
 	path = libraries/ActionBarSherlock
-	url = git@bitbucket.org:mareksebera/actionbarsherlock-eclipse.git
+	url = https://bitbucket.org/mareksebera/actionbarsherlock-eclipse.git
 [submodule "doc"]
 	path = doc
-	url = git@github.com:smarek/Simple-Dilbert.git
+	url = https://github.com/smarek/Simple-Dilbert.git
 	branch = gh-pages
 [submodule "libraries/PhotoView"]
 	path = libraries/PhotoView
-	url = git@github.com:chrisbanes/PhotoView.git
+	url = https://github.com/chrisbanes/PhotoView.git
