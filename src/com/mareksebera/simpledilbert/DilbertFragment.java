@@ -43,13 +43,6 @@ public class DilbertFragment extends SherlockFragment {
 	public void onDestroyView() {
 		progress = null;
 		image = null;
-		if (loadTask != null) {
-			try {
-				loadTask.cancel(true);
-			} catch (Throwable t) {
-				t.printStackTrace();
-			}
-		}
 		super.onDestroyView();
 	}
 
