@@ -62,6 +62,8 @@ public class DilbertFragment extends SherlockFragment {
 
 		@Override
 		public void displayImage(String url) {
+			if (image == null)
+				return;
 			boolean hqIsEnabled = preferences.isHighQualityOn();
 			url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
 					.toLowQuality(getDateFromArguments(), url);
@@ -242,6 +244,8 @@ public class DilbertFragment extends SherlockFragment {
 				.toHighQuality(preferences.getCachedUrl(getDateFromArguments()))
 				: preferences.toLowQuality(getDateFromArguments(),
 						preferences.getCachedUrl(getDateFromArguments()));
+		if (url == null)
+			return;
 		ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
 
 			@Override
@@ -289,8 +293,12 @@ public class DilbertFragment extends SherlockFragment {
 							i.putExtra(Intent.EXTRA_STREAM, u);
 						}
 					} else {
-						i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
-								+ " #simpledilbert http://dilbert.com/strips/comic/" + date);
+						i.putExtra(
+								Intent.EXTRA_TEXT,
+								"Dilbert "
+										+ date
+										+ " #simpledilbert http://dilbert.com/strips/comic/"
+										+ date);
 					}
 					startActivity(Intent.createChooser(i,
 							getString(R.string.share_chooser)));
