@@ -227,7 +227,7 @@ public class DilbertFragment extends SherlockFragment {
 		if (this.loadTask != null
 				&& this.loadTask.getStatus() != Status.PENDING) {
 			this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
-					getDateFromArguments());
+					getDateFromArguments(), progress);
 		}
 		this.loadTask.execute();
 	}
