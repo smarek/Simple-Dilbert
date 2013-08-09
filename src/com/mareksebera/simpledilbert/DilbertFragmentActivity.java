@@ -20,7 +20,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class DilbertFragmentActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
+public final class DilbertFragmentActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
 	private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3,
 			MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 8;

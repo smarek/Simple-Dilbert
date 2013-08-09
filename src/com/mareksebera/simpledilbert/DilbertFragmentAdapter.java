@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class DilbertFragmentAdapter extends FragmentPagerAdapter {
+public final class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
 	static {
 		/**

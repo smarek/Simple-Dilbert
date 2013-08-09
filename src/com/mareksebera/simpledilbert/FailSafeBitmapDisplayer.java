@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 
-public class FailSafeBitmapDisplayer implements BitmapDisplayer {
+public final class FailSafeBitmapDisplayer implements BitmapDisplayer {
 
 	@Override
 	public Bitmap display(Bitmap bitmap, ImageView imageView,

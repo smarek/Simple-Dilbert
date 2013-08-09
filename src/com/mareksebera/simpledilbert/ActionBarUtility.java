@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class ActionBarUtility {
+public final class ActionBarUtility {
 
 	public static int getDip(Context c, int pixel) {
 		float scale = c.getResources().getDisplayMetrics().density;

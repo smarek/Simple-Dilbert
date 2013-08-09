@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class DilbertFavoritedActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
+public final class DilbertFavoritedActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
 	protected static final String TAG = "DilbertFragmentActivity";
 

@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class FixedViewPager extends ViewPager {
+public final class FixedViewPager extends ViewPager {
 
 	public FixedViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);

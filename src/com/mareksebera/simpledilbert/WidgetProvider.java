@@ -18,7 +18,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
-public class WidgetProvider extends AppWidgetProvider {
+public final class WidgetProvider extends AppWidgetProvider {
 
 	public static final String TAG = "Dilbert Widget";
 	static {

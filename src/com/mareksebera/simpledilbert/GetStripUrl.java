@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 
-class GetStripUrl extends AsyncTask<Void, Void, String> {
+final class GetStripUrl extends AsyncTask<Void, Void, String> {
 
 	private static final String TAG = "GetStripUrl";
 	private DilbertPreferences preferences;

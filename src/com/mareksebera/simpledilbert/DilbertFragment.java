@@ -29,7 +29,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
-public class DilbertFragment extends SherlockFragment {
+public final class DilbertFragment extends SherlockFragment {
 
 	private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
 			MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5;

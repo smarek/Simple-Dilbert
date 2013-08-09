@@ -2,7 +2,7 @@ package com.mareksebera.simpledilbert;
 
 import org.joda.time.DateMidnight;
 
-public class FavoritedItem {
+public final class FavoritedItem {
 
 	private DateMidnight date;
 

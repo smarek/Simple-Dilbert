@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-public class DilbertPreferences {
+public final class DilbertPreferences {
 
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor editor;

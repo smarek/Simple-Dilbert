@@ -23,7 +23,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.lamerman.FileDialog;
 
-public class DilbertPreferencesActivity extends SherlockFragmentActivity {
+public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
 	private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
 			force_dark_widget, share_image;
