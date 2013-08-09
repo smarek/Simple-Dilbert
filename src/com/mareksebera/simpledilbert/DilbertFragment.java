@@ -224,8 +224,8 @@ public class DilbertFragment extends SherlockFragment {
 
 	private void refreshAction() {
 		preferences.removeCache(getDateFromArguments());
-		if (this.loadTask != null
-				&& this.loadTask.getStatus() != Status.PENDING) {
+		if (this.loadTask == null
+				|| this.loadTask.getStatus() != Status.PENDING) {
 			this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
 					getDateFromArguments(), progress);
 		}
