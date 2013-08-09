@@ -2,8 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true"
-    android:paddingTop="?attr/actionBarSize" >
+    android:layout_marginTop="?attr/actionBarSize"
+    android:fillViewport="true" >
 
     <LinearLayout
         android:layout_width="match_parent"
