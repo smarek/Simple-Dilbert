@@ -2,11 +2,13 @@
 
     <style name="AppThemeLight" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="titlesBackground">@drawable/abs__ab_solid_dark_holo</item>
+        <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
 
     <style name="AppThemeDark" parent="@style/Theme.Sherlock">
         <item name="titlesBackground">@android:color/transparent</item>
+        <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
 

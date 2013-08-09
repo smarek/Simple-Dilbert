@@ -112,7 +112,7 @@ public class DilbertFragment extends SherlockFragment {
 		@Override
 		public boolean onLongClick(View v) {
 			try {
-				((DilbertFragmentActivity) getSherlockActivity())
+				((DilbertFragmentInterface) getSherlockActivity())
 						.toggleActionBar();
 			} catch (Throwable t) {
 				Log.e("DilbertFragment", "Toggle ActionBar failed", t);

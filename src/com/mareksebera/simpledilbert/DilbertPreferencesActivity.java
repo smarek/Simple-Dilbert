@@ -117,12 +117,12 @@ public class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		preferences = new DilbertPreferences(this);
 		if (preferences.isForceLandscape())
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
 				: R.style.AppThemeLight);
+		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.preferences);
 		setTitle(R.string.title_preferences);

@@ -6,16 +6,12 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class DilbertFavoritedActivity extends SherlockFragmentActivity {
+public class DilbertFavoritedActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
 	protected static final String TAG = "DilbertFragmentActivity";
 
@@ -30,14 +26,13 @@ public class DilbertFavoritedActivity extends SherlockFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstance) {
-		super.onCreate(savedInstance);
-		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		preferences = new DilbertPreferences(this);
 		setTitle(R.string.title_favorited);
 		if (preferences.isForceLandscape())
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
 				: R.style.AppThemeLight);
+		super.onCreate(savedInstance);
 		setContentView(R.layout.activity_dilbert_fragments);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
@@ -52,7 +47,7 @@ public class DilbertFavoritedActivity extends SherlockFragmentActivity {
 		titles.setTextColor(Color.WHITE);
 		viewPager.setAdapter(adapter);
 		if (preferences.isToolbarsHidden())
-			toggleActionBar();
+			ActionBarUtility.toggleActionBar(this, viewPager);
 	}
 
 	@Override
@@ -66,26 +61,8 @@ public class DilbertFavoritedActivity extends SherlockFragmentActivity {
 		}
 	}
 
+	// Compat helper method
 	public void toggleActionBar() {
-		try {
-			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-					FrameLayout.LayoutParams.MATCH_PARENT,
-					FrameLayout.LayoutParams.WRAP_CONTENT);
-			if (getSupportActionBar().isShowing()) {
-				getSupportActionBar().hide();
-				lp.topMargin = 0;
-			} else {
-				getSupportActionBar().show();
-				TypedValue tv = new TypedValue();
-				getTheme().resolveAttribute(android.R.attr.actionBarSize, tv,
-						true);
-				lp.topMargin = getResources().getDimensionPixelSize(
-						tv.resourceId);
-			}
-			viewPager.setLayoutParams(lp);
-		} catch (Throwable t) {
-			Log.e("DilbertFragmentActivity", "Toggle ActionBar failed", t);
-		}
+		ActionBarUtility.toggleActionBar(this, viewPager);
 	}
-
 }

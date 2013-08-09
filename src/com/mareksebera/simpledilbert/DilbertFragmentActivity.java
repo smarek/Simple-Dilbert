@@ -14,17 +14,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Window;
 import android.widget.DatePicker;
-import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class DilbertFragmentActivity extends SherlockFragmentActivity {
+public class DilbertFragmentActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
 	private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3,
 			MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 8;
@@ -73,13 +69,12 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstance) {
-		super.onCreate(savedInstance);
-		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		preferences = new DilbertPreferences(this);
-		if (preferences.isForceLandscape())
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
 				: R.style.AppThemeLight);
+		super.onCreate(savedInstance);
+		if (preferences.isForceLandscape())
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setContentView(R.layout.activity_dilbert_fragments);
 		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
 		titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
@@ -88,7 +83,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 		viewPager.setAdapter(adapter);
 		viewPager.setOnPageChangeListener(pageChangedListener);
 		if (preferences.isToolbarsHidden())
-			toggleActionBar();
+			ActionBarUtility.toggleActionBar(this, viewPager);
 	}
 
 	@Override
@@ -111,8 +106,8 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(category, MENU_LATEST, 5, R.string.menu_latest)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings).setShowAsActionFlags(
-				MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -125,29 +120,7 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 				c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 		dialog.show();
 	}
-
-	public void toggleActionBar() {
-		try {
-			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-					FrameLayout.LayoutParams.MATCH_PARENT,
-					FrameLayout.LayoutParams.WRAP_CONTENT);
-			if (getSupportActionBar().isShowing()) {
-				getSupportActionBar().hide();
-				lp.topMargin = 0;
-			} else {
-				getSupportActionBar().show();
-				TypedValue tv = new TypedValue();
-				getTheme().resolveAttribute(android.R.attr.actionBarSize, tv,
-						true);
-				lp.topMargin = getResources().getDimensionPixelSize(
-						tv.resourceId);
-			}
-			viewPager.setLayoutParams(lp);
-		} catch (Throwable t) {
-			Log.e("DilbertFragmentActivity", "Toggle ActionBar failed", t);
-		}
-	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(
 			com.actionbarsherlock.view.MenuItem item) {
@@ -170,6 +143,11 @@ public class DilbertFragmentActivity extends SherlockFragmentActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	// Compat helper method
+	public void toggleActionBar() {
+		ActionBarUtility.toggleActionBar(this, viewPager);
 	}
 
 }
