@@ -282,7 +282,6 @@ public class DilbertFragment extends SherlockFragment {
 							b.compress(CompressFormat.JPEG, 100, out);
 							out.close();
 							Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
-							Log.d("TMP URI", u.toString());
 							i.putExtra(Intent.EXTRA_STREAM, u);
 						}
 					} else {

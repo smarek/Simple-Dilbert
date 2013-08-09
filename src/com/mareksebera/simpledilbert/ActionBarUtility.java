@@ -42,7 +42,6 @@ public class ActionBarUtility {
 				} else {
 					viewPager.setPadding(0, getDip(activity, 40), 0, 0);
 				}
-				Log.d("topMargin", "a: " + lp.topMargin);
 			}
 		} catch (Throwable t) {
 			Log.e("DilbertFragmentActivity", "Toggle ActionBar failed", t);
