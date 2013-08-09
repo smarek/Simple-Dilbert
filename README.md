@@ -29,3 +29,7 @@ Wallet: 1FpGN3kcZ3GQsaJgBa8rxGRJjBjJavu78g
 ## PayPal
 
 account: marek.sebera@gmail.com
+
+## Gittip
+
+[![Fund me on Gittip](https://www.gittip.com/assets/10.0.5/logo.png)](https://www.gittip.com/smarek/)
