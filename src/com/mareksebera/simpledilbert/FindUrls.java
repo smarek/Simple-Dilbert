@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 
 import android.util.Log;
@@ -19,12 +21,24 @@ public final class FindUrls {
 	public static List<String> extractUrls(HttpResponse response) {
 		List<String> found = new ArrayList<String>();
 		try {
-			Scanner scan = new Scanner(response.getEntity().getContent());
+			Scanner scan = null;
+			Header contentEncoding = response
+					.getFirstHeader("Content-Encoding");
+			if (contentEncoding != null
+					&& contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+				scan = new Scanner(new GZIPInputStream(response.getEntity()
+						.getContent()));
+			} else {
+				scan = new Scanner(response.getEntity().getContent());
+			}
+
 			String match = null;
 			while ((match = scan.findWithinHorizon(url_match_pattern, 0)) != null) {
 				found.add(match.replace("/dyn/str_strip",
 						"http://www.dilbert.com/dyn/str_strip"));
 			}
+			scan.close();
+			response.getEntity().consumeContent();
 		} catch (Throwable t) {
 			Log.e("FindUrls", "Error Occured", t);
 		}

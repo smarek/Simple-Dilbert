@@ -51,12 +51,13 @@ final class GetStripUrl extends AsyncTask<Void, Void, String> {
 		}
 		HttpGet get = new HttpGet("http://www.dilbert.com/strips/comic/"
 				+ currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
+		get.addHeader("Accept-Encoding", "gzip");
 		HttpResponse response = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
 			final HttpParams httpParameters = client.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParameters, 10000);
-			HttpConnectionParams.setSoTimeout        (httpParameters, 10000);
+			HttpConnectionParams.setConnectionTimeout(httpParameters, 20000);
+			HttpConnectionParams.setSoTimeout        (httpParameters, 20000);
 			response = client.execute(get);
 		} catch (Throwable e) {
 			Log.e(TAG, "HttpGet failed", e);

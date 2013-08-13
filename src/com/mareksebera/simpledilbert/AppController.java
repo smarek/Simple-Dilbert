@@ -35,8 +35,11 @@ public final class AppController extends Application {
 					.cacheInMemory(true).cacheOnDisc(true)
 					.displayer(new FailSafeBitmapDisplayer()).build();
 			ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(
-					c).defaultDisplayImageOptions(displayOptions).build();
+					c)
+					.defaultDisplayImageOptions(displayOptions).build();
 			ImageLoader.getInstance().init(configuration);
+			ImageLoader.getInstance().handleSlowNetwork(true);
+
 		}
 	}
 
