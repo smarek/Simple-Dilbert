@@ -281,7 +281,7 @@ public final class DilbertPreferences {
 	}
 
 	public boolean isSharingImage() {
-		return preferences.getBoolean(PREF_SHARE_IMAGE, true);
+		return !preferences.getBoolean(PREF_SHARE_IMAGE, true);
 	}
 	
 	public boolean setIsSharingImage(boolean shouldShareImage){
