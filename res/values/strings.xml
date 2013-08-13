@@ -5,7 +5,7 @@
     <string name="menu_datepicker">Choose date</string>
     <string name="about_contents">Made by Marek Sebera 2013</string>
     <string name="cd_dilbert_image">Dilbert</string>
-    <string name="loading_exception_error">Strip could not be loaded</string>
+    <string name="loading_exception_error">Dilbert.com is not available. Loading failed.</string>
     <string name="menu_latest">Show latest</string>
     <string name="menu_refresh">Refresh</string>
     <string name="download_manager_unsupported">Unsupported on this device</string>
