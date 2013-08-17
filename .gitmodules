@@ -3,7 +3,7 @@
 	url = https://github.com/nostra13/Android-Universal-Image-Loader.git
 [submodule "libraries/ActionBarSherlock"]
 	path = libraries/ActionBarSherlock
-	url = https://bitbucket.org/mareksebera/actionbarsherlock-eclipse.git
+	url = https://github.com/JakeWharton/ActionBarSherlock.git
 [submodule "doc"]
 	path = doc
 	url = https://github.com/smarek/Simple-Dilbert.git
