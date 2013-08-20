@@ -66,6 +66,15 @@
             android:layout_marginTop="5dp"
             android:text="@string/pref_share_image" />
 
+        <CheckBox
+            android:id="@+id/pref_mobile_network"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/pref_mobile_network" />
+
         <LinearLayout
             android:id="@+id/pref_download_path_layout"
             android:layout_width="fill_parent"
