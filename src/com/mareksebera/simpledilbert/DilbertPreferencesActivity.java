@@ -26,7 +26,7 @@ import com.lamerman.FileDialog;
 public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
 	private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
-			force_dark_widget, share_image;
+			force_dark_widget, share_image, mobile_network;
 	private TextView license, rating, download_path;
 	private LinearLayout download_path_layout;
 	private DilbertPreferences preferences;
@@ -132,6 +132,7 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		force_dark_widget = (CheckBox) findViewById(R.id.pref_force_dark_background_widget);
 		hide_toolbars = (CheckBox) findViewById(R.id.pref_hide_toolbars);
 		share_image = (CheckBox) findViewById(R.id.pref_share_image);
+		mobile_network = (CheckBox) findViewById(R.id.pref_mobile_network);
 		download_path = (TextView) findViewById(R.id.pref_download_path);
 		download_path_layout = (LinearLayout) findViewById(R.id.pref_download_path_layout);
 		license = (TextView) findViewById(R.id.pref_show_license);
@@ -158,6 +159,7 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		hide_toolbars.setChecked(preferences.isToolbarsHidden());
 		download_path.setText(preferences.getDownloadTarget());
 		share_image.setChecked(preferences.isSharingImage());
+		mobile_network.setChecked(preferences.isSlowNetwork());
 	}
 
 	@Override
@@ -179,6 +181,7 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		preferences.setIsHighQualityOn(enable_hq.isChecked());
 		preferences.setIsDarkWidgetLayoutEnabled(force_dark_widget.isChecked());
 		preferences.setIsSharingImage(!share_image.isChecked());
+		preferences.setIsSlowNetwork(mobile_network.isChecked());
 		updateWidgets();
 	}
 
