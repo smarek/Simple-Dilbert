@@ -10,4 +10,4 @@
 	branch = gh-pages
 [submodule "libraries/PhotoView"]
 	path = libraries/PhotoView
-	url = https://github.com/chrisbanes/PhotoView.git
+	url = https://github.com/smarek/PhotoView.git
