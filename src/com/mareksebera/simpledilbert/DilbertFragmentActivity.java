@@ -22,7 +22,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 public final class DilbertFragmentActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
-	private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3,
+	private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3, MENU_OLDEST = 4,
 			MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 8;
 	protected static final String TAG = "DilbertFragmentActivity";
 
@@ -105,7 +105,9 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
 		menu.add(category, MENU_SHOW_FAVORITES, 6, R.string.menu_show_favorite)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(category, MENU_LATEST, 5, R.string.menu_latest)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+		.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(category, MENU_OLDEST, 5, R.string.menu_oldest)
+		.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
 		return super.onCreateOptionsMenu(menu);
@@ -130,6 +132,9 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
 			return true;
 		case MENU_LATEST:
 			setCurrentDate(DateMidnight.now(DilbertPreferences.TIME_ZONE));
+			return true;
+		case MENU_OLDEST:
+			setCurrentDate(DilbertPreferences.getFirstStripDate());
 			return true;
 		case MENU_SHOW_FAVORITES:
 			startActivity(new Intent(this, DilbertFavoritedActivity.class));
