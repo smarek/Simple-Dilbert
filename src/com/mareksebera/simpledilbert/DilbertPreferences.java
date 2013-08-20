@@ -41,6 +41,7 @@ public final class DilbertPreferences {
 	private static final String PREF_HIDE_TOOLBARS = "dilbert_hide_toolbars";
 	private static final String PREF_DOWNLOAD_TARGET = "dilbert_download_target_folder";
 	private static final String PREF_SHARE_IMAGE = "dilbert_share_with_image";
+	private static final String PREF_MOBILE_NETWORK = "dilbert_using_slow_network";
 	private static final String TAG = "DilbertPreferences";
 	public static final DateTimeZone TIME_ZONE = DateTimeZone
 			.forID("America/Chicago");
@@ -286,6 +287,14 @@ public final class DilbertPreferences {
 	
 	public boolean setIsSharingImage(boolean shouldShareImage){
 		return editor.putBoolean(PREF_SHARE_IMAGE, shouldShareImage).commit();
+	}
+
+	public boolean setIsSlowNetwork(boolean isSlowNetwork) {
+		return editor.putBoolean(PREF_MOBILE_NETWORK, isSlowNetwork).commit();
+	}
+
+	public boolean isSlowNetwork() {
+		return !preferences.getBoolean(PREF_MOBILE_NETWORK, true);
 	}
 
 }
