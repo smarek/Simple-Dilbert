@@ -180,7 +180,7 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 		preferences.setIsToolbarsHidden(hide_toolbars.isChecked());
 		preferences.setIsHighQualityOn(enable_hq.isChecked());
 		preferences.setIsDarkWidgetLayoutEnabled(force_dark_widget.isChecked());
-		preferences.setIsSharingImage(!share_image.isChecked());
+		preferences.setIsSharingImage(share_image.isChecked());
 		preferences.setIsSlowNetwork(mobile_network.isChecked());
 		updateWidgets();
 	}
