@@ -7,6 +7,7 @@
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com is not available. Loading failed.</string>
     <string name="menu_latest">Show latest</string>
+    <string name="menu_oldest">Show oldest</string>
     <string name="menu_refresh">Refresh</string>
     <string name="download_manager_unsupported">Unsupported on this device</string>
     <string name="menu_download">Save current image</string>
@@ -34,5 +35,6 @@
     <string name="menu_settings">Settings</string>
     <string name="pref_download_path">Downloads target folder:</string>
     <string name="pref_share_image">Don\'t share image, just an URL</string>
+    <string name="pref_mobile_network">Optimize for mobile network usage</string>
 
 </resources>

@@ -5,6 +5,7 @@
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com není dostupná. Načítání selhalo.</string>
     <string name="menu_latest">Zobraz nejnovější</string>
+    <string name="menu_oldest">Zobraz nejstarší</string>
     <string name="menu_refresh">Aktualizovat</string>
     <string name="download_manager_unsupported">Váš telefon nepodporuje ukládání obrázků</string>
     <string name="menu_download">Uložit do telefonu</string>
@@ -28,5 +29,6 @@
     <string name="menu_settings">Nastavení</string>
     <string name="pref_download_path">Adresář pro stahování:</string>
     <string name="pref_share_image">Nesdílet obrázek, pouze odkaz</string>
+    <string name="pref_mobile_network">Optimalizovat pro mobilní data</string>
 
 </resources>
