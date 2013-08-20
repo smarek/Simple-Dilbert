@@ -5,8 +5,6 @@ import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.joda.time.DateMidnight;
 
 import android.os.AsyncTask;
@@ -51,39 +49,78 @@ final class GetStripUrl extends AsyncTask<Void, Void, String> {
 		}
 		HttpGet get = new HttpGet("http://www.dilbert.com/strips/comic/"
 				+ currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
-		get.addHeader("Accept-Encoding", "gzip");
 		HttpResponse response = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-			final HttpParams httpParameters = client.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParameters, 20000);
-			HttpConnectionParams.setSoTimeout        (httpParameters, 20000);
 			response = client.execute(get);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			Log.e(TAG, "HttpGet failed", e);
 		}
-		if (response != null) {
-			for (String s : FindUrls.extractUrls(response)) {
+		if (response == null)
+			return null;
+		if (preferences.isSlowNetwork()) {
+			return handleSlowNetworkParse(response);
+		} else {
+			return handleFastNetworkParse(response);
+		}
+	}
+
+	private String handleFastNetworkParse(HttpResponse response) {
+		for (String s : FindUrls.extractUrls(response)) {
+			/**
+			 * This method can only accept gif URLs with appropriate suffixes
+			 * */
+			if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")
+					|| s.endsWith(".strip.zoom.gif")) {
+				s = s.replace(".strip.gif", ".strip.zoom.gif");
+				s = s.replace(".sunday.gif", ".strip.zoom.gif");
+				s = s.replace(".strip.strip", ".strip");
 				/**
-				 * This method can only accept gif URLs with appropriate
-				 * suffixes
+				 * This is the only place where pair date-url is saved into
+				 * preferences
 				 * */
-				if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")
-						|| s.endsWith(".strip.zoom.gif")) {
-					s = s.replace(".strip.gif", ".strip.zoom.gif");
-					s = s.replace(".sunday.gif", ".strip.zoom.gif");
-					s = s.replace(".strip.strip", ".strip");
-					/**
-					 * This is the only place where pair date-url is saved into
-					 * preferences
-					 * */
-					preferences.saveCurrentUrl(currDate
-							.toString(DilbertPreferences.DATE_FORMATTER), s);
-					/**
-					 * Not using method loadImage() as it would be inefficient
-					 * */
-					return s;
-				}
+				preferences
+						.saveCurrentUrl(currDate
+								.toString(DilbertPreferences.DATE_FORMATTER), s);
+				/**
+				 * Not using method loadImage() as it would be inefficient
+				 * */
+				return s;
+			}
+		}
+		return null;
+	}
+
+	private String handleSlowNetworkParse(HttpResponse response) {
+		String result = null;
+		try {
+			result = EntityUtils.toString(response.getEntity());
+		} catch (Throwable t) {
+			Log.e("GetStripUrl", "handleSlowNetwork allocation failed");
+			return null;
+		}
+		result = result.replace("\"/dyn/str_strip",
+				"\"http://www.dilbert.com/dyn/str_strip");
+		for (String s : FindUrls.extractUrls(result)) {
+			/**
+			 * This method can only accept gif URLs with appropriate suffixes
+			 * */
+			if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")
+					|| s.endsWith(".strip.zoom.gif")) {
+				s = s.replace(".strip.gif", ".strip.zoom.gif");
+				s = s.replace(".sunday.gif", ".strip.zoom.gif");
+				s = s.replace(".strip.strip", ".strip");
+				/**
+				 * This is the only place where pair date-url is saved into
+				 * preferences
+				 * */
+				preferences
+						.saveCurrentUrl(currDate
+								.toString(DilbertPreferences.DATE_FORMATTER), s);
+				/**
+				 * Not using method loadImage() as it would be inefficient
+				 * */
+				return s;
 			}
 		}
 		return null;
