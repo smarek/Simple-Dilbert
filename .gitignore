@@ -3,7 +3,7 @@ gen
 android.keystore
 keystore.readme
 ic_launcher-web.png
-/doc
-/proguard
+doc
+proguard
 .gradle
 build
