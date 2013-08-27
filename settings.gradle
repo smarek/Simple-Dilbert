@@ -1,0 +1,5 @@
+include ':libraries:FileExplorer'
+include ':libraries:PhotoView:library'
+include ':libraries:Android-Universal-Image-Loader:library'
+include ':libraries:ActionBarSherlock:actionbarsherlock'
+include ':'
