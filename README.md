@@ -1,4 +1,4 @@
-# Simple Dilbert [![Build Status](https://secure.travis-ci.org/smarek/Simple-Dilbert.png)](http://travis-ci.org/smarek/Simple-Dilbert)
+# Simple Dilbert [![Build Status](https://travis-ci.org/smarek/Simple-Dilbert.png?branch=master)](http://travis-ci.org/smarek/Simple-Dilbert)
 
 Whole project is published under Apache 2.0 license
 
