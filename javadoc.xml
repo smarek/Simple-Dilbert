@@ -6,7 +6,7 @@
         <javadoc
             access="private"
             author="true"
-            classpath="/Users/mareksebera/Applications/android_sdk/platforms/android-17/android.jar:libs/android-support-v4.jar:libraries/ActionBarSherlock/library/bin/sd_actionbarsherlock.jar:libs/joda-time-2.1.jar:libraries/Android-Universal-Image-Loader/library/bin/sd_uil.jar"
+            classpath="$ANDROID_HOME/platforms/android-17/android.jar:libs/android-support-v4.jar:libraries/ActionBarSherlock/library/bin/sd_actionbarsherlock.jar:libs/joda-time-2.1.jar:libraries/Android-Universal-Image-Loader/library/bin/sd_uil.jar"
             destdir="doc"
             doctitle="Dokumentace projektu Můj Alfréd"
             nodeprecated="false"
