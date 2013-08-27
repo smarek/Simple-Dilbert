@@ -5,3 +5,5 @@ keystore.readme
 ic_launcher-web.png
 /doc
 /proguard
+.gradle
+build
