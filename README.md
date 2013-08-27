@@ -1,4 +1,4 @@
-# Simple Dilbert 
+# Simple Dilbert [![Build Status](https://secure.travis-ci.org/smarek/Simple-Dilbert.png)](http://travis-ci.org/smarek/Simple-Dilbert)
 
 Whole project is published under Apache 2.0 license
 
@@ -32,4 +32,4 @@ account: marek.sebera@gmail.com
 
 ## Gittip
 
-[![Fund me on Gittip](https://www.gittip.com/assets/10.0.5/logo.png)](https://www.gittip.com/smarek/)
+[![Fund me on Gittip](https://rawgithub.com/twolfson/gittip-badge/master/dist/gittip.png)](https://www.gittip.com/smarek/)
