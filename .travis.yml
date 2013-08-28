@@ -17,3 +17,4 @@ before_install:
   - wget http://dl.google.com/android/repository/build-tools_r17-linux.zip
   - unzip build-tools_r17-linux.zip -d $ANDROID_HOME/build-tools/
   - mv $ANDROID_HOME/build-tools/android-4.2.2 $ANDROID_HOME/build-tools/17.0.0
+  - find $ANDROID_HOME/build-tools
