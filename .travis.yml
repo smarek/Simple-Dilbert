@@ -2,6 +2,8 @@ language: java
 jdk:
   - openjdk6
 before_install:
+  - gradle -v
+  - uname -a
   - export TERM=dumb
   - wget http://dl.google.com/android/android-sdk_r22.0.5-linux.tgz
   - tar -zxf android-sdk_r22.0.5-linux.tgz
