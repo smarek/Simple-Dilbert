@@ -2,12 +2,11 @@ language: java
 jdk:
   - openjdk6
 before_install:
+  - export TERM=xterm
   - wget http://dl.google.com/android/android-sdk_r22.0.5-linux.tgz
   - tar -zxf android-sdk_r22.0.5-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
   - export DILBERT_PATH=`pwd`/Simple-Dilbert
   - echo "sdk.dir=$ANDROID_HOME" >> local.properties
-  # only update the sdk for the tools and platform-tools (1,2) and whatever api level
-  # you are building for android (run "android list sdk" to get the full list.  9 = 2.3.3 or API level 10
-  - echo yes | android update sdk -t extra-android-support,android-14,android-18,platform-tools,build-tools-18.0.1,tools --force --no-ui
+  - echo yes | android update sdk -t tools,platform-tools,extra-android-support,android-14,android-18 --force --no-ui
