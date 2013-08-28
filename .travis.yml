@@ -2,11 +2,11 @@ language: java
 jdk:
   - openjdk6
 before_install:
-  - export TERM=xterm
+  - export TERM=dumb
   - wget http://dl.google.com/android/android-sdk_r22.0.5-linux.tgz
   - tar -zxf android-sdk_r22.0.5-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
   - export DILBERT_PATH=`pwd`/Simple-Dilbert
   - echo "sdk.dir=$ANDROID_HOME" >> local.properties
-  - echo yes | android update sdk -t tools,platform-tools,extra-android-support,android-14,android-18 --force --no-ui
+  - echo yes | android update sdk -t tools,platform-tools,extra-android-support,extra-android-m2repository,android-14,android-18 --force --no-ui
