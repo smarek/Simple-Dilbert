@@ -1,9 +1,44 @@
+# Ant
 bin
 gen
-android.keystore
-keystore.readme
+build.xml
+ant.properties
+local.properties
+proguard.cfg
+proguard-project.txt
+
+#Eclipse
+bin
+gen
+.project
+.classpath
+.settings
+.checkstyle
 ic_launcher-web.png
 doc
 proguard
+
+#Signing
+android.keystore
+keystore.readme
+
+#Gradle
 .gradle
 build
+
+# IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
+classes
+gen-external-apklibs
+
+# Maven
+target
+release.properties
+pom.xml.*
+
+#Other
+.DS_Store
+tmp
