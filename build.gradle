@@ -28,17 +28,14 @@ android {
 	buildToolsVersion "18.0.1"
 
 	signingConfigs {
-		release {
-			storeFile = file('android.keystore')
-			keyAlias = "simple_dilbert"
-		}
-	}
+                release
+        }
 
 	buildTypes {
-		release {
-			signingConfig signingConfigs.release
-		}
-	}
+            release {
+		signingConfig = signingConfigs.release
+	    }
+        }
 
 	sourceSets {
 		main {
@@ -58,7 +55,17 @@ android {
 	}
 }
 
+if(System.env.TERM == 'dumb') {
+    android.buildTypes.release.signingConfig = null
+}
+
 task readPasswordFromInput << {
+    if(System.env.TERM == 'dumb') {
+	return;
+    }
+
+    android.signingConfigs.release.keyAlias = 'simple_dilbert'
+
     if(!project.hasProperty('keyStore') || !project.hasProperty('keyPass') || !project.hasProperty('storePass')) {
         println "\n\$ Enter signing details manually or run with \"-PkeyStore={key.store.name} -PstorePass={StoreSecretPassword} -PkeyPass={KeySecretPassword}\""   
     }
@@ -66,6 +73,7 @@ task readPasswordFromInput << {
     if(!project.hasProperty('keyStore')) {
         def newKeyStore = System.console().readLine("\n\$ Enter keystore location or enter (default: android.keystore): ")
         if(newKeyStore != '') android.signingConfigs.release.storeFile = file('${newKeyStore}')
+	else android.signingConfigs.release.storeFile = file('android.keystore')
     } else {
         android.signingConfigs.release.storeFile = file(project.keyStore)
     }
