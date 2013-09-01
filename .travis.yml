@@ -9,7 +9,7 @@ before_install:
   - if [ `uname -m` = x86_64 ]; then sudo apt-get update; fi
   - if [ `uname -m` = x86_64 ]; then sudo apt-get -f install; fi
   - if [ `uname -m` = x86_64 ]; then sudo apt-get upgrade; fi
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes ia32-libs ia32-libs-multiarch; fi
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get install --force-yes ia32-libs ia32-libs-multiarch; fi
   # for gradle output style
   - export TERM=dumb
   # newer version of gradle
