@@ -7,6 +7,8 @@ before_install:
   - uname -a
   # fixup for 32bit android build tools
   - if [ `uname -m` = x86_64 ]; then sudo apt-get update; fi
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get -f install; fi
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get upgrade; fi
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes ia32-libs ia32-libs-multiarch; fi
   # for gradle output style
   - export TERM=dumb
