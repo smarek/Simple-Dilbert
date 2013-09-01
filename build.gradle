@@ -27,6 +27,19 @@ android {
 	compileSdkVersion 18
 	buildToolsVersion "18.0.1"
 
+	signingConfigs {
+		release {
+			storeFile = file('android.keystore')
+			keyAlias = "simple_dilbert"
+		}
+	}
+
+	buildTypes {
+		release {
+			signingConfig signingConfigs.release
+		}
+	}
+
 	sourceSets {
 		main {
 			manifest.srcFile 'AndroidManifest.xml'
@@ -43,4 +56,15 @@ android {
 		minSdkVersion 8
 		targetSdkVersion 18
 	}
+}
+
+task readPasswordFromInput << {
+	android.signingConfigs.release.storePassword = new String(System.console().readPassword("\n\$ Store password: "))
+        android.signingConfigs.release.keyPassword = new String(System.console().readPassword("\$ Key password: "))
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'validateReleaseSigning') {
+        task.dependsOn readPasswordFromInput
+    }
 }
