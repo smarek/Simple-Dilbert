@@ -59,17 +59,18 @@ android {
 }
 
 task readPasswordFromInput << {
-	if(!project.hasProperty('keyStore') || !project.hasProperty('keyPass') || !project.hasProperty('storePass'))
-		println "Enter signing details manually or run with \"-PkeyStore={key.store.name} -PstorePass={StoreSecretPassword} -PkeyPass={KeySecretPassword}\""	
+    if(!project.hasProperty('keyStore') || !project.hasProperty('keyPass') || !project.hasProperty('storePass')) {
+        println "\n\$ Enter signing details manually or run with \"-PkeyStore={key.store.name} -PstorePass={StoreSecretPassword} -PkeyPass={KeySecretPassword}\""   
+    }
+	
+    if(!project.hasProperty('keyStore')) {
+        def newKeyStore = System.console().readLine("\n\$ Enter keystore location or enter (default: android.keystore): ")
+        if(newKeyStore != '') android.signingConfigs.release.storeFile = file('${newKeyStore}')
+    } else {
+        android.signingConfigs.release.storeFile = file(project.keyStore)
+    }
 
-	if(!project.hasProperty('keyStore')) {
-		def newKeyStore = System.console().readLine("\nEnter keystore location or enter (default: android.keystore): ")
-		if(newKeyStore != '') android.signingConfigs.release.storeFile = file('${newKeyStore}')
-	} else {
-		android.signingConfigs.release.storeFile = file(project.keyStore)
-	}
-
-	android.signingConfigs.release.storePassword = project.hasProperty('storePass') ? project.storePass : new String(System.console().readPassword("\$ Store password: "))
+    android.signingConfigs.release.storePassword = project.hasProperty('storePass') ? project.storePass : new String(System.console().readPassword("\$ Store password: "))
         android.signingConfigs.release.keyPassword = project.hasProperty('keyPass') ? project.keyPass : new String(System.console().readPassword("\$ Key password: "))
 }
 
