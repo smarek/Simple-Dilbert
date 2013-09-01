@@ -1,4 +1,4 @@
-# Simple Dilbert [![Build Status](https://travis-ci.org/smarek/Simple-Dilbert.png?branch=master)](http://travis-ci.org/smarek/Simple-Dilbert)
+# Simple Dilbert <a href="http://travis-ci.org/smarek/Simple-Dilbert" target="_blank">![Build Status](https://travis-ci.org/smarek/Simple-Dilbert.png?branch=master)</a>
 
 Whole project is published under Apache 2.0 license
 
@@ -18,18 +18,7 @@ Javadoc is published on gh-pages repository and available on: http://smarek.gith
 
 # Donations
 
-## Flattr  
-
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=marek.sebera&url=https://github.com/smarek/Simple-Dilbert&title=Simple Dilbert&language=&tags=github&category=software) 
-
-## Bitcoin
-
-Wallet: 1FpGN3kcZ3GQsaJgBa8rxGRJjBjJavu78g
-
-## PayPal
-
-account: marek.sebera@gmail.com
-
-## Gittip
-
-[![Fund me on Gittip](https://rawgithub.com/twolfson/gittip-badge/master/dist/gittip.png)](https://www.gittip.com/smarek/)
+ - <a href="https://flattr.com/submit/auto?user_id=marek.sebera&url=https://github.com/smarek/Simple-Dilbert&title=Simple Dilbert&language=&tags=github&category=software" target="_blank">![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)</a> 
+ - Bitcoin Wallet: 1FpGN3kcZ3GQsaJgBa8rxGRJjBjJavu78g
+ - PayPal: marek.sebera@gmail.com
+ - Gittip <a href="https://www.gittip.com/smarek/" target="_blank"><img height="25" src="https://rawgithub.com/twolfson/gittip-badge/master/dist/gittip.png" alt="Fund me on Gittip" title="Fund me on Gittip" /></a>
