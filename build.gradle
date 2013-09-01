@@ -59,7 +59,9 @@ android {
 }
 
 task readPasswordFromInput << {
-	android.signingConfigs.release.storePassword = new String(System.console().readPassword("\n\$ Store password: "))
+	def newKeyStore = System.console().readLine("\nEnter keystore location or enter (default: android.keystore): ")
+	if(newKeyStore != '') android.singingConfigs.release.storeFile = file('${newKeyStore}')
+	android.signingConfigs.release.storePassword = new String(System.console().readPassword("\$ Store password: "))
         android.signingConfigs.release.keyPassword = new String(System.console().readPassword("\$ Key password: "))
 }
 
