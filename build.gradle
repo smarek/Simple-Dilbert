@@ -1,85 +1,85 @@
 apply plugin: 'android'
 
 buildscript {
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath 'com.android.tools.build:gradle:0.5.6'
-	}
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	compile 'com.android.support:support-v4:18.0.+'
-	compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-	compile 'joda-time:joda-time:2.3'
-	compile 'org.joda:joda-convert:1.4'
-	compile 'com.nostra13.universalimageloader:universal-image-loader:1.8.6'
-	compile files('libraries/PhotoView-42ee0befb41f916de37344e667582a7cec00d933.jar')
-	compile project(':libraries:FileExplorer')
+    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile 'joda-time:joda-time:2.3'
+    compile 'org.joda:joda-convert:1.4'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.8.6'
+    compile project(':libraries:FileExplorer')
+    compile files('libs/PhotoView-42ee0befb41f916de37344e667582a7cec00d933.jar')
 }
 
 android {
-	compileSdkVersion 18
-	buildToolsVersion "18.0.1"
+    compileSdkVersion 18
+    buildToolsVersion "18.0.1"
 
-	signingConfigs {
-                release
+    signingConfigs {
+        release
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.release
         }
+    }
 
-	buildTypes {
-            release {
-		signingConfig = signingConfigs.release
-	    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
         }
+    }
 
-	sourceSets {
-		main {
-			manifest.srcFile 'AndroidManifest.xml'
-			java.srcDirs = ['src']
-			resources.srcDirs = ['src']
-			aidl.srcDirs = ['src']
-			renderscript.srcDirs = ['src']
-			res.srcDirs = ['res']
-			assets.srcDirs = ['assets']
-		}
-	}
-
-	defaultConfig {
-		minSdkVersion 8
-		targetSdkVersion 18
-	}
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 18
+    }
 }
 
-if(System.env.TERM == 'dumb') {
+if (System.env.TERM == 'dumb') {
     android.buildTypes.release.signingConfig = null
 }
 
 task readPasswordFromInput << {
-    if(System.env.TERM == 'dumb') {
-	return;
+    if (System.env.TERM == 'dumb') {
+        return;
     }
 
     android.signingConfigs.release.keyAlias = 'simple_dilbert'
 
-    if(!project.hasProperty('keyStore') || !project.hasProperty('keyPass') || !project.hasProperty('storePass')) {
-        println "\n\$ Enter signing details manually or run with \"-PkeyStore={key.store.name} -PstorePass={StoreSecretPassword} -PkeyPass={KeySecretPassword}\""   
+    if (!project.hasProperty('keyStore') || !project.hasProperty('keyPass') || !project.hasProperty('storePass')) {
+        println "\n\$ Enter signing details manually or run with \"-PkeyStore={key.store.name} -PstorePass={StoreSecretPassword} -PkeyPass={KeySecretPassword}\""
     }
-	
-    if(!project.hasProperty('keyStore')) {
+
+    if (!project.hasProperty('keyStore')) {
         def newKeyStore = System.console().readLine("\n\$ Enter keystore location or enter (default: android.keystore): ")
-        if(newKeyStore != '') android.signingConfigs.release.storeFile = file('${newKeyStore}')
-	else android.signingConfigs.release.storeFile = file('android.keystore')
+        if (newKeyStore != '') android.signingConfigs.release.storeFile = file('${newKeyStore}')
+        else android.signingConfigs.release.storeFile = file('android.keystore')
     } else {
         android.signingConfigs.release.storeFile = file(project.keyStore)
     }
 
     android.signingConfigs.release.storePassword = project.hasProperty('storePass') ? project.storePass : new String(System.console().readPassword("\$ Store password: "))
-        android.signingConfigs.release.keyPassword = project.hasProperty('keyPass') ? project.keyPass : new String(System.console().readPassword("\$ Key password: "))
+    android.signingConfigs.release.keyPassword = project.hasProperty('keyPass') ? project.keyPass : new String(System.console().readPassword("\$ Key password: "))
 }
 
 tasks.whenTaskAdded { task ->
