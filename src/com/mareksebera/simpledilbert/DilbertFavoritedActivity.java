@@ -1,7 +1,5 @@
 package com.mareksebera.simpledilbert;
 
-import org.joda.time.DateTimeZone;
-
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,20 +11,11 @@ import com.actionbarsherlock.view.MenuItem;
 
 public final class DilbertFavoritedActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
-	protected static final String TAG = "DilbertFragmentActivity";
-
-	static {
-		DateTimeZone.setDefault(DilbertPreferences.TIME_ZONE);
-	}
-
 	private FixedViewPager viewPager;
-	private DilbertFavoritedFragmentAdapter adapter;
-	private DilbertPreferences preferences;
-	private PagerTitleStrip titles;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstance) {
-		preferences = new DilbertPreferences(this);
+        DilbertPreferences preferences = new DilbertPreferences(this);
 		setTitle(R.string.title_favorited);
 		if (preferences.isForceLandscape())
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -36,9 +25,9 @@ public final class DilbertFavoritedActivity extends SherlockFragmentActivity imp
 		setContentView(R.layout.activity_dilbert_fragments);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
-		titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
-		adapter = new DilbertFavoritedFragmentAdapter(
-				getSupportFragmentManager(), preferences.getFavoritedItems());
+        PagerTitleStrip titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
+        DilbertFavoritedFragmentAdapter adapter = new DilbertFavoritedFragmentAdapter(
+                getSupportFragmentManager(), preferences.getFavoritedItems());
 		if (adapter.getCount() == 0) {
 			Toast.makeText(this, R.string.toast_no_favorites, Toast.LENGTH_LONG)
 					.show();

@@ -1,13 +1,13 @@
 package com.mareksebera.simpledilbert;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.util.CharArrayBuffer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.util.CharArrayBuffer;
 
 public final class EntityUtils {
 
@@ -15,7 +15,7 @@ public final class EntityUtils {
 	 * Taken from EntityUtils HttpCore 4.2.3 and altered so the utf-8lias is
 	 * handled correctly
 	 * */
-	public final static String toString(final HttpEntity entity)
+	public static String toString(final HttpEntity entity)
 			throws IOException {
 		if (entity == null) {
 			throw new IllegalArgumentException("HTTP entity may not be null");

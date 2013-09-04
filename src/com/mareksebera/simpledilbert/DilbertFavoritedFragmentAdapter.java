@@ -1,23 +1,13 @@
 package com.mareksebera.simpledilbert;
 
-import java.util.List;
-
-import org.joda.time.DateTimeZone;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public final class DilbertFavoritedFragmentAdapter extends FragmentPagerAdapter {
+import java.util.List;
 
-	static {
-		/**
-		 * Set default time-zone, because strips are published in New York
-		 * timezone on midnight
-		 * */
-		DateTimeZone.setDefault(DilbertPreferences.TIME_ZONE);
-	}
+public final class DilbertFavoritedFragmentAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {
