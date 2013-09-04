@@ -29,7 +29,6 @@
         </activity>
         <activity android:name="com.mareksebera.simpledilbert.DilbertFavoritedActivity" />
         <activity android:name="com.mareksebera.simpledilbert.DilbertPreferencesActivity" />
-        <activity android:name="com.lamerman.FileDialog"></activity>
 
         <receiver
             android:name="com.mareksebera.simpledilbert.WidgetProvider"
