@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lamerman"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
-    <application />
+    <application>
+        <activity android:name="com.lamerman.FileDialog" android:theme="@style/Theme.Sherlock.Light.DarkActionBar"/>
+    </application>
 
 </manifest>
