@@ -1,9 +1,12 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.favorites;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
+import com.mareksebera.simpledilbert.core.DilbertFragment;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.preferences;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -12,6 +12,9 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.mareksebera.simpledilbert.favorites.FavoritedItem;
+import com.mareksebera.simpledilbert.R;
 
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;

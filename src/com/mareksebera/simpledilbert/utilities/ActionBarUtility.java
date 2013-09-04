@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.utilities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

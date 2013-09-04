@@ -1,10 +1,11 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.utilities;
 
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 
@@ -15,7 +16,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.joda.time.LocalDate;
 
-final class GetStripUrl extends AsyncTask<Void, Void, String> {
+public final class GetStripUrl extends AsyncTask<Void, Void, String> {
 
     private static final String TAG = "GetStripUrl";
     private DilbertPreferences preferences;

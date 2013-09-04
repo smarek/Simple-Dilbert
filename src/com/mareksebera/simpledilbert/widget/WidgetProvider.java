@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -11,6 +11,12 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.mareksebera.simpledilbert.AppController;
+import com.mareksebera.simpledilbert.R;
+import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
+import com.mareksebera.simpledilbert.utilities.GetStripUrl;
+import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;

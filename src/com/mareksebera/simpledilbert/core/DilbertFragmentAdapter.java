@@ -1,9 +1,11 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.core;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;

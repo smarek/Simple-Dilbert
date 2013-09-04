@@ -19,7 +19,7 @@
         android:theme="@style/AppThemeLight"
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name="com.mareksebera.simpledilbert.DilbertFragmentActivity"
+            android:name=".core.DilbertFragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mareksebera.simpledilbert.DilbertFavoritedActivity" />
-        <activity android:name="com.mareksebera.simpledilbert.DilbertPreferencesActivity" />
+        <activity android:name=".favorites.DilbertFavoritedActivity" />
+        <activity android:name=".preferences.DilbertPreferencesActivity" />
 
         <receiver
-            android:name="com.mareksebera.simpledilbert.WidgetProvider"
+            android:name=".widget.WidgetProvider"
             android:icon="@drawable/ic_launcher"
             android:label="Simple Dilbert Widget" >
             <intent-filter>

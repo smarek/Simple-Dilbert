@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.utilities;
 
 import com.nostra13.universalimageloader.core.assist.FailReason;
 

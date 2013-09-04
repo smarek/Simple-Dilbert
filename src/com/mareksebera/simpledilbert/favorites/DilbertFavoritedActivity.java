@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.favorites;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -9,6 +9,10 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
+import com.mareksebera.simpledilbert.core.DilbertFragmentInterface;
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
+import com.mareksebera.simpledilbert.R;
 
 public final class DilbertFavoritedActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 

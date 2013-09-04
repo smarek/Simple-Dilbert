@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.favorites;
 
 import org.joda.time.LocalDate;
 

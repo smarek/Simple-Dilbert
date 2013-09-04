@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.core;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,6 +18,10 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.mareksebera.simpledilbert.utilities.GetStripUrl;
+import com.mareksebera.simpledilbert.R;
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
+import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;

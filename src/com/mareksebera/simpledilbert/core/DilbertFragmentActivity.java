@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.core;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -14,6 +14,11 @@ import android.widget.DatePicker;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
+import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
+import com.mareksebera.simpledilbert.preferences.DilbertPreferencesActivity;
+import com.mareksebera.simpledilbert.R;
 
 import org.joda.time.LocalDate;
 

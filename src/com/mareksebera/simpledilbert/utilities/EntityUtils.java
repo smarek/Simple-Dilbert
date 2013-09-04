@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.utilities;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.util.CharArrayBuffer;

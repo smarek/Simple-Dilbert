@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.utilities;
 
 import android.graphics.Bitmap;
 import android.util.Log;

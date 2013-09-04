@@ -1,4 +1,4 @@
-package com.mareksebera.simpledilbert;
+package com.mareksebera.simpledilbert.preferences;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -18,6 +18,9 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.lamerman.FileDialog;
+import com.mareksebera.simpledilbert.R;
+import com.mareksebera.simpledilbert.widget.WidgetProvider;
+import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
 
 import java.io.File;
 import java.io.InputStream;
