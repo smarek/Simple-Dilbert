@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.NavigableMap;
 import java.util.TreeMap;
 
 /**
@@ -138,10 +139,10 @@ public class FileDialog extends SherlockListActivity {
 
         }
 
-        TreeMap<String, String> dirsMap = new TreeMap<String, String>();
-        TreeMap<String, String> dirsPathMap = new TreeMap<String, String>();
-        TreeMap<String, String> filesMap = new TreeMap<String, String>();
-        TreeMap<String, String> filesPathMap = new TreeMap<String, String>();
+        NavigableMap<String, String> dirsMap = new TreeMap<String, String>();
+        NavigableMap<String, String> dirsPathMap = new TreeMap<String, String>();
+        NavigableMap<String, String> filesMap = new TreeMap<String, String>();
+        NavigableMap<String, String> filesPathMap = new TreeMap<String, String>();
         if (files == null)
             files = new File[0];
         for (File file : files) {
