@@ -19,7 +19,7 @@ dependencies {
 	compile 'joda-time:joda-time:2.3'
 	compile 'org.joda:joda-convert:1.4'
 	compile 'com.nostra13.universalimageloader:universal-image-loader:1.8.6'
-	compile files(':libraries/PhotoView-42ee0befb41f916de37344e667582a7cec00d933.jar')
+	compile files('libraries/PhotoView-42ee0befb41f916de37344e667582a7cec00d933.jar')
 	compile project(':libraries:FileExplorer')
 }
 
