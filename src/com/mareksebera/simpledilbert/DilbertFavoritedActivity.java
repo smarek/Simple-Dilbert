@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
+import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -11,7 +12,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 public final class DilbertFavoritedActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
-	private FixedViewPager viewPager;
+	private ViewPager viewPager;
 
     @Override
 	protected void onCreate(Bundle savedInstance) {
@@ -24,7 +25,7 @@ public final class DilbertFavoritedActivity extends SherlockFragmentActivity imp
 		super.onCreate(savedInstance);
 		setContentView(R.layout.activity_dilbert_fragments);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		viewPager = (FixedViewPager) findViewById(R.id.view_pager);
+		viewPager = (ViewPager) findViewById(R.id.view_pager);
         PagerTitleStrip titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
         DilbertFavoritedFragmentAdapter adapter = new DilbertFavoritedFragmentAdapter(
                 getSupportFragmentManager(), preferences.getFavoritedItems());

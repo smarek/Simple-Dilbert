@@ -22,6 +22,8 @@ public final class ActionBarUtility {
 		try {
 			FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) viewPager
 					.getLayoutParams();
+            if(lp == null)
+                return;
 			if (activity.getSupportActionBar().isShowing()) {
 				activity.getSupportActionBar().hide();
 				if (android.os.Build.VERSION.SDK_INT >= 11) {

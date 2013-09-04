@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.DatePicker;
 
@@ -36,7 +37,7 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
         }
     };
 
-    private FixedViewPager viewPager;
+    private ViewPager viewPager;
     private DilbertFragmentAdapter adapter;
     private DilbertPreferences preferences;
     private OnPageChangeListener pageChangedListener = new OnPageChangeListener() {
@@ -69,7 +70,7 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
         if (preferences.isForceLandscape())
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_dilbert_fragments);
-        viewPager = (FixedViewPager) findViewById(R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         PagerTitleStrip titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
         adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
         titles.setTextColor(Color.WHITE);
