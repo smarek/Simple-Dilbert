@@ -1,21 +1,21 @@
 package com.mareksebera.simpledilbert;
 
-import org.joda.time.DateMidnight;
+import org.joda.time.LocalDate;
 
 public final class FavoritedItem {
 
-	private DateMidnight date;
+	private LocalDate date;
 
 	private String url;
 
-	public FavoritedItem(DateMidnight d, String u) {
+	public FavoritedItem(LocalDate d, String u) {
 		assert (d != null);
 		assert (u != null);
 		date = d;
 		url = u;
 	}
 
-	public DateMidnight getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
@@ -23,11 +23,7 @@ public final class FavoritedItem {
 		return url;
 	}
 
-	public void setDate(DateMidnight date) {
-		this.date = date;
-	}
-
-	public void setUrl(String url) {
+    public void setUrl(String url) {
 		this.url = url;
 	}
 
