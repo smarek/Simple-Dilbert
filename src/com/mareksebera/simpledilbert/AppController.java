@@ -54,7 +54,7 @@ public final class AppController extends Application {
                 menuKeyField.setAccessible(true);
                 menuKeyField.setBoolean(config, false);
             }
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
         }
     }
 

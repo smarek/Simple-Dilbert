@@ -13,8 +13,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.mareksebera.simpledilbert.favorites.FavoritedItem;
 import com.mareksebera.simpledilbert.R;
+import com.mareksebera.simpledilbert.favorites.FavoritedItem;
 
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
@@ -114,12 +114,14 @@ public final class DilbertPreferences {
     public List<FavoritedItem> getFavoritedItems() {
         List<FavoritedItem> favorites = new ArrayList<FavoritedItem>();
         Map<String, ?> allPreferences = preferences.getAll();
-        for (String key : allPreferences.keySet()) {
-            if (key.startsWith("favorite_")
-                    && (Boolean) allPreferences.get(key)) {
-                String date = key.replace("favorite_", "");
-                favorites.add(new FavoritedItem(LocalDate.parse(date,
-                        DATE_FORMATTER), (String) allPreferences.get(date)));
+        if (allPreferences != null) {
+            for (String key : allPreferences.keySet()) {
+                if (key.startsWith("favorite_")
+                        && (Boolean) allPreferences.get(key)) {
+                    String date = key.replace("favorite_", "");
+                    favorites.add(new FavoritedItem(LocalDate.parse(date,
+                            DATE_FORMATTER), (String) allPreferences.get(date)));
+                }
             }
         }
         Collections.sort(favorites, new Comparator<FavoritedItem>() {

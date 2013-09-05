@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import org.jetbrains.annotations.NotNull;
+
 @SuppressWarnings("UnusedDeclaration")
 public final class FixedViewPager extends ViewPager {
 
@@ -39,7 +41,7 @@ public final class FixedViewPager extends ViewPager {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(@NotNull MotionEvent ev) {
         try {
             return super.dispatchTouchEvent(ev);
         } catch (final Throwable t) {

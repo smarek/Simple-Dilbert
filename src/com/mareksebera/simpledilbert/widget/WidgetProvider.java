@@ -21,6 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
 
 public final class WidgetProvider extends AppWidgetProvider {
@@ -117,12 +118,11 @@ public final class WidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        if (intent == null || intent.getExtras() == null)
-            return;
+    public void onReceive(@NotNull Context context, @NotNull Intent intent) {
         String action = intent.getAction();
-        final int appWidgetId = intent
-                .getExtras().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
+        if (intent.getExtras() == null)
+            return;
+        final int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
         final DilbertPreferences preferences = new DilbertPreferences(context);
         if (action == null || appWidgetId == -1) {
             super.onReceive(context, intent);

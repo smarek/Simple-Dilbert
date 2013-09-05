@@ -150,6 +150,7 @@ public final class DilbertFragment extends SherlockFragment {
                              Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_dilbert, container,
                 false);
+        assert fragment != null;
         this.image = (PhotoView) fragment.findViewById(R.id.fragment_imageview);
         this.image.setOnLongClickListener(imageLongClickListener);
         fragment.setOnLongClickListener(imageLongClickListener);

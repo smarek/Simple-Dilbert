@@ -80,8 +80,8 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
         }
         if(resultCode != RESULT_OK)
             return;
-        if (data != null && data.getExtras() != null) {
-            String result = data.getExtras().getString(FileDialog.RESULT_PATH);
+        if (data != null) {
+            String result = data.getStringExtra(FileDialog.RESULT_PATH);
             if (result != null) {
                 File tmp = new File(result);
                 if (!tmp.isDirectory())
