@@ -14,6 +14,7 @@ repositories {
 }
 
 dependencies {
+    compile 'com.intellij:annotations:12.0'
     compile 'com.android.support:support-v4:18.0.+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
     compile 'joda-time:joda-time:2.3'
