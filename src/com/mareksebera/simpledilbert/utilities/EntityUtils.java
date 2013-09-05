@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
-public final class EntityUtils {
+final class EntityUtils {
 
 	/**
 	 * Taken from EntityUtils HttpCore 4.2.3 and altered so the utf-8lias is

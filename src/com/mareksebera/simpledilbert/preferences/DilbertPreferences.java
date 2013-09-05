@@ -32,8 +32,8 @@ import java.util.Random;
 
 public final class DilbertPreferences {
 
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences preferences;
+    private final SharedPreferences.Editor editor;
 
     private static final String PREF_CURRENT_DATE = "dilbert_current_date";
     private static final String PREF_CURRENT_URL = "dilbert_current_url";
@@ -86,7 +86,7 @@ public final class DilbertPreferences {
         return getCachedUrl(dateKey.toString(DATE_FORMATTER));
     }
 
-    public String getCachedUrl(String dateKey) {
+    String getCachedUrl(String dateKey) {
         return preferences.getString(dateKey, null);
     }
 
@@ -218,7 +218,7 @@ public final class DilbertPreferences {
         return editor.remove("widget_" + widgetId).commit();
     }
 
-    public static LocalDate validateDate(LocalDate selDate) {
+    private static LocalDate validateDate(LocalDate selDate) {
         if (selDate.isAfter(LocalDate.now())) {
             selDate = LocalDate.now();
         }

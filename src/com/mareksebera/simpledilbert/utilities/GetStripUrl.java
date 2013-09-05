@@ -19,10 +19,10 @@ import org.joda.time.LocalDate;
 public final class GetStripUrl extends AsyncTask<Void, Void, String> {
 
     private static final String TAG = "GetStripUrl";
-    private DilbertPreferences preferences;
-    private ProgressBar progressBar;
-    private LocalDate currDate;
-    private GetStripUrlInterface listener;
+    private final DilbertPreferences preferences;
+    private final ProgressBar progressBar;
+    private final LocalDate currDate;
+    private final GetStripUrlInterface listener;
 
     public GetStripUrl(GetStripUrlInterface listener,
                        DilbertPreferences preferences, LocalDate currDate) {

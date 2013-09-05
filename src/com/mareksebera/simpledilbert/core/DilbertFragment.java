@@ -51,7 +51,7 @@ public final class DilbertFragment extends SherlockFragment {
         super.onDestroyView();
     }
 
-    private GetStripUrlInterface getStripUrilListener = new GetStripUrlInterface() {
+    private final GetStripUrlInterface getStripUrilListener = new GetStripUrlInterface() {
 
         @Override
         public void imageLoadFailed(String url, FailReason reason) {
@@ -70,7 +70,7 @@ public final class DilbertFragment extends SherlockFragment {
         }
     };
 
-    private ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
+    private final ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
 
         @Override
         public void onLoadingCancelled(String imageUri, View view) {
@@ -112,7 +112,7 @@ public final class DilbertFragment extends SherlockFragment {
                 progress.setVisibility(View.VISIBLE);
         }
     };
-    private OnLongClickListener imageLongClickListener = new OnLongClickListener() {
+    private final OnLongClickListener imageLongClickListener = new OnLongClickListener() {
 
         @Override
         public boolean onLongClick(View v) {
@@ -125,7 +125,7 @@ public final class DilbertFragment extends SherlockFragment {
             return true;
         }
     };
-    private OnPhotoTapListener photoTapListener = new OnPhotoTapListener() {
+    private final OnPhotoTapListener photoTapListener = new OnPhotoTapListener() {
 
         @Override
         public void onPhotoTap(View view, float x, float y) {

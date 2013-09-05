@@ -33,7 +33,7 @@ public final class WidgetProvider extends AppWidgetProvider {
     private static final String INTENT_REFRESH = "com.mareksebera.simpledilbert.widget.REFRESH";
     private static final String INTENT_DISPLAY = "com.mareksebera.simpledilbert.widget.DISPLAY";
 
-    private static Toast currentToast = null;
+    private static final Toast currentToast = null;
 
     private static PendingIntent getPendingIntent(String INTENT,
                                                   Context context, int appWidgetId) {
@@ -43,8 +43,8 @@ public final class WidgetProvider extends AppWidgetProvider {
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    static void updateAppWidget(final Context context,
-                                final AppWidgetManager appWidgetManager, final int appWidgetId) {
+    private static void updateAppWidget(final Context context,
+                                        final AppWidgetManager appWidgetManager, final int appWidgetId) {
         final DilbertPreferences prefs = new DilbertPreferences(context);
         final RemoteViews views = new RemoteViews(context.getPackageName(),
                 R.layout.widget_layout);

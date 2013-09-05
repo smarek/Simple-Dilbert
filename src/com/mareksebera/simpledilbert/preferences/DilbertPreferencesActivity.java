@@ -1,6 +1,7 @@
 package com.mareksebera.simpledilbert.preferences;
 
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,8 +20,8 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.lamerman.FileDialog;
 import com.mareksebera.simpledilbert.R;
-import com.mareksebera.simpledilbert.widget.WidgetProvider;
 import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
+import com.mareksebera.simpledilbert.widget.WidgetProvider;
 
 import java.io.File;
 import java.io.InputStream;
@@ -37,14 +38,14 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
     private DilbertPreferences preferences;
     private static final int REQUEST_DOWNLOAD_TARGET = 1;
     private static final String TAG = "DilbertPreferencesActivity";
-    private OnClickListener licenseOnClickListener = new OnClickListener() {
+    private final OnClickListener licenseOnClickListener = new OnClickListener() {
 
         @Override
         public void onClick(View v) {
             showLicenseDialog();
         }
     };
-    private OnClickListener ratingOnClickListener = new OnClickListener() {
+    private final OnClickListener ratingOnClickListener = new OnClickListener() {
 
         @Override
         public void onClick(View v) {
@@ -59,7 +60,7 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
             }
         }
     };
-    private OnClickListener downloadPathClickListener = new OnClickListener() {
+    private final OnClickListener downloadPathClickListener = new OnClickListener() {
 
         @Override
         public void onClick(View v) {
@@ -194,7 +195,8 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
     private void updateWidgets() {
         try {
-            int[] ids = getInstance(this).getAppWidgetIds(
+            AppWidgetManager awm = getInstance(this);
+            int[] ids = awm == null ? new int[0] : awm.getAppWidgetIds(
                     new ComponentName(this, WidgetProvider.class));
             if (ids != null)
                 for (int id : ids) {

@@ -10,7 +10,7 @@ import com.mareksebera.simpledilbert.core.DilbertFragment;
 
 import java.util.List;
 
-public final class DilbertFavoritedFragmentAdapter extends FragmentPagerAdapter {
+final class DilbertFavoritedFragmentAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {

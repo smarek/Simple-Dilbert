@@ -10,7 +10,7 @@ import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-public final class DilbertFragmentAdapter extends FragmentPagerAdapter {
+final class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {

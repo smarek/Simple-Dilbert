@@ -57,7 +57,7 @@ public class FileDialog extends SherlockListActivity {
      * Parametro de entrada da Activity: filtro de formatos de arquivos. Padrao:
      * null.
      */
-    public static final String FORMAT_FILTER = "FORMAT_FILTER";
+    private static final String FORMAT_FILTER = "FORMAT_FILTER";
 
     /**
      * Parametro de saida da Activity: path escolhido. Padrao: null.
@@ -84,7 +84,7 @@ public class FileDialog extends SherlockListActivity {
     private boolean canSelectDir = false;
 
     private File selectedFile;
-    private HashMap<String, Integer> lastPositions = new HashMap<String, Integer>();
+    private final HashMap<String, Integer> lastPositions = new HashMap<String, Integer>();
 
     private void addItem(String fileName, int imageId) {
         HashMap<String, Object> item = new HashMap<String, Object>();

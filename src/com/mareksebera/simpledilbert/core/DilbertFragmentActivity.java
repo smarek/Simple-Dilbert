@@ -30,7 +30,7 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
     private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3, MENU_OLDEST = 4,
             MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 8;
 
-    private OnDateSetListener dilbertOnDateSetListener = new OnDateSetListener() {
+    private final OnDateSetListener dilbertOnDateSetListener = new OnDateSetListener() {
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -45,7 +45,7 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
     private ViewPager viewPager;
     private DilbertFragmentAdapter adapter;
     private DilbertPreferences preferences;
-    private OnPageChangeListener pageChangedListener = new OnPageChangeListener() {
+    private final OnPageChangeListener pageChangedListener = new OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {

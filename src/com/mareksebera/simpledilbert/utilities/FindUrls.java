@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
-public final class FindUrls {
+final class FindUrls {
 	private FindUrls() {
 	}
 
