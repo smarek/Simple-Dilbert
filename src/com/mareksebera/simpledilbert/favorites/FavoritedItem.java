@@ -6,13 +6,11 @@ public final class FavoritedItem {
 
 	private LocalDate date;
 
-	private String url;
-
-	public FavoritedItem(LocalDate d, String u) {
+    public FavoritedItem(LocalDate d, String u) {
 		assert (d != null);
 		assert (u != null);
 		date = d;
-		url = u;
+        String url = u;
 	}
 
 	public LocalDate getDate() {

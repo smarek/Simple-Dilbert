@@ -14,11 +14,11 @@ import android.widget.DatePicker;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
+import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferencesActivity;
-import com.mareksebera.simpledilbert.R;
+import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
 import org.joda.time.LocalDate;
 
@@ -27,8 +27,8 @@ import java.util.Locale;
 
 public final class DilbertFragmentActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
 
-    private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3, MENU_OLDEST = 4,
-            MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 8;
+    private static final int MENU_DATEPICKER = 1, MENU_SEARCH = 2, MENU_LATEST = 3, MENU_OLDEST = 4,
+            MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7;
 
     private final OnDateSetListener dilbertOnDateSetListener = new OnDateSetListener() {
 
@@ -101,6 +101,9 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
         menu.add(category, MENU_SHUFFLE, 1, R.string.menu_random)
                 .setIcon(R.drawable.ic_menu_shuffle)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(category, MENU_SEARCH, 6, "Search")
+                .setIcon(R.drawable.ic_menu_search)
+                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(category, MENU_SHOW_FAVORITES, 6, R.string.menu_show_favorite)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(category, MENU_LATEST, 5, R.string.menu_latest)
@@ -144,6 +147,8 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
             case MENU_SETTINGS:
                 startActivity(new Intent(this, DilbertPreferencesActivity.class));
                 finish();
+                return true;
+            case MENU_SEARCH:
                 return true;
         }
         return super.onOptionsItemSelected(item);
