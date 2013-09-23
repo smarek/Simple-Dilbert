@@ -18,9 +18,9 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
+import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -197,17 +197,15 @@ public final class DilbertFragment extends SherlockFragment {
                 return true;
             case MENU_ZOOM:
                 if (image != null && image.canZoom()) {
-                    int center_x = image.getWidth() / 2;
-                    int center_y = image.getHeight() / 2;
                     switch (zoomLevel) {
                         case 0:
-                            image.zoomTo(image.getMidScale(), center_x, center_y);
+                            image.setScale(image.getMidScale(), true);
                             break;
                         case 1:
-                            image.zoomTo(image.getMaxScale(), center_x, center_y);
+                            image.setScale(image.getMaxScale(), true);
                             break;
                         case 2:
-                            image.zoomTo(image.getMinScale(), center_x, center_y);
+                            image.setScale(image.getMinScale(), true);
                             break;
                     }
                     zoomLevel = (zoomLevel + 1) % 3;

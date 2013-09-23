@@ -267,8 +267,7 @@ public final class DilbertPreferences {
     public String getDownloadTarget() {
         return preferences.getString(
                 PREF_DOWNLOAD_TARGET,
-                Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
     }
 
     public boolean setDownloadTarget(String absolutePath) {

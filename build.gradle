@@ -10,6 +10,9 @@ buildscript {
 }
 
 repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
     mavenCentral()
 }
 
@@ -17,11 +20,11 @@ dependencies {
     compile 'com.intellij:annotations:12.0'
     compile 'com.android.support:support-v4:18.0.+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile 'com.github.chrisbanes.photoview:library:1.2.2-SNAPSHOT'
     compile 'joda-time:joda-time:2.3'
     compile 'org.joda:joda-convert:1.4'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.8.6'
     compile project(':libraries:FileExplorer')
-    compile files('libs/PhotoView-42ee0befb41f916de37344e667582a7cec00d933.jar')
 }
 
 android {
