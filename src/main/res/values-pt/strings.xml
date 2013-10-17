@@ -1,34 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-    <string name="menu_datepicker">Escolher data</string>
-    <string name="about_contents">Feita por Marek Sebera 2013</string>
-    <string name="cd_dilbert_image">Simple Dilbert</string>
+    <string name="app_name" translatable="false">Simple Dilbert</string>
+    <string name="apache_license_2_0" translatable="false">Licença Apache 2.0</string>
+    <string name="menu_datepicker">Escolha data</string>
+    <string name="about_contents">Feito por Marek Sebera 2013</string>
+    <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com não está disponível. Carregamento falhou.</string>
-    <string name="menu_latest">Mostrar o último</string>
+    <string name="menu_latest">Mostrar mais recente</string>
     <string name="menu_oldest">Mostrar mais antiga</string>
     <string name="menu_refresh">Atualizar</string>
-    <string name="download_manager_unsupported">Não suportado para esse computador</string>
-    <string name="menu_download">Salvar a imagem</string>
-    <string name="menu_favorite_add">Favoritos</string>
-    <string name="menu_favorite_remove">Remova dos favoritos</string>
-    <string name="menu_show_favorite">Mostrar os favoritos</string>
-    <string name="menu_zoom">Ampliar</string>
-    <string name="toast_no_favorites">Voce não tem nehuma tira favorita</string>
-    <string name="title_favorited">Quadrinhos favoritos</string>
-    <string name="menu_random">Acaso</string>
-    <string name="share_chooser">Compartilhe Dilbert Comics</string>
+    <string name="download_manager_unsupported">Não suportado neste aparelho</string>
+    <string name="menu_download">Salvar imagem atual</string>
+    <string name="menu_favorite_add">Favoritar</string>
+    <string name="menu_favorite_remove">Excluir dos favoritos</string>
+    <string name="menu_show_favorite">Mostrar favoritos</string>
+    <string name="menu_zoom">Zoom</string>
+    <string name="toast_no_favorites">Você não tem tiras favoritas</string>
+    <string name="title_favorited">Tiras favoritas</string>
+    <string name="menu_random">Aleatório</string>
+    <string name="share_chooser">Compartilhar Quadrinhos do Dilbert</string>
     <string name="menu_share">Compartilhar esta!</string>
+    <string name="widget_cd_next" translatable="false">Próxima</string>
+    <string name="widget_cd_latest" translatable="false">Mais recente</string>
+    <string name="widget_cd_previous" translatable="false">Anterior</string>
+    <string name="widget_cd_random" translatable="false">Aleatório</string>
     <string name="title_preferences">Preferências</string>
-    <string name="pref_force_landscape">Força Orientação Paisagem</string>
-    <string name="pref_enable_high_quality">Ativar Alta Qualidade</string>
-    <string name="pref_force_dark_background">Usar fundos escuros</string>
-    <string name="pref_force_dark_background_widget">Usar fundos escuros para o widget</string>
-    <string name="pref_hide_toolbars">Ocultar barras de ferramentas</string>
-    <string name="pref_show_license">Exibição de Licença de Software</string>
-    <string name="pref_rating">Classifique este aplicativo no Google Play</string>
-    <string name="menu_settings">Preferências</string>
-    <string name="pref_download_path">Pasta de destino de downloads:</string>
-    <string name="pref_share_image">Não compartilhe imagem, apenas uma URL</string>
-    <string name="pref_mobile_network">Otimizar o uso da rede móvel</string>
+    <string name="pref_force_landscape">Forçar Orientação Paisagem</string>
+    <string name="pref_enable_high_quality">Habilitar Imagens de Alta Qualidade</string>
+    <string name="pref_force_dark_background">Use Fundos Escuros</string>
+    <string name="pref_hide_toolbars">Ocultar Barras de Ferramentas como Padrão</string>
+    <string name="pref_show_license">Exibir Licença de Software</string>
+    <string name="pref_force_dark_background_widget">Use fundo escuro para este widget</string>
+    <string name="pref_rating">Avalie este aplicativo no Google Play</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="pref_download_path">Pasta de destino dos downloads:</string>
+    <string name="pref_share_image">Não compartilhar a imagem, apenas uma URL</string>
+    <string name="pref_mobile_network">Otimizar para uso em rede móvel</string>
 
 </resources>

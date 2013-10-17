@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string name="app_name" translatable="false">Simple Dilbert</string>
+    <string name="apache_license_2_0" translatable="false">Apache License 2.0</string>
+    <string name="menu_datepicker">Выберите дату</string>
+    <string name="about_contents">Автор: Marek Sebera 2013</string>
+    <string name="cd_dilbert_image">Дилберт</string>
+    <string name="loading_exception_error">Не удалось загрузить - Dilbert.com недоступен.</string>
+    <string name="menu_latest">Показать последние</string>
+    <string name="menu_oldest">Показать ранние</string>
+    <string name="menu_refresh">Обновить</string>
+    <string name="download_manager_unsupported">Не поддерживается на данном устройстве</string>
+    <string name="menu_download">Сохранить текущее изображение</string>
+    <string name="menu_favorite_add">В избранное</string>
+    <string name="menu_favorite_remove">Удалить из избранного</string>
+    <string name="menu_show_favorite">Показать избранное</string>
+    <string name="menu_zoom">Увеличить</string>
+    <string name="toast_no_favorites">У вас нет избранных комиксов</string>
+    <string name="title_favorited">Избранные комиксы</string>
+    <string name="menu_random">Случайный</string>
+    <string name="share_chooser">Поделиться комиксами</string>
+    <string name="menu_share">Поделиться!</string>
+    <string name="widget_cd_next" translatable="false">Далее</string>
+    <string name="widget_cd_latest" translatable="false">Последнее</string>
+    <string name="widget_cd_previous" translatable="false">Назад</string>
+    <string name="widget_cd_random" translatable="false">Случайный</string>
+    <string name="title_preferences">Настройки</string>
+    <string name="pref_force_landscape">Ландшафтная ориентация</string>
+    <string name="pref_enable_high_quality">Поддержка изображений в высоком качестве</string>
+    <string name="pref_force_dark_background">Использовать темный фон</string>
+    <string name="pref_hide_toolbars">Скрывать по умолчанию панель инструментов</string>
+    <string name="pref_show_license">Показать лицензионное соглашение</string>
+    <string name="pref_force_dark_background_widget">Использовать  для виджета темный фон</string>
+    <string name="pref_rating">Оценить это приложение на Google Play</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="pref_download_path">Папка для загрузок:</string>
+    <string name="pref_share_image">Делиться только URL, а не рисунками</string>
+    <string name="pref_mobile_network">Оптимизировать для мобильных устройств</string>
+
+</resources>
