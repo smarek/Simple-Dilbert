@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-    <string name="app_name" translatable="false">Simple Dilbert</string>
-    <string name="apache_license_2_0" translatable="false">Licenza Apache 2.0</string>
     <string name="menu_datepicker">Seleziona data</string>
     <string name="about_contents">Realizzato da Marek Sebera 2013</string>
     <string name="cd_dilbert_image">Dilbert</string>
@@ -21,10 +19,10 @@
     <string name="menu_random">Casuale</string>
     <string name="share_chooser">Condividi Dilbert Comics</string>
     <string name="menu_share">Condividi!</string>
-    <string name="widget_cd_next" translatable="false">Prossimo</string>
-    <string name="widget_cd_latest" translatable="false">Più recente</string>
-    <string name="widget_cd_previous" translatable="false">Precedente</string>
-    <string name="widget_cd_random" translatable="false">Casuale</string>
+    <string name="widget_cd_next">Prossimo</string>
+    <string name="widget_cd_latest">Più recente</string>
+    <string name="widget_cd_previous">Precedente</string>
+    <string name="widget_cd_random">Casuale</string>
     <string name="title_preferences">Preferenze</string>
     <string name="pref_force_landscape">Forza Orientamento Paesaggio</string>
     <string name="pref_enable_high_quality">Abilita immagini ad alta qualità</string>

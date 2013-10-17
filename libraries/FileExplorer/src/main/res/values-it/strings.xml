@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="location">"Posizione :"</string>
+    <string name="cant_read_folder">Cartella non può essere letto!</string>
+    <string name="select">Selezionare</string>
+    <string name="err">Errore</string>
+
+</resources>

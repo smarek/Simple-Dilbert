@@ -30,5 +30,9 @@
     <string name="pref_download_path">Adresář pro stahování:</string>
     <string name="pref_share_image">Nesdílet obrázek, pouze odkaz</string>
     <string name="pref_mobile_network">Optimalizovat pro mobilní data</string>
+    <string name="widget_cd_next">Další</string>
+    <string name="widget_cd_latest">Nejnovější</string>
+    <string name="widget_cd_previous">Předchozí</string>
+    <string name="widget_cd_random">Náhodný</string>
 
 </resources>

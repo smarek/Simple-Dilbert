@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="location">"Emplacement :"</string>
+    <string name="cant_read_folder">Dossier ne peut pas être lu!</string>
+    <string name="select">Sélectionner</string>
+    <string name="err">Erreur</string>
+
+</resources>

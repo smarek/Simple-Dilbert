@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string name="menu_datepicker">Välj datum</string>
+    <string name="about_contents">Gjord av Marek Sebera 2013</string>
+    <string name="cd_dilbert_image">Dilbert</string>
+    <string name="loading_exception_error">Dilbert.com är ej tillgänglig. Laddning misslyckades.</string>
+    <string name="menu_latest">Visa senast</string>
+    <string name="menu_oldest">Visa äldst</string>
+    <string name="menu_refresh">Uppdatera</string>
+    <string name="download_manager_unsupported">Stöds inte på denna enhet</string>
+    <string name="menu_download">Spara aktuella bild</string>
+    <string name="menu_favorite_add">Favorit</string>
+    <string name="menu_favorite_remove">Ta bort favorit</string>
+    <string name="menu_show_favorite">Visa favoriter</string>
+    <string name="menu_zoom">Zoom</string>
+    <string name="toast_no_favorites">Du har inga favorit serier</string>
+    <string name="title_favorited">Favorit serier</string>
+    <string name="menu_random">Slumpvis</string>
+    <string name="share_chooser">Dela Dilbert Comics</string>
+    <string name="menu_share">Dela detta!</string>
+    <string name="widget_cd_next">Nästa</string>
+    <string name="widget_cd_latest">Senast</string>
+    <string name="widget_cd_previous">Föregående</string>
+    <string name="widget_cd_random">Slumpvis</string>
+    <string name="title_preferences">Preferenser</string>
+    <string name="pref_force_landscape">Tvinga fram Liggande Orientering</string>
+    <string name="pref_enable_high_quality">Aktivera Högkvalitativa Bilder</string>
+    <string name="pref_force_dark_background">Använd Mörka Bakgrunder</string>
+    <string name="pref_hide_toolbars">Göm Verktygsfält som Standard</string>
+    <string name="pref_show_license">Visa Programvarulicens</string>
+    <string name="pref_force_dark_background_widget">Använd mörk bakgrund för widget</string>
+    <string name="pref_rating">Betygsätta denna applikation på Google Play</string>
+    <string name="menu_settings">Inställningar</string>
+    <string name="pref_download_path">Laddar ner målmapp:</string>
+    <string name="pref_share_image">Dela inte bilden, bara en URL</string>
+    <string name="pref_mobile_network">Optimera för användning av mobila nätverk</string>
+
+</resources>
