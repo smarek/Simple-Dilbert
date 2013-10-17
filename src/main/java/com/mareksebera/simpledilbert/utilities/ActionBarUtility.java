@@ -1,6 +1,5 @@
 package com.mareksebera.simpledilbert.utilities;
 
-import android.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -41,7 +40,7 @@ public final class ActionBarUtility {
                     Resources.Theme activityTheme = activity.getTheme();
                     if (activityTheme == null) return;
                     final boolean resolved = activityTheme.resolveAttribute(
-                            R.attr.actionBarSize, tv, true);
+                            android.R.attr.actionBarSize, tv, true);
                     lp.topMargin = resolved ? activity.getResources()
                             .getDimensionPixelSize(tv.resourceId) : 40;
                     viewPager.setLayoutParams(lp);

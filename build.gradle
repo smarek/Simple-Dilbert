@@ -10,17 +10,21 @@ buildscript {
 }
 
 repositories {
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
     mavenCentral()
+    maven {
+	url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+    maven {
+	url "https://github.com/chrisbanes/PhotoView/raw/maven/"
+    }
 }
 
 dependencies {
     compile 'com.intellij:annotations:12.0'
     compile 'com.android.support:support-v4:18.0.+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile 'com.github.chrisbanes.photoview:library:1.2.2-SNAPSHOT'
+    compile 'com.github.chrisbanes.photoview:library:1.2.3-SNAPSHOT'
+    compile 'com.loopj.android:android-async-http:1.4.4-SNAPSHOT'
     compile 'joda-time:joda-time:2.3'
     compile 'org.joda:joda-convert:1.4'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.8.6'
@@ -29,7 +33,7 @@ dependencies {
 
 android {
     compileSdkVersion 18
-    buildToolsVersion "18.0.1"
+    buildToolsVersion "18.1.1"
 
     signingConfigs {
         release
@@ -41,22 +45,22 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-    }
-
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 18
     }
+}
+
+android.applicationVariants.all { variant ->
+
+    task("generate${variant.name}Javadoc", type: Javadoc) {
+        description "Generates Javadoc for $variant.name."
+	exclude "**/R"
+        source = variant.javaCompile.source
+        ext.androidJar = "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+        classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+    }
+
 }
 
 if (System.env.TERM == 'dumb') {
