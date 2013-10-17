@@ -30,6 +30,4 @@ before_install:
   - mv $ANDROID_HOME/build-tools/android-4.3.1 $ANDROID_HOME/build-tools/18.1.1
   # verify files exist in right paths
   - find $ANDROID_HOME/build-tools
-  - file $ANDROID_HOME/build-tools/18.0.1/aapt
   - file $ANDROID_HOME/build-tools/18.1.1/aapt
-  - file $ANDROID_HOME/build-tools/17.0.0/aapt
