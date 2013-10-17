@@ -9,16 +9,16 @@ import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 
 public final class FailSafeBitmapDisplayer implements BitmapDisplayer {
 
-	@Override
-	public Bitmap display(Bitmap bitmap, ImageView imageView,
-			LoadedFrom loadedFrom) {
-		try {
-			imageView.setImageBitmap(bitmap);
-			return bitmap;
-		} catch (IllegalStateException e) {
-			Log.e("debug", e.getMessage(), e);
-			return bitmap;
-		}
-	}
+    @Override
+    public Bitmap display(Bitmap bitmap, ImageView imageView,
+                          LoadedFrom loadedFrom) {
+        try {
+            imageView.setImageBitmap(bitmap);
+            return bitmap;
+        } catch (IllegalStateException e) {
+            Log.e("debug", e.getMessage(), e);
+            return bitmap;
+        }
+    }
 
 }

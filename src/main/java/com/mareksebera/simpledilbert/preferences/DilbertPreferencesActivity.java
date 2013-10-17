@@ -79,7 +79,7 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
-        if(resultCode != RESULT_OK)
+        if (resultCode != RESULT_OK)
             return;
         if (data != null) {
             String result = data.getStringExtra(FileDialog.RESULT_PATH);

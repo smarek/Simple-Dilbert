@@ -9,7 +9,9 @@
         android:targetSdkVersion="18" />
 
     <application android:allowBackup="true">
-        <activity android:name="com.lamerman.FileDialog" android:theme="@style/Theme.Sherlock.Light.DarkActionBar"/>
+        <activity
+            android:name="com.lamerman.FileDialog"
+            android:theme="@style/Theme.Sherlock.Light.DarkActionBar" />
     </application>
 
 </manifest>

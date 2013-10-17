@@ -13,57 +13,57 @@ import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 final class FindUrls {
-	private FindUrls() {
-	}
+    private FindUrls() {
+    }
 
-	private static final Pattern url_match_pattern = Pattern
-			.compile("/dyn/str_strip(.*).gif");
-	
-	public static List<String> extractUrls(String input) {
-		List<String> result = new ArrayList<String>();
+    private static final Pattern url_match_pattern = Pattern
+            .compile("/dyn/str_strip(.*).gif");
 
-		Pattern pattern = Pattern
-				.compile("\\b(((ht|f)tp(s?)://|~/|/)|www.)"
-						+ "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|[a-z]{2}))(:[\\d]{1,5})?"
-						+ "(((/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|/)+|\\?|#)?"
-						+ "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
-						+ "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)"
-						+ "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
-						+ "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
-						+ "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
+    public static List<String> extractUrls(String input) {
+        List<String> result = new ArrayList<String>();
 
-		Matcher matcher = pattern.matcher(input);
-		while (matcher.find()) {
-			result.add(matcher.group());
-		}
+        Pattern pattern = Pattern
+                .compile("\\b(((ht|f)tp(s?)://|~/|/)|www.)"
+                        + "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|[a-z]{2}))(:[\\d]{1,5})?"
+                        + "(((/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|/)+|\\?|#)?"
+                        + "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
+                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)"
+                        + "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
+                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
+                        + "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
 
-		return result;
-	}
+        Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            result.add(matcher.group());
+        }
 
-	public static List<String> extractUrls(HttpResponse response) {
-		List<String> found = new ArrayList<String>();
-		try {
-			Scanner scan;
-			Header contentEncoding = response
-					.getFirstHeader("Content-Encoding");
-			if (contentEncoding != null
-					&& contentEncoding.getValue().equalsIgnoreCase("gzip")) {
-				scan = new Scanner(new GZIPInputStream(response.getEntity()
-						.getContent()));
-			} else {
-				scan = new Scanner(response.getEntity().getContent());
-			}
+        return result;
+    }
 
-			String match;
-			while ((match = scan.findWithinHorizon(url_match_pattern, 0)) != null) {
-				found.add(match.replace("/dyn/str_strip",
-						"http://www.dilbert.com/dyn/str_strip"));
-			}
-			scan.close();
-			response.getEntity().consumeContent();
-		} catch (Throwable t) {
-			Log.e("FindUrls", "Error Occurred", t);
-		}
-		return found;
-	}
+    public static List<String> extractUrls(HttpResponse response) {
+        List<String> found = new ArrayList<String>();
+        try {
+            Scanner scan;
+            Header contentEncoding = response
+                    .getFirstHeader("Content-Encoding");
+            if (contentEncoding != null
+                    && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+                scan = new Scanner(new GZIPInputStream(response.getEntity()
+                        .getContent()));
+            } else {
+                scan = new Scanner(response.getEntity().getContent());
+            }
+
+            String match;
+            while ((match = scan.findWithinHorizon(url_match_pattern, 0)) != null) {
+                found.add(match.replace("/dyn/str_strip",
+                        "http://www.dilbert.com/dyn/str_strip"));
+            }
+            scan.close();
+            response.getEntity().consumeContent();
+        } catch (Throwable t) {
+            Log.e("FindUrls", "Error Occurred", t);
+        }
+        return found;
+    }
 }
