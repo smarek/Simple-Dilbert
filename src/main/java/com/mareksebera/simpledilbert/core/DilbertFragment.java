@@ -6,7 +6,6 @@ import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -15,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -116,11 +116,11 @@ public final class DilbertFragment extends SherlockFragment {
 
         @Override
         public boolean onLongClick(View v) {
-            try {
-                ((DilbertFragmentInterface) getSherlockActivity())
-                        .toggleActionBar();
-            } catch (Throwable t) {
-                Log.e("DilbertFragment", "Toggle ActionBar failed", t);
+            if (getSherlockActivity() != null) {
+                SherlockFragmentActivity sfa = getSherlockActivity();
+                if (sfa instanceof DilbertFragmentInterface) {
+                    ((DilbertFragmentInterface) sfa).toggleActionBar();
+                }
             }
             return true;
         }
@@ -299,7 +299,7 @@ public final class DilbertFragment extends SherlockFragment {
                     startActivity(Intent.createChooser(i,
                             getString(R.string.share_chooser)));
 
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     if (getSherlockActivity() != null)
                         Toast.makeText(getSherlockActivity(),
                                 R.string.loading_exception_error,
