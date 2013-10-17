@@ -199,13 +199,13 @@ public final class DilbertFragment extends SherlockFragment {
                 if (image != null && image.canZoom()) {
                     switch (zoomLevel) {
                         case 0:
-                            image.setScale(image.getMidScale(), true);
+                            image.setScale(image.getMediumScale(), true);
                             break;
                         case 1:
-                            image.setScale(image.getMaxScale(), true);
+                            image.setScale(image.getMaximumScale(), true);
                             break;
                         case 2:
-                            image.setScale(image.getMinScale(), true);
+                            image.setScale(image.getMinimumScale(), true);
                             break;
                     }
                     zoomLevel = (zoomLevel + 1) % 3;

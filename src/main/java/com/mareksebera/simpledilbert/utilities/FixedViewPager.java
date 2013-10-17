@@ -7,8 +7,7 @@ import android.view.MotionEvent;
 
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("UnusedDeclaration")
-public final class FixedViewPager extends ViewPager {
+final class FixedViewPager extends ViewPager {
 
     public FixedViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);

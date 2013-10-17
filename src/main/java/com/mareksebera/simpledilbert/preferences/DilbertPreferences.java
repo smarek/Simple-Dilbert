@@ -120,7 +120,7 @@ public final class DilbertPreferences {
                         && (Boolean) allPreferences.get(key)) {
                     String date = key.replace("favorite_", "");
                     favorites.add(new FavoritedItem(LocalDate.parse(date,
-                            DATE_FORMATTER), (String) allPreferences.get(date)));
+                            DATE_FORMATTER)));
                 }
             }
         }
