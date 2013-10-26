@@ -15,19 +15,11 @@ before_install:
   - unzip -qq gradle-1.8-bin.zip
   - export GRADLE_HOME=$PWD/gradle-1.8
   - export PATH=$GRADLE_HOME/bin:$PATH
-  # newest android SDK 22.0.5
+  # newest android SDK
   - wget http://dl.google.com/android/android-sdk_r22.2.1-linux.tgz
   - tar -zxf android-sdk_r22.2.1-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
   # manually set sdk.dir variable, according to local paths
   - echo "sdk.dir=$ANDROID_HOME" > local.properties
-  - echo yes | android update sdk -t tools,platform-tools,extra-android-support,extra-android-m2repository,android-14,android-17,android-18 --force --no-ui
-  # build tools cannot be installed through "android update sdk" as of now
-  - mkdir -p $ANDROID_HOME/build-tools
-  - wget http://dl.google.com/android/repository/build-tools_r18.1.1-linux.zip
-  - unzip -qq build-tools_r18.1.1-linux.zip -d $ANDROID_HOME/build-tools/
-  - mv $ANDROID_HOME/build-tools/android-4.3.1 $ANDROID_HOME/build-tools/18.1.1
-  # verify files exist in right paths
-  - find $ANDROID_HOME/build-tools
-  - file $ANDROID_HOME/build-tools/18.1.1/aapt
+  - echo yes | android update sdk -t tools,platform-tools,extra-android-support,extra-android-m2repository,android-18,build-tools-18.1.1 --force --no-ui
