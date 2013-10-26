@@ -5,17 +5,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:0.6.+'
     }
 }
 
 repositories {
     mavenCentral()
     maven {
-	url "https://oss.sonatype.org/content/repositories/snapshots/"
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
     }
     maven {
-	url "https://github.com/chrisbanes/PhotoView/raw/maven/"
+        url "https://github.com/chrisbanes/PhotoView/raw/maven/"
     }
 }
 
@@ -55,7 +55,7 @@ android.applicationVariants.all { variant ->
 
     task("generate${variant.name}Javadoc", type: Javadoc) {
         description "Generates Javadoc for $variant.name."
-	exclude "**/R"
+        exclude "**/R"
         source = variant.javaCompile.source
         ext.androidJar = "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
         classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
