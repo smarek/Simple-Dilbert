@@ -20,10 +20,9 @@ repositories {
 }
 
 dependencies {
-    compile project(':libraries:FileExplorer')
     compile 'com.intellij:annotations:12.0'
     compile 'com.android.support:support-v4:18.0.+'
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile 'com.android.support:appcompat-v7:18.0.+'
     compile 'com.github.chrisbanes.photoview:library:1.2.3-SNAPSHOT'
     compile 'com.loopj.android:android-async-http:1.4.4-SNAPSHOT'
     compile 'joda-time:joda-time:2.3'

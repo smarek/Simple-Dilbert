@@ -45,3 +45,4 @@ pom.xml.*
 #Other
 .DS_Store
 tmp
+libraries

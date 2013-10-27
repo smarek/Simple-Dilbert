@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources>
-
-    <string name="location">"Plats :"</string>
-    <string name="cant_read_folder">Folder kan inte läsas!</string>
-    <string name="select">Välj</string>
-    <string name="err">Fel</string>
-
-</resources>

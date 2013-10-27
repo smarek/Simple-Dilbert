@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources>
-
-    <string name="location">"Ubicación :"</string>
-    <string name="cant_read_folder">Carpeta no se puede leer!</string>
-    <string name="select">Seleccionar</string>
-    <string name="err">Error</string>
-
-</resources>
