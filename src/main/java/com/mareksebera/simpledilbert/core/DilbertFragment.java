@@ -6,18 +6,19 @@ import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.GetStripUrl;
@@ -34,7 +35,7 @@ import java.io.FileOutputStream;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 
-public final class DilbertFragment extends SherlockFragment {
+public final class DilbertFragment extends Fragment {
 
     private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
             MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5;
@@ -98,8 +99,8 @@ public final class DilbertFragment extends SherlockFragment {
                 image.setVisibility(View.VISIBLE);
                 image.setImageResource(R.drawable.cancel);
             }
-            if (getSherlockActivity() != null)
-                Toast.makeText(getSherlockActivity(),
+            if (getActivity() != null)
+                Toast.makeText(getActivity(),
                         R.string.loading_exception_error, Toast.LENGTH_SHORT)
                         .show();
         }
@@ -116,8 +117,8 @@ public final class DilbertFragment extends SherlockFragment {
 
         @Override
         public boolean onLongClick(View v) {
-            if (getSherlockActivity() != null) {
-                SherlockFragmentActivity sfa = getSherlockActivity();
+            if (getActivity() != null) {
+                FragmentActivity sfa = getActivity();
                 if (sfa instanceof DilbertFragmentInterface) {
                     ((DilbertFragmentInterface) sfa).toggleActionBar();
                 }
@@ -218,7 +219,7 @@ public final class DilbertFragment extends SherlockFragment {
                 refreshAction();
                 break;
             case MENU_SAVE:
-                preferences.downloadImageViaManager(getSherlockActivity(),
+                preferences.downloadImageViaManager(getActivity(),
                         preferences.getCachedUrl(getDateFromArguments()),
                         getDateFromArguments());
                 return true;
@@ -280,7 +281,7 @@ public final class DilbertFragment extends SherlockFragment {
                         if (b != null) {
                             File tmp = File
                                     .createTempFile("dilbert_", ".jpg",
-                                            getSherlockActivity()
+                                            getActivity()
                                                     .getExternalCacheDir());
                             FileOutputStream out = new FileOutputStream(tmp);
                             b.compress(CompressFormat.JPEG, 100, out);
@@ -300,8 +301,8 @@ public final class DilbertFragment extends SherlockFragment {
                             getString(R.string.share_chooser)));
 
                 } catch (Throwable e) {
-                    if (getSherlockActivity() != null)
-                        Toast.makeText(getSherlockActivity(),
+                    if (getActivity() != null)
+                        Toast.makeText(getActivity(),
                                 R.string.loading_exception_error,
                                 Toast.LENGTH_LONG).show();
                 }
@@ -312,21 +313,26 @@ public final class DilbertFragment extends SherlockFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         final int category = 0;
-        menu.add(category, MENU_FAVORITE, 1, R.string.menu_favorite_remove)
-                .setIcon(R.drawable.ic_menu_not_favorited)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(category, MENU_ZOOM, 4, R.string.menu_zoom)
-                .setIcon(R.drawable.ic_menu_zoom)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(category, MENU_SAVE, 3, R.string.menu_download)
-                .setIcon(R.drawable.ic_menu_save)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(category, MENU_SHARE, 2, R.string.menu_share)
-                .setIcon(R.drawable.ic_menu_share)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(category, MENU_REFRESH, 5, R.string.menu_refresh)
-                .setIcon(R.drawable.ic_menu_refresh)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_FAVORITE, 1, R.string.menu_favorite_remove)
+                        .setIcon(R.drawable.ic_menu_not_favorited),
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_ZOOM, 4, R.string.menu_zoom)
+                        .setIcon(R.drawable.ic_menu_zoom),
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_SAVE, 3, R.string.menu_download)
+                        .setIcon(R.drawable.ic_menu_save),
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_SHARE, 2, R.string.menu_share)
+                        .setIcon(R.drawable.ic_menu_share),
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_REFRESH, 5, R.string.menu_refresh)
+                        .setIcon(R.drawable.ic_menu_refresh),
+                MenuItemCompat.SHOW_AS_ACTION_NEVER);
     }
 
 }

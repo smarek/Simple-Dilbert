@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -16,21 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.lamerman.FileDialog;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
 import com.mareksebera.simpledilbert.widget.WidgetProvider;
 
-import java.io.File;
 import java.io.InputStream;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.getInstance;
 
-public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
+public final class DilbertPreferencesActivity extends ActionBarActivity {
 
     private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
             force_dark_widget, share_image, mobile_network;
@@ -64,13 +62,13 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
 
         @Override
         public void onClick(View v) {
-            Intent downloadPathSelector = new Intent(
-                    DilbertPreferencesActivity.this, FileDialog.class);
-            downloadPathSelector.putExtra(FileDialog.CAN_SELECT_DIR, true);
-            downloadPathSelector.putExtra(FileDialog.START_PATH,
-                    preferences.getDownloadTarget());
-            startActivityForResult(downloadPathSelector,
-                    REQUEST_DOWNLOAD_TARGET);
+//            Intent downloadPathSelector = new Intent(
+//                    DilbertPreferencesActivity.this, FileDialog.class);
+//            downloadPathSelector.putExtra(FileDialog.CAN_SELECT_DIR, true);
+//            downloadPathSelector.putExtra(FileDialog.START_PATH,
+//                    preferences.getDownloadTarget());
+//            startActivityForResult(downloadPathSelector,
+//                    REQUEST_DOWNLOAD_TARGET);
         }
     };
 
@@ -82,14 +80,14 @@ public final class DilbertPreferencesActivity extends SherlockFragmentActivity {
         if (resultCode != RESULT_OK)
             return;
         if (data != null) {
-            String result = data.getStringExtra(FileDialog.RESULT_PATH);
-            if (result != null) {
-                File tmp = new File(result);
-                if (!tmp.isDirectory())
-                    tmp = tmp.getParentFile();
-                if (tmp != null)
-                    preferences.setDownloadTarget(tmp.getAbsolutePath());
-            }
+//            String result = data.getStringExtra(FileDialog.RESULT_PATH);
+//            if (result != null) {
+//                File tmp = new File(result);
+//                if (!tmp.isDirectory())
+//                    tmp = tmp.getParentFile();
+//                if (tmp != null)
+//                    preferences.setDownloadTarget(tmp.getAbsolutePath());
+//            }
         }
     }
 

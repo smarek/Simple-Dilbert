@@ -5,16 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.core.DilbertFragmentInterface;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
-public final class DilbertFavoritedActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
+public final class DilbertFavoritedActivity extends ActionBarActivity implements DilbertFragmentInterface {
 
     private ViewPager viewPager;
 

@@ -22,7 +22,7 @@ repositories {
 dependencies {
     compile 'com.intellij:annotations:12.0'
     compile 'com.android.support:support-v4:18.0.+'
-    compile 'com.android.support:appcompat-v7:18.0.+'
+    compile 'com.android.support:appcompat-v7:18.0.+@aar'
     compile 'com.github.chrisbanes.photoview:library:1.2.3-SNAPSHOT'
     compile 'com.loopj.android:android-async-http:1.4.4-SNAPSHOT'
     compile 'joda-time:joda-time:2.3'

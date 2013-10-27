@@ -1,19 +1,18 @@
 package com.mareksebera.simpledilbert.core;
 
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.DatePicker;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
@@ -25,12 +24,11 @@ import org.joda.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
 
-public final class DilbertFragmentActivity extends SherlockFragmentActivity implements DilbertFragmentInterface {
+public final class DilbertFragmentActivity extends ActionBarActivity implements DilbertFragmentInterface {
 
     private static final int MENU_DATEPICKER = 1, MENU_SEARCH = 2, MENU_LATEST = 3, MENU_OLDEST = 4,
             MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7;
-
-    private final OnDateSetListener dilbertOnDateSetListener = new OnDateSetListener() {
+    private final DatePickerDialog.OnDateSetListener dilbertOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -41,11 +39,7 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
             setCurrentDate(selDate);
         }
     };
-
-    private ViewPager viewPager;
-    private DilbertFragmentAdapter adapter;
-    private DilbertPreferences preferences;
-    private final OnPageChangeListener pageChangedListener = new OnPageChangeListener() {
+    private final ViewPager.OnPageChangeListener pageChangedListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {
@@ -60,6 +54,9 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
         public void onPageScrollStateChanged(int arg0) {
         }
     };
+    private ViewPager viewPager;
+    private DilbertFragmentAdapter adapter;
+    private DilbertPreferences preferences;
 
     private void setCurrentDate(LocalDate date) {
         preferences.saveCurrentDate(date);
@@ -95,23 +92,30 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         final int category = 0;
-        menu.add(category, MENU_DATEPICKER, 4, R.string.menu_datepicker)
-                .setIcon(R.drawable.ic_menu_datepicker)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(category, MENU_SHUFFLE, 1, R.string.menu_random)
-                .setIcon(R.drawable.ic_menu_shuffle)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(category, MENU_SEARCH, 6, "Search")
-                .setIcon(R.drawable.ic_menu_search)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(category, MENU_SHOW_FAVORITES, 6, R.string.menu_show_favorite)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(category, MENU_LATEST, 5, R.string.menu_latest)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(category, MENU_OLDEST, 5, R.string.menu_oldest)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_DATEPICKER, 4, R.string.menu_datepicker)
+                        .setIcon(R.drawable.ic_menu_datepicker),
+                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_SHUFFLE, 1, R.string.menu_random)
+                        .setIcon(R.drawable.ic_menu_shuffle),
+                MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_SEARCH, 6, "Search")
+                        .setIcon(R.drawable.ic_menu_search),
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_SHOW_FAVORITES, 6, R.string.menu_show_favorite),
+                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_LATEST, 5, R.string.menu_latest),
+                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_OLDEST, 5, R.string.menu_oldest),
+                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings),
+                MenuItemCompat.SHOW_AS_ACTION_NEVER);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -126,8 +130,7 @@ public final class DilbertFragmentActivity extends SherlockFragmentActivity impl
     }
 
     @Override
-    public boolean onOptionsItemSelected(
-            com.actionbarsherlock.view.MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MENU_DATEPICKER:
                 showDatePicker();
