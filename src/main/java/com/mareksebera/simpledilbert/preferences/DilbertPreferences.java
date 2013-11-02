@@ -150,6 +150,8 @@ public final class DilbertPreferences {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
                 request.allowScanningByMediaScanner();
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            }else{
+                request.setShowRunningNotification(true);
             }
             dm.enqueue(request);
         } catch (Exception e) {

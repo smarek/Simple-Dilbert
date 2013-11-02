@@ -1,15 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mareksebera.simpledilbert"
-    android:versionCode="31"
+    android:versionCode="32"
     android:installLocation="internalOnly"
-    android:versionName="3.8">
+    android:versionName="3.9">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:name="com.mareksebera.simpledilbert.AppController"
