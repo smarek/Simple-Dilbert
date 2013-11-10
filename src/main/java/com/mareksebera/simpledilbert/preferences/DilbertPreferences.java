@@ -134,31 +134,63 @@ public final class DilbertPreferences {
         return favorites;
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void downloadImageViaManager(final Activity activity,
                                         final String downloadUrl, LocalDate stripDate) {
+        downloadImageViaManager(activity, downloadUrl, stripDate, false);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void downloadImageViaManager(final Activity activity,
+                                        final String downloadUrl, LocalDate stripDate, boolean downloadToTemp) {
         try {
             DownloadManager dm = (DownloadManager) activity
                     .getSystemService(Context.DOWNLOAD_SERVICE);
             String url = toHighQuality(downloadUrl);
             DownloadManager.Request request = new DownloadManager.Request(
                     Uri.parse(url));
-            request.setDestinationUri(Uri.withAppendedPath(
+            String downloadDate = DATE_FORMATTER.print(stripDate);
+            Uri userPath = Uri.withAppendedPath(
                     Uri.parse("file://" + getDownloadTarget()),
-                    DATE_FORMATTER.print(stripDate) + ".gif"));
+                    downloadDate + ".gif");
+            if (downloadToTemp) {
+                request.setDestinationUri(
+                        Uri.withAppendedPath(
+                                Uri.fromFile(
+                                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)),
+                                downloadDate + ".gif"));
+                scheduleFileToMove(downloadDate, userPath);
+            } else {
+                request.setDestinationUri(userPath);
+            }
             request.setVisibleInDownloadsUi(true);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
                 request.allowScanningByMediaScanner();
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            }else{
+            } else {
                 request.setShowRunningNotification(true);
             }
             dm.enqueue(request);
+        } catch (SecurityException se) {
+            if (!downloadToTemp) {
+                downloadImageViaManager(activity, downloadUrl, stripDate, true);
+            } else {
+                Toast.makeText(activity, "Cannot download to selected folder", Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Folder not supported", se);
+            }
         } catch (Throwable t) {
             Log.e(TAG, "Should not happen", t);
             Toast.makeText(activity, R.string.download_manager_unsupported,
                     Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    private void scheduleFileToMove(String downloadDate, Uri targetPath) {
+        editor.putString("move_" + downloadDate.replace("-", "_"), targetPath.toString()).commit();
+    }
+
+    public String getScheduledTargetPath(String downloadDate){
+        return preferences.getString("move_" + downloadDate.replace("-", "_"), null);
     }
 
     public String toHighQuality(String url) {

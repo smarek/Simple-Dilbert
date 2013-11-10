@@ -28,7 +28,8 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.BROWSABLE" />
+
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
 
                 <data
@@ -52,6 +53,7 @@
                     android:pathPrefix="/strips/"/>
             </intent-filter>
         </activity>
+        <activity android:name=".picker.FolderPickerActivity"/>
         <activity android:name="com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity"/>
         <activity android:name="com.mareksebera.simpledilbert.preferences.DilbertPreferencesActivity"/>
 
@@ -72,6 +74,12 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/daily_widget"/>
+        </receiver>
+
+        <receiver android:name=".utilities.DownloadManagerBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
         </receiver>
     </application>
 

@@ -20,8 +20,10 @@ import android.widget.Toast;
 
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
+import com.mareksebera.simpledilbert.picker.FolderPickerActivity;
 import com.mareksebera.simpledilbert.widget.WidgetProvider;
 
+import java.io.File;
 import java.io.InputStream;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
@@ -62,13 +64,11 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
-//            Intent downloadPathSelector = new Intent(
-//                    DilbertPreferencesActivity.this, FileDialog.class);
-//            downloadPathSelector.putExtra(FileDialog.CAN_SELECT_DIR, true);
-//            downloadPathSelector.putExtra(FileDialog.START_PATH,
-//                    preferences.getDownloadTarget());
-//            startActivityForResult(downloadPathSelector,
-//                    REQUEST_DOWNLOAD_TARGET);
+            Intent downloadPathSelector = new Intent(
+                    DilbertPreferencesActivity.this, FolderPickerActivity.class);
+            downloadPathSelector.setData(Uri.fromFile(new File(preferences.getDownloadTarget())));
+            startActivityForResult(downloadPathSelector,
+                    REQUEST_DOWNLOAD_TARGET);
         }
     };
 
@@ -80,14 +80,10 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         if (resultCode != RESULT_OK)
             return;
         if (data != null) {
-//            String result = data.getStringExtra(FileDialog.RESULT_PATH);
-//            if (result != null) {
-//                File tmp = new File(result);
-//                if (!tmp.isDirectory())
-//                    tmp = tmp.getParentFile();
-//                if (tmp != null)
-//                    preferences.setDownloadTarget(tmp.getAbsolutePath());
-//            }
+            Uri path = data.getData();
+            if (path != null) {
+                preferences.setDownloadTarget(new File(path.getPath()).getAbsolutePath());
+            }
         }
     }
 
