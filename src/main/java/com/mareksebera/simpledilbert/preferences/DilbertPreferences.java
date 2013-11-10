@@ -154,12 +154,8 @@ public final class DilbertPreferences {
                 request.setShowRunningNotification(true);
             }
             dm.enqueue(request);
-        } catch (Exception e) {
-            Log.e(TAG, "Should not happen", e);
-            Toast.makeText(activity, R.string.download_manager_unsupported,
-                    Toast.LENGTH_LONG).show();
-        } catch (Error e) {
-            Log.e(TAG, "Should not happen", e);
+        } catch (Throwable t) {
+            Log.e(TAG, "Should not happen", t);
             Toast.makeText(activity, R.string.download_manager_unsupported,
                     Toast.LENGTH_LONG).show();
         }
