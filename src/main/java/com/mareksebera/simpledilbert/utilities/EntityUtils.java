@@ -12,8 +12,7 @@ import java.nio.charset.Charset;
 final class EntityUtils {
 
     /**
-     * Taken from EntityUtils HttpCore 4.2.3 and altered so the utf-8lias is
-     * handled correctly
+     * Taken from EntityUtils HttpCore 4.2.3 and altered so the utf-8lias is handled correctly
      */
     public static String toString(final HttpEntity entity)
             throws IOException {

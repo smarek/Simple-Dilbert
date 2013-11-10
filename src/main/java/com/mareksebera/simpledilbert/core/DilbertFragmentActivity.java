@@ -26,7 +26,8 @@ import org.joda.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
 
-public final class DilbertFragmentActivity extends ActionBarActivity implements DilbertFragmentInterface {
+public final class
+        DilbertFragmentActivity extends ActionBarActivity implements DilbertFragmentInterface {
 
     private static final int MENU_DATEPICKER = 1, MENU_SEARCH = 2, MENU_LATEST = 3, MENU_OLDEST = 4,
             MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7;
