@@ -57,6 +57,11 @@ public final class DilbertPreferences {
         editor = preferences.edit();
     }
 
+    /**
+     * Retrieves last viewed strip date
+     *
+     * @return LocalDate of last viewed strip
+     */
     public LocalDate getCurrentDate() {
         String savedDate = preferences.getString(PREF_CURRENT_DATE, null);
         if (savedDate == null) {
@@ -66,51 +71,110 @@ public final class DilbertPreferences {
         }
     }
 
+    /**
+     * Saves last viewed date in preferences
+     *
+     * @param currentDate date of last viewed strip
+     * @return if saving was successfull
+     */
     public boolean saveCurrentDate(LocalDate currentDate) {
         editor.putString(PREF_CURRENT_DATE,
                 currentDate.toString(DilbertPreferences.DATE_FORMATTER));
         return editor.commit();
     }
 
+    /**
+     * Returns state of high-quality user preference
+     *
+     * @return whether downloading high-quality images is enabled
+     */
     public boolean isHighQualityOn() {
         return preferences.getBoolean(PREF_HIGH_QUALITY_ENABLED, true);
     }
 
+    /**
+     * Saves retrieved URL for date
+     *
+     * @param date string identifier of comics strip
+     * @param s    url of strip
+     * @return if saving was successfull
+     */
     public boolean saveCurrentUrl(String date, String s) {
         editor.putString(PREF_CURRENT_URL, s);
         editor.putString(date, s);
         return editor.commit();
     }
 
+    /**
+     * Returns cached URL for provided date
+     *
+     * @param dateKey LocalDate of item
+     * @return cached URL or null
+     */
     public String getCachedUrl(LocalDate dateKey) {
         return getCachedUrl(dateKey.toString(DATE_FORMATTER));
     }
 
+    /**
+     * Returns cached URL for provided date
+     *
+     * @param dateKey string key of date
+     * @return cached URL or null
+     */
     String getCachedUrl(String dateKey) {
         return preferences.getString(dateKey, null);
     }
 
+    /**
+     * Removes cached URL for provided date
+     *
+     * @param currentDate date for which the cache should be deleted
+     * @return if the removal was successfull
+     */
     public boolean removeCache(LocalDate currentDate) {
         return editor.remove(
                 currentDate.toString(DilbertPreferences.DATE_FORMATTER))
                 .commit();
     }
 
+    /**
+     * Verifies if the date is associated with favorited flag
+     *
+     * @param currentDay date of favorited item
+     * @return whether the date is favorited or not
+     */
     public boolean isFavorited(LocalDate currentDay) {
         return preferences.getBoolean(toFavoritedKey(currentDay), false);
     }
 
+    /**
+     * Toggles favorite state for provided date
+     *
+     * @param currentDay date of favorited item
+     * @return final state of toggling (last value inverted)
+     */
     public boolean toggleIsFavorited(LocalDate currentDay) {
         boolean newState = !isFavorited(currentDay);
         editor.putBoolean(toFavoritedKey(currentDay), newState).commit();
         return newState;
     }
 
+    /**
+     * Gets preferences key for favorited item
+     *
+     * @param currentDay date of favorited item
+     * @return preferences key for favorited item
+     */
     private String toFavoritedKey(LocalDate currentDay) {
         return "favorite_"
                 + currentDay.toString(DilbertPreferences.DATE_FORMATTER);
     }
 
+    /**
+     * Retrieves list of favorited items, which is stored in as plain in local preferences
+     *
+     * @return List of favorited items (not null but may be empty)
+     */
     public List<FavoritedItem> getFavoritedItems() {
         List<FavoritedItem> favorites = new ArrayList<FavoritedItem>();
         Map<String, ?> allPreferences = preferences.getAll();
@@ -134,11 +198,29 @@ public final class DilbertPreferences {
         return favorites;
     }
 
+
+    /**
+     * Tries to launch DownloadManager with visible notification to download file from URL to
+     * downloadble path or user selected
+     *
+     * @param activity    Activity context to access system services and Toast notifications
+     * @param downloadUrl url from which the image is downloaded
+     * @param stripDate   date of strip being downloaded
+     */
     public void downloadImageViaManager(final Activity activity,
                                         final String downloadUrl, LocalDate stripDate) {
         downloadImageViaManager(activity, downloadUrl, stripDate, false);
     }
 
+    /**
+     * Tries to launch DownloadManager with visible notification to download file from URL to
+     * downloadble path or user selected
+     *
+     * @param activity       Activity context to access system services and Toast notifications
+     * @param downloadToTemp boolean whether the file should be first downloaded to temp location
+     * @param downloadUrl    url from which the image is downloaded
+     * @param stripDate      date of strip being downloaded
+     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void downloadImageViaManager(final Activity activity,
                                         final String downloadUrl, LocalDate stripDate, boolean downloadToTemp) {
@@ -185,20 +267,45 @@ public final class DilbertPreferences {
 
     }
 
+    /**
+     * Schedules moving downloaded file to targetPath
+     *
+     * @param downloadDate date of strip in format YYYY-MM-DD
+     * @param targetPath   path to which the file should be moved
+     */
     private void scheduleFileToMove(String downloadDate, Uri targetPath) {
         editor.putString("move_" + downloadDate.replace("-", "_"), targetPath.toString()).commit();
     }
 
-    public String getScheduledTargetPath(String downloadDate){
+    /**
+     * Retrieves requested target path, to which the downloaded file should be moved
+     *
+     * @param downloadDate date in format YYYY-MM-DD
+     * @return local target path (from {@link android.net.Uri#toString()}
+     */
+    public String getScheduledTargetPath(String downloadDate) {
         return preferences.getString("move_" + downloadDate.replace("-", "_"), null);
     }
 
+    /**
+     * Converts URL to target high quality image
+     *
+     * @param url original url to be modified
+     * @return url after modifications
+     */
     public String toHighQuality(String url) {
         if (url == null)
             return null;
         return url.replace(".gif", ".zoom.gif").replace("zoom.zoom", "zoom");
     }
 
+    /**
+     * Converts URL to target low iamge quality
+     *
+     * @param date date associated with url
+     * @param url  url which should be modified
+     * @return url after changes
+     */
     public String toLowQuality(LocalDate date, String url) {
         if (url == null)
             return null;
@@ -209,12 +316,25 @@ public final class DilbertPreferences {
         return url.replace(".zoom.gif", ".gif").replace("zoom.zoom", "zoom");
     }
 
+    /**
+     * Saves date for widget, after user made change to it
+     *
+     * @param appWidgetId id of widget
+     * @param date        date which is currently selected
+     * @return boolean if save was successfull
+     */
     public boolean saveDateForWidgetId(int appWidgetId, LocalDate date) {
         date = validateDate(date);
         return editor.putString("widget_" + appWidgetId,
                 date.toString(DATE_FORMATTER)).commit();
     }
 
+    /**
+     * Returns saved date for specific widget id
+     *
+     * @param appWidgetId id of widget
+     * @return Date which is saved or todays day if there is no such
+     */
     public LocalDate getDateForWidgetId(int appWidgetId) {
         String savedDate = preferences.getString("widget_" + appWidgetId, null);
         if (savedDate == null)
@@ -223,20 +343,26 @@ public final class DilbertPreferences {
             return LocalDate.parse(savedDate, DATE_FORMATTER);
     }
 
+    /**
+     * Generated random date within range of Dilbert existence
+     *
+     * @return validated random date
+     */
     public static LocalDate getRandomDate() {
         Random random = new Random();
         LocalDate now = LocalDate.now();
         int year = 1989 + random.nextInt(now.getYear() - 1989);
         int month = 1 + random.nextInt(12);
         int day = random.nextInt(31);
-        return LocalDate.parse(
+        return validateDate(LocalDate.parse(
                 String.format(new Locale("en"), "%d-%d-1", year, month))
-                .plusDays(day);
+                .plusDays(day));
     }
 
     /**
      * First strip was published on 16.4.1989
      *
+     * @return LocalDate date of first Dilbert comics strip
      * @see <a href="http://en.wikipedia.org/wiki/Dilbert">Wikipedia</a>
      */
     public static LocalDate getFirstStripDate() {
@@ -244,10 +370,22 @@ public final class DilbertPreferences {
                 DilbertPreferences.DATE_FORMATTER);
     }
 
+    /**
+     * Removing widget from launcher will cause deleting it's save date from preferences
+     *
+     * @param widgetId id of widget
+     * @return boolean whether delete was successfull or not
+     */
     public boolean deleteDateForWidgetId(int widgetId) {
         return editor.remove("widget_" + widgetId).commit();
     }
 
+    /**
+     * Validates selected date and filters ot future dates and dates before Dilbert started
+     *
+     * @param selDate Date user selected
+     * @return LocalDate date which is correct
+     */
     private static LocalDate validateDate(LocalDate selDate) {
         if (selDate.isAfter(LocalDate.now())) {
             selDate = LocalDate.now();
@@ -258,10 +396,21 @@ public final class DilbertPreferences {
         return selDate;
     }
 
+    /**
+     * Checks, if user preference is to force landscape orientation
+     *
+     * @return boolean whether user requires landscape orientation
+     */
     public boolean isForceLandscape() {
         return preferences.getBoolean(PREF_FORCE_LANDSCAPE, false);
     }
 
+    /**
+     * Sets user preference of display orientation
+     *
+     * @param force whether to force ladndscape or not
+     * @return boolean if saving preference was successfull
+     */
     public boolean setIsForceLandscape(boolean force) {
         return editor.putBoolean(PREF_FORCE_LANDSCAPE, force).commit();
     }
@@ -312,10 +461,21 @@ public final class DilbertPreferences {
         return editor.putBoolean(PREF_SHARE_IMAGE, shouldShareImage).commit();
     }
 
+    /**
+     * Setter for slow network flag
+     *
+     * @param isSlowNetwork whether application is on slow network
+     * @return boolean if the save was successfull
+     */
     public boolean setIsSlowNetwork(boolean isSlowNetwork) {
         return editor.putBoolean(PREF_MOBILE_NETWORK, isSlowNetwork).commit();
     }
 
+    /**
+     * Getter for slow network flag
+     *
+     * @return whether application assumes user is connected over slow network
+     */
     public boolean isSlowNetwork() {
         return preferences.getBoolean(PREF_MOBILE_NETWORK, true);
     }
