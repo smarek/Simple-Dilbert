@@ -106,6 +106,16 @@ public final class WidgetProvider extends AppWidgetProvider {
                                         views);
                             }
                         }
+
+                        @Override
+                        public void onLoadingCancelled(String imageUri, View view) {
+                            updateAppWidget(context, appWidgetManager, appWidgetId);
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            updateAppWidget(context, appWidgetManager, appWidgetId);
+                        }
                     });
         }
 

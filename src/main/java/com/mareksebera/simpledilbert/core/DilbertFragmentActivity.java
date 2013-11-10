@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.PagerTitleStrip;
@@ -18,6 +19,7 @@ import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferencesActivity;
 import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
+import com.mareksebera.simpledilbert.utilities.FindUrls;
 
 import org.joda.time.LocalDate;
 
@@ -80,6 +82,16 @@ public final class DilbertFragmentActivity extends ActionBarActivity implements 
         viewPager.setOnPageChangeListener(pageChangedListener);
         if (preferences.isToolbarsHidden())
             ActionBarUtility.toggleActionBar(this, viewPager);
+        tryHandleUrlIntent();
+    }
+
+    private void tryHandleUrlIntent() {
+        if (getIntent() != null && getIntent().getData() != null) {
+            Uri path = getIntent().getData();
+            LocalDate intentDate = FindUrls.extractCurrentDateFromIntentUrl(path);
+            if (intentDate != null)
+                setCurrentDate(intentDate);
+        }
     }
 
     @Override

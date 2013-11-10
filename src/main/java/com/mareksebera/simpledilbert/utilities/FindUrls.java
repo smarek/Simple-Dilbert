@@ -1,9 +1,13 @@
 package com.mareksebera.simpledilbert.utilities;
 
+import android.net.Uri;
 import android.util.Log;
+
+import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +16,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
-final class FindUrls {
+final public class FindUrls {
+    private static final String LOG_TAG = "FindUrls";
+
     private FindUrls() {
     }
 
     private static final Pattern url_match_pattern = Pattern
             .compile("/dyn/str_strip(.*).gif");
+
+    private static final Pattern date_match_pattern = Pattern
+            .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
 
     public static List<String> extractUrls(String input) {
         List<String> result = new ArrayList<String>();
@@ -62,8 +71,20 @@ final class FindUrls {
             scan.close();
             response.getEntity().consumeContent();
         } catch (Throwable t) {
-            Log.e("FindUrls", "Error Occurred", t);
+            Log.e(LOG_TAG, "Error Occurred", t);
         }
         return found;
+    }
+
+    public static LocalDate extractCurrentDateFromIntentUrl(Uri path) {
+        try {
+            Matcher m = date_match_pattern.matcher(path.toString());
+            if (m.matches()) {
+                return LocalDate.parse(m.group(1), DilbertPreferences.DATE_FORMATTER);
+            }
+        } catch (Throwable t) {
+            Log.e(LOG_TAG, "extractCurrentDateFromIntentUrl failed", t);
+        }
+        return null;
     }
 }

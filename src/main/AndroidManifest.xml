@@ -1,15 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mareksebera.simpledilbert"
-    android:versionCode="32"
-    android:installLocation="internalOnly"
-    android:versionName="3.9">
+          package="com.mareksebera.simpledilbert"
+          android:versionCode="32"
+          android:installLocation="internalOnly"
+          android:versionName="3.9">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="19"/>
 
     <application
         android:name="com.mareksebera.simpledilbert.AppController"
@@ -22,31 +22,56 @@
             android:name="com.mareksebera.simpledilbert.core.DilbertFragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                    android:scheme="http"
+                    android:host="dilbert.com"
+                    android:pathPrefix="/strips/"/>
+
+                <data
+                    android:scheme="http"
+                    android:host="www.dilbert.com"
+                    android:pathPrefix="/strips/"/>
+
+                <data
+                    android:scheme="https"
+                    android:host="dilbert.com"
+                    android:pathPrefix="/strips/"/>
+
+                <data
+                    android:scheme="https"
+                    android:host="www.dilbert.com"
+                    android:pathPrefix="/strips/"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity" />
-        <activity android:name="com.mareksebera.simpledilbert.preferences.DilbertPreferencesActivity" />
+        <activity android:name="com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity"/>
+        <activity android:name="com.mareksebera.simpledilbert.preferences.DilbertPreferencesActivity"/>
 
         <receiver
             android:name=".widget.WidgetProvider"
             android:icon="@drawable/ic_launcher"
             android:label="Simple Dilbert Widget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.mareksebera.simpledilbert.widget.PREVIOUS" />
-                <action android:name="com.mareksebera.simpledilbert.widget.NEXT" />
-                <action android:name="com.mareksebera.simpledilbert.widget.LATEST" />
-                <action android:name="com.mareksebera.simpledilbert.widget.RANDOM" />
-                <action android:name="com.mareksebera.simpledilbert.widget.REFRESH" />
-                <action android:name="com.mareksebera.simpledilbert.widget.DISPLAY" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.mareksebera.simpledilbert.widget.PREVIOUS"/>
+                <action android:name="com.mareksebera.simpledilbert.widget.NEXT"/>
+                <action android:name="com.mareksebera.simpledilbert.widget.LATEST"/>
+                <action android:name="com.mareksebera.simpledilbert.widget.RANDOM"/>
+                <action android:name="com.mareksebera.simpledilbert.widget.REFRESH"/>
+                <action android:name="com.mareksebera.simpledilbert.widget.DISPLAY"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/daily_widget" />
+                android:resource="@xml/daily_widget"/>
         </receiver>
     </application>
 
