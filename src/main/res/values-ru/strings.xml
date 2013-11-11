@@ -35,5 +35,6 @@
     <string name="pref_download_path">Папка для загрузок:</string>
     <string name="pref_share_image">Делиться только URL, а не рисунками</string>
     <string name="pref_mobile_network">Оптимизировать для мобильных устройств</string>
+    <string name="menu_open_at">Открыть в этот день</string>
 
 </resources>

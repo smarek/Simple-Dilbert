@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.mareksebera.simpledilbert.R;
+import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
@@ -38,7 +39,7 @@ import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 public final class DilbertFragment extends Fragment {
 
     private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
-            MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5;
+            MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5, MENU_OPEN_AT = -6;
     public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
     private PhotoView image;
     private ProgressBar progress;
@@ -218,6 +219,10 @@ public final class DilbertFragment extends Fragment {
             case MENU_REFRESH:
                 refreshAction();
                 break;
+            case MENU_OPEN_AT:
+                preferences.saveCurrentDate(getDateFromArguments());
+                getActivity().finish();
+                break;
             case MENU_SAVE:
                 preferences.downloadImageViaManager(getActivity(),
                         preferences.getCachedUrl(getDateFromArguments()),
@@ -329,6 +334,12 @@ public final class DilbertFragment extends Fragment {
                 menu.add(category, MENU_SHARE, 2, R.string.menu_share)
                         .setIcon(R.drawable.ic_menu_share),
                 MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        if (getActivity() != null && getActivity() instanceof DilbertFavoritedActivity) {
+            MenuItemCompat.setShowAsAction(
+                    menu.add(category, MENU_OPEN_AT, 5, R.string.menu_open_at)
+                            .setIcon(R.drawable.ic_menu_open_at),
+                    MenuItemCompat.SHOW_AS_ACTION_NEVER);
+        }
         MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_REFRESH, 5, R.string.menu_refresh)
                         .setIcon(R.drawable.ic_menu_refresh),

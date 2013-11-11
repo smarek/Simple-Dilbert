@@ -21,12 +21,12 @@ public final class DilbertFavoritedActivity extends ActionBarActivity implements
     @Override
     protected void onCreate(Bundle savedInstance) {
         DilbertPreferences preferences = new DilbertPreferences(this);
-        setTitle(R.string.title_favorited);
         if (preferences.isForceLandscape())
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
                 : R.style.AppThemeLight);
         super.onCreate(savedInstance);
+        setTitle(R.string.title_favorited);
         setContentView(R.layout.activity_dilbert_fragments);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewPager = (ViewPager) findViewById(R.id.view_pager);

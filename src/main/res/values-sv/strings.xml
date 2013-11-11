@@ -35,5 +35,6 @@
     <string name="pref_download_path">Laddar ner målmapp:</string>
     <string name="pref_share_image">Dela inte bilden, bara en URL</string>
     <string name="pref_mobile_network">Optimera för användning av mobila nätverk</string>
+    <string name="menu_open_at">Öppna denna dag</string>
 
 </resources>

@@ -34,5 +34,6 @@
     <string name="widget_cd_latest">Nejnovější</string>
     <string name="widget_cd_previous">Předchozí</string>
     <string name="widget_cd_random">Náhodný</string>
+    <string name="menu_open_at">Otevřít tento díl</string>
 
 </resources>

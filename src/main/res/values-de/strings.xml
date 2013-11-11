@@ -35,5 +35,6 @@
     <string name="pref_download_path">Download-Zielordner:</string>
     <string name="pref_share_image">Nicht Bild, sondern nur einen Link teilen</string>
     <string name="pref_mobile_network">Für Verwendung mit mobilem Netzwerk optimieren</string>
+    <string name="menu_open_at">Öffnen an diesem Tag</string>
 
 </resources>
