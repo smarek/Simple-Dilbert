@@ -14,7 +14,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/pref_force_landscape" />
+            android:text="@string/pref_force_landscape"/>
 
         <CheckBox
             android:id="@+id/pref_enable_high_quality"
@@ -23,7 +23,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/pref_enable_high_quality" />
+            android:text="@string/pref_enable_high_quality"/>
 
         <CheckBox
             android:id="@+id/pref_force_dark_background"
@@ -32,7 +32,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/pref_force_dark_background" />
+            android:text="@string/pref_force_dark_background"/>
 
         <CheckBox
             android:id="@+id/pref_force_dark_background_widget"
@@ -41,7 +41,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/pref_force_dark_background_widget" />
+            android:text="@string/pref_force_dark_background_widget"/>
 
         <CheckBox
             android:id="@+id/pref_hide_toolbars"
@@ -50,7 +50,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/pref_hide_toolbars" />
+            android:text="@string/pref_hide_toolbars"/>
 
         <CheckBox
             android:id="@+id/pref_share_image"
@@ -59,7 +59,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/pref_share_image" />
+            android:text="@string/pref_share_image"/>
 
         <CheckBox
             android:id="@+id/pref_mobile_network"
@@ -68,7 +68,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/pref_mobile_network" />
+            android:text="@string/pref_mobile_network"/>
 
         <LinearLayout
             android:id="@+id/pref_download_path_layout"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="10dp"
-                android:text="@string/pref_download_path" />
+                android:text="@string/pref_download_path"/>
 
             <TextView
                 android:id="@+id/pref_download_path"
@@ -89,35 +89,35 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:padding="10dp" />
+                android:padding="10dp"/>
         </LinearLayout>
 
-        <include layout="@layout/horizontal_divider" />
+        <include layout="@layout/horizontal_divider"/>
 
         <TextView
             android:id="@+id/pref_rating"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="@string/pref_rating" />
+            android:text="@string/pref_rating"/>
 
-        <include layout="@layout/horizontal_divider" />
+        <include layout="@layout/horizontal_divider"/>
 
         <TextView
             android:id="@+id/pref_show_license"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="@string/pref_show_license" />
+            android:text="@string/pref_show_license"/>
 
-        <include layout="@layout/horizontal_divider" />
+        <include layout="@layout/horizontal_divider"/>
 
         <TextView
             android:id="@+id/app_author"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="@string/about_contents" />
+            android:text="@string/about_contents"/>
     </LinearLayout>
 
 </merge>
