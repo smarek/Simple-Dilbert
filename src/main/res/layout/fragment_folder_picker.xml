@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/fragment_folder_picker_current_path"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="middle"/>
+        android:ellipsize="middle"
+        android:paddingLeft="10dp"
+        android:textSize="20sp"/>
 
     <ListView
         android:id="@android:id/list"
