@@ -98,8 +98,7 @@
             android:id="@+id/pref_rating"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:padding="10dp"
+            android:padding="15dp"
             android:text="@string/pref_rating" />
 
         <include layout="@layout/horizontal_divider" />
@@ -108,7 +107,7 @@
             android:id="@+id/pref_show_license"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:padding="15dp"
             android:text="@string/pref_show_license" />
 
         <include layout="@layout/horizontal_divider" />
@@ -117,7 +116,7 @@
             android:id="@+id/app_author"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:padding="15dp"
             android:text="@string/about_contents" />
     </LinearLayout>
 
