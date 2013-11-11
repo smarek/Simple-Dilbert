@@ -35,5 +35,12 @@
     <string name="widget_cd_previous">Předchozí</string>
     <string name="widget_cd_random">Náhodný</string>
     <string name="menu_open_at">Otevřít tento díl</string>
+    <string name="folder_picker_cannot_write">Adresář není zapisovatelný</string>
+    <string name="folder_picker_select_this">Vybrat aktuální adresář</string>
+    <string name="folder_picker_show_hidden">Zbrazit skryté soubory</string>
+    <string name="folder_picker_show_files">Zobrazit soubory</string>
+    <string name="folder_picker_go_to_default">Přejít na výchozí adresář</string>
+    <string name="folder_picker_cannot_open">Adresář nelze otevřít</string>
+
 
 </resources>

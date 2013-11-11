@@ -38,5 +38,11 @@
     <string name="pref_mobile_network">Optimize for mobile network usage</string>
     <string name="horizontal_divider" translatable="false">Horizontal divider</string>
     <string name="menu_open_at">Open this day</string>
+    <string name="folder_picker_cannot_write">Current folder is not writable</string>
+    <string name="folder_picker_select_this">Select this folder</string>
+    <string name="folder_picker_show_hidden">Show hidden files</string>
+    <string name="folder_picker_show_files">Show files</string>
+    <string name="folder_picker_go_to_default">Go to default folder</string>
+    <string name="folder_picker_cannot_open">Cannot open folder</string>
 
 </resources>

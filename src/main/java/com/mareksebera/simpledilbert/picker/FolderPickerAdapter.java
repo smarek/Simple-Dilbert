@@ -42,7 +42,7 @@ public class FolderPickerAdapter extends BaseAdapter {
             return;
         }
         if (!path.canRead()) {
-            Toast.makeText(context, "Cannot open folder", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.folder_picker_cannot_open, Toast.LENGTH_SHORT).show();
             return;
         }
         this.currentPath = path;

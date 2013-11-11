@@ -36,5 +36,11 @@
     <string name="pref_share_image">Ne pas partager d\'image, seulement l\'URL</string>
     <string name="pref_mobile_network">Optimiser pour l\'utilisation sur un réseau mobile</string>
     <string name="menu_open_at">Ouvrir ce jour</string>
+    <string name="folder_picker_cannot_write">Dossier actuel n'est pas inscriptible</string>
+    <string name="folder_picker_select_this">Sélectionnez ce dossier</string>
+    <string name="folder_picker_show_hidden">Afficher les fichiers cachés</string>
+    <string name="folder_picker_show_files">Afficher les fichiers</string>
+    <string name="folder_picker_go_to_default">Allez dans le dossier par défaut</string>
+    <string name="folder_picker_cannot_open">Impossible d'ouvrir le dossier</string>
 
 </resources>

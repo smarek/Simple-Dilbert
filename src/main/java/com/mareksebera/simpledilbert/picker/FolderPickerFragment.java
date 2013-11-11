@@ -76,11 +76,11 @@ public class FolderPickerFragment extends ListFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem accept = menu.add(Menu.NONE, MENU_ACCEPT, Menu.NONE, "Select").setIcon(R.drawable.ic_navigation_accept);
+        MenuItem accept = menu.add(Menu.NONE, MENU_ACCEPT, Menu.NONE, R.string.folder_picker_select_this).setIcon(R.drawable.ic_navigation_accept);
         MenuItemCompat.setShowAsAction(accept, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, MENU_SHOW_HIDDEN, Menu.NONE, "Show hidden").setCheckable(true);
-        menu.add(Menu.NONE, MENU_SHOW_FILES, Menu.NONE, "Show files").setCheckable(true);
-        menu.add(Menu.NONE, MENU_GO_DEFAULT, Menu.NONE, "Go to default folder");
+        menu.add(Menu.NONE, MENU_SHOW_HIDDEN, Menu.NONE, R.string.folder_picker_show_hidden).setCheckable(true);
+        menu.add(Menu.NONE, MENU_SHOW_FILES, Menu.NONE, R.string.folder_picker_show_files).setCheckable(true);
+        menu.add(Menu.NONE, MENU_GO_DEFAULT, Menu.NONE, R.string.folder_picker_go_to_default);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -110,7 +110,7 @@ public class FolderPickerFragment extends ListFragment {
             case MENU_ACCEPT:
                 File current = folderPickerAdapter.getCurrentFolder();
                 if (!current.canWrite()) {
-                    Toast.makeText(getActivity(), "Cannot write to this folder", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.folder_picker_cannot_write, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 Intent result = new Intent(null, Uri.fromFile(current));

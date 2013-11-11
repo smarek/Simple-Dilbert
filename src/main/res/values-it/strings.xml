@@ -36,5 +36,11 @@
     <string name="pref_share_image">Non condividere l\'immagine, solo l\'URL</string>
     <string name="pref_mobile_network">Ottimizza per utilizzo rete mobile</string>
     <string name="menu_open_at">Aprire questo giorno</string>
+    <string name="folder_picker_cannot_write">Cartella corrente non è scrivibile</string>
+    <string name="folder_picker_select_this">Selezionare questa cartella</string>
+    <string name="folder_picker_show_hidden">Mostra file nascosti</string>
+    <string name="folder_picker_show_files">Mostra file</string>
+    <string name="folder_picker_go_to_default">Vai alla cartella predefinita</string>
+    <string name="folder_picker_cannot_open">Impossibile aprire la cartella</string>
 
 </resources>
