@@ -2,7 +2,7 @@
 <resources>
 
     <string name="menu_datepicker">Välj datum</string>
-    <string name="about_contents">Gjord av Marek Sebera 2013</string>
+    <string name="about_contents">Gjord av Marek Sebera 2013, marek@msebera.cz</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com är ej tillgänglig. Laddning misslyckades.</string>
     <string name="menu_latest">Visa senast</string>

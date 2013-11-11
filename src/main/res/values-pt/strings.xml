@@ -2,7 +2,7 @@
 <resources>
 
     <string name="menu_datepicker">Escolha data</string>
-    <string name="about_contents">Feito por Marek Sebera 2013</string>
+    <string name="about_contents">Feito por Marek Sebera 2013, marek@msebera.cz</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com não está disponível. Carregamento falhou.</string>
     <string name="menu_latest">Mostrar mais recente</string>

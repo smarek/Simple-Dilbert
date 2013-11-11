@@ -34,7 +34,7 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
 
     private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
             force_dark_widget, share_image, mobile_network;
-    private TextView download_path;
+    private TextView download_path, author;
     private DilbertPreferences preferences;
     private static final int REQUEST_DOWNLOAD_TARGET = 1;
     private static final String TAG = "DilbertPreferencesActivity";
@@ -69,6 +69,15 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
             downloadPathSelector.setData(Uri.fromFile(new File(preferences.getDownloadTarget())));
             startActivityForResult(downloadPathSelector,
                     REQUEST_DOWNLOAD_TARGET);
+        }
+    };
+    private final OnClickListener authorOnClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto","marek@msebera.cz", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Simple Dilbert");
+            startActivity(Intent.createChooser(emailIntent, "Simple Dilbert"));
         }
     };
 
@@ -136,12 +145,14 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         share_image = (CheckBox) findViewById(R.id.pref_share_image);
         mobile_network = (CheckBox) findViewById(R.id.pref_mobile_network);
         download_path = (TextView) findViewById(R.id.pref_download_path);
+        author = (TextView) findViewById(R.id.app_author);
         LinearLayout download_path_layout = (LinearLayout) findViewById(R.id.pref_download_path_layout);
         TextView license = (TextView) findViewById(R.id.pref_show_license);
         TextView rating = (TextView) findViewById(R.id.pref_rating);
         download_path_layout.setOnClickListener(downloadPathClickListener);
         license.setOnClickListener(licenseOnClickListener);
         rating.setOnClickListener(ratingOnClickListener);
+        author.setOnClickListener(authorOnClickListener);
 
     }
 
