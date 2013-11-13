@@ -2,7 +2,6 @@ package com.mareksebera.simpledilbert.core;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,7 +72,7 @@ public final class
                 : R.style.AppThemeLight);
         super.onCreate(savedInstance);
         if (preferences.isForceLandscape())
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            setRequestedOrientation(preferences.getLandscapeOrientation());
         setContentView(R.layout.activity_dilbert_fragments);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         PagerTitleStrip titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);

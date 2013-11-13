@@ -25,6 +25,7 @@
     <string name="widget_cd_random">Au hasard</string>
     <string name="title_preferences">Préférences</string>
     <string name="pref_force_landscape">Forcer l\'orientation Paysage</string>
+    <string name="pref_reverse_landscape">Inverser mode paysage</string>
     <string name="pref_enable_high_quality">Activer les images de haute qualité</string>
     <string name="pref_force_dark_background">Utiliser des arrières-plans foncés</string>
     <string name="pref_hide_toolbars">Cacher les barres d\'outils par défaut</string>

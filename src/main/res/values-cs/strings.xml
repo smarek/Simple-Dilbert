@@ -20,6 +20,7 @@
     <string name="menu_share">Sdílet</string>
     <string name="title_preferences">Nastavení</string>
     <string name="pref_force_landscape">Vynutit horizontální zobrazení</string>
+    <string name="pref_reverse_landscape">Invertovat horizontální zobrazení</string>
     <string name="pref_enable_high_quality">Vysoká kvalita komiksu</string>
     <string name="pref_force_dark_background">Použít tmavé zobrazení</string>
     <string name="pref_force_dark_background_widget">Použít tmavé zobrazení pro widget</string>

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -45,6 +46,7 @@ public final class DilbertPreferences {
     private static final String PREF_DOWNLOAD_TARGET = "dilbert_download_target_folder";
     private static final String PREF_SHARE_IMAGE = "dilbert_share_with_image";
     private static final String PREF_MOBILE_NETWORK = "dilbert_using_slow_network";
+    private static final String PREF_REVERSE_LANDSCAPE = "dilbert_reverse_landscape";
     private static final String TAG = "DilbertPreferences";
     public static final DateTimeZone TIME_ZONE = DateTimeZone
             .forID("America/Chicago");
@@ -480,4 +482,19 @@ public final class DilbertPreferences {
         return preferences.getBoolean(PREF_MOBILE_NETWORK, true);
     }
 
+    public boolean setIsReversedLandscape(boolean isReversed) {
+        return preferences.edit().putBoolean(PREF_REVERSE_LANDSCAPE, isReversed).commit();
+    }
+
+    public boolean isReversedLandscape() {
+        return preferences.getBoolean(PREF_REVERSE_LANDSCAPE, false);
+    }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    public int getLandscapeOrientation() {
+        return isForceLandscape() ?
+                (Build.VERSION.SDK_INT >= 9 && isReversedLandscape()) ?
+                        ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                : ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+    }
 }

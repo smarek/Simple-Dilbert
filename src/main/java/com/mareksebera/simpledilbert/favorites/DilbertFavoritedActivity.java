@@ -1,6 +1,5 @@
 package com.mareksebera.simpledilbert.favorites;
 
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
@@ -22,7 +21,7 @@ public final class DilbertFavoritedActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstance) {
         DilbertPreferences preferences = new DilbertPreferences(this);
         if (preferences.isForceLandscape())
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            setRequestedOrientation(preferences.getLandscapeOrientation());
         setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
                 : R.style.AppThemeLight);
         super.onCreate(savedInstance);

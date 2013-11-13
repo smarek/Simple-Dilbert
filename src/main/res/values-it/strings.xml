@@ -25,6 +25,7 @@
     <string name="widget_cd_random">Casuale</string>
     <string name="title_preferences">Preferenze</string>
     <string name="pref_force_landscape">Forza Orientamento Paesaggio</string>
+    <string name="pref_reverse_landscape">Modalità orizzontale Reverse</string>
     <string name="pref_enable_high_quality">Abilita immagini ad alta qualità</string>
     <string name="pref_force_dark_background">Usa Sfondi Scuri</string>
     <string name="pref_hide_toolbars">Nascondi la Barra Strumenti di default</string>
