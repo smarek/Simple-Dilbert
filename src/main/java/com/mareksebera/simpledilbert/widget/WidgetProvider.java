@@ -62,8 +62,16 @@ public final class WidgetProvider extends AppWidgetProvider {
                 getPendingIntent(INTENT_DISPLAY, context, appWidgetId));
         views.setOnClickPendingIntent(R.id.widget_refresh,
                 getPendingIntent(INTENT_REFRESH, context, appWidgetId));
+        views.setOnClickPendingIntent(R.id.widget_full_layout,
+                getPendingIntent(INTENT_DISPLAY, context, appWidgetId));
 
         final LocalDate currentDate = prefs.getDateForWidgetId(appWidgetId);
+
+        views.setViewVisibility(R.id.widget_next, prefs.isWidgetAlwaysShowLatest() ? View.GONE : View.VISIBLE);
+        views.setViewVisibility(R.id.widget_previous, prefs.isWidgetAlwaysShowLatest() ? View.GONE : View.VISIBLE);
+        views.setViewVisibility(R.id.widget_random, prefs.isWidgetAlwaysShowLatest() ? View.GONE : View.VISIBLE);
+        views.setViewVisibility(R.id.widget_latest, prefs.isWidgetAlwaysShowLatest() ? View.GONE : View.VISIBLE);
+
         final String cachedUrl = prefs.getCachedUrl(currentDate);
         views.setViewVisibility(R.id.widget_progress, View.VISIBLE);
         views.setTextViewText(

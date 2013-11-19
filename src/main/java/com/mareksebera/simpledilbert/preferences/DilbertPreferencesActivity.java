@@ -34,7 +34,8 @@ import static android.appwidget.AppWidgetManager.getInstance;
 public final class DilbertPreferencesActivity extends ActionBarActivity {
 
     private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
-            force_dark_widget, share_image, mobile_network, reverse_landscape;
+            force_dark_widget, share_image, mobile_network, reverse_landscape,
+            open_at_latest_strip, widget_always_show_latest;
     private TextView download_path;
     private DilbertPreferences preferences;
     private static final int REQUEST_DOWNLOAD_TARGET = 1;
@@ -147,6 +148,8 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         mobile_network = (CheckBox) findViewById(R.id.pref_mobile_network);
         download_path = (TextView) findViewById(R.id.pref_download_path);
         reverse_landscape = (CheckBox) findViewById(R.id.pref_reverse_landscape);
+        open_at_latest_strip = (CheckBox) findViewById(R.id.pref_open_at_latest_strip);
+        widget_always_show_latest = (CheckBox) findViewById(R.id.pref_widget_always_latest);
         TextView author = (TextView) findViewById(R.id.app_author);
         LinearLayout download_path_layout = (LinearLayout) findViewById(R.id.pref_download_path_layout);
         TextView license = (TextView) findViewById(R.id.pref_show_license);
@@ -184,6 +187,8 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         reverse_landscape.setVisibility(Build.VERSION.SDK_INT >= 9 ? View.VISIBLE : View.GONE);
         reverse_landscape.setEnabled(preferences.isForceLandscape());
         reverse_landscape.setChecked(preferences.isReversedLandscape() && preferences.isForceLandscape());
+        open_at_latest_strip.setChecked(preferences.isShouldOpenAtLatestStrip());
+        widget_always_show_latest.setChecked(preferences.isWidgetAlwaysShowLatest());
     }
 
     @Override
@@ -207,6 +212,8 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         preferences.setIsSharingImage(share_image.isChecked());
         preferences.setIsSlowNetwork(mobile_network.isChecked());
         preferences.setIsReversedLandscape(reverse_landscape.isChecked());
+        preferences.setShouldOpenAtLatestStrip(open_at_latest_strip.isChecked());
+        preferences.setWidgetAlwaysShowLatest(widget_always_show_latest.isChecked());
         updateWidgets();
     }
 

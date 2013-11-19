@@ -47,6 +47,8 @@ public final class DilbertPreferences {
     private static final String PREF_SHARE_IMAGE = "dilbert_share_with_image";
     private static final String PREF_MOBILE_NETWORK = "dilbert_using_slow_network";
     private static final String PREF_REVERSE_LANDSCAPE = "dilbert_reverse_landscape";
+    private static final String PREF_OPEN_AT_LATEST = "dilbert_open_at_latest_strip";
+    private static final String PREF_WIDGET_ALWAYS_SHOW_LATEST = "dilbert_widget_always_show_latest";
     private static final String TAG = "DilbertPreferences";
     public static final DateTimeZone TIME_ZONE = DateTimeZone
             .forID("America/Chicago");
@@ -66,7 +68,7 @@ public final class DilbertPreferences {
      */
     public LocalDate getCurrentDate() {
         String savedDate = preferences.getString(PREF_CURRENT_DATE, null);
-        if (savedDate == null) {
+        if (savedDate == null || isShouldOpenAtLatestStrip()) {
             return LocalDate.now(DilbertPreferences.TIME_ZONE);
         } else {
             return LocalDate.parse(savedDate, DATE_FORMATTER);
@@ -339,7 +341,7 @@ public final class DilbertPreferences {
      */
     public LocalDate getDateForWidgetId(int appWidgetId) {
         String savedDate = preferences.getString("widget_" + appWidgetId, null);
-        if (savedDate == null)
+        if (savedDate == null || isWidgetAlwaysShowLatest())
             return LocalDate.now();
         else
             return LocalDate.parse(savedDate, DATE_FORMATTER);
@@ -488,6 +490,22 @@ public final class DilbertPreferences {
 
     public boolean isReversedLandscape() {
         return preferences.getBoolean(PREF_REVERSE_LANDSCAPE, false);
+    }
+
+    public boolean setShouldOpenAtLatestStrip(boolean should) {
+        return preferences.edit().putBoolean(PREF_OPEN_AT_LATEST, should).commit();
+    }
+
+    public boolean isShouldOpenAtLatestStrip() {
+        return preferences.getBoolean(PREF_OPEN_AT_LATEST, false);
+    }
+
+    public boolean setWidgetAlwaysShowLatest(boolean alwaysShowLatest) {
+        return preferences.edit().putBoolean(PREF_WIDGET_ALWAYS_SHOW_LATEST, alwaysShowLatest).commit();
+    }
+
+    public boolean isWidgetAlwaysShowLatest() {
+        return preferences.getBoolean(PREF_WIDGET_ALWAYS_SHOW_LATEST, false);
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
