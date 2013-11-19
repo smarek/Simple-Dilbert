@@ -43,5 +43,10 @@
     <string name="folder_picker_show_files">Dateien anzeigen</string>
     <string name="folder_picker_go_to_default">Zur Standard-Ordner</string>
     <string name="folder_picker_cannot_open">Kann nicht geöffnet werden Ordner</string>
+    <string name="pref_open_at_latest_strip">Immer auf den neuesten Streifen öffnen</string>
+    <string name="pref_widget_always_latest">Widget zeigen immer neuesten Streifen</string>
+    <string name="pref_title_general_settings">General Settings</string>
+    <string name="pref_title_application_settings">Application Settings</string>
+    <string name="pref_title_widget_settings">Widgets Settings</string>
 
 </resources>

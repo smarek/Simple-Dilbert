@@ -43,5 +43,10 @@
     <string name="folder_picker_show_files">Mostrar arquivos</string>
     <string name="folder_picker_go_to_default">Vá até a pasta padrão</string>
     <string name="folder_picker_cannot_open">Não pode abrir a pasta</string>
+    <string name="pref_open_at_latest_strip">Abra sempre na mais recente faixa</string>
+    <string name="pref_widget_always_latest">Widget mostrar sempre mais recente faixa</string>
+    <string name="pref_title_general_settings">General Settings</string>
+    <string name="pref_title_application_settings">Application Settings</string>
+    <string name="pref_title_widget_settings">Widgets Settings</string>
 
 </resources>

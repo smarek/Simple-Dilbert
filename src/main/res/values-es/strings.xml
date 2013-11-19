@@ -43,5 +43,10 @@
     <string name="folder_picker_show_files">Mostrar todos los archivos</string>
     <string name="folder_picker_go_to_default">Ir a la carpeta predeterminada</string>
     <string name="folder_picker_cannot_open">No se puede abrir la carpeta</string>
+    <string name="pref_open_at_latest_strip">Abra siempre en la última franja</string>
+    <string name="pref_widget_always_latest">Widget Muestra siempre última franja</string>
+    <string name="pref_title_general_settings">General Settings</string>
+    <string name="pref_title_application_settings">Application Settings</string>
+    <string name="pref_title_widget_settings">Widgets Settings</string>
 
 </resources>

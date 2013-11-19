@@ -42,6 +42,11 @@
     <string name="folder_picker_show_files">Zobrazit soubory</string>
     <string name="folder_picker_go_to_default">Přejít na výchozí adresář</string>
     <string name="folder_picker_cannot_open">Adresář nelze otevřít</string>
+    <string name="pref_open_at_latest_strip">Vždy otevřít na posledním komiks</string>
+    <string name="pref_widget_always_latest">Ukázat vždy poslední komiks</string>
+    <string name="pref_title_general_settings">Obecná nastavení</string>
+    <string name="pref_title_application_settings">Nastavení aplikace</string>
+    <string name="pref_title_widget_settings">Nastavení widgetů</string>
 
 
 </resources>

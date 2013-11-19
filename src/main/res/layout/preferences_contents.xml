@@ -11,7 +11,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="General Settins"/>
+            android:text="@string/pref_title_general_settings"/>
 
         <include layout="@layout/horizontal_divider"/>
 
@@ -46,7 +46,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="Application Settins"/>
+            android:text="@string/pref_title_application_settings"/>
 
         <include layout="@layout/horizontal_divider"/>
 
@@ -99,7 +99,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="Widget Settins"/>
+            android:text="@string/pref_title_widget_settings"/>
 
         <include layout="@layout/horizontal_divider"/>
 

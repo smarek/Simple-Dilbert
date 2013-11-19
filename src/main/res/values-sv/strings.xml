@@ -43,5 +43,10 @@
     <string name="folder_picker_show_files">Visa filer</string>
     <string name="folder_picker_go_to_default">Gå till standardmappen</string>
     <string name="folder_picker_cannot_open">Kan inte öppna mappen</string>
+    <string name="pref_open_at_latest_strip">Alltid öppet på senaste strip</string>
+    <string name="pref_widget_always_latest">Widget visar alltid senaste remsa</string>
+    <string name="pref_title_general_settings">General Settings</string>
+    <string name="pref_title_application_settings">Application Settings</string>
+    <string name="pref_title_widget_settings">Widgets Settings</string>
 
 </resources>
