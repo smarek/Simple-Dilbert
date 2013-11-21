@@ -14,7 +14,7 @@
     <string name="menu_favorite_remove">Retirer des favoris</string>
     <string name="menu_show_favorite">Afficher les favoris</string>
     <string name="menu_zoom">Zoomer</string>
-    <string name="toast_no_favorites">Vous n\'avez pas de bandes favorites</string>
+    <string name="toast_no_favorites">Vous n\'avez pas de strip favoris</string>
     <string name="title_favorited">Bandes favorites</string>
     <string name="menu_random">Au hasard</string>
     <string name="share_chooser">Partager les bandes dessinées Dilbert</string>
@@ -43,10 +43,10 @@
     <string name="folder_picker_show_files">Afficher les fichiers</string>
     <string name="folder_picker_go_to_default">Aller dans le dossier par défaut</string>
     <string name="folder_picker_cannot_open">Impossible d\'ouvrir le dossier</string>
-    <string name="pref_open_at_latest_strip">N\'oubliez pas d\'ouvrir le dernier strip</string>
-    <string name="pref_widget_always_latest">Widget montrent toujours dernière bande</string>
-    <string name="pref_title_general_settings">General Settings</string>
-    <string name="pref_title_application_settings">Application Settings</string>
-    <string name="pref_title_widget_settings">Widgets Settings</string>
+    <string name="pref_open_at_latest_strip">Toujours ouvrir le dernier strip</string>
+    <string name="pref_widget_always_latest">Le widget montre toujours le dernier strip</string>
+    <string name="pref_title_general_settings">Réglages généraux</string>
+    <string name="pref_title_application_settings">Réglages de l\'application</string>
+    <string name="pref_title_widget_settings">Réglages du widget</string>
 
 </resources>
