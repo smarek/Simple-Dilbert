@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.MenuItemCompat;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mareksebera.simpledilbert.R;
+import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
 import java.io.File;
 
@@ -63,15 +63,10 @@ public class FolderPickerFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflated = inflater.inflate(R.layout.fragment_folder_picker, container, false);
         assert inflated != null;
-        inflated.setPadding(0, dpToPx(48), 0, 0);
+        inflated.setPadding(0, ActionBarUtility.getActionBarHeightDip(container.getContext()), 0, 0);
         currentPath = (TextView) inflated.findViewById(R.id.fragment_folder_picker_current_path);
         currentPath.setText(folderPickerAdapter.getCurrentFolder().getAbsolutePath());
         return inflated;
-    }
-
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-        return (int) ((dp * displayMetrics.density) + 0.5);
     }
 
     @Override

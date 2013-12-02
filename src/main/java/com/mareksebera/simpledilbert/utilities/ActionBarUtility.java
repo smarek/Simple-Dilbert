@@ -10,9 +10,9 @@ import android.widget.FrameLayout;
 
 public final class ActionBarUtility {
 
-    private static int getActionBarHeightDip(Context c) {
+    public static int getActionBarHeightDip(Context c) {
         float scale = c.getResources().getDisplayMetrics().density;
-        return (int) (40 * scale + 0.5f);
+        return (int) ((48 * scale) + 0.5);
     }
 
     public static void toggleActionBar(ActionBarActivity actionBarActivity,
