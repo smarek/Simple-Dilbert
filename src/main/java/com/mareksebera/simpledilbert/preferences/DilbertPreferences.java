@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.FavoritedItem;
 
+import org.intellij.lang.annotations.MagicConstant;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -509,6 +510,7 @@ public final class DilbertPreferences {
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    @MagicConstant(intValues = {ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE, ActivityInfo.SCREEN_ORIENTATION_SENSOR})
     public int getLandscapeOrientation() {
         return isForceLandscape() ?
                 (Build.VERSION.SDK_INT >= 9 && isReversedLandscape()) ?
