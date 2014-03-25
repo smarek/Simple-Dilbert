@@ -1,7 +1,9 @@
 package com.mareksebera.simpledilbert.utilities;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -35,13 +37,7 @@ public final class ActionBarUtility {
             } else {
                 actionBarActivity.getSupportActionBar().show();
                 if (android.os.Build.VERSION.SDK_INT >= 11) {
-                    TypedValue tv = new TypedValue();
-                    Resources.Theme activityTheme = actionBarActivity.getTheme();
-                    if (activityTheme == null) return;
-                    final boolean resolved = activityTheme.resolveAttribute(
-                            android.R.attr.actionBarSize, tv, true);
-                    lp.topMargin = resolved ? actionBarActivity.getResources()
-                            .getDimensionPixelSize(tv.resourceId) : 40;
+                    lp.topMargin = getActionBarHeightCompat(actionBarActivity);
                     viewPager.setLayoutParams(lp);
                 } else {
                     viewPager.setPadding(0, getActionBarHeightDip(actionBarActivity), 0, 0);
@@ -50,6 +46,20 @@ public final class ActionBarUtility {
         } catch (Throwable t) {
             Log.e("DilbertFragmentActivity", "Toggle ActionBar failed", t);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private static int getActionBarHeightCompat(ActionBarActivity actionBarActivity) {
+        TypedValue tv = new TypedValue();
+        Resources.Theme activityTheme = actionBarActivity.getTheme();
+        boolean resolved = false;
+        if (activityTheme != null) {
+            resolved = activityTheme.resolveAttribute(
+                    android.R.attr.actionBarSize, tv, true);
+        }
+        return resolved ? actionBarActivity.getResources()
+                .getDimensionPixelSize(tv.resourceId) : 40;
+
     }
 
 }
