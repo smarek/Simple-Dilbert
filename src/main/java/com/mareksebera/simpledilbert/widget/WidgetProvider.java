@@ -148,34 +148,42 @@ public final class WidgetProvider extends AppWidgetProvider {
         }
         if (currentToast != null)
             currentToast.cancel();
-        if (INTENT_PREVIOUS.equals(action)) {
-            preferences.saveDateForWidgetId(appWidgetId, preferences
-                    .getDateForWidgetId(appWidgetId).minusDays(1));
-        } else if (INTENT_NEXT.equals(action)) {
-            preferences.saveDateForWidgetId(appWidgetId, preferences
-                    .getDateForWidgetId(appWidgetId).plusDays(1));
-        } else if (INTENT_LATEST.equals(action)) {
-            preferences.saveDateForWidgetId(appWidgetId,
-                    LocalDate.now());
-        } else if (INTENT_RANDOM.equals(action)) {
-            preferences.saveDateForWidgetId(appWidgetId,
-                    DilbertPreferences.getRandomDate());
-        } else if (INTENT_REFRESH.equals(action)) {
-            preferences
-                    .removeCache(preferences.getDateForWidgetId(appWidgetId));
-        } else if (INTENT_DISPLAY.equals(action)) {
-            preferences.saveCurrentDate(preferences
-                    .getDateForWidgetId(appWidgetId));
-            Intent display = new Intent(context, DilbertFragmentActivity.class);
-            display.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(display);
-        } else if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
-            LocalDate current = preferences.getDateForWidgetId(appWidgetId);
-            if (current.equals(LocalDate.now()
-                    .minusDays(1))) {
+        switch (action) {
+            case INTENT_PREVIOUS:
+                preferences.saveDateForWidgetId(appWidgetId, preferences
+                        .getDateForWidgetId(appWidgetId).minusDays(1));
+                break;
+            case INTENT_NEXT:
+                preferences.saveDateForWidgetId(appWidgetId, preferences
+                        .getDateForWidgetId(appWidgetId).plusDays(1));
+                break;
+            case INTENT_LATEST:
                 preferences.saveDateForWidgetId(appWidgetId,
                         LocalDate.now());
-            }
+                break;
+            case INTENT_RANDOM:
+                preferences.saveDateForWidgetId(appWidgetId,
+                        DilbertPreferences.getRandomDate());
+                break;
+            case INTENT_REFRESH:
+                preferences
+                        .removeCache(preferences.getDateForWidgetId(appWidgetId));
+                break;
+            case INTENT_DISPLAY:
+                preferences.saveCurrentDate(preferences
+                        .getDateForWidgetId(appWidgetId));
+                Intent display = new Intent(context, DilbertFragmentActivity.class);
+                display.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(display);
+                break;
+            case AppWidgetManager.ACTION_APPWIDGET_UPDATE:
+                LocalDate current = preferences.getDateForWidgetId(appWidgetId);
+                if (current.equals(LocalDate.now()
+                        .minusDays(1))) {
+                    preferences.saveDateForWidgetId(appWidgetId,
+                            LocalDate.now());
+                }
+                break;
         }
         updateAppWidget(context, AppWidgetManager.getInstance(context),
                 appWidgetId);

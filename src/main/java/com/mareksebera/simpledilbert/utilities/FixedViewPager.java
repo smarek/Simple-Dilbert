@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 
 import org.jetbrains.annotations.NotNull;
 
-final class FixedViewPager extends ViewPager {
+final public class FixedViewPager extends ViewPager {
 
     public FixedViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);

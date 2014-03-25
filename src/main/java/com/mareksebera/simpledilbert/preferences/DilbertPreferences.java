@@ -181,7 +181,7 @@ public final class DilbertPreferences {
      * @return List of favorited items (not null but may be empty)
      */
     public List<FavoritedItem> getFavoritedItems() {
-        List<FavoritedItem> favorites = new ArrayList<FavoritedItem>();
+        List<FavoritedItem> favorites = new ArrayList<>();
         Map<String, ?> allPreferences = preferences.getAll();
         if (allPreferences != null) {
             for (String key : allPreferences.keySet()) {

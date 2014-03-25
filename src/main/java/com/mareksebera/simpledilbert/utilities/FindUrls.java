@@ -29,7 +29,7 @@ final public class FindUrls {
             .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
 
     public static List<String> extractUrls(String input) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         Pattern pattern = Pattern
                 .compile("\\b(((ht|f)tp(s?)://|~/|/)|www.)"
@@ -50,7 +50,7 @@ final public class FindUrls {
     }
 
     public static List<String> extractUrls(HttpResponse response) {
-        List<String> found = new ArrayList<String>();
+        List<String> found = new ArrayList<>();
         try {
             Scanner scan;
             Header contentEncoding = response

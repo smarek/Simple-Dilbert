@@ -105,9 +105,7 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
             java.util.Scanner s = new java.util.Scanner(stream)
                     .useDelimiter("\\A");
             rtn = s.hasNext() ? s.next() : "";
-        } catch (Exception e) {
-            Log.e(TAG, "License couldn't be retrieved", e);
-        } catch (Error e) {
+        } catch (Exception | Error e) {
             Log.e(TAG, "License couldn't be retrieved", e);
         }
         return rtn;
