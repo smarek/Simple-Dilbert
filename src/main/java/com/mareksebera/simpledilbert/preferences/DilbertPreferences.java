@@ -227,6 +227,7 @@ public final class DilbertPreferences {
      * @param stripDate      date of strip being downloaded
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @SuppressWarnings("deprecation")
     public void downloadImageViaManager(final Activity activity,
                                         final String downloadUrl, LocalDate stripDate, boolean downloadToTemp) {
         try {
@@ -269,7 +270,6 @@ public final class DilbertPreferences {
             Toast.makeText(activity, R.string.download_manager_unsupported,
                     Toast.LENGTH_LONG).show();
         }
-
     }
 
     /**
