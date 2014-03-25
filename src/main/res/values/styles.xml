@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <style name="AppThemeLight" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="titlesBackground">@drawable/abc_ab_solid_dark_holo</item>
