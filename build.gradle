@@ -20,13 +20,13 @@ repositories {
 }
 
 dependencies {
-    compile 'com.intellij:annotations:+'
-    compile 'com.android.support:support-v4:+'
+    compile 'com.intellij:annotations:+@jar'
+    compile 'com.android.support:support-v4:+@jar'
     compile 'com.android.support:appcompat-v7:+@aar'
-    compile 'com.github.chrisbanes.photoview:library:+'
-    compile 'joda-time:joda-time:+'
-    compile 'org.joda:joda-convert:+'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:+'
+    compile 'com.github.chrisbanes.photoview:library:+@jar'
+    compile 'joda-time:joda-time:+@jar'
+    compile 'org.joda:joda-convert:+@jar'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:+@jar'
 }
 
 android {
@@ -54,15 +54,20 @@ android {
     }
 
     lintOptions {
-	disable 'InvalidPackage'
+        disable 'InvalidPackage'
         abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 }
 
 android.applicationVariants.all { variant ->
 
-    task("generate${variant.name}Javadoc", type: Javadoc) {
-        description "Generates Javadoc for $variant.name."
+    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+        description "Generates Javadoc for {$variant.name}."
         exclude "**/R"
         source = variant.javaCompile.source
         ext.androidJar = "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
