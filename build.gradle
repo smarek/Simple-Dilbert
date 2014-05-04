@@ -11,12 +11,6 @@ apply plugin: 'android'
 
 repositories {
     mavenCentral()
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
-    maven {
-        url "https://github.com/chrisbanes/PhotoView/raw/maven/"
-    }
 }
 
 dependencies {
