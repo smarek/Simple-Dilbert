@@ -46,6 +46,9 @@ public final class DilbertFragment extends Fragment {
     private DilbertPreferences preferences;
     private GetStripUrl loadTask;
 
+    public DilbertFragment() {
+    }
+
     @Override
     public void onDestroyView() {
         progress = null;
@@ -287,7 +290,8 @@ public final class DilbertFragment extends Fragment {
                             File tmp = File
                                     .createTempFile("dilbert_", ".jpg",
                                             getActivity()
-                                                    .getExternalCacheDir());
+                                                    .getExternalCacheDir()
+                                    );
                             FileOutputStream out = new FileOutputStream(tmp);
                             b.compress(CompressFormat.JPEG, 100, out);
                             out.close();
@@ -300,7 +304,8 @@ public final class DilbertFragment extends Fragment {
                                 "Dilbert "
                                         + date
                                         + " #simpledilbert http://dilbert.com/strips/comic/"
-                                        + date);
+                                        + date
+                        );
                     }
                     startActivity(Intent.createChooser(i,
                             getString(R.string.share_chooser)));
@@ -321,29 +326,35 @@ public final class DilbertFragment extends Fragment {
         MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_FAVORITE, 1, R.string.menu_favorite_remove)
                         .setIcon(R.drawable.ic_menu_not_favorited),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
+        );
         MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_ZOOM, 4, R.string.menu_zoom)
                         .setIcon(R.drawable.ic_menu_zoom),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
+        );
         MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_SAVE, 3, R.string.menu_download)
                         .setIcon(R.drawable.ic_menu_save),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
+        );
         MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_SHARE, 2, R.string.menu_share)
                         .setIcon(R.drawable.ic_menu_share),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
+        );
         if (getActivity() != null && getActivity() instanceof DilbertFavoritedActivity) {
             MenuItemCompat.setShowAsAction(
                     menu.add(category, MENU_OPEN_AT, 5, R.string.menu_open_at)
                             .setIcon(R.drawable.ic_menu_open_at),
-                    MenuItemCompat.SHOW_AS_ACTION_NEVER);
+                    MenuItemCompat.SHOW_AS_ACTION_NEVER
+            );
         }
         MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_REFRESH, 5, R.string.menu_refresh)
                         .setIcon(R.drawable.ic_menu_refresh),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+                MenuItemCompat.SHOW_AS_ACTION_NEVER
+        );
     }
 
 }

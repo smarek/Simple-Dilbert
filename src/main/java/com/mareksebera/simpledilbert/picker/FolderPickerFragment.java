@@ -33,6 +33,9 @@ public class FolderPickerFragment extends ListFragment {
     private FolderPickerAdapter folderPickerAdapter;
     private TextView currentPath;
 
+    public FolderPickerFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
