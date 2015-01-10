@@ -421,7 +421,7 @@ public final class DilbertPreferences {
     }
 
     public boolean isDarkLayoutEnabled() {
-        return preferences.getBoolean(PREF_DARK_LAYOUT, false);
+        return preferences.getBoolean(PREF_DARK_LAYOUT, true);
     }
 
     public boolean setIsDarkLayoutEnabled(boolean dark) {
