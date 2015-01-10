@@ -34,7 +34,7 @@ import static android.appwidget.AppWidgetManager.getInstance;
 public final class DilbertPreferencesActivity extends ActionBarActivity {
 
     private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
-            force_dark_widget, share_image, mobile_network, reverse_landscape,
+            share_image, mobile_network, reverse_landscape,
             open_at_latest_strip, widget_always_show_latest;
     private TextView download_path;
     private DilbertPreferences preferences;
@@ -47,21 +47,7 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
             showLicenseDialog();
         }
     };
-    private final OnClickListener ratingOnClickListener = new OnClickListener() {
 
-        @Override
-        public void onClick(View v) {
-            try {
-                startActivity(new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=com.mareksebera.simpledilbert")));
-            } catch (Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(DilbertPreferencesActivity.this,
-                        "Cannot open Google Play", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
     private final OnClickListener downloadPathClickListener = new OnClickListener() {
 
         @Override
@@ -140,7 +126,6 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         force_landscape = (CheckBox) findViewById(R.id.pref_force_landscape);
         enable_hq = (CheckBox) findViewById(R.id.pref_enable_high_quality);
         force_dark = (CheckBox) findViewById(R.id.pref_force_dark_background);
-        force_dark_widget = (CheckBox) findViewById(R.id.pref_force_dark_background_widget);
         hide_toolbars = (CheckBox) findViewById(R.id.pref_hide_toolbars);
         share_image = (CheckBox) findViewById(R.id.pref_share_image);
         mobile_network = (CheckBox) findViewById(R.id.pref_mobile_network);
@@ -151,10 +136,8 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         TextView author = (TextView) findViewById(R.id.app_author);
         LinearLayout download_path_layout = (LinearLayout) findViewById(R.id.pref_download_path_layout);
         TextView license = (TextView) findViewById(R.id.pref_show_license);
-        TextView rating = (TextView) findViewById(R.id.pref_rating);
         download_path_layout.setOnClickListener(downloadPathClickListener);
         license.setOnClickListener(licenseOnClickListener);
-        rating.setOnClickListener(ratingOnClickListener);
         author.setOnClickListener(authorOnClickListener);
         force_landscape.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -177,7 +160,6 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         force_landscape.setChecked(preferences.isForceLandscape());
         enable_hq.setChecked(preferences.isHighQualityOn());
         force_dark.setChecked(preferences.isDarkLayoutEnabled());
-        force_dark_widget.setChecked(preferences.isDarkWidgetLayoutEnabled());
         hide_toolbars.setChecked(preferences.isToolbarsHidden());
         download_path.setText(preferences.getDownloadTarget());
         share_image.setChecked(preferences.isSharingImage());
@@ -206,7 +188,6 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         preferences.setIsForceLandscape(force_landscape.isChecked());
         preferences.setIsToolbarsHidden(hide_toolbars.isChecked());
         preferences.setIsHighQualityOn(enable_hq.isChecked());
-        preferences.setIsDarkWidgetLayoutEnabled(force_dark_widget.isChecked());
         preferences.setIsSharingImage(share_image.isChecked());
         preferences.setIsSlowNetwork(mobile_network.isChecked());
         preferences.setIsReversedLandscape(reverse_landscape.isChecked());

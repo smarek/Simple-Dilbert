@@ -2,7 +2,7 @@
 <resources>
 
     <string name="menu_datepicker">Escolha data</string>
-    <string name="about_contents">Feito por Marek Sebera 2013, marek@msebera.cz</string>
+    <string name="about_contents">Feito por Marek Sebera 2013–2015, marek@msebera.cz</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com não está disponível. Carregamento falhou.</string>
     <string name="menu_latest">Mostrar mais recente</string>
@@ -31,7 +31,6 @@
     <string name="pref_hide_toolbars">Ocultar Barras de Ferramentas como Padrão</string>
     <string name="pref_show_license">Exibir Licença de Software</string>
     <string name="pref_force_dark_background_widget">Use fundo escuro para este widget</string>
-    <string name="pref_rating">Avalie este aplicativo no Google Play</string>
     <string name="menu_settings">Configurações</string>
     <string name="pref_download_path">Pasta de destino dos downloads:</string>
     <string name="pref_share_image">Não compartilhar a imagem, apenas uma URL</string>

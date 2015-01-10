@@ -41,7 +41,6 @@ public final class DilbertPreferences {
     private static final String PREF_CURRENT_URL = "dilbert_current_url";
     private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
     private static final String PREF_DARK_LAYOUT = "dilbert_dark_layout";
-    private static final String PREF_DARK_WIDGET_LAYOUT = "dilbert_dark_layout_widget";
     private static final String PREF_FORCE_LANDSCAPE = "dilbert_force_landscape";
     private static final String PREF_HIDE_TOOLBARS = "dilbert_hide_toolbars";
     private static final String PREF_DOWNLOAD_TARGET = "dilbert_download_target_folder";
@@ -55,6 +54,7 @@ public final class DilbertPreferences {
             .forID("America/Chicago");
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
             .forPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter NICE_DATE_FORMATTER = DateTimeFormat.mediumDate();
 
     @SuppressLint("CommitPrefEdits")
     public DilbertPreferences(Context context) {
@@ -438,14 +438,6 @@ public final class DilbertPreferences {
 
     public boolean setIsHighQualityOn(boolean enabled) {
         return editor.putBoolean(PREF_HIGH_QUALITY_ENABLED, enabled).commit();
-    }
-
-    public boolean isDarkWidgetLayoutEnabled() {
-        return preferences.getBoolean(PREF_DARK_WIDGET_LAYOUT, false);
-    }
-
-    public boolean setIsDarkWidgetLayoutEnabled(boolean dark) {
-        return editor.putBoolean(PREF_DARK_WIDGET_LAYOUT, dark).commit();
     }
 
     public String getDownloadTarget() {

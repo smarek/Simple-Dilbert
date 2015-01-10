@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_framelayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="1dip" >
+             android:id="@+id/fragment_framelayout"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="@color/accent_material_dark"/>
 
     <uk.co.senab.photoview.PhotoView
         android:id="@+id/fragment_imageview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_vertical"
-        android:contentDescription="@string/cd_dilbert_image" />
+        android:contentDescription="@string/cd_dilbert_image"/>
 
     <ProgressBar
         android:id="@+id/fragment_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"/>
 
 </FrameLayout>

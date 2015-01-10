@@ -15,7 +15,7 @@ final class DilbertFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return getDateForPosition(position).toString(
-                DilbertPreferences.DATE_FORMATTER);
+                DilbertPreferences.NICE_DATE_FORMATTER);
     }
 
     public DilbertFragmentAdapter(FragmentManager fm) {

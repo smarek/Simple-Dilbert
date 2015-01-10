@@ -112,15 +112,6 @@
             android:layout_marginTop="5dp"
             android:text="@string/pref_widget_always_latest"/>
 
-        <CheckBox
-            android:id="@+id/pref_force_dark_background_widget"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/pref_force_dark_background_widget"/>
-
         <LinearLayout
             android:id="@+id/pref_download_path_layout"
             android:layout_width="fill_parent"
@@ -149,15 +140,6 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"/>
         </LinearLayout>
-
-        <include layout="@layout/horizontal_divider"/>
-
-        <TextView
-            android:id="@+id/pref_rating"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/pref_rating"/>
 
         <include layout="@layout/horizontal_divider"/>
 

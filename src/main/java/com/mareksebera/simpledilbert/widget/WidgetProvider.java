@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -19,7 +18,7 @@ import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
@@ -48,8 +47,6 @@ public final class WidgetProvider extends AppWidgetProvider {
         final DilbertPreferences prefs = new DilbertPreferences(context);
         final RemoteViews views = new RemoteViews(context.getPackageName(),
                 R.layout.widget_layout);
-        views.setInt(R.id.widget_layout, "setBackgroundColor",
-                prefs.isDarkWidgetLayoutEnabled() ? Color.BLACK : Color.WHITE);
         views.setOnClickPendingIntent(R.id.widget_previous,
                 getPendingIntent(INTENT_PREVIOUS, context, appWidgetId));
         views.setOnClickPendingIntent(R.id.widget_next,
@@ -78,7 +75,7 @@ public final class WidgetProvider extends AppWidgetProvider {
                 R.id.widget_title,
                 prefs.getDateForWidgetId(appWidgetId)
                         .toString(
-                                DilbertPreferences.DATE_FORMATTER));
+                                DilbertPreferences.NICE_DATE_FORMATTER));
         appWidgetManager.updateAppWidget(appWidgetId, views);
         if (cachedUrl == null) {
             new GetStripUrl(new GetStripUrlInterface() {

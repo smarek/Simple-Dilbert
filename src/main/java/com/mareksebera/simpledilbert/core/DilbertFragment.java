@@ -26,7 +26,7 @@ import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.joda.time.LocalDate;
 

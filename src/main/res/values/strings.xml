@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">Simple Dilbert</string>
     <string name="apache_license_2_0" translatable="false">Apache License 2.0</string>
     <string name="menu_datepicker">Choose date</string>
-    <string name="about_contents">Made by Marek Sebera 2013, marek@msebera.cz</string>
+    <string name="about_contents">Made by Marek Sebera 2013–2015, marek@msebera.cz</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com is not available. Loading failed.</string>
     <string name="menu_latest">Show latest</string>
@@ -32,7 +32,6 @@
     <string name="pref_hide_toolbars">Hide Toolbars By Default</string>
     <string name="pref_show_license">Display Software License</string>
     <string name="pref_force_dark_background_widget">Use dark background for widget</string>
-    <string name="pref_rating">Rate this application on Google Play</string>
     <string name="menu_settings">Settings</string>
     <string name="pref_download_path">Downloads target folder:</string>
     <string name="pref_share_image">Don\'t share image, just an URL</string>

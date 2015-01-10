@@ -66,7 +66,7 @@ public class FolderPickerFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflated = inflater.inflate(R.layout.fragment_folder_picker, container, false);
         assert inflated != null;
-        inflated.setPadding(0, ActionBarUtility.getActionBarHeightDip(container.getContext()), 0, 0);
+        inflated.setPadding(0, ActionBarUtility.getActionBarHeightDip(container == null ? inflated.getContext() : container.getContext()), 0, 0);
         currentPath = (TextView) inflated.findViewById(R.id.fragment_folder_picker_current_path);
         currentPath.setText(folderPickerAdapter.getCurrentFolder().getAbsolutePath());
         return inflated;

@@ -46,6 +46,7 @@ public final class
         @Override
         public void onPageSelected(int position) {
             preferences.saveCurrentDate(adapter.getDateForPosition(position));
+            setTitle(adapter.getPageTitle(position));
         }
 
         @Override
@@ -75,9 +76,7 @@ public final class
             setRequestedOrientation(preferences.getLandscapeOrientation());
         setContentView(R.layout.activity_dilbert_fragments);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        PagerTitleStrip titles = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
         adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
-        titles.setTextColor(Color.WHITE);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(pageChangedListener);
         if (preferences.isToolbarsHidden())
@@ -105,15 +104,15 @@ public final class
     public boolean onCreateOptionsMenu(Menu menu) {
         final int category = 0;
         MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_DATEPICKER, 4, R.string.menu_datepicker)
+                menu.add(category, MENU_DATEPICKER, 1, R.string.menu_datepicker)
                         .setIcon(R.drawable.ic_menu_datepicker),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SHUFFLE, 1, R.string.menu_random)
+                menu.add(category, MENU_SHUFFLE, 2, R.string.menu_random)
                         .setIcon(R.drawable.ic_menu_shuffle),
-                MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SEARCH, 6, "Search")
+                menu.add(category, MENU_SEARCH, 3, "Search")
                         .setIcon(R.drawable.ic_menu_search),
                 MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         MenuItemCompat.setShowAsAction(

@@ -1,13 +1,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppThemeLight" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="titlesBackground">@drawable/abc_ab_solid_dark_holo</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
 
     <style name="AppThemeDark" parent="@style/Theme.AppCompat">
-        <item name="titlesBackground">@android:color/transparent</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
     </style>

@@ -2,7 +2,7 @@
 <resources>
 
     <string name="menu_datepicker">Выберите дату</string>
-    <string name="about_contents">Автор: Marek Sebera 2013, marek@msebera.cz</string>
+    <string name="about_contents">Автор: Marek Sebera 2013–2015, marek@msebera.cz</string>
     <string name="cd_dilbert_image">Дилберт</string>
     <string name="loading_exception_error">Не удалось загрузить - Dilbert.com недоступен.</string>
     <string name="menu_latest">Показать последние</string>
@@ -31,7 +31,6 @@
     <string name="pref_hide_toolbars">Скрывать по умолчанию панель инструментов</string>
     <string name="pref_show_license">Показать лицензионное соглашение</string>
     <string name="pref_force_dark_background_widget">Использовать  для виджета темный фон</string>
-    <string name="pref_rating">Оценить это приложение на Google Play</string>
     <string name="menu_settings">Настройки</string>
     <string name="pref_download_path">Папка для загрузок:</string>
     <string name="pref_share_image">Делиться только URL, а не рисунками</string>

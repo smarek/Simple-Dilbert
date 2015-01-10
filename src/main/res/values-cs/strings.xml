@@ -1,7 +1,7 @@
 <resources>
 
     <string name="menu_datepicker">Vybrat datum</string>
-    <string name="about_contents">Aplikaci vytvořil Marek Sebera 2013, marek@msebera.cz</string>
+    <string name="about_contents">Aplikaci vytvořil Marek Sebera 2013–2015, marek@msebera.cz</string>
     <string name="cd_dilbert_image">Dilbert</string>
     <string name="loading_exception_error">Dilbert.com není dostupná. Načítání selhalo.</string>
     <string name="menu_latest">Zobraz nejnovější</string>
@@ -26,7 +26,6 @@
     <string name="pref_force_dark_background_widget">Použít tmavé zobrazení pro widget</string>
     <string name="pref_hide_toolbars">Skrývat lišty</string>
     <string name="pref_show_license">Zobrazit softwarovou licenci</string>
-    <string name="pref_rating">Ohodnotit aplikaci v obchodu Google Play</string>
     <string name="menu_settings">Nastavení</string>
     <string name="pref_download_path">Adresář pro stahování:</string>
     <string name="pref_share_image">Nesdílet obrázek, pouze odkaz</string>
