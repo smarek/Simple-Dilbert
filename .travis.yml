@@ -1,25 +1,10 @@
-language: java
-jdk:
-  - openjdk7
-before_install:
-  # environment map
-  - gradle -v
-  - uname -a
-  # fixup for 32bit android build tools
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get update; fi
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
-  # for gradle output style
-  - export TERM=dumb
-  # newer version of gradle
-  - wget http://services.gradle.org/distributions/gradle-1.12-bin.zip
-  - unzip -qq gradle-1.12-bin.zip
-  - export GRADLE_HOME=$PWD/gradle-1.12
-  - export PATH=$GRADLE_HOME/bin:$PATH
-  # newest android SDK
-  - wget http://dl.google.com/android/android-sdk_r22.6.2-linux.tgz
-  - tar -zxf android-sdk_r22.6.2-linux.tgz
-  - export ANDROID_HOME=`pwd`/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-  # manually set sdk.dir variable, according to local paths
-  - echo "sdk.dir=$ANDROID_HOME" > local.properties
-  - echo yes | android update sdk -t tools,platform-tools,extra-android-support,extra-android-m2repository,android-19,build-tools-19.0.3 --force --no-ui
+language: android
+jdk: openjdk7
+android:
+  components:
+    - build-tools-21.1.2
+    - extra-android-support
+    - extra-android-m2repository
+    - android-21
+  licenses:
+    - '.+'
