@@ -26,25 +26,12 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
 
-                <data
-                    android:scheme="http"
-                    android:host="dilbert.com"
-                    android:pathPrefix="/strips/"/>
-
-                <data
-                    android:scheme="http"
-                    android:host="www.dilbert.com"
-                    android:pathPrefix="/strips/"/>
-
-                <data
-                    android:scheme="https"
-                    android:host="dilbert.com"
-                    android:pathPrefix="/strips/"/>
-
-                <data
-                    android:scheme="https"
-                    android:host="www.dilbert.com"
-                    android:pathPrefix="/strips/"/>
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="dilbert.com"/>
+                <data android:host="www.dilbert.com"/>
+                <data android:pathPattern="/....-..-../"/>
+                <data android:pathPattern="/strips/....-..-../"/>
             </intent-filter>
         </activity>
         <activity android:name=".picker.FolderPickerActivity"/>
