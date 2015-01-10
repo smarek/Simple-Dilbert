@@ -25,9 +25,6 @@ keystore.readme
 #Gradle
 .gradle
 build
-gradlew
-gradlew.bat
-gradle
 
 # IntelliJ IDEA
 .idea
