@@ -28,7 +28,7 @@ import java.util.Locale;
 public final class
         DilbertFragmentActivity extends ActionBarActivity implements DilbertFragmentInterface {
 
-    private static final int MENU_DATEPICKER = 1, MENU_SEARCH = 2, MENU_LATEST = 3, MENU_OLDEST = 4,
+    private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3, MENU_OLDEST = 4,
             MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7;
     private final DatePickerDialog.OnDateSetListener dilbertOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -112,10 +112,6 @@ public final class
                         .setIcon(R.drawable.ic_menu_shuffle),
                 MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SEARCH, 3, "Search")
-                        .setIcon(R.drawable.ic_menu_search),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_SHOW_FAVORITES, 6, R.string.menu_show_favorite),
                 MenuItemCompat.SHOW_AS_ACTION_NEVER);
         MenuItemCompat.setShowAsAction(
@@ -161,8 +157,6 @@ public final class
             case MENU_SETTINGS:
                 startActivity(new Intent(this, DilbertPreferencesActivity.class));
                 finish();
-                return true;
-            case MENU_SEARCH:
                 return true;
         }
         return super.onOptionsItemSelected(item);
