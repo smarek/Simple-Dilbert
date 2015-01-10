@@ -16,7 +16,6 @@
     <string name="menu_show_favorite">Show favorites</string>
     <string name="menu_zoom">Zoom</string>
     <string name="toast_no_favorites">You have no favorite strips</string>
-    <string name="title_favorited">Favorite strips</string>
     <string name="menu_random">Random</string>
     <string name="share_chooser">Share Dilbert Comics</string>
     <string name="menu_share">Share this!</string>
@@ -31,7 +30,6 @@
     <string name="pref_force_dark_background">Use Dark Backgrounds</string>
     <string name="pref_hide_toolbars">Hide Toolbars By Default</string>
     <string name="pref_show_license">Display Software License</string>
-    <string name="pref_force_dark_background_widget">Use dark background for widget</string>
     <string name="menu_settings">Settings</string>
     <string name="pref_download_path">Downloads target folder:</string>
     <string name="pref_share_image">Don\'t share image, just an URL</string>

@@ -15,7 +15,6 @@
     <string name="menu_show_favorite">Mostrar favoritos</string>
     <string name="menu_zoom">Zoom</string>
     <string name="toast_no_favorites">No tiene tiras favoritas</string>
-    <string name="title_favorited">Tiras favoritas</string>
     <string name="menu_random">Aleatorio</string>
     <string name="share_chooser">Comparte Dilbert Comics</string>
     <string name="menu_share">Compartir</string>
@@ -30,7 +29,6 @@
     <string name="pref_force_dark_background">Usar fondos oscuros</string>
     <string name="pref_hide_toolbars">Ocultar barras de herramientas por defecto</string>
     <string name="pref_show_license">Mostrar la licencia del software</string>
-    <string name="pref_force_dark_background_widget">Utilizar fondo oscuro para el widget</string>
     <string name="menu_settings">Configuración</string>
     <string name="pref_download_path">Carpeta de destino de Descargas:</string>
     <string name="pref_share_image">No comparta la imagen, sólo una URL</string>

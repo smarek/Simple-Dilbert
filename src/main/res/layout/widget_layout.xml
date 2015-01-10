@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:lines="1"
-            android:paddingLeft="5dp"
+            android:layout_marginLeft="5dp"
             android:singleLine="true"
             android:textColor="#FFFFFF"
             android:textSize="20sp"/>

@@ -34,7 +34,7 @@ public final class AppController extends Application {
     public static void configureImageLoader(Context c) {
         if (!ImageLoader.getInstance().isInited()) {
             DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
-                    .cacheInMemory(true).cacheOnDisc(true)
+                    .cacheInMemory(true).cacheOnDisk(true)
                     .displayer(new FailSafeBitmapDisplayer()).build();
             ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(
                     c)

@@ -15,7 +15,6 @@
     <string name="menu_show_favorite">Visa favoriter</string>
     <string name="menu_zoom">Zoom</string>
     <string name="toast_no_favorites">Du har inga favorit serier</string>
-    <string name="title_favorited">Favorit serier</string>
     <string name="menu_random">Slumpvis</string>
     <string name="share_chooser">Dela Dilbert Comics</string>
     <string name="menu_share">Dela detta!</string>
@@ -30,7 +29,6 @@
     <string name="pref_force_dark_background">Använd Mörka Bakgrunder</string>
     <string name="pref_hide_toolbars">Göm Verktygsfält som Standard</string>
     <string name="pref_show_license">Visa Programvarulicens</string>
-    <string name="pref_force_dark_background_widget">Använd mörk bakgrund för widget</string>
     <string name="menu_settings">Inställningar</string>
     <string name="pref_download_path">Laddar ner målmapp:</string>
     <string name="pref_share_image">Dela inte bilden, bara en URL</string>

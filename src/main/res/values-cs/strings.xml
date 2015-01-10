@@ -14,7 +14,6 @@
     <string name="menu_show_favorite">Zobrazit oblíbené</string>
     <string name="menu_zoom">Zvětšit</string>
     <string name="toast_no_favorites">Nemáte žádné oblíbené</string>
-    <string name="title_favorited">Oblíbené díly</string>
     <string name="menu_random">Náhodný díl</string>
     <string name="share_chooser">Sdílet komiks Dilbert</string>
     <string name="menu_share">Sdílet</string>
@@ -23,7 +22,6 @@
     <string name="pref_reverse_landscape">Invertovat horizontální zobrazení</string>
     <string name="pref_enable_high_quality">Vysoká kvalita komiksu</string>
     <string name="pref_force_dark_background">Použít tmavé zobrazení</string>
-    <string name="pref_force_dark_background_widget">Použít tmavé zobrazení pro widget</string>
     <string name="pref_hide_toolbars">Skrývat lišty</string>
     <string name="pref_show_license">Zobrazit softwarovou licenci</string>
     <string name="menu_settings">Nastavení</string>

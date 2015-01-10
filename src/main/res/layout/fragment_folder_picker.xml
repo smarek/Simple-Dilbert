@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="middle"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textSize="20sp"/>
 
     <ListView

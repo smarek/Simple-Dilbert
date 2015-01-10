@@ -15,7 +15,6 @@
     <string name="menu_show_favorite">Mostrar favoritos</string>
     <string name="menu_zoom">Zoom</string>
     <string name="toast_no_favorites">Você não tem tiras favoritas</string>
-    <string name="title_favorited">Tiras favoritas</string>
     <string name="menu_random">Aleatório</string>
     <string name="share_chooser">Compartilhar Quadrinhos do Dilbert</string>
     <string name="menu_share">Compartilhar esta!</string>
@@ -30,7 +29,6 @@
     <string name="pref_force_dark_background">Use Fundos Escuros</string>
     <string name="pref_hide_toolbars">Ocultar Barras de Ferramentas como Padrão</string>
     <string name="pref_show_license">Exibir Licença de Software</string>
-    <string name="pref_force_dark_background_widget">Use fundo escuro para este widget</string>
     <string name="menu_settings">Configurações</string>
     <string name="pref_download_path">Pasta de destino dos downloads:</string>
     <string name="pref_share_image">Não compartilhar a imagem, apenas uma URL</string>

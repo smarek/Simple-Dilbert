@@ -12,11 +12,9 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppThemeLight"
-        android:uiOptions="splitActionBarWhenNarrow">
+        android:theme="@style/AppThemeLight">
         <activity
-            android:name="com.mareksebera.simpledilbert.core.DilbertFragmentActivity"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:name="com.mareksebera.simpledilbert.core.DilbertFragmentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
