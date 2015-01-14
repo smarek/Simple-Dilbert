@@ -9,8 +9,6 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.joda.time.LocalDate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,34 +21,13 @@ final public class FindUrls {
     }
 
     private static final Pattern url_match_pattern = Pattern
-            .compile("/dyn/str_strip(.*).gif");
+            .compile("<meta\\s+property=\"og:image\"\\s+content=\"(.*)\"\\s?/>");
 
     private static final Pattern date_match_pattern = Pattern
             .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
 
-    public static List<String> extractUrls(String input) {
-        List<String> result = new ArrayList<>();
-
-        Pattern pattern = Pattern
-                .compile("\\b(((ht|f)tp(s?)://|~/|/)|www.)"
-                        + "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|[a-z]{2}))(:[\\d]{1,5})?"
-                        + "(((/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|/)+|\\?|#)?"
-                        + "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
-                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)"
-                        + "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
-                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
-                        + "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
-
-        Matcher matcher = pattern.matcher(input);
-        while (matcher.find()) {
-            result.add(matcher.group());
-        }
-
-        return result;
-    }
-
-    public static List<String> extractUrls(HttpResponse response) {
-        List<String> found = new ArrayList<>();
+    public static String extractUrls(HttpResponse response) {
+        String found = null;
         try {
             Scanner scan;
             Header contentEncoding = response
@@ -63,10 +40,11 @@ final public class FindUrls {
                 scan = new Scanner(response.getEntity().getContent());
             }
 
-            String match;
-            while ((match = scan.findWithinHorizon(url_match_pattern, 0)) != null) {
-                found.add(match.replace("/dyn/str_strip",
-                        "http://www.dilbert.com/dyn/str_strip"));
+            found = scan.findWithinHorizon(url_match_pattern, 0);
+            if (null != found) {
+                Matcher m = url_match_pattern.matcher(found);
+                if (m.matches())
+                    found = m.group(1);
             }
             scan.close();
             response.getEntity().consumeContent();

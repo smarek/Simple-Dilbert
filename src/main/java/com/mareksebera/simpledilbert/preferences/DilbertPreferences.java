@@ -18,7 +18,6 @@ import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.FavoritedItem;
 
 import org.intellij.lang.annotations.MagicConstant;
-import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -39,13 +38,11 @@ public final class DilbertPreferences {
 
     private static final String PREF_CURRENT_DATE = "dilbert_current_date";
     private static final String PREF_CURRENT_URL = "dilbert_current_url";
-    private static final String PREF_HIGH_QUALITY_ENABLED = "dilbert_use_high_quality";
     private static final String PREF_DARK_LAYOUT = "dilbert_dark_layout";
     private static final String PREF_FORCE_LANDSCAPE = "dilbert_force_landscape";
     private static final String PREF_HIDE_TOOLBARS = "dilbert_hide_toolbars";
     private static final String PREF_DOWNLOAD_TARGET = "dilbert_download_target_folder";
     private static final String PREF_SHARE_IMAGE = "dilbert_share_with_image";
-    private static final String PREF_MOBILE_NETWORK = "dilbert_using_slow_network";
     private static final String PREF_REVERSE_LANDSCAPE = "dilbert_reverse_landscape";
     private static final String PREF_OPEN_AT_LATEST = "dilbert_open_at_latest_strip";
     private static final String PREF_WIDGET_ALWAYS_SHOW_LATEST = "dilbert_widget_always_show_latest";
@@ -86,15 +83,6 @@ public final class DilbertPreferences {
         editor.putString(PREF_CURRENT_DATE,
                 currentDate.toString(DilbertPreferences.DATE_FORMATTER));
         return editor.commit();
-    }
-
-    /**
-     * Returns state of high-quality user preference
-     *
-     * @return whether downloading high-quality images is enabled
-     */
-    public boolean isHighQualityOn() {
-        return preferences.getBoolean(PREF_HIGH_QUALITY_ENABLED, true);
     }
 
     /**
@@ -233,9 +221,8 @@ public final class DilbertPreferences {
         try {
             DownloadManager dm = (DownloadManager) activity
                     .getSystemService(Context.DOWNLOAD_SERVICE);
-            String url = toHighQuality(downloadUrl);
             DownloadManager.Request request = new DownloadManager.Request(
-                    Uri.parse(url));
+                    Uri.parse(downloadUrl));
             String downloadDate = DATE_FORMATTER.print(stripDate);
             Uri userPath = Uri.withAppendedPath(
                     Uri.parse("file://" + getDownloadTarget()),
@@ -290,35 +277,6 @@ public final class DilbertPreferences {
      */
     public String getScheduledTargetPath(String downloadDate) {
         return preferences.getString("move_" + downloadDate.replace("-", "_"), null);
-    }
-
-    /**
-     * Converts URL to target high quality image
-     *
-     * @param url original url to be modified
-     * @return url after modifications
-     */
-    public String toHighQuality(String url) {
-        if (url == null)
-            return null;
-        return url.replace(".gif", ".zoom.gif").replace("zoom.zoom", "zoom");
-    }
-
-    /**
-     * Converts URL to target low iamge quality
-     *
-     * @param date date associated with url
-     * @param url  url which should be modified
-     * @return url after changes
-     */
-    public String toLowQuality(LocalDate date, String url) {
-        if (url == null)
-            return null;
-        if (date.getDayOfWeek() == DateTimeConstants.SUNDAY) {
-            return url.replace(".zoom.gif", ".sunday.gif").replace("zoom.zoom",
-                    "zoom");
-        }
-        return url.replace(".zoom.gif", ".gif").replace("zoom.zoom", "zoom");
     }
 
     /**
@@ -436,10 +394,6 @@ public final class DilbertPreferences {
         return editor.putBoolean(PREF_HIDE_TOOLBARS, hidden).commit();
     }
 
-    public boolean setIsHighQualityOn(boolean enabled) {
-        return editor.putBoolean(PREF_HIGH_QUALITY_ENABLED, enabled).commit();
-    }
-
     public String getDownloadTarget() {
         return preferences.getString(
                 PREF_DOWNLOAD_TARGET,
@@ -456,25 +410,6 @@ public final class DilbertPreferences {
 
     public boolean setIsSharingImage(boolean shouldShareImage) {
         return editor.putBoolean(PREF_SHARE_IMAGE, shouldShareImage).commit();
-    }
-
-    /**
-     * Setter for slow network flag
-     *
-     * @param isSlowNetwork whether application is on slow network
-     * @return boolean if the save was successfull
-     */
-    public boolean setIsSlowNetwork(boolean isSlowNetwork) {
-        return editor.putBoolean(PREF_MOBILE_NETWORK, isSlowNetwork).commit();
-    }
-
-    /**
-     * Getter for slow network flag
-     *
-     * @return whether application assumes user is connected over slow network
-     */
-    public boolean isSlowNetwork() {
-        return preferences.getBoolean(PREF_MOBILE_NETWORK, true);
     }
 
     public boolean setIsReversedLandscape(boolean isReversed) {

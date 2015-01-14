@@ -17,7 +17,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
@@ -33,8 +32,8 @@ import static android.appwidget.AppWidgetManager.getInstance;
 
 public final class DilbertPreferencesActivity extends ActionBarActivity {
 
-    private CheckBox force_landscape, enable_hq, force_dark, hide_toolbars,
-            share_image, mobile_network, reverse_landscape,
+    private CheckBox force_landscape, force_dark, hide_toolbars,
+            share_image, reverse_landscape,
             open_at_latest_strip, widget_always_show_latest;
     private TextView download_path;
     private DilbertPreferences preferences;
@@ -124,11 +123,9 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         setContentView(R.layout.preferences);
         setTitle(R.string.title_preferences);
         force_landscape = (CheckBox) findViewById(R.id.pref_force_landscape);
-        enable_hq = (CheckBox) findViewById(R.id.pref_enable_high_quality);
         force_dark = (CheckBox) findViewById(R.id.pref_force_dark_background);
         hide_toolbars = (CheckBox) findViewById(R.id.pref_hide_toolbars);
         share_image = (CheckBox) findViewById(R.id.pref_share_image);
-        mobile_network = (CheckBox) findViewById(R.id.pref_mobile_network);
         download_path = (TextView) findViewById(R.id.pref_download_path);
         reverse_landscape = (CheckBox) findViewById(R.id.pref_reverse_landscape);
         open_at_latest_strip = (CheckBox) findViewById(R.id.pref_open_at_latest_strip);
@@ -158,12 +155,10 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         force_landscape.setChecked(preferences.isForceLandscape());
-        enable_hq.setChecked(preferences.isHighQualityOn());
         force_dark.setChecked(preferences.isDarkLayoutEnabled());
         hide_toolbars.setChecked(preferences.isToolbarsHidden());
         download_path.setText(preferences.getDownloadTarget());
         share_image.setChecked(preferences.isSharingImage());
-        mobile_network.setChecked(preferences.isSlowNetwork());
         reverse_landscape.setVisibility(Build.VERSION.SDK_INT >= 9 ? View.VISIBLE : View.GONE);
         reverse_landscape.setEnabled(preferences.isForceLandscape());
         reverse_landscape.setChecked(preferences.isReversedLandscape() && preferences.isForceLandscape());
@@ -187,9 +182,7 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         preferences.setIsDarkLayoutEnabled(force_dark.isChecked());
         preferences.setIsForceLandscape(force_landscape.isChecked());
         preferences.setIsToolbarsHidden(hide_toolbars.isChecked());
-        preferences.setIsHighQualityOn(enable_hq.isChecked());
         preferences.setIsSharingImage(share_image.isChecked());
-        preferences.setIsSlowNetwork(mobile_network.isChecked());
         preferences.setIsReversedLandscape(reverse_landscape.isChecked());
         preferences.setShouldOpenAtLatestStrip(open_at_latest_strip.isChecked());
         preferences.setWidgetAlwaysShowLatest(widget_always_show_latest.isChecked());

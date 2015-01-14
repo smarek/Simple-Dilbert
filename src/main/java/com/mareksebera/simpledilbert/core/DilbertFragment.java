@@ -67,9 +67,6 @@ public final class DilbertFragment extends Fragment {
         public void displayImage(String url) {
             if (image == null)
                 return;
-            boolean hqIsEnabled = preferences.isHighQualityOn();
-            url = hqIsEnabled ? preferences.toHighQuality(url) : preferences
-                    .toLowQuality(getDateFromArguments(), url);
             ImageLoader.getInstance().displayImage(url, image,
                     dilbertImageLoadingListener);
         }
@@ -246,10 +243,7 @@ public final class DilbertFragment extends Fragment {
     }
 
     private void shareCurrentStrip() {
-        String url = preferences.isHighQualityOn() ? preferences
-                .toHighQuality(preferences.getCachedUrl(getDateFromArguments()))
-                : preferences.toLowQuality(getDateFromArguments(),
-                preferences.getCachedUrl(getDateFromArguments()));
+        String url = preferences.getCachedUrl(getDateFromArguments());
         if (url == null)
             return;
         ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {

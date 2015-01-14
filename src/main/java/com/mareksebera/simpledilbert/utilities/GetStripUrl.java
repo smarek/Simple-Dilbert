@@ -48,7 +48,7 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
         if (cached != null) {
             return cached;
         }
-        HttpGet get = new HttpGet("http://www.dilbert.com/strips/comic/"
+        HttpGet get = new HttpGet("http://dilbert.com/strip/"
                 + currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
         HttpResponse response = null;
         try {
@@ -59,72 +59,17 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
         }
         if (response == null)
             return null;
-        if (preferences.isSlowNetwork()) {
-            return handleSlowNetworkParse(response);
-        } else {
-            return handleFastNetworkParse(response);
-        }
+        return handleParse(response);
     }
 
-    private String handleFastNetworkParse(HttpResponse response) {
-        for (String s : FindUrls.extractUrls(response)) {
-            /**
-             * This method can only accept gif URLs with appropriate suffixes
-             * */
-            if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")
-                    || s.endsWith(".strip.zoom.gif")) {
-                s = s.replace(".strip.gif", ".strip.zoom.gif");
-                s = s.replace(".sunday.gif", ".strip.zoom.gif");
-                s = s.replace(".strip.strip", ".strip");
-                /**
-                 * This is the only place where pair date-url is saved into
-                 * preferences
-                 * */
-                preferences
-                        .saveCurrentUrl(currDate
-                                .toString(DilbertPreferences.DATE_FORMATTER), s);
-                /**
-                 * Not using method loadImage() as it would be inefficient
-                 * */
-                return s;
-            }
+    private String handleParse(HttpResponse response) {
+        String foundUrl = FindUrls.extractUrls(response);
+        if (null != foundUrl) {
+            preferences
+                    .saveCurrentUrl(currDate
+                            .toString(DilbertPreferences.DATE_FORMATTER), foundUrl);
         }
-        return null;
-    }
-
-    private String handleSlowNetworkParse(HttpResponse response) {
-        String result;
-        try {
-            result = EntityUtils.toString(response.getEntity());
-        } catch (Throwable t) {
-            Log.e("GetStripUrl", "handleSlowNetwork allocation failed");
-            return null;
-        }
-        result = result.replace("\"/dyn/str_strip",
-                "\"http://www.dilbert.com/dyn/str_strip");
-        for (String s : FindUrls.extractUrls(result)) {
-            /**
-             * This method can only accept gif URLs with appropriate suffixes
-             * */
-            if (s.endsWith(".strip.gif") || s.endsWith(".sunday.gif")
-                    || s.endsWith(".strip.zoom.gif")) {
-                s = s.replace(".strip.gif", ".strip.zoom.gif");
-                s = s.replace(".sunday.gif", ".strip.zoom.gif");
-                s = s.replace(".strip.strip", ".strip");
-                /**
-                 * This is the only place where pair date-url is saved into
-                 * preferences
-                 * */
-                preferences
-                        .saveCurrentUrl(currDate
-                                .toString(DilbertPreferences.DATE_FORMATTER), s);
-                /**
-                 * Not using method loadImage() as it would be inefficient
-                 * */
-                return s;
-            }
-        }
-        return null;
+        return foundUrl;
     }
 
     @Override
