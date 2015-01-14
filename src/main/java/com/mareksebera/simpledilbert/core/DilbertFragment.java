@@ -159,10 +159,15 @@ public final class DilbertFragment extends Fragment {
         this.image.setOnPhotoTapListener(photoTapListener);
         this.progress = (ProgressBar) fragment
                 .findViewById(R.id.fragment_progressbar);
-        this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
-                getDateFromArguments());
         this.image.setVisibility(View.GONE);
-        this.loadTask.execute();
+        String cachedUrl = preferences.getCachedUrl(getDateFromArguments());
+        if (null != cachedUrl) {
+            getStripUrilListener.displayImage(cachedUrl);
+        } else {
+            this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
+                    getDateFromArguments());
+            this.loadTask.execute();
+        }
         return fragment;
     }
 
