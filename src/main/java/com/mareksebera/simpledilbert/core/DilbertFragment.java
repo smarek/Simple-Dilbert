@@ -233,6 +233,8 @@ public final class DilbertFragment extends Fragment {
     }
 
     private void refreshAction() {
+        ImageLoader.getInstance().getDiskCache().remove(preferences.getCachedUrl(getDateFromArguments()));
+        ImageLoader.getInstance().clearMemoryCache();
         preferences.removeCache(getDateFromArguments());
         if (this.loadTask == null
                 || this.loadTask.getStatus() != Status.PENDING) {
