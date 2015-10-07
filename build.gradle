@@ -31,19 +31,9 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
-    signingConfigs {
-        release {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('android.keystore')
-            storePassword 'android'
-        }
-    }
-
     buildTypes {
         release {
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
             minifyEnabled true
             shrinkResources true
         }
