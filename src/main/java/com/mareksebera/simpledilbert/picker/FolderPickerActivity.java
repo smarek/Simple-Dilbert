@@ -6,12 +6,14 @@ import android.view.MenuItem;
 
 import com.mareksebera.simpledilbert.R;
 
-public class FolderPickerActivity extends ActionBarActivity {
+public final class FolderPickerActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         setContentView(R.layout.activity_folder_picker);
     }
 

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.FrameLayout;
@@ -17,7 +17,7 @@ public final class ActionBarUtility {
         return (int) ((48 * scale) + 0.5);
     }
 
-    public static void toggleActionBar(ActionBarActivity actionBarActivity,
+    public static void toggleActionBar(AppCompatActivity actionBarActivity,
                                        ViewPager viewPager) {
         try {
             if (actionBarActivity == null || actionBarActivity.getSupportActionBar() == null)
@@ -49,7 +49,7 @@ public final class ActionBarUtility {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private static int getActionBarHeightCompat(ActionBarActivity actionBarActivity) {
+    private static int getActionBarHeightCompat(AppCompatActivity actionBarActivity) {
         TypedValue tv = new TypedValue();
         Resources.Theme activityTheme = actionBarActivity.getTheme();
         boolean resolved = false;

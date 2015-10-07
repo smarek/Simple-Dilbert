@@ -2,13 +2,11 @@ package com.mareksebera.simpledilbert.core;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
@@ -26,7 +24,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public final class
-        DilbertFragmentActivity extends ActionBarActivity implements DilbertFragmentInterface {
+        DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInterface {
 
     private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3, MENU_OLDEST = 4,
             MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7;
@@ -36,7 +34,7 @@ public final class
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             LocalDate selDate = LocalDate.parse(String.format(new Locale(
-                    "en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
+                            "en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
                     DilbertPreferences.DATE_FORMATTER);
             setCurrentDate(selDate);
         }
@@ -78,7 +76,7 @@ public final class
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-        viewPager.setOnPageChangeListener(pageChangedListener);
+        viewPager.addOnPageChangeListener(pageChangedListener);
         if (preferences.isToolbarsHidden())
             ActionBarUtility.toggleActionBar(this, viewPager);
         tryHandleUrlIntent();

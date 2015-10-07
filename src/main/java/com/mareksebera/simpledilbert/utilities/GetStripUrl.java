@@ -1,5 +1,6 @@
 package com.mareksebera.simpledilbert.utilities;
 
+import android.accounts.NetworkErrorException;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -9,12 +10,14 @@ import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.joda.time.LocalDate;
+
+import java.io.IOException;
+
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.impl.client.CloseableHttpClient;
+import cz.msebera.android.httpclient.impl.client.HttpClients;
 
 public final class GetStripUrl extends AsyncTask<Void, Void, String> {
 
@@ -51,15 +54,25 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
         HttpGet get = new HttpGet("http://dilbert.com/strip/"
                 + currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
         HttpResponse response = null;
+        CloseableHttpClient client = null;
         try {
-            HttpClient client = new DefaultHttpClient();
+            client = HttpClients.createSystem();
             response = client.execute(get);
         } catch (Exception e) {
             Log.e(TAG, "HttpGet failed", e);
         }
-        if (response == null)
+        if (response == null) {
             return null;
-        return handleParse(response);
+        }
+        String rtn = handleParse(response);
+
+        try {
+            client.close();
+        } catch (IOException e) {
+            Log.e(TAG, "Closing HttpClient failed", e);
+        }
+
+        return rtn;
     }
 
     private String handleParse(HttpResponse response) {
@@ -77,8 +90,7 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
         if (result == null) {
             if (listener != null)
                 listener.imageLoadFailed(preferences.getCachedUrl(currDate),
-                        new FailReason(FailType.NETWORK_DENIED,
-                                new ParseException()));
+                        new FailReason(FailType.NETWORK_DENIED, new NetworkErrorException("Network Denied")));
             else
                 Log.e(TAG, "Listener is NULL");
         } else {

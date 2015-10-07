@@ -19,7 +19,7 @@ import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class FolderPickerAdapter extends BaseAdapter {
+public final class FolderPickerAdapter extends BaseAdapter {
 
     private FragmentActivity context;
     private File currentPath;
@@ -99,7 +99,7 @@ public class FolderPickerAdapter extends BaseAdapter {
         File item = (File) getItem(position);
         if (item != null) {
             if (hasParent && currentPath.getParentFile().getAbsolutePath().equals(item.getAbsolutePath())) {
-                vh.title.setText(String.format(".. (%s)", item.getName() == null || item.getName().equalsIgnoreCase("") ? "/" : item.getName()));
+                vh.title.setText(String.format(".. (%s)", item.getName().equalsIgnoreCase("") ? "/" : item.getName()));
             } else {
                 vh.title.setText(item.getName());
             }
@@ -136,7 +136,7 @@ public class FolderPickerAdapter extends BaseAdapter {
         ImageView icon;
     }
 
-    class DirAlphaComparator implements Comparator<File> {
+    final static class DirAlphaComparator implements Comparator<File> {
 
         public int compare(File filea, File fileb) {
             if (filea.isDirectory() && !fileb.isDirectory()) {

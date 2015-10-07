@@ -32,7 +32,7 @@ public final class WidgetProvider extends AppWidgetProvider {
     private static final String INTENT_REFRESH = "com.mareksebera.simpledilbert.widget.REFRESH";
     private static final String INTENT_DISPLAY = "com.mareksebera.simpledilbert.widget.DISPLAY";
 
-    private static final Toast currentToast = null;
+    private static Toast currentToast = null;
 
     private static PendingIntent getPendingIntent(String INTENT,
                                                   Context context, int appWidgetId) {
@@ -82,8 +82,9 @@ public final class WidgetProvider extends AppWidgetProvider {
 
                 @Override
                 public void imageLoadFailed(String url, FailReason reason) {
-                    Toast.makeText(context, "Image Loading failed",
-                            Toast.LENGTH_SHORT).show();
+                    currentToast = Toast.makeText(context, "Image Loading failed",
+                            Toast.LENGTH_SHORT);
+                    currentToast.show();
                     views.setImageViewResource(R.id.widget_image,
                             R.drawable.cancel);
                     views.setViewVisibility(R.id.widget_progress, View.GONE);

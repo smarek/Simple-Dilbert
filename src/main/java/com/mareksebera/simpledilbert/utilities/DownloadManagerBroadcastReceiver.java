@@ -14,7 +14,7 @@ import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 
 import java.io.File;
 
-public class DownloadManagerBroadcastReceiver extends BroadcastReceiver {
+public final class DownloadManagerBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -24,7 +24,7 @@ public class DownloadManagerBroadcastReceiver extends BroadcastReceiver {
             DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             Uri downloadedFilePath = dm.getUriForDownloadedFile(intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0));
             if (downloadedFilePath == null) {
-                Log.d("DownloadManagerBroadcastReceiver", "No Uri for downloaded file from DownloadManager");
+                Log.d("DlManagerBReceiver", "No Uri for downloaded file from DownloadManager");
                 return;
             }
             File downloadedFile = new File(downloadedFilePath.getPath());
@@ -38,7 +38,7 @@ public class DownloadManagerBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Throwable t) {
-            Log.e("DownloadManagerBroadcastReceiver", "Error while moving downloaded file to desired target folder", t);
+            Log.e("DlManagerBReceiver", "Error while moving downloaded file to desired target folder", t);
         }
     }
 }

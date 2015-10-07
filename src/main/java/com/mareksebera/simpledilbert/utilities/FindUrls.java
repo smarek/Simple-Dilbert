@@ -5,14 +5,16 @@ import android.util.Log;
 
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
 import org.joda.time.LocalDate;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 final public class FindUrls {
     private static final String LOG_TAG = "FindUrls";
@@ -21,7 +23,7 @@ final public class FindUrls {
     }
 
     private static final Pattern url_match_pattern = Pattern
-            .compile("<img.*img-comic.*src=\"([a-zA-Z0-9:\\/\\.]*)\"\\s+");
+            .compile("<img.*img-comic.*src=\"([a-zA-Z0-9:/\\.]*)\"\\s+");
 
     private static final Pattern date_match_pattern = Pattern
             .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
@@ -47,7 +49,7 @@ final public class FindUrls {
                     found = m.group(1);
             }
             scan.close();
-            response.getEntity().consumeContent();
+            EntityUtils.consume(response.getEntity());
         } catch (Throwable t) {
             Log.e(LOG_TAG, "Error Occurred", t);
         }

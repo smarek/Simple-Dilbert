@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +30,7 @@ import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.getInstance;
 
-public final class DilbertPreferencesActivity extends ActionBarActivity {
+public final class DilbertPreferencesActivity extends AppCompatActivity {
 
     private CheckBox force_landscape, force_dark, hide_toolbars,
             share_image, reverse_landscape,
@@ -38,7 +38,7 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
     private TextView download_path;
     private DilbertPreferences preferences;
     private static final int REQUEST_DOWNLOAD_TARGET = 1;
-    private static final String TAG = "DilbertPreferencesActivity";
+    private static final String TAG = "DilbertPreferencesAct";
     private final OnClickListener licenseOnClickListener = new OnClickListener() {
 
         @Override
@@ -119,7 +119,9 @@ public final class DilbertPreferencesActivity extends ActionBarActivity {
         setTheme(preferences.isDarkLayoutEnabled() ? R.style.AppThemeDark
                 : R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         setContentView(R.layout.preferences);
         setTitle(R.string.title_preferences);
         force_landscape = (CheckBox) findViewById(R.id.pref_force_landscape);

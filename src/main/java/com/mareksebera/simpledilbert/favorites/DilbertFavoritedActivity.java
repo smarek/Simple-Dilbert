@@ -2,7 +2,7 @@ package com.mareksebera.simpledilbert.favorites;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -11,7 +11,7 @@ import com.mareksebera.simpledilbert.core.DilbertFragmentInterface;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
-public final class DilbertFavoritedActivity extends ActionBarActivity implements DilbertFragmentInterface {
+public final class DilbertFavoritedActivity extends AppCompatActivity implements DilbertFragmentInterface {
 
     private ViewPager viewPager;
     private DilbertFavoritedFragmentAdapter adapter;
@@ -41,7 +41,9 @@ public final class DilbertFavoritedActivity extends ActionBarActivity implements
                 : R.style.AppThemeLight);
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_dilbert_fragments);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         adapter = new DilbertFavoritedFragmentAdapter(
                 getSupportFragmentManager(), preferences.getFavoritedItems());
@@ -50,7 +52,7 @@ public final class DilbertFavoritedActivity extends ActionBarActivity implements
                     .show();
             finish();
         }
-        viewPager.setOnPageChangeListener(pageChangedListener);
+        viewPager.addOnPageChangeListener(pageChangedListener);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(adapter.getCount());
         if (preferences.isToolbarsHidden())

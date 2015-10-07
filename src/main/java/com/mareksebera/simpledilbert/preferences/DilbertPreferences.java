@@ -312,7 +312,7 @@ public final class DilbertPreferences {
      * @return validated random date
      */
     public static LocalDate getRandomDate() {
-        Random random = new Random();
+        @SuppressWarnings("UnsecureRandomNumberGeneration") Random random = new Random();
         LocalDate now = LocalDate.now();
         int year = 1989 + random.nextInt(now.getYear() - 1989);
         int month = 1 + random.nextInt(12);
@@ -437,7 +437,7 @@ public final class DilbertPreferences {
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    @MagicConstant(intValues = {ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE, ActivityInfo.SCREEN_ORIENTATION_SENSOR})
+    @MagicConstant(intValues = {ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE, ActivityInfo.SCREEN_ORIENTATION_SENSOR, ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE})
     public int getLandscapeOrientation() {
         return isForceLandscape() ?
                 (Build.VERSION.SDK_INT >= 9 && isReversedLandscape()) ?
