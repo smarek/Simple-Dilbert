@@ -47,5 +47,6 @@
     <string name="pref_title_general_settings">General Settings</string>
     <string name="pref_title_application_settings">Application Settings</string>
     <string name="pref_title_widget_settings">Widgets Settings</string>
+    <string name="pref_default_zoom_level">Choose default zoom level</string>
 
 </resources>

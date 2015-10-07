@@ -66,6 +66,28 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
                     REQUEST_DOWNLOAD_TARGET);
         }
     };
+    private final OnClickListener defaultZoomLevelClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(DilbertPreferencesActivity.this)
+                    .setTitle(R.string.pref_default_zoom_level)
+                    .setSingleChoiceItems(new CharSequence[]{"Minimum", "Medium", "Maximum"}, preferences.getDefaultZoomLevel(), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            preferences.setDefaultZoomLevel(which);
+                        }
+                    })
+                    .setCancelable(true)
+                    .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create()
+                    .show();
+        }
+    };
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode != REQUEST_DOWNLOAD_TARGET) {
@@ -131,9 +153,11 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         reverse_landscape = (CheckBox) findViewById(R.id.pref_reverse_landscape);
         open_at_latest_strip = (CheckBox) findViewById(R.id.pref_open_at_latest_strip);
         widget_always_show_latest = (CheckBox) findViewById(R.id.pref_widget_always_latest);
+        TextView default_zoom_level = (TextView) findViewById(R.id.pref_default_zoom_level);
         TextView author = (TextView) findViewById(R.id.app_author);
         LinearLayout download_path_layout = (LinearLayout) findViewById(R.id.pref_download_path_layout);
         TextView license = (TextView) findViewById(R.id.pref_show_license);
+        default_zoom_level.setOnClickListener(defaultZoomLevelClickListener);
         download_path_layout.setOnClickListener(downloadPathClickListener);
         license.setOnClickListener(licenseOnClickListener);
         author.setOnClickListener(authorOnClickListener);

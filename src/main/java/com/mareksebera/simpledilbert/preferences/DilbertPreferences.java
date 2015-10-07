@@ -48,6 +48,7 @@ public final class DilbertPreferences {
     private static final String PREF_REVERSE_LANDSCAPE = "dilbert_reverse_landscape";
     private static final String PREF_OPEN_AT_LATEST = "dilbert_open_at_latest_strip";
     private static final String PREF_WIDGET_ALWAYS_SHOW_LATEST = "dilbert_widget_always_show_latest";
+    private static final String PREF_DEFAULT_ZOOM_LEVEL = "dilbert_default_zoom_level";
     private static final String TAG = "DilbertPreferences";
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor editor;
@@ -432,6 +433,14 @@ public final class DilbertPreferences {
 
     public boolean isWidgetAlwaysShowLatest() {
         return preferences.getBoolean(PREF_WIDGET_ALWAYS_SHOW_LATEST, false);
+    }
+
+    public int getDefaultZoomLevel() {
+        return preferences.getInt(PREF_DEFAULT_ZOOM_LEVEL, 0);
+    }
+
+    public boolean setDefaultZoomLevel(int zoomLevel) {
+        return preferences.edit().putInt(PREF_DEFAULT_ZOOM_LEVEL, zoomLevel % 3).commit();
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)

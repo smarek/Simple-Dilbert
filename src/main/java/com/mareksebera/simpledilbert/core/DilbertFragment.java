@@ -73,6 +73,7 @@ public final class DilbertFragment extends Fragment {
                 progress.setVisibility(View.GONE);
             if (image != null)
                 image.setVisibility(View.VISIBLE);
+            applyZoomLevel();
         }
 
         @Override
@@ -123,6 +124,7 @@ public final class DilbertFragment extends Fragment {
         }
     };
     private int zoomLevel = 0;
+
     public DilbertFragment() {
     }
 
@@ -137,6 +139,7 @@ public final class DilbertFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.preferences = new DilbertPreferences(getActivity());
+        this.zoomLevel = preferences.getDefaultZoomLevel();
         setHasOptionsMenu(true);
     }
 
@@ -199,20 +202,8 @@ public final class DilbertFragment extends Fragment {
                 modifyFavoriteItem(item);
                 return true;
             case MENU_ZOOM:
-                if (image != null && image.canZoom()) {
-                    switch (zoomLevel) {
-                        case 0:
-                            image.setScale(image.getMediumScale(), true);
-                            break;
-                        case 1:
-                            image.setScale(image.getMaximumScale(), true);
-                            break;
-                        case 2:
-                            image.setScale(image.getMinimumScale(), true);
-                            break;
-                    }
-                    zoomLevel = (zoomLevel + 1) % 3;
-                }
+                applyZoomLevel();
+                zoomLevel = (zoomLevel + 1) % 3;
                 return true;
             case MENU_SHARE:
                 shareCurrentStrip();
@@ -231,6 +222,22 @@ public final class DilbertFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void applyZoomLevel() {
+        if (image != null && image.canZoom()) {
+            switch (zoomLevel) {
+                case 0:
+                    image.setScale(image.getMediumScale(), true);
+                    break;
+                case 1:
+                    image.setScale(image.getMaximumScale(), true);
+                    break;
+                case 2:
+                    image.setScale(image.getMinimumScale(), true);
+                    break;
+            }
+        }
     }
 
     private void refreshAction() {
