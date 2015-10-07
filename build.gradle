@@ -43,6 +43,7 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             minifyEnabled true
             shrinkResources true
         }
@@ -54,6 +55,8 @@ android {
     }
 
     lintOptions {
+        warningsAsErrors false
+        abortOnError false
         ignore 'InvalidPackage', 'RtlHardcoded'
     }
 
@@ -65,50 +68,5 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
-    }
-}
-
-android.applicationVariants.all { variant ->
-
-    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-        description "Generates Javadoc for {$variant.name}."
-        exclude "**/R"
-        source = variant.javaCompile.source
-        //ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-        classpath = files(variant.javaCompile.classpath.files) //+ files(ext.androidJar)
-    }
-
-}
-
-if (System.env.TERM == 'dumb') {
-    android.buildTypes.release.signingConfig = null
-}
-
-task readPasswordFromInput << {
-    if (System.env.TERM == 'dumb') {
-        return;
-    }
-
-    android.signingConfigs.release.keyAlias = 'simple_dilbert'
-
-    if (!project.hasProperty('keyStore') || !project.hasProperty('keyPass') || !project.hasProperty('storePass')) {
-        println "\n\$ Enter signing details manually or run with \"-PkeyStore={key.store.name} -PstorePass={StoreSecretPassword} -PkeyPass={KeySecretPassword}\""
-    }
-
-    if (!project.hasProperty('keyStore')) {
-        def newKeyStore = System.console().readLine("\n\$ Enter keystore location or enter (default: android.keystore): ")
-        if (newKeyStore != '') android.signingConfigs.release.storeFile = file('${newKeyStore}')
-        else android.signingConfigs.release.storeFile = file('android.keystore')
-    } else {
-        android.signingConfigs.release.storeFile = file(project.keyStore)
-    }
-
-    android.signingConfigs.release.storePassword = project.hasProperty('storePass') ? project.storePass : new String(System.console().readPassword("\$ Store password: "))
-    android.signingConfigs.release.keyPassword = project.hasProperty('keyPass') ? project.keyPass : new String(System.console().readPassword("\$ Key password: "))
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name == 'validateReleaseSigning') {
-        task.dependsOn readPasswordFromInput
     }
 }
