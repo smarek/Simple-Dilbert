@@ -47,7 +47,7 @@ android {
     lintOptions {
         warningsAsErrors false
         abortOnError false
-        ignore 'InvalidPackage', 'RtlHardcoded'
+        ignore 'InvalidPackage', 'RtlHardcoded', 'UnusedAttribute'
     }
 
     compileOptions {
