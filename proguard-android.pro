@@ -1,0 +1,2 @@
+-dontwarn com.google.common.collect.*
+-dontwarn com.google.common.reflect.*
