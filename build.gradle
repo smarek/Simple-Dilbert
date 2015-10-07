@@ -32,13 +32,19 @@ android {
     buildToolsVersion "23.0.1"
 
     signingConfigs {
-        release
+        release {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('android.keystore')
+            storePassword 'android'
+        }
     }
 
     buildTypes {
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
+            shrinkResources true
         }
     }
 
