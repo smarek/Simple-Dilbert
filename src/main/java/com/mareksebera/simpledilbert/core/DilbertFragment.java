@@ -38,40 +38,24 @@ import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 
 public final class DilbertFragment extends Fragment {
 
+    public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
     private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
             MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5, MENU_OPEN_AT = -6;
-    public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
-    private PhotoView image;
-    private ProgressBar progress;
-    private DilbertPreferences preferences;
-    private GetStripUrl loadTask;
-
-    public DilbertFragment() {
-    }
-
-    @Override
-    public void onDestroyView() {
-        progress = null;
-        image = null;
-        super.onDestroyView();
-    }
-
-    private final GetStripUrlInterface getStripUrilListener = new GetStripUrlInterface() {
+    private final OnLongClickListener imageLongClickListener = new OnLongClickListener() {
 
         @Override
-        public void imageLoadFailed(String url, FailReason reason) {
-            dilbertImageLoadingListener.onLoadingFailed(url, image, reason);
-        }
-
-        @Override
-        public void displayImage(String url) {
-            if (image == null)
-                return;
-            ImageLoader.getInstance().displayImage(url, image,
-                    dilbertImageLoadingListener);
+        public boolean onLongClick(View v) {
+            if (getActivity() != null) {
+                FragmentActivity sfa = getActivity();
+                if (sfa instanceof DilbertFragmentInterface) {
+                    ((DilbertFragmentInterface) sfa).toggleActionBar();
+                }
+            }
+            return true;
         }
     };
-
+    private PhotoView image;
+    private ProgressBar progress;
     private final ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
 
         @Override
@@ -114,19 +98,23 @@ public final class DilbertFragment extends Fragment {
                 progress.setVisibility(View.VISIBLE);
         }
     };
-    private final OnLongClickListener imageLongClickListener = new OnLongClickListener() {
+    private final GetStripUrlInterface getStripUrilListener = new GetStripUrlInterface() {
 
         @Override
-        public boolean onLongClick(View v) {
-            if (getActivity() != null) {
-                FragmentActivity sfa = getActivity();
-                if (sfa instanceof DilbertFragmentInterface) {
-                    ((DilbertFragmentInterface) sfa).toggleActionBar();
-                }
-            }
-            return true;
+        public void imageLoadFailed(String url, FailReason reason) {
+            dilbertImageLoadingListener.onLoadingFailed(url, image, reason);
+        }
+
+        @Override
+        public void displayImage(String url) {
+            if (image == null)
+                return;
+            ImageLoader.getInstance().displayImage(url, image,
+                    dilbertImageLoadingListener);
         }
     };
+    private DilbertPreferences preferences;
+    private GetStripUrl loadTask;
     private final OnPhotoTapListener photoTapListener = new OnPhotoTapListener() {
 
         @Override
@@ -134,6 +122,16 @@ public final class DilbertFragment extends Fragment {
             refreshAction();
         }
     };
+    private int zoomLevel = 0;
+    public DilbertFragment() {
+    }
+
+    @Override
+    public void onDestroyView() {
+        progress = null;
+        image = null;
+        super.onDestroyView();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -192,8 +190,6 @@ public final class DilbertFragment extends Fragment {
         favorite.setIcon(isFavorite ? R.drawable.ic_menu_favorited
                 : R.drawable.ic_menu_not_favorited);
     }
-
-    private int zoomLevel = 0;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

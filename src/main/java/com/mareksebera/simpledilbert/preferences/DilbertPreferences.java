@@ -33,9 +33,11 @@ import java.util.Random;
 
 public final class DilbertPreferences {
 
-    private final SharedPreferences preferences;
-    private final SharedPreferences.Editor editor;
-
+    public static final DateTimeZone TIME_ZONE = DateTimeZone
+            .forID("America/Chicago");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+            .forPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter NICE_DATE_FORMATTER = DateTimeFormat.mediumDate();
     private static final String PREF_CURRENT_DATE = "dilbert_current_date";
     private static final String PREF_CURRENT_URL = "dilbert_current_url";
     private static final String PREF_DARK_LAYOUT = "dilbert_dark_layout";
@@ -47,16 +49,56 @@ public final class DilbertPreferences {
     private static final String PREF_OPEN_AT_LATEST = "dilbert_open_at_latest_strip";
     private static final String PREF_WIDGET_ALWAYS_SHOW_LATEST = "dilbert_widget_always_show_latest";
     private static final String TAG = "DilbertPreferences";
-    public static final DateTimeZone TIME_ZONE = DateTimeZone
-            .forID("America/Chicago");
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
-            .forPattern("yyyy-MM-dd");
-    public static final DateTimeFormatter NICE_DATE_FORMATTER = DateTimeFormat.mediumDate();
+    private final SharedPreferences preferences;
+    private final SharedPreferences.Editor editor;
 
     @SuppressLint("CommitPrefEdits")
     public DilbertPreferences(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = preferences.edit();
+    }
+
+    /**
+     * Generated random date within range of Dilbert existence
+     *
+     * @return validated random date
+     */
+    public static LocalDate getRandomDate() {
+        @SuppressWarnings("UnsecureRandomNumberGeneration") Random random = new Random();
+        LocalDate now = LocalDate.now();
+        int year = 1989 + random.nextInt(now.getYear() - 1989);
+        int month = 1 + random.nextInt(12);
+        int day = random.nextInt(31);
+        return validateDate(LocalDate.parse(
+                String.format(new Locale("en"), "%d-%d-1", year, month))
+                .plusDays(day));
+    }
+
+    /**
+     * First strip was published on 16.4.1989
+     *
+     * @return LocalDate date of first Dilbert comics strip
+     * @see <a href="http://en.wikipedia.org/wiki/Dilbert">Wikipedia</a>
+     */
+    public static LocalDate getFirstStripDate() {
+        return LocalDate.parse("1989-04-16",
+                DilbertPreferences.DATE_FORMATTER);
+    }
+
+    /**
+     * Validates selected date and filters ot future dates and dates before Dilbert started
+     *
+     * @param selDate Date user selected
+     * @return LocalDate date which is correct
+     */
+    private static LocalDate validateDate(LocalDate selDate) {
+        if (selDate.isAfter(LocalDate.now())) {
+            selDate = LocalDate.now();
+        }
+        if (selDate.isBefore(DilbertPreferences.getFirstStripDate())) {
+            selDate = DilbertPreferences.getFirstStripDate();
+        }
+        return selDate;
     }
 
     /**
@@ -191,7 +233,6 @@ public final class DilbertPreferences {
         return favorites;
     }
 
-
     /**
      * Tries to launch DownloadManager with visible notification to download file from URL to
      * downloadble path or user selected
@@ -307,33 +348,6 @@ public final class DilbertPreferences {
     }
 
     /**
-     * Generated random date within range of Dilbert existence
-     *
-     * @return validated random date
-     */
-    public static LocalDate getRandomDate() {
-        @SuppressWarnings("UnsecureRandomNumberGeneration") Random random = new Random();
-        LocalDate now = LocalDate.now();
-        int year = 1989 + random.nextInt(now.getYear() - 1989);
-        int month = 1 + random.nextInt(12);
-        int day = random.nextInt(31);
-        return validateDate(LocalDate.parse(
-                String.format(new Locale("en"), "%d-%d-1", year, month))
-                .plusDays(day));
-    }
-
-    /**
-     * First strip was published on 16.4.1989
-     *
-     * @return LocalDate date of first Dilbert comics strip
-     * @see <a href="http://en.wikipedia.org/wiki/Dilbert">Wikipedia</a>
-     */
-    public static LocalDate getFirstStripDate() {
-        return LocalDate.parse("1989-04-16",
-                DilbertPreferences.DATE_FORMATTER);
-    }
-
-    /**
      * Removing widget from launcher will cause deleting it's save date from preferences
      *
      * @param widgetId id of widget
@@ -341,22 +355,6 @@ public final class DilbertPreferences {
      */
     public boolean deleteDateForWidgetId(int widgetId) {
         return editor.remove("widget_" + widgetId).commit();
-    }
-
-    /**
-     * Validates selected date and filters ot future dates and dates before Dilbert started
-     *
-     * @param selDate Date user selected
-     * @return LocalDate date which is correct
-     */
-    private static LocalDate validateDate(LocalDate selDate) {
-        if (selDate.isAfter(LocalDate.now())) {
-            selDate = LocalDate.now();
-        }
-        if (selDate.isBefore(DilbertPreferences.getFirstStripDate())) {
-            selDate = DilbertPreferences.getFirstStripDate();
-        }
-        return selDate;
     }
 
     /**

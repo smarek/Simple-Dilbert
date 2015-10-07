@@ -24,12 +24,12 @@ import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
 import java.io.File;
 
-public class FolderPickerFragment extends ListFragment {
+public final class FolderPickerFragment extends ListFragment {
 
     private static final int MENU_SHOW_HIDDEN = 1, MENU_SHOW_FILES = 2, MENU_ACCEPT = 3, MENU_GO_DEFAULT = 4;
-    private SharedPreferences preferences;
     private static final String PREF_SHOW_HIDDEN = "folder_picker_fragment.show_hidden";
     private static final String PREF_SHOW_FILES = "folder_picker_fragment.show_files";
+    private SharedPreferences preferences;
     private FolderPickerAdapter folderPickerAdapter;
     private TextView currentPath;
 

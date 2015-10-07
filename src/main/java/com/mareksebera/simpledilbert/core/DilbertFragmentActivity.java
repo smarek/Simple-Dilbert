@@ -28,6 +28,9 @@ public final class
 
     private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3, MENU_OLDEST = 4,
             MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7;
+    private ViewPager viewPager;
+    private DilbertFragmentAdapter adapter;
+    private DilbertPreferences preferences;
     private final DatePickerDialog.OnDateSetListener dilbertOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -55,9 +58,6 @@ public final class
         public void onPageScrollStateChanged(int arg0) {
         }
     };
-    private ViewPager viewPager;
-    private DilbertFragmentAdapter adapter;
-    private DilbertPreferences preferences;
 
     private void setCurrentDate(LocalDate date) {
         preferences.saveCurrentDate(date);

@@ -12,17 +12,19 @@ import org.joda.time.LocalDate;
 
 final class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return getDateForPosition(position).toString(
-                DilbertPreferences.NICE_DATE_FORMATTER);
-    }
+    private int countCache = 0;
 
     public DilbertFragmentAdapter(FragmentManager fm) {
         super(fm);
         this.countCache = Days.daysBetween(
                 DilbertPreferences.getFirstStripDate(),
                 LocalDate.now()).getDays() + 1;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return getDateForPosition(position).toString(
+                DilbertPreferences.NICE_DATE_FORMATTER);
     }
 
     @Override
@@ -41,8 +43,6 @@ final class DilbertFragmentAdapter extends FragmentPagerAdapter {
         return LocalDate.now().minusDays(
                 (getCount() - position) - 1);
     }
-
-    private int countCache = 0;
 
     @Override
     public int getCount() {

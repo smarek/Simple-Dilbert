@@ -32,11 +32,6 @@ import static android.appwidget.AppWidgetManager.getInstance;
 
 public final class DilbertPreferencesActivity extends AppCompatActivity {
 
-    private CheckBox force_landscape, force_dark, hide_toolbars,
-            share_image, reverse_landscape,
-            open_at_latest_strip, widget_always_show_latest;
-    private TextView download_path;
-    private DilbertPreferences preferences;
     private static final int REQUEST_DOWNLOAD_TARGET = 1;
     private static final String TAG = "DilbertPreferencesAct";
     private final OnClickListener licenseOnClickListener = new OnClickListener() {
@@ -46,7 +41,20 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
             showLicenseDialog();
         }
     };
-
+    private final OnClickListener authorOnClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", "marek@msebera.cz", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Simple Dilbert");
+            startActivity(Intent.createChooser(emailIntent, "Simple Dilbert"));
+        }
+    };
+    private CheckBox force_landscape, force_dark, hide_toolbars,
+            share_image, reverse_landscape,
+            open_at_latest_strip, widget_always_show_latest;
+    private TextView download_path;
+    private DilbertPreferences preferences;
     private final OnClickListener downloadPathClickListener = new OnClickListener() {
 
         @Override
@@ -56,15 +64,6 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
             downloadPathSelector.setData(Uri.fromFile(new File(preferences.getDownloadTarget())));
             startActivityForResult(downloadPathSelector,
                     REQUEST_DOWNLOAD_TARGET);
-        }
-    };
-    private final OnClickListener authorOnClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto", "marek@msebera.cz", null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Simple Dilbert");
-            startActivity(Intent.createChooser(emailIntent, "Simple Dilbert"));
         }
     };
 

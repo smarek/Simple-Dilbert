@@ -12,18 +12,18 @@ import java.util.List;
 
 final class DilbertFavoritedFragmentAdapter extends FragmentPagerAdapter {
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return favorites.get(position).getDate().toString(
-                DilbertPreferences.DATE_FORMATTER);
-    }
-
     private List<FavoritedItem> favorites = null;
 
     public DilbertFavoritedFragmentAdapter(FragmentManager fm,
                                            List<FavoritedItem> list) {
         super(fm);
         this.favorites = list;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return favorites.get(position).getDate().toString(
+                DilbertPreferences.DATE_FORMATTER);
     }
 
     @Override

@@ -16,13 +16,6 @@ import java.lang.reflect.Field;
 
 public final class AppController extends Application {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        forceMenuOverflow();
-        configureImageLoader(this);
-    }
-
     static {
         /**
          * Set default time-zone, because strips are published in New York
@@ -43,6 +36,13 @@ public final class AppController extends Application {
             ImageLoader.getInstance().handleSlowNetwork(true);
 
         }
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        forceMenuOverflow();
+        configureImageLoader(this);
     }
 
     private void forceMenuOverflow() {
