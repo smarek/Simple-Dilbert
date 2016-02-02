@@ -32,7 +32,7 @@
     <string name="pref_show_license">Display Software License</string>
     <string name="menu_settings">Settings</string>
     <string name="pref_download_path">Downloads target folder:</string>
-    <string name="pref_share_image">Don\'t share image, just an URL</string>
+    <string name="pref_share_image">Don\'t share image, just a URL</string>
     <string name="pref_mobile_network">Optimize for mobile network usage</string>
     <string name="horizontal_divider" translatable="false">Horizontal divider</string>
     <string name="menu_open_at">Open this day</string>
