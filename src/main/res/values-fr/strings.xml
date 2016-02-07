@@ -17,7 +17,7 @@
     <string name="toast_no_favorites">Vous n\'avez pas de strip favoris</string>
     <string name="menu_random">Au hasard</string>
     <string name="share_chooser">Partager les bandes dessinées Dilbert</string>
-    <string name="menu_share">Partager ça!</string>
+    <string name="menu_share">Partager ça</string>
     <string name="widget_cd_next">Suivant</string>
     <string name="widget_cd_latest">Plus récent</string>
     <string name="widget_cd_previous">Précédent</string>

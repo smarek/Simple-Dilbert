@@ -17,7 +17,7 @@
     <string name="toast_no_favorites">У вас нет избранных комиксов</string>
     <string name="menu_random">Случайный</string>
     <string name="share_chooser">Поделиться комиксами</string>
-    <string name="menu_share">Поделиться!</string>
+    <string name="menu_share">Поделиться</string>
     <string name="widget_cd_next">Далее</string>
     <string name="widget_cd_latest">Последнее</string>
     <string name="widget_cd_previous">Назад</string>
