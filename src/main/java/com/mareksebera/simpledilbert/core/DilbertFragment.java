@@ -122,6 +122,11 @@ public final class DilbertFragment extends Fragment {
         public void onPhotoTap(View view, float x, float y) {
             refreshAction();
         }
+
+        @Override
+        public void onOutsidePhotoTap() {
+
+        }
     };
     private int zoomLevel = 0;
 
