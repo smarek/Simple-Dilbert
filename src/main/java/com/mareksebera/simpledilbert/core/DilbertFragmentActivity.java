@@ -162,6 +162,7 @@ public final class
 
     // Compat helper method
     public void toggleActionBar() {
+        preferences.setIsToolbarsHidden(!preferences.isToolbarsHidden());
         ActionBarUtility.toggleActionBar(this, viewPager);
     }
 
