@@ -203,7 +203,6 @@ public final class DilbertFragment extends Fragment {
                 return true;
             case MENU_ZOOM:
                 applyZoomLevel();
-                zoomLevel = (zoomLevel + 1) % 3;
                 return true;
             case MENU_SHARE:
                 shareCurrentStrip();
@@ -228,13 +227,13 @@ public final class DilbertFragment extends Fragment {
         if (image != null && image.canZoom()) {
             switch (zoomLevel) {
                 case 0:
-                    image.setScale(image.getMediumScale(), true);
+                    image.setScale(image.getMinimumScale(), true);
                     break;
                 case 1:
-                    image.setScale(image.getMaximumScale(), true);
+                    image.setScale(image.getMediumScale(), true);
                     break;
                 case 2:
-                    image.setScale(image.getMinimumScale(), true);
+                    image.setScale(image.getMaximumScale(), true);
                     break;
             }
         }
