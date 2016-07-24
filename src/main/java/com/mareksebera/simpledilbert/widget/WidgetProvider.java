@@ -100,7 +100,6 @@ public final class WidgetProvider extends AppWidgetProvider {
             Glide.with(context).load(cachedUrl)
                     .asBitmap()
                     .dontAnimate()
-                    .skipMemoryCache(true)
                     .listener(new RequestListener<String, Bitmap>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
@@ -112,7 +111,7 @@ public final class WidgetProvider extends AppWidgetProvider {
                         public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             views.setViewVisibility(R.id.widget_progress, View.GONE);
                             appWidgetManager.updateAppWidget(appWidgetId, views);
-                            Glide.with(context).load(cachedUrl).asBitmap().dontAnimate().skipMemoryCache(true).into(new AppWidgetTarget(context, views, R.id.widget_image, appWidgetId));
+                            Glide.with(context).load(cachedUrl).asBitmap().dontAnimate().into(new AppWidgetTarget(context, views, R.id.widget_image, appWidgetId));
                             return true;
                         }
                     })
