@@ -19,14 +19,15 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.joda.time.LocalDate;
 
@@ -56,62 +57,51 @@ public final class DilbertFragment extends Fragment {
     };
     private PhotoView image;
     private ProgressBar progress;
-    private final ImageLoadingListener dilbertImageLoadingListener = new ImageLoadingListener() {
-
+    private final RequestListener<String, Bitmap> dilbertImageLoadingListener = new RequestListener<String, Bitmap>() {
         @Override
-        public void onLoadingCancelled(String imageUri, View view) {
-            if (image != null)
-                image.setImageResource(R.drawable.cancel);
-            if (progress != null)
-                progress.setVisibility(View.GONE);
-        }
-
-        @Override
-        public void onLoadingComplete(String imageUri, View view,
-                                      Bitmap loadedImage) {
-            if (progress != null)
-                progress.setVisibility(View.GONE);
-            if (image != null)
-                image.setVisibility(View.VISIBLE);
-            applyZoomLevel();
-        }
-
-        @Override
-        public void onLoadingFailed(String imageUri, View view,
-                                    FailReason failReason) {
-            if (progress != null)
-                progress.setVisibility(View.GONE);
+        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
             if (image != null) {
-                image.setVisibility(View.VISIBLE);
                 image.setImageResource(R.drawable.cancel);
+            }
+            if (progress != null) {
+                progress.setVisibility(View.GONE);
             }
             if (getActivity() != null)
                 Toast.makeText(getActivity(),
                         R.string.loading_exception_error, Toast.LENGTH_SHORT)
                         .show();
+            return false;
         }
 
         @Override
-        public void onLoadingStarted(String imageUri, View view) {
-            if (image != null)
-                image.setVisibility(View.GONE);
-            if (progress != null)
-                progress.setVisibility(View.VISIBLE);
+        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+            if (progress != null) {
+                progress.setVisibility(View.GONE);
+            }
+            applyZoomLevel();
+            return false;
         }
     };
-    private final GetStripUrlInterface getStripUrilListener = new GetStripUrlInterface() {
+    private final GetStripUrlInterface getStripURIlListener = new GetStripUrlInterface() {
 
         @Override
-        public void imageLoadFailed(String url, FailReason reason) {
-            dilbertImageLoadingListener.onLoadingFailed(url, image, reason);
+        public void imageLoadFailed(String url, Throwable reason) {
+            dilbertImageLoadingListener.onException(null, url, null, true);
         }
 
         @Override
         public void displayImage(String url) {
             if (image == null)
                 return;
-            ImageLoader.getInstance().displayImage(url, image,
-                    dilbertImageLoadingListener);
+            Glide.with(DilbertFragment.this)
+                    .load(url)
+                    .asBitmap()
+                    .fitCenter()
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.drawable.cancel)
+                    .listener(dilbertImageLoadingListener)
+                    .into(image);
         }
     };
     private DilbertPreferences preferences;
@@ -165,22 +155,15 @@ public final class DilbertFragment extends Fragment {
         this.image.setOnPhotoTapListener(photoTapListener);
         this.progress = (ProgressBar) fragment
                 .findViewById(R.id.fragment_progressbar);
-        this.image.setVisibility(View.GONE);
         String cachedUrl = preferences.getCachedUrl(getDateFromArguments());
         if (null != cachedUrl) {
-            getStripUrilListener.displayImage(cachedUrl);
+            getStripURIlListener.displayImage(cachedUrl);
         } else {
-            this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
+            this.loadTask = new GetStripUrl(getStripURIlListener, preferences,
                     getDateFromArguments());
             this.loadTask.execute();
         }
         return fragment;
-    }
-
-    @Override
-    public void onStop() {
-        ImageLoader.getInstance().cancelDisplayTask(this.image);
-        super.onStop();
     }
 
     @Override
@@ -245,15 +228,11 @@ public final class DilbertFragment extends Fragment {
     }
 
     private void refreshAction() {
-        String cacheUrl = preferences.getCachedUrl(getDateFromArguments());
-        if (cacheUrl != null) {
-            ImageLoader.getInstance().getDiskCache().remove(cacheUrl);
-        }
-        ImageLoader.getInstance().clearMemoryCache();
+        Glide.get(getContext()).clearMemory();
         preferences.removeCache(getDateFromArguments());
         if (this.loadTask == null
                 || this.loadTask.getStatus() != Status.PENDING) {
-            this.loadTask = new GetStripUrl(getStripUrilListener, preferences,
+            this.loadTask = new GetStripUrl(getStripURIlListener, preferences,
                     getDateFromArguments(), progress);
         }
         this.loadTask.execute();
@@ -263,72 +242,64 @@ public final class DilbertFragment extends Fragment {
         String url = preferences.getCachedUrl(getDateFromArguments());
         if (url == null)
             return;
-        ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
-
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view,
-                                        FailReason failReason) {
-                shareBitmap(null);
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view,
-                                          Bitmap loadedImage) {
-                shareBitmap(loadedImage);
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                shareBitmap(null);
-            }
-
-            private void shareBitmap(Bitmap b) {
-                try {
-                    String date = getDateFromArguments().toString(
-                            DilbertPreferences.DATE_FORMATTER);
-                    Intent i = new Intent(Intent.ACTION_SEND);
-                    i.setType("image/jpeg");
-                    i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
-                            + " #simpledilbert");
-                    if (preferences.isSharingImage()) {
-                        i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
-                                + " #simpledilbert");
-                        if (b != null) {
-                            File tmp = File
-                                    .createTempFile("dilbert_", ".jpg",
-                                            getActivity()
-                                                    .getExternalCacheDir()
-                                    );
-                            FileOutputStream out = new FileOutputStream(tmp);
-                            b.compress(CompressFormat.JPEG, 100, out);
-                            out.close();
-                            Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
-                            i.putExtra(Intent.EXTRA_STREAM, u);
-                        }
-                    } else {
-                        i.putExtra(
-                                Intent.EXTRA_TEXT,
-                                "Dilbert "
-                                        + date
-                                        + " #simpledilbert http://dilbert.com/strips/comic/"
-                                        + date
-                        );
+        Glide.with(this).load(url)
+                .asBitmap()
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        shareBitmap(null);
+                        return false;
                     }
-                    startActivity(Intent.createChooser(i,
-                            getString(R.string.share_chooser)));
 
-                } catch (Throwable e) {
-                    if (getActivity() != null)
-                        Toast.makeText(getActivity(),
-                                R.string.loading_exception_error,
-                                Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        shareBitmap(resource);
+                        return false;
+                    }
+
+                    private void shareBitmap(Bitmap b) {
+                        try {
+                            String date = getDateFromArguments().toString(
+                                    DilbertPreferences.DATE_FORMATTER);
+                            Intent i = new Intent(Intent.ACTION_SEND);
+                            i.setType("image/jpeg");
+                            i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
+                                    + " #simpledilbert");
+                            if (preferences.isSharingImage()) {
+                                i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
+                                        + " #simpledilbert");
+                                if (b != null) {
+                                    File tmp = File
+                                            .createTempFile("dilbert_", ".jpg",
+                                                    getActivity()
+                                                            .getExternalCacheDir()
+                                            );
+                                    FileOutputStream out = new FileOutputStream(tmp);
+                                    b.compress(CompressFormat.JPEG, 100, out);
+                                    out.close();
+                                    Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
+                                    i.putExtra(Intent.EXTRA_STREAM, u);
+                                }
+                            } else {
+                                i.putExtra(
+                                        Intent.EXTRA_TEXT,
+                                        "Dilbert "
+                                                + date
+                                                + " #simpledilbert http://dilbert.com/strips/comic/"
+                                                + date
+                                );
+                            }
+                            startActivity(Intent.createChooser(i,
+                                    getString(R.string.share_chooser)));
+
+                        } catch (Throwable e) {
+                            if (getActivity() != null)
+                                Toast.makeText(getActivity(),
+                                        R.string.loading_exception_error,
+                                        Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     @Override

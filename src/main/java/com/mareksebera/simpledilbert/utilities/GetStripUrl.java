@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.FailReason.FailType;
 
 import org.joda.time.LocalDate;
 
@@ -88,16 +86,18 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if (result == null) {
-            if (listener != null)
+            if (listener != null) {
                 listener.imageLoadFailed(preferences.getCachedUrl(currDate),
-                        new FailReason(FailType.NETWORK_DENIED, new NetworkErrorException("Network Denied")));
-            else
+                        new NetworkErrorException("Network Denied"));
+            } else {
                 Log.e(TAG, "Listener is NULL");
+            }
         } else {
-            if (listener != null)
+            if (listener != null) {
                 listener.displayImage(result);
-            else
+            } else {
                 Log.e(TAG, "listener is NULL");
+            }
         }
     }
 
@@ -106,7 +106,8 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
      */
     @Override
     protected void onPreExecute() {
-        if (progressBar != null)
+        if (progressBar != null) {
             progressBar.setVisibility(View.VISIBLE);
+        }
     }
 }

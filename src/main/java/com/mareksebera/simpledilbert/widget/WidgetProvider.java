@@ -10,15 +10,15 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.mareksebera.simpledilbert.AppController;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.AppWidgetTarget;
+import com.bumptech.glide.request.target.Target;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
@@ -81,7 +81,7 @@ public final class WidgetProvider extends AppWidgetProvider {
             new GetStripUrl(new GetStripUrlInterface() {
 
                 @Override
-                public void imageLoadFailed(String url, FailReason reason) {
+                public void imageLoadFailed(String url, Throwable reason) {
                     currentToast = Toast.makeText(context, "Image Loading failed",
                             Toast.LENGTH_SHORT);
                     currentToast.show();
@@ -97,40 +97,28 @@ public final class WidgetProvider extends AppWidgetProvider {
                 }
             }, prefs, currentDate).execute();
         } else {
-            ImageLoader.getInstance().loadImage(cachedUrl,
-                    new SimpleImageLoadingListener() {
+            Glide.with(context).load(cachedUrl)
+                    .asBitmap()
+                    .dontAnimate()
+                    .skipMemoryCache(true)
+                    .listener(new RequestListener<String, Bitmap>() {
                         @Override
-                        public void onLoadingComplete(String imageUri,
-                                                      View view, Bitmap loadedImage) {
-                            if (imageUri.equals(prefs.getCachedUrl(prefs
-                                    .getDateForWidgetId(appWidgetId)))) {
-                                views.setViewVisibility(R.id.widget_progress,
-                                        View.GONE);
-                                views.setImageViewBitmap(R.id.widget_image,
-                                        loadedImage);
-                                appWidgetManager.updateAppWidget(appWidgetId,
-                                        views);
-                            }
+                        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                            updateAppWidget(context, appWidgetManager, appWidgetId);
+                            return false;
                         }
 
                         @Override
-                        public void onLoadingCancelled(String imageUri, View view) {
-                            updateAppWidget(context, appWidgetManager, appWidgetId);
+                        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            views.setViewVisibility(R.id.widget_progress, View.GONE);
+                            appWidgetManager.updateAppWidget(appWidgetId, views);
+                            Glide.with(context).load(cachedUrl).asBitmap().dontAnimate().skipMemoryCache(true).into(new AppWidgetTarget(context, views, R.id.widget_image, appWidgetId));
+                            return true;
                         }
-
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            updateAppWidget(context, appWidgetManager, appWidgetId);
-                        }
-                    });
+                    })
+                    .into(new AppWidgetTarget(context, views, R.id.widget_image, appWidgetId));
         }
 
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        super.onEnabled(context);
-        AppController.configureImageLoader(context);
     }
 
     @Override
