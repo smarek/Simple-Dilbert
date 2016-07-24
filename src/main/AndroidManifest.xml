@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.mareksebera.simpledilbert"
-          android:versionCode="35"
-          android:versionName="4.2">
+          android:versionCode="36"
+          android:versionName="4.3">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

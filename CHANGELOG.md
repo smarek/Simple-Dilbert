@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 4.3
+
+  - Compatibility with Android 6
+  - Migrated from Android UIL to Glide library
+  - Fixed some typos and translation issues
+
+## 4.2
+
+  - Fixed crashes on missing network connection
+
 ## 4.1
 
   - Removed settings "High quality", "Mobile networks"
