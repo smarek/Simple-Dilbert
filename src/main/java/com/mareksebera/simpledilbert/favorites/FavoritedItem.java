@@ -7,7 +7,7 @@ public final class FavoritedItem {
     private LocalDate date;
 
     public FavoritedItem(LocalDate d) {
-        assert (d != null);
+        if (d == null) throw new AssertionError("FavoritedItem: LocalDate is null");
         date = d;
     }
 
