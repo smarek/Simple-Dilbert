@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
@@ -242,22 +244,11 @@ public final class DilbertFragment extends Fragment {
         String url = preferences.getCachedUrl(getDateFromArguments());
         if (url == null)
             return;
-        Glide.with(this).load(url)
+        Glide.with(DilbertFragment.this).load(url)
                 .asBitmap()
-                .listener(new RequestListener<String, Bitmap>() {
+                .into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-                        shareBitmap(null);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        shareBitmap(resource);
-                        return false;
-                    }
-
-                    private void shareBitmap(Bitmap b) {
+                    public void onResourceReady(Bitmap b, GlideAnimation<? super Bitmap> glideAnimation) {
                         try {
                             String date = getDateFromArguments().toString(
                                     DilbertPreferences.DATE_FORMATTER);
