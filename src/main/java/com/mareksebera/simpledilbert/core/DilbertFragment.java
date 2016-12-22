@@ -332,7 +332,7 @@ public final class DilbertFragment extends Fragment {
             );
         }
         MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_REFRESH, 5, R.string.menu_refresh)
+                menu.add(category, MENU_REFRESH, 4, R.string.menu_refresh)
                         .setIcon(R.drawable.ic_menu_refresh),
                 MenuItemCompat.SHOW_AS_ACTION_NEVER
         );

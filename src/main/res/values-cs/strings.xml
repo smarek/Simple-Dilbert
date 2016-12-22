@@ -44,6 +44,7 @@
     <string name="pref_title_widget_settings">Nastavení widgetů</string>
     <string name="menu_open_in_browser">Webový prohlížeč</string>
     <string name="pref_default_zoom_level">Základní zvětšení</string>
+    <string name="menu_show_offline">Zobrazit offline</string>
 
 
 </resources>

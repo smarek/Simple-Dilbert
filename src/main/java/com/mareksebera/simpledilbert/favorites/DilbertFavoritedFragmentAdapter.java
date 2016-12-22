@@ -8,7 +8,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.mareksebera.simpledilbert.core.DilbertFragment;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 
+import org.joda.time.LocalDate;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 final class DilbertFavoritedFragmentAdapter extends FragmentPagerAdapter {
 

@@ -1,8 +1,10 @@
 package com.mareksebera.simpledilbert.favorites;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -11,10 +13,15 @@ import com.mareksebera.simpledilbert.core.DilbertFragmentInterface;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
+import java.util.Random;
+
 public final class DilbertFavoritedActivity extends AppCompatActivity implements DilbertFragmentInterface {
 
+    public static final String INTENT_OFFLINE = "intent_extra_offline_mode";
     private ViewPager viewPager;
+    private final Random random = new Random();
     private DilbertFavoritedFragmentAdapter adapter;
+    public static final int MENU_RANDOM = 1;
 
     private final ViewPager.OnPageChangeListener pageChangedListener = new ViewPager.OnPageChangeListener() {
 
@@ -44,9 +51,10 @@ public final class DilbertFavoritedActivity extends AppCompatActivity implements
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        boolean isOfflineMode = getIntent().getBooleanExtra(INTENT_OFFLINE, false);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         adapter = new DilbertFavoritedFragmentAdapter(
-                getSupportFragmentManager(), preferences.getFavoritedItems());
+                getSupportFragmentManager(), isOfflineMode ? preferences.getCachedDates() : preferences.getFavoritedItems());
         if (adapter.getCount() == 0) {
             Toast.makeText(this, R.string.toast_no_favorites, Toast.LENGTH_LONG)
                     .show();
@@ -60,8 +68,20 @@ public final class DilbertFavoritedActivity extends AppCompatActivity implements
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItemCompat.setShowAsAction(
+                menu.add(0, MENU_RANDOM, 1, R.string.menu_random).setIcon(R.drawable.ic_menu_shuffle),
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
+        );
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case MENU_RANDOM:
+                viewPager.setCurrentItem(random.nextInt(adapter.getCount()));
+                return true;
             case android.R.id.home:
                 finish();
                 return true;

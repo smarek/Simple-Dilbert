@@ -45,5 +45,6 @@
     <string name="pref_title_widget_settings">Réglages du widget</string>
     <string name="menu_open_in_browser">Ouvrir le navigateur</string>
     <string name="pref_default_zoom_level">Choisir le niveau de zoom par défaut</string>
+    <string name="menu_show_offline">Naviguer hors connexion</string>
 
 </resources>

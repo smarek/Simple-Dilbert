@@ -24,10 +24,10 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public final class
-        DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInterface {
+DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInterface {
 
     private static final int MENU_DATEPICKER = 1, MENU_LATEST = 3, MENU_OLDEST = 4,
-            MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7;
+            MENU_SHOW_FAVORITES = 5, MENU_SHUFFLE = 6, MENU_SETTINGS = 7, MENU_SHOW_OFFLINE = 8;
     private ViewPager viewPager;
     private DilbertFragmentAdapter adapter;
     private DilbertPreferences preferences;
@@ -119,6 +119,9 @@ public final class
                 menu.add(category, MENU_OLDEST, 5, R.string.menu_oldest),
                 MenuItemCompat.SHOW_AS_ACTION_NEVER);
         MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_SHOW_OFFLINE, 6, R.string.menu_show_offline),
+                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(
                 menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings),
                 MenuItemCompat.SHOW_AS_ACTION_NEVER);
         return super.onCreateOptionsMenu(menu);
@@ -151,6 +154,11 @@ public final class
                 return true;
             case MENU_SHUFFLE:
                 setCurrentDate(DilbertPreferences.getRandomDate());
+                return true;
+            case MENU_SHOW_OFFLINE:
+                Intent offlineIntent = new Intent(this, DilbertFavoritedActivity.class);
+                offlineIntent.putExtra(DilbertFavoritedActivity.INTENT_OFFLINE, true);
+                startActivity(offlineIntent);
                 return true;
             case MENU_SETTINGS:
                 startActivity(new Intent(this, DilbertPreferencesActivity.class));

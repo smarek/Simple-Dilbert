@@ -228,6 +228,28 @@ public final class DilbertPreferences {
     }
 
     /**
+     * Gets list of FavoritedItem where it's not really favorites,
+     * but dates for which we already have parsed URL
+     *
+     * @return list of FavoritedItem for each cached date-URL pair
+     */
+    public List<FavoritedItem> getCachedDates() {
+        Map<String, String> cachedUrls = getCachedUrls();
+        List<FavoritedItem> rtn = new ArrayList<>();
+        for (String date : cachedUrls.keySet()) {
+            rtn.add(new FavoritedItem(LocalDate.parse(date)));
+        }
+        Collections.sort(rtn, new Comparator<FavoritedItem>() {
+
+            @Override
+            public int compare(FavoritedItem lhs, FavoritedItem rhs) {
+                return lhs.getDate().compareTo(rhs.getDate());
+            }
+        });
+        return rtn;
+    }
+
+    /**
      * Retrieves list of favorited items, which is stored in as plain in local preferences
      *
      * @return List of favorited items (not null but may be empty)

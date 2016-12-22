@@ -8,6 +8,7 @@
     <string name="loading_exception_error">Dilbert.com is not available. Loading failed.</string>
     <string name="menu_latest">Show latest</string>
     <string name="menu_oldest">Show oldest</string>
+    <string name="menu_show_offline">Browse offline</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_open_in_browser">Open in Browser</string>
     <string name="download_manager_unsupported">Unsupported on this device</string>
