@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 4.4
+
+  - Added offline mode - browsing only downloaded images
+  - Added random feature when browsing favorites or offline
+  - Updated SDK to v25
+  - Function to open current strip in browser
+  - Fixed handling storage permission on v23+
+  - Added option to export all strip urls with respective dates as text
+  - Fixed share function, that was previously broken because of Glide library
+
 ## 4.3
 
   - Compatibility with Android 6
