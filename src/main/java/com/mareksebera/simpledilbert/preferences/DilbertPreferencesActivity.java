@@ -1,13 +1,16 @@
 package com.mareksebera.simpledilbert.preferences;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.core.DilbertFragmentActivity;
@@ -62,6 +66,10 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            if (!isStoragePermissionGranted()) {
+                Toast.makeText(DilbertPreferencesActivity.this, "Storage permission denied, cannot continue", Toast.LENGTH_LONG).show();
+                return;
+            }
             Intent downloadPathSelector = new Intent(
                     DilbertPreferencesActivity.this, FolderPickerActivity.class);
             downloadPathSelector.setData(Uri.fromFile(new File(preferences.getDownloadTarget())));
@@ -251,6 +259,24 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
                 }
         } catch (Throwable e) {
             e.printStackTrace();
+        }
+    }
+
+    private boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG, "Permission is granted");
+                return true;
+            } else {
+
+                Log.v(TAG, "Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted");
+            return true;
         }
     }
 
