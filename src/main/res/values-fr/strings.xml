@@ -45,5 +45,7 @@
     <string name="pref_title_general_settings">Réglages généraux</string>
     <string name="pref_title_application_settings">Réglages de l\'application</string>
     <string name="pref_title_widget_settings">Réglages du widget</string>
+    <string name="menu_open_in_browser">Ouvrir le navigateur</string>
+    <string name="pref_default_zoom_level">Choisir le niveau de zoom par défaut</string>
 
 </resources>

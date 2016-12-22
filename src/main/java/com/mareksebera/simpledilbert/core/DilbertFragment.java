@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,7 +44,7 @@ public final class DilbertFragment extends Fragment {
 
     public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
     private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
-            MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5, MENU_OPEN_AT = -6;
+            MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5, MENU_OPEN_AT = -6, MENU_OPEN_IN_BROWSER = -7;
     private final OnLongClickListener imageLongClickListener = new OnLongClickListener() {
 
         @Override
@@ -199,11 +200,18 @@ public final class DilbertFragment extends Fragment {
                 return true;
             case MENU_REFRESH:
                 refreshAction();
-                break;
+                return true;
             case MENU_OPEN_AT:
                 preferences.saveCurrentDate(getDateFromArguments());
                 getActivity().finish();
-                break;
+                return true;
+            case MENU_OPEN_IN_BROWSER:
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(preferences.getCachedUrl(getDateFromArguments()))));
+                } catch (Throwable t) {
+                    Log.e("DilbertFragment", "Cannot ACTION_VIEW url", t);
+                }
+                return true;
             case MENU_SAVE:
                 preferences.downloadImageViaManager(getActivity(),
                         preferences.getCachedUrl(getDateFromArguments()),
@@ -327,6 +335,12 @@ public final class DilbertFragment extends Fragment {
                 menu.add(category, MENU_REFRESH, 5, R.string.menu_refresh)
                         .setIcon(R.drawable.ic_menu_refresh),
                 MenuItemCompat.SHOW_AS_ACTION_NEVER
+        );
+
+        MenuItemCompat.setShowAsAction(
+                menu.add(category, MENU_OPEN_IN_BROWSER, 3, R.string.menu_open_in_browser)
+                        .setIcon(R.drawable.ic_menu_open_at),
+                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
         );
     }
 
