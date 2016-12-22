@@ -25,14 +25,12 @@
     <string name="title_preferences">Préférences</string>
     <string name="pref_force_landscape">Forcer l\'orientation paysage</string>
     <string name="pref_reverse_landscape">Inverser l\'orientation paysage</string>
-    <string name="pref_enable_high_quality">Activer les images de haute qualité</string>
     <string name="pref_force_dark_background">Utiliser des arrières-plans foncés</string>
     <string name="pref_hide_toolbars">Cacher les barres d\'outils par défaut</string>
     <string name="pref_show_license">Afficher la licence de logiciel</string>
     <string name="menu_settings">Réglages</string>
     <string name="pref_download_path">Dossier de destination pour les téléchargements:</string>
     <string name="pref_share_image">Ne pas partager d\'image, seulement l\'URL</string>
-    <string name="pref_mobile_network">Optimiser pour l\'utilisation sur réseau mobile</string>
     <string name="menu_open_at">Ouvrir ce jour</string>
     <string name="folder_picker_cannot_write">Le dossier actuel n\'est pas inscriptible</string>
     <string name="folder_picker_select_this">Sélectionner ce dossier</string>

@@ -25,14 +25,12 @@
     <string name="title_preferences">Настройки</string>
     <string name="pref_force_landscape">Ландшафтная ориентация</string>
     <string name="pref_reverse_landscape">Обратные ландшафтном режиме</string>
-    <string name="pref_enable_high_quality">Поддержка изображений в высоком качестве</string>
     <string name="pref_force_dark_background">Использовать темный фон</string>
     <string name="pref_hide_toolbars">Скрывать по умолчанию панель инструментов</string>
     <string name="pref_show_license">Показать лицензионное соглашение</string>
     <string name="menu_settings">Настройки</string>
     <string name="pref_download_path">Папка для загрузок:</string>
     <string name="pref_share_image">Делиться только URL, а не рисунками</string>
-    <string name="pref_mobile_network">Оптимизировать для мобильных устройств</string>
     <string name="menu_open_at">Открыть в этот день</string>
     <string name="folder_picker_cannot_write">Текущая папка не доступна для записи</string>
     <string name="folder_picker_select_this">Выберите эту папку</string>

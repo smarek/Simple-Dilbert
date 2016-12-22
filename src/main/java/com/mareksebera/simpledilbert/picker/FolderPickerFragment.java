@@ -131,10 +131,10 @@ public final class FolderPickerFragment extends ListFragment {
     }
 
     private void toggleShowHidden() {
-        preferences.edit().putBoolean(PREF_SHOW_HIDDEN, !isShowHidden()).commit();
+        preferences.edit().putBoolean(PREF_SHOW_HIDDEN, !isShowHidden()).apply();
     }
 
     private void toggleShowFiles() {
-        preferences.edit().putBoolean(PREF_SHOW_FILES, !isShowFiles()).commit();
+        preferences.edit().putBoolean(PREF_SHOW_FILES, !isShowFiles()).apply();
     }
 }
