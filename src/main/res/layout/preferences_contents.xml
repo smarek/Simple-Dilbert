@@ -136,6 +136,14 @@
 
         <include layout="@layout/horizontal_divider" />
 
+        <Button
+            android:id="@+id/pref_export_urls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/export_cached_urls"/>
+
+        <include layout="@layout/horizontal_divider" />
+
         <TextView
             android:id="@+id/pref_show_license"
             android:layout_width="fill_parent"

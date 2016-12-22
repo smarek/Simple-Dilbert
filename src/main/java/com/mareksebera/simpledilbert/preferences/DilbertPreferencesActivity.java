@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -25,6 +26,7 @@ import com.mareksebera.simpledilbert.widget.WidgetProvider;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
@@ -54,6 +56,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
             share_image, reverse_landscape,
             open_at_latest_strip, widget_always_show_latest;
     private TextView download_path;
+    private Button export_urls;
     private DilbertPreferences preferences;
     private final OnClickListener downloadPathClickListener = new OnClickListener() {
 
@@ -86,6 +89,20 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
                     })
                     .create()
                     .show();
+        }
+    };
+    private final OnClickListener exportUrlsListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry e : preferences.getCachedUrls().entrySet()) {
+                sb.append(String.format("%s :: %s\n", e.getKey(), e.getValue()));
+            }
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, sb.toString());
+            startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.menu_share)));
         }
     };
 
@@ -153,6 +170,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         reverse_landscape = (CheckBox) findViewById(R.id.pref_reverse_landscape);
         open_at_latest_strip = (CheckBox) findViewById(R.id.pref_open_at_latest_strip);
         widget_always_show_latest = (CheckBox) findViewById(R.id.pref_widget_always_latest);
+        export_urls = (Button) findViewById(R.id.pref_export_urls);
         TextView default_zoom_level = (TextView) findViewById(R.id.pref_default_zoom_level);
         TextView author = (TextView) findViewById(R.id.app_author);
         LinearLayout download_path_layout = (LinearLayout) findViewById(R.id.pref_download_path_layout);
@@ -168,6 +186,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
                 reverse_landscape.setChecked(reverse_landscape.isChecked() && isChecked);
             }
         });
+        export_urls.setOnClickListener(exportUrlsListener);
     }
 
     @Override
@@ -189,6 +208,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         reverse_landscape.setChecked(preferences.isReversedLandscape() && preferences.isForceLandscape());
         open_at_latest_strip.setChecked(preferences.isShouldOpenAtLatestStrip());
         widget_always_show_latest.setChecked(preferences.isWidgetAlwaysShowLatest());
+        export_urls.setEnabled(true);
     }
 
     @Override
@@ -211,6 +231,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         preferences.setIsReversedLandscape(reverse_landscape.isChecked());
         preferences.setShouldOpenAtLatestStrip(open_at_latest_strip.isChecked());
         preferences.setWidgetAlwaysShowLatest(widget_always_show_latest.isChecked());
+        export_urls.setEnabled(false);
         updateWidgets();
     }
 

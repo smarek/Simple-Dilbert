@@ -18,6 +18,7 @@ import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.FavoritedItem;
 
 import org.intellij.lang.annotations.MagicConstant;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 public final class DilbertPreferences {
 
@@ -149,6 +151,25 @@ public final class DilbertPreferences {
      */
     public String getCachedUrl(LocalDate dateKey) {
         return getCachedUrl(dateKey.toString(DATE_FORMATTER));
+    }
+
+    /**
+     * Returns all cached URLs in Map&lt;Date, URL&gt;
+     *
+     * @return all cached URLs as Map&lt;Date, URL&gt;
+     */
+    public Map<String, String> getCachedUrls() {
+        Map<String, String> rtn = new TreeMap<>();
+        DateTime first = getFirstStripDate().toDateTimeAtStartOfDay();
+        for (Map.Entry<String, ?> entry : preferences.getAll().entrySet()) {
+            try {
+                if (DATE_FORMATTER.parseDateTime(entry.getKey()).isAfter(first)) {
+                    rtn.put(entry.getKey(), (String) entry.getValue());
+                }
+            } catch (Exception ignore) {
+            }
+        }
+        return rtn;
     }
 
     /**
