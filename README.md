@@ -21,6 +21,4 @@ Javadoc is published on gh-pages repository and available on: http://smarek.gith
 
 # Donations
 
- - <a href="https://flattr.com/submit/auto?user_id=marek.sebera&url=https://github.com/smarek/Simple-Dilbert&title=Simple Dilbert&language=&tags=github&category=software" target="_blank">![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)</a> 
  - PayPal: marek.sebera@gmail.com
- - Gittip <a href="https://www.gittip.com/smarek/" target="_blank"><img height="25" src="https://rawgithub.com/twolfson/gittip-badge/master/dist/gittip.png" alt="Fund me on Gittip" title="Fund me on Gittip" /></a>
