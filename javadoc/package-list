@@ -1,1 +1,8 @@
-com.mareksebera.dilbert
+android.support.v7.appcompat
+com.mareksebera.simpledilbert
+com.mareksebera.simpledilbert.core
+com.mareksebera.simpledilbert.favorites
+com.mareksebera.simpledilbert.picker
+com.mareksebera.simpledilbert.preferences
+com.mareksebera.simpledilbert.utilities
+com.mareksebera.simpledilbert.widget
