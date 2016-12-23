@@ -62,4 +62,24 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+
+    applicationVariants.all { variant ->
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+	    options.tags = [ "attr" ] 
+            source = variant.javaCompile.source
+
+            println '=== source ==='
+            source.collect { relativePath(it) }.sort().each { println it }
+
+            classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+	    classpath += files(variant.javaCompile.classpath.files)
+
+	    println '=== classpath ==='
+	    classpath.collect { relativePath(it) }.sort().each { println it }
+
+            destinationDir = file("build/outputs/docs/javadoc/")
+            title = rootProject.name
+            failOnError false
+        }
+    }
 }
