@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,6 +21,9 @@ import org.joda.time.LocalDate;
 
 import java.util.Calendar;
 import java.util.Locale;
+
+import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
+import static android.view.MenuItem.SHOW_AS_ACTION_NEVER;
 
 public final class
 DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInterface {
@@ -73,7 +75,7 @@ DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInte
         if (preferences.isForceLandscape())
             setRequestedOrientation(preferences.getLandscapeOrientation());
         setContentView(R.layout.activity_dilbert_fragments);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = findViewById(R.id.view_pager);
         adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(pageChangedListener);
@@ -101,29 +103,22 @@ DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         final int category = 0;
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_DATEPICKER, 1, R.string.menu_datepicker)
-                        .setIcon(R.drawable.ic_menu_datepicker),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SHUFFLE, 2, R.string.menu_random)
-                        .setIcon(R.drawable.ic_menu_shuffle),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SHOW_FAVORITES, 6, R.string.menu_show_favorite),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER);
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_LATEST, 5, R.string.menu_latest),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER);
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_OLDEST, 5, R.string.menu_oldest),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER);
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SHOW_OFFLINE, 6, R.string.menu_show_offline),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER);
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER);
+        menu.add(category, MENU_DATEPICKER, 1, R.string.menu_datepicker)
+                .setIcon(R.drawable.ic_menu_datepicker)
+                .setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+        menu.add(category, MENU_SHUFFLE, 2, R.string.menu_random)
+                .setIcon(R.drawable.ic_menu_shuffle)
+                .setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+        menu.add(category, MENU_SHOW_FAVORITES, 6, R.string.menu_show_favorite)
+                .setShowAsAction(SHOW_AS_ACTION_NEVER);
+        menu.add(category, MENU_LATEST, 5, R.string.menu_latest)
+                .setShowAsAction(SHOW_AS_ACTION_NEVER);
+        menu.add(category, MENU_OLDEST, 5, R.string.menu_oldest)
+                .setShowAsAction(SHOW_AS_ACTION_NEVER);
+        menu.add(category, MENU_SHOW_OFFLINE, 6, R.string.menu_show_offline)
+                .setShowAsAction(SHOW_AS_ACTION_NEVER);
+        menu.add(category, MENU_SETTINGS, 8, R.string.menu_settings)
+                .setShowAsAction(SHOW_AS_ACTION_NEVER);
         return super.onCreateOptionsMenu(menu);
     }
 

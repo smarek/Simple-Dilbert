@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
-import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -67,15 +66,16 @@ public final class FolderPickerFragment extends ListFragment {
         View inflated = inflater.inflate(R.layout.fragment_folder_picker, container, false);
         assert inflated != null;
         inflated.setPadding(0, ActionBarUtility.getActionBarHeightDip(container == null ? inflated.getContext() : container.getContext()), 0, 0);
-        currentPath = (TextView) inflated.findViewById(R.id.fragment_folder_picker_current_path);
+        currentPath = inflated.findViewById(R.id.fragment_folder_picker_current_path);
         currentPath.setText(folderPickerAdapter.getCurrentFolder().getAbsolutePath());
         return inflated;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem accept = menu.add(Menu.NONE, MENU_ACCEPT, Menu.NONE, R.string.folder_picker_select_this).setIcon(R.drawable.ic_navigation_accept);
-        MenuItemCompat.setShowAsAction(accept, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE, MENU_ACCEPT, Menu.NONE, R.string.folder_picker_select_this)
+                .setIcon(R.drawable.ic_navigation_accept)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(Menu.NONE, MENU_SHOW_HIDDEN, Menu.NONE, R.string.folder_picker_show_hidden).setCheckable(true);
         menu.add(Menu.NONE, MENU_SHOW_FILES, Menu.NONE, R.string.folder_picker_show_files).setCheckable(true);
         menu.add(Menu.NONE, MENU_GO_DEFAULT, Menu.NONE, R.string.folder_picker_go_to_default);

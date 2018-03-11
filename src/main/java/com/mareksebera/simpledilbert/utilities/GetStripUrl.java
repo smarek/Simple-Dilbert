@@ -11,6 +11,7 @@ import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import org.joda.time.LocalDate;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
@@ -21,7 +22,7 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
 
     private static final String TAG = "GetStripUrl";
     private final DilbertPreferences preferences;
-    private final ProgressBar progressBar;
+    private WeakReference<ProgressBar> progressBar;
     private final LocalDate currDate;
     private final GetStripUrlInterface listener;
 
@@ -34,7 +35,7 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
                        DilbertPreferences preferences, LocalDate currDate,
                        ProgressBar progressBar) {
         this.preferences = preferences;
-        this.progressBar = progressBar;
+        this.progressBar = new WeakReference<>(progressBar);
         this.currDate = currDate;
         this.listener = listener;
     }
@@ -106,8 +107,8 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
      */
     @Override
     protected void onPreExecute() {
-        if (progressBar != null) {
-            progressBar.setVisibility(View.VISIBLE);
+        if (progressBar.get() != null) {
+            progressBar.get().setVisibility(View.VISIBLE);
         }
     }
 }

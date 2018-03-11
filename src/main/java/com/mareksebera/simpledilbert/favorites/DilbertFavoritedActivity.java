@@ -1,7 +1,6 @@
 package com.mareksebera.simpledilbert.favorites;
 
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,6 +13,8 @@ import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
 import java.util.Random;
+
+import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
 
 public final class DilbertFavoritedActivity extends AppCompatActivity implements DilbertFragmentInterface {
 
@@ -52,7 +53,7 @@ public final class DilbertFavoritedActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         boolean isOfflineMode = getIntent().getBooleanExtra(INTENT_OFFLINE, false);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = findViewById(R.id.view_pager);
         adapter = new DilbertFavoritedFragmentAdapter(
                 getSupportFragmentManager(), isOfflineMode ? preferences.getCachedDates() : preferences.getFavoritedItems());
         if (adapter.getCount() == 0) {
@@ -69,10 +70,9 @@ public final class DilbertFavoritedActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItemCompat.setShowAsAction(
-                menu.add(0, MENU_RANDOM, 1, R.string.menu_random).setIcon(R.drawable.ic_menu_shuffle),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
-        );
+        menu.add(0, MENU_RANDOM, 1, R.string.menu_random)
+                .setIcon(R.drawable.ic_menu_shuffle)
+                .setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
         return super.onCreateOptionsMenu(menu);
     }
 

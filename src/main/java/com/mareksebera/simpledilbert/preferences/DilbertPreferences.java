@@ -158,7 +158,7 @@ public final class DilbertPreferences {
      *
      * @return all cached URLs as Map&lt;Date, URL&gt;
      */
-    public Map<String, String> getCachedUrls() {
+    Map<String, String> getCachedUrls() {
         Map<String, String> rtn = new TreeMap<>();
         DateTime first = getFirstStripDate().toDateTimeAtStartOfDay();
         for (Map.Entry<String, ?> entry : preferences.getAll().entrySet()) {
@@ -178,7 +178,7 @@ public final class DilbertPreferences {
      * @param dateKey string key of date
      * @return cached URL or null
      */
-    String getCachedUrl(String dateKey) {
+    private String getCachedUrl(String dateKey) {
         return preferences.getString(dateKey, null);
     }
 
@@ -301,8 +301,8 @@ public final class DilbertPreferences {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @SuppressWarnings("deprecation")
-    public void downloadImageViaManager(final Activity activity,
-                                        final String downloadUrl, LocalDate stripDate, boolean downloadToTemp) {
+    private void downloadImageViaManager(final Activity activity,
+                                         final String downloadUrl, LocalDate stripDate, boolean downloadToTemp) {
         try {
             DownloadManager dm = (DownloadManager) activity
                     .getSystemService(Context.DOWNLOAD_SERVICE);
@@ -323,12 +323,8 @@ public final class DilbertPreferences {
                 request.setDestinationUri(userPath);
             }
             request.setVisibleInDownloadsUi(true);
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            } else {
-                request.setShowRunningNotification(true);
-            }
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             dm.enqueue(request);
         } catch (SecurityException se) {
             if (!downloadToTemp) {
@@ -416,7 +412,7 @@ public final class DilbertPreferences {
      * @param force whether to force ladndscape or not
      * @return boolean if saving preference was successfull
      */
-    public boolean setIsForceLandscape(boolean force) {
+    boolean setIsForceLandscape(boolean force) {
         return editor.putBoolean(PREF_FORCE_LANDSCAPE, force).commit();
     }
 
@@ -424,7 +420,7 @@ public final class DilbertPreferences {
         return preferences.getBoolean(PREF_DARK_LAYOUT, true);
     }
 
-    public boolean setIsDarkLayoutEnabled(boolean dark) {
+    boolean setIsDarkLayoutEnabled(boolean dark) {
         return editor.putBoolean(PREF_DARK_LAYOUT, dark).commit();
     }
 
@@ -436,13 +432,13 @@ public final class DilbertPreferences {
         return editor.putBoolean(PREF_HIDE_TOOLBARS, hidden).commit();
     }
 
-    public String getDownloadTarget() {
+    String getDownloadTarget() {
         return preferences.getString(
                 PREF_DOWNLOAD_TARGET,
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
     }
 
-    public boolean setDownloadTarget(String absolutePath) {
+    boolean setDownloadTarget(String absolutePath) {
         return absolutePath != null && editor.putString(PREF_DOWNLOAD_TARGET, absolutePath).commit();
     }
 
@@ -450,27 +446,27 @@ public final class DilbertPreferences {
         return preferences.getBoolean(PREF_SHARE_IMAGE, true);
     }
 
-    public boolean setIsSharingImage(boolean shouldShareImage) {
+    boolean setIsSharingImage(boolean shouldShareImage) {
         return editor.putBoolean(PREF_SHARE_IMAGE, shouldShareImage).commit();
     }
 
-    public boolean setIsReversedLandscape(boolean isReversed) {
+    boolean setIsReversedLandscape(boolean isReversed) {
         return preferences.edit().putBoolean(PREF_REVERSE_LANDSCAPE, isReversed).commit();
     }
 
-    public boolean isReversedLandscape() {
+    boolean isReversedLandscape() {
         return preferences.getBoolean(PREF_REVERSE_LANDSCAPE, false);
     }
 
-    public boolean setShouldOpenAtLatestStrip(boolean should) {
+    boolean setShouldOpenAtLatestStrip(boolean should) {
         return preferences.edit().putBoolean(PREF_OPEN_AT_LATEST, should).commit();
     }
 
-    public boolean isShouldOpenAtLatestStrip() {
+    boolean isShouldOpenAtLatestStrip() {
         return preferences.getBoolean(PREF_OPEN_AT_LATEST, false);
     }
 
-    public boolean setWidgetAlwaysShowLatest(boolean alwaysShowLatest) {
+    boolean setWidgetAlwaysShowLatest(boolean alwaysShowLatest) {
         return preferences.edit().putBoolean(PREF_WIDGET_ALWAYS_SHOW_LATEST, alwaysShowLatest).commit();
     }
 
@@ -482,7 +478,7 @@ public final class DilbertPreferences {
         return preferences.getInt(PREF_DEFAULT_ZOOM_LEVEL, 0);
     }
 
-    public boolean setDefaultZoomLevel(int zoomLevel) {
+    boolean setDefaultZoomLevel(int zoomLevel) {
         return preferences.edit().putInt(PREF_DEFAULT_ZOOM_LEVEL, zoomLevel % 3).commit();
     }
 
@@ -490,7 +486,7 @@ public final class DilbertPreferences {
     @MagicConstant(intValues = {ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE, ActivityInfo.SCREEN_ORIENTATION_SENSOR, ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE})
     public int getLandscapeOrientation() {
         return isForceLandscape() ?
-                (Build.VERSION.SDK_INT >= 9 && isReversedLandscape()) ?
+                isReversedLandscape() ?
                         ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 : ActivityInfo.SCREEN_ORIENTATION_SENSOR;
     }

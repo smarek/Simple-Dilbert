@@ -6,9 +6,10 @@ import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,15 +18,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
+import com.github.chrisbanes.photoview.OnPhotoTapListener;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
@@ -37,8 +44,7 @@ import org.joda.time.LocalDate;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
+import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
 
 public final class DilbertFragment extends Fragment {
 
@@ -60,9 +66,9 @@ public final class DilbertFragment extends Fragment {
     };
     private PhotoView image;
     private ProgressBar progress;
-    private final RequestListener<String, Bitmap> dilbertImageLoadingListener = new RequestListener<String, Bitmap>() {
+    private final RequestListener<Bitmap> dilbertImageLoadingListener = new RequestListener<Bitmap>() {
         @Override
-        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
             if (image != null) {
                 image.setImageResource(R.drawable.cancel);
             }
@@ -77,7 +83,7 @@ public final class DilbertFragment extends Fragment {
         }
 
         @Override
-        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
             if (progress != null) {
                 progress.setVisibility(View.GONE);
             }
@@ -89,7 +95,7 @@ public final class DilbertFragment extends Fragment {
 
         @Override
         public void imageLoadFailed(String url, Throwable reason) {
-            dilbertImageLoadingListener.onException(null, url, null, true);
+            dilbertImageLoadingListener.onLoadFailed(null, url, null, true);
         }
 
         @Override
@@ -97,12 +103,9 @@ public final class DilbertFragment extends Fragment {
             if (image == null)
                 return;
             Glide.with(DilbertFragment.this)
-                    .load(url)
                     .asBitmap()
-                    .fitCenter()
-                    .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .error(R.drawable.cancel)
+                    .load(url)
+                    .apply(new RequestOptions().dontAnimate().fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.cancel))
                     .listener(dilbertImageLoadingListener)
                     .into(image);
         }
@@ -112,13 +115,8 @@ public final class DilbertFragment extends Fragment {
     private final OnPhotoTapListener photoTapListener = new OnPhotoTapListener() {
 
         @Override
-        public void onPhotoTap(View view, float x, float y) {
+        public void onPhotoTap(ImageView view, float x, float y) {
             refreshAction();
-        }
-
-        @Override
-        public void onOutsidePhotoTap() {
-
         }
     };
     private int zoomLevel = 0;
@@ -222,7 +220,7 @@ public final class DilbertFragment extends Fragment {
     }
 
     private void applyZoomLevel() {
-        if (image != null && image.canZoom()) {
+        if (image != null && image.isZoomable()) {
             switch (zoomLevel) {
                 case 0:
                     image.setScale(image.getMinimumScale(), true);
@@ -252,11 +250,10 @@ public final class DilbertFragment extends Fragment {
         String url = preferences.getCachedUrl(getDateFromArguments());
         if (url == null)
             return;
-        Glide.with(DilbertFragment.this).load(url)
-                .asBitmap()
+        Glide.with(DilbertFragment.this).asBitmap().load(url)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(Bitmap b, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(@NonNull Bitmap b, @Nullable Transition<? super Bitmap> transition) {
                         try {
                             String date = getDateFromArguments().toString(
                                     DilbertPreferences.DATE_FORMATTER);
@@ -267,18 +264,16 @@ public final class DilbertFragment extends Fragment {
                             if (preferences.isSharingImage()) {
                                 i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
                                         + " #simpledilbert");
-                                if (b != null) {
-                                    File tmp = File
-                                            .createTempFile("dilbert_", ".jpg",
-                                                    getActivity()
-                                                            .getExternalCacheDir()
-                                            );
-                                    FileOutputStream out = new FileOutputStream(tmp);
-                                    b.compress(CompressFormat.JPEG, 100, out);
-                                    out.close();
-                                    Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
-                                    i.putExtra(Intent.EXTRA_STREAM, u);
-                                }
+                                File tmp = File
+                                        .createTempFile("dilbert_", ".jpg",
+                                                getActivity()
+                                                        .getExternalCacheDir()
+                                        );
+                                FileOutputStream out = new FileOutputStream(tmp);
+                                b.compress(CompressFormat.JPEG, 100, out);
+                                out.close();
+                                Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
+                                i.putExtra(Intent.EXTRA_STREAM, u);
                             } else {
                                 i.putExtra(
                                         Intent.EXTRA_TEXT,
@@ -304,44 +299,24 @@ public final class DilbertFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         final int category = 0;
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_FAVORITE, 1, R.string.menu_favorite_remove)
-                        .setIcon(R.drawable.ic_menu_not_favorited),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
-        );
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_ZOOM, 4, R.string.menu_zoom)
-                        .setIcon(R.drawable.ic_menu_zoom),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
-        );
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SAVE, 3, R.string.menu_download)
-                        .setIcon(R.drawable.ic_menu_save),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
-        );
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_SHARE, 2, R.string.menu_share)
-                        .setIcon(R.drawable.ic_menu_share),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
-        );
-        if (getActivity() != null && getActivity() instanceof DilbertFavoritedActivity) {
-            MenuItemCompat.setShowAsAction(
-                    menu.add(category, MENU_OPEN_AT, 5, R.string.menu_open_at)
-                            .setIcon(R.drawable.ic_menu_open_at),
-                    MenuItemCompat.SHOW_AS_ACTION_NEVER
-            );
-        }
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_REFRESH, 4, R.string.menu_refresh)
-                        .setIcon(R.drawable.ic_menu_refresh),
-                MenuItemCompat.SHOW_AS_ACTION_NEVER
-        );
+        menu.add(category, MENU_FAVORITE, 1, R.string.menu_favorite_remove)
+                .setIcon(R.drawable.ic_menu_not_favorited).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+        menu.add(category, MENU_ZOOM, 4, R.string.menu_zoom)
+                .setIcon(R.drawable.ic_menu_zoom).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+        menu.add(category, MENU_SAVE, 3, R.string.menu_download)
+                .setIcon(R.drawable.ic_menu_save).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+        menu.add(category, MENU_SHARE, 2, R.string.menu_share)
+                .setIcon(R.drawable.ic_menu_share).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
 
-        MenuItemCompat.setShowAsAction(
-                menu.add(category, MENU_OPEN_IN_BROWSER, 3, R.string.menu_open_in_browser)
-                        .setIcon(R.drawable.ic_menu_open_at),
-                MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
-        );
+        if (getActivity() != null && getActivity() instanceof DilbertFavoritedActivity) {
+            menu.add(category, MENU_OPEN_AT, 5, R.string.menu_open_at)
+                    .setIcon(R.drawable.ic_menu_open_at).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+        }
+
+        menu.add(category, MENU_REFRESH, 4, R.string.menu_refresh)
+                .setIcon(R.drawable.ic_menu_refresh).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+        menu.add(category, MENU_OPEN_IN_BROWSER, 3, R.string.menu_open_in_browser)
+                .setIcon(R.drawable.ic_menu_open_at).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
     }
 
 }

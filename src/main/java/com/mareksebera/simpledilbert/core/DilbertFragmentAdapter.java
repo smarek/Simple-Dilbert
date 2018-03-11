@@ -14,7 +14,7 @@ final class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
     private int countCache = 0;
 
-    public DilbertFragmentAdapter(FragmentManager fm) {
+    DilbertFragmentAdapter(FragmentManager fm) {
         super(fm);
         this.countCache = Days.daysBetween(
                 DilbertPreferences.getFirstStripDate(),
@@ -39,7 +39,7 @@ final class DilbertFragmentAdapter extends FragmentPagerAdapter {
         return f;
     }
 
-    public LocalDate getDateForPosition(int position) {
+    LocalDate getDateForPosition(int position) {
         return LocalDate.now().minusDays(
                 (getCount() - position) - 1);
     }
@@ -49,7 +49,7 @@ final class DilbertFragmentAdapter extends FragmentPagerAdapter {
         return countCache;
     }
 
-    public int getPositionForDate(LocalDate date) {
+    int getPositionForDate(LocalDate date) {
         return getCount()
                 - Days.daysBetween(date,
                 LocalDate.now())

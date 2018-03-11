@@ -6,12 +6,16 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.AppWidgetTarget;
 import com.bumptech.glide.request.target.Target;
 import com.mareksebera.simpledilbert.R;
@@ -97,25 +101,30 @@ public final class WidgetProvider extends AppWidgetProvider {
                 }
             }, prefs, currentDate).execute();
         } else {
-            Glide.with(context).load(cachedUrl)
+            Glide.with(context)
                     .asBitmap()
-                    .dontAnimate()
-                    .listener(new RequestListener<String, Bitmap>() {
+                    .load(cachedUrl)
+                    .apply(new RequestOptions().dontAnimate())
+                    .listener(new RequestListener<Bitmap>() {
                         @Override
-                        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                             updateAppWidget(context, appWidgetManager, appWidgetId);
                             return false;
                         }
 
                         @Override
-                        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                             views.setViewVisibility(R.id.widget_progress, View.GONE);
                             appWidgetManager.updateAppWidget(appWidgetId, views);
-                            Glide.with(context).load(cachedUrl).asBitmap().dontAnimate().into(new AppWidgetTarget(context, views, R.id.widget_image, appWidgetId));
-                            return true;
+                            Glide.with(context)
+                                    .asBitmap()
+                                    .load(cachedUrl)
+                                    .apply(new RequestOptions().dontAnimate())
+                                    .into(new AppWidgetTarget(context, R.id.widget_image, views, appWidgetId));
+                            return false;
                         }
                     })
-                    .into(new AppWidgetTarget(context, views, R.id.widget_image, appWidgetId));
+                    .into(new AppWidgetTarget(context, R.id.widget_image, views, appWidgetId));
         }
 
     }

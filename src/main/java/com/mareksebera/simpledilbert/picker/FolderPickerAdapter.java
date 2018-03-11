@@ -28,7 +28,7 @@ public final class FolderPickerAdapter extends BaseAdapter {
     private boolean shouldShowHidden = false;
     private boolean shouldShowFiles = false;
 
-    public FolderPickerAdapter(FragmentActivity activity, boolean shouldShowHidden, boolean shouldShowFiles) {
+    FolderPickerAdapter(FragmentActivity activity, boolean shouldShowHidden, boolean shouldShowFiles) {
         assert activity != null;
         this.context = activity;
         this.shouldShowFiles = shouldShowFiles;
@@ -36,7 +36,7 @@ public final class FolderPickerAdapter extends BaseAdapter {
         setPath(null);
     }
 
-    public void setPath(File path) {
+    void setPath(File path) {
         if (path == null) path = Environment.getExternalStorageDirectory();
         if (!path.isDirectory()) {
             return;
@@ -85,8 +85,8 @@ public final class FolderPickerAdapter extends BaseAdapter {
             vh = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_folder_picker, parent, false);
             if (convertView != null) {
-                vh.icon = (ImageView) convertView.findViewById(R.id.item_folder_picker_icon);
-                vh.title = (TextView) convertView.findViewById(R.id.item_folder_picker_text);
+                vh.icon = convertView.findViewById(R.id.item_folder_picker_icon);
+                vh.title = convertView.findViewById(R.id.item_folder_picker_text);
                 convertView.setTag(vh);
             }
         } else {
@@ -108,7 +108,7 @@ public final class FolderPickerAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public FileFilter getFileFilter() {
+    private FileFilter getFileFilter() {
         return new FileFilter() {
             @Override
             public boolean accept(File pathname) {
@@ -117,17 +117,17 @@ public final class FolderPickerAdapter extends BaseAdapter {
         };
     }
 
-    public void setShowFiles(boolean showFiles) {
+    void setShowFiles(boolean showFiles) {
         this.shouldShowFiles = showFiles;
         setPath(currentPath);
     }
 
-    public void setShowHidden(boolean showHidden) {
+    void setShowHidden(boolean showHidden) {
         this.shouldShowHidden = showHidden;
         setPath(currentPath);
     }
 
-    public File getCurrentFolder() {
+    File getCurrentFolder() {
         return currentPath;
     }
 

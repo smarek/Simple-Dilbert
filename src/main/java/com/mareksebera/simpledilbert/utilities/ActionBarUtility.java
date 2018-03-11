@@ -28,20 +28,12 @@ public final class ActionBarUtility {
                 return;
             if (actionBarActivity.getSupportActionBar().isShowing()) {
                 actionBarActivity.getSupportActionBar().hide();
-                if (android.os.Build.VERSION.SDK_INT >= 11) {
-                    lp.topMargin = 0;
-                    viewPager.setLayoutParams(lp);
-                } else {
-                    viewPager.setPadding(0, 0, 0, 0);
-                }
+                lp.topMargin = 0;
+                viewPager.setLayoutParams(lp);
             } else {
                 actionBarActivity.getSupportActionBar().show();
-                if (android.os.Build.VERSION.SDK_INT >= 11) {
-                    lp.topMargin = getActionBarHeightCompat(actionBarActivity);
-                    viewPager.setLayoutParams(lp);
-                } else {
-                    viewPager.setPadding(0, getActionBarHeightDip(actionBarActivity), 0, 0);
-                }
+                lp.topMargin = getActionBarHeightCompat(actionBarActivity);
+                viewPager.setLayoutParams(lp);
             }
         } catch (Throwable t) {
             Log.e("DilbertFragmentActivity", "Toggle ActionBar failed", t);
