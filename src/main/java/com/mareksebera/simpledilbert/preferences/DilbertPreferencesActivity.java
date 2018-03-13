@@ -40,21 +40,12 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
 
     private static final int REQUEST_DOWNLOAD_TARGET = 1;
     private static final String TAG = "DilbertPreferencesAct";
-    private final OnClickListener licenseOnClickListener = new OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            showLicenseDialog();
-        }
-    };
-    private final OnClickListener authorOnClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto", "marek@msebera.cz", null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Simple Dilbert");
-            startActivity(Intent.createChooser(emailIntent, "Simple Dilbert"));
-        }
+    private final OnClickListener licenseOnClickListener = v -> showLicenseDialog();
+    private final OnClickListener authorOnClickListener = v -> {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "marek@msebera.cz", null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Simple Dilbert");
+        startActivity(Intent.createChooser(emailIntent, "Simple Dilbert"));
     };
     private CheckBox force_landscape, force_dark, hide_toolbars,
             share_image, reverse_landscape,
@@ -82,19 +73,9 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         public void onClick(View v) {
             new AlertDialog.Builder(DilbertPreferencesActivity.this)
                     .setTitle(R.string.pref_default_zoom_level)
-                    .setSingleChoiceItems(new CharSequence[]{"Minimum", "Medium", "Maximum"}, preferences.getDefaultZoomLevel(), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            preferences.setDefaultZoomLevel(which);
-                        }
-                    })
+                    .setSingleChoiceItems(new CharSequence[]{"Minimum", "Medium", "Maximum"}, preferences.getDefaultZoomLevel(), (dialog, which) -> preferences.setDefaultZoomLevel(which))
                     .setCancelable(true)
-                    .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
+                    .setNeutralButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
                     .create()
                     .show();
         }
@@ -147,13 +128,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         builder.setTitle(R.string.apache_license_2_0);
         builder.setMessage(getLicenseText());
         builder.setNeutralButton(android.R.string.cancel,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                (dialog, which) -> dialog.dismiss());
         builder.show();
     }
 
@@ -187,12 +162,9 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         download_path_layout.setOnClickListener(downloadPathClickListener);
         license.setOnClickListener(licenseOnClickListener);
         author.setOnClickListener(authorOnClickListener);
-        force_landscape.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                reverse_landscape.setEnabled(isChecked);
-                reverse_landscape.setChecked(reverse_landscape.isChecked() && isChecked);
-            }
+        force_landscape.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            reverse_landscape.setEnabled(isChecked);
+            reverse_landscape.setChecked(reverse_landscape.isChecked() && isChecked);
         });
         export_urls.setOnClickListener(exportUrlsListener);
     }

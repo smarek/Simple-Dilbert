@@ -42,6 +42,7 @@ public final class WidgetProvider extends AppWidgetProvider {
                                                   Context context, int appWidgetId) {
         Intent intent = new Intent(INTENT);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        intent.setPackage(context.getPackageName());
         return PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }

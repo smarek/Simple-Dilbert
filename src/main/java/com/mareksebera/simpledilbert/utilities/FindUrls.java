@@ -19,7 +19,7 @@ import cz.msebera.android.httpclient.util.EntityUtils;
 final public class FindUrls {
     private static final String LOG_TAG = "FindUrls";
     private static final Pattern url_match_pattern = Pattern
-            .compile("<img.*img-comic.*src=\"([a-zA-Z0-9:/\\.]*)\"\\s+");
+            .compile("<img.*img-comic.*src=\"([a-zA-Z0-9:/.]*)\"\\s+");
     private static final Pattern date_match_pattern = Pattern
             .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
 

@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -51,18 +50,14 @@ public final class DilbertFragment extends Fragment {
     public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
     private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
             MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5, MENU_OPEN_AT = -6, MENU_OPEN_IN_BROWSER = -7;
-    private final OnLongClickListener imageLongClickListener = new OnLongClickListener() {
-
-        @Override
-        public boolean onLongClick(View v) {
-            if (getActivity() != null) {
-                FragmentActivity sfa = getActivity();
-                if (sfa instanceof DilbertFragmentInterface) {
-                    ((DilbertFragmentInterface) sfa).toggleActionBar();
-                }
+    private final OnLongClickListener imageLongClickListener = v -> {
+        if (getActivity() != null) {
+            FragmentActivity sfa = getActivity();
+            if (sfa instanceof DilbertFragmentInterface) {
+                ((DilbertFragmentInterface) sfa).toggleActionBar();
             }
-            return true;
         }
+        return true;
     };
     private PhotoView image;
     private ProgressBar progress;
@@ -112,13 +107,7 @@ public final class DilbertFragment extends Fragment {
     };
     private DilbertPreferences preferences;
     private GetStripUrl loadTask;
-    private final OnPhotoTapListener photoTapListener = new OnPhotoTapListener() {
-
-        @Override
-        public void onPhotoTap(ImageView view, float x, float y) {
-            refreshAction();
-        }
-    };
+    private final OnPhotoTapListener photoTapListener = (view, x, y) -> refreshAction();
     private int zoomLevel = 0;
 
     public DilbertFragment() {
@@ -145,16 +134,16 @@ public final class DilbertFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_dilbert, container,
                 false);
         assert fragment != null;
-        this.image = (PhotoView) fragment.findViewById(R.id.fragment_imageview);
+        this.image = fragment.findViewById(R.id.fragment_imageview);
         this.image.setOnLongClickListener(imageLongClickListener);
         fragment.setOnLongClickListener(imageLongClickListener);
         this.image.setOnPhotoTapListener(photoTapListener);
-        this.progress = (ProgressBar) fragment
+        this.progress = fragment
                 .findViewById(R.id.fragment_progressbar);
         String cachedUrl = preferences.getCachedUrl(getDateFromArguments());
         if (null != cachedUrl) {

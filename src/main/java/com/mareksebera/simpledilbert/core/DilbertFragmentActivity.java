@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
@@ -33,16 +32,11 @@ DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInte
     private ViewPager viewPager;
     private DilbertFragmentAdapter adapter;
     private DilbertPreferences preferences;
-    private final DatePickerDialog.OnDateSetListener dilbertOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            LocalDate selDate = LocalDate.parse(String.format(new Locale(
-                            "en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
-                    DilbertPreferences.DATE_FORMATTER);
-            setCurrentDate(selDate);
-        }
+    private final DatePickerDialog.OnDateSetListener dilbertOnDateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
+        LocalDate selDate = LocalDate.parse(String.format(new Locale(
+                        "en"), "%d-%d-%d", year, monthOfYear + 1, dayOfMonth),
+                DilbertPreferences.DATE_FORMATTER);
+        setCurrentDate(selDate);
     };
     private final ViewPager.OnPageChangeListener pageChangedListener = new ViewPager.OnPageChangeListener() {
 

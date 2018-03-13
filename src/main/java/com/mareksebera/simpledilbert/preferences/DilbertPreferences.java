@@ -239,13 +239,7 @@ public final class DilbertPreferences {
         for (String date : cachedUrls.keySet()) {
             rtn.add(new FavoritedItem(LocalDate.parse(date)));
         }
-        Collections.sort(rtn, new Comparator<FavoritedItem>() {
-
-            @Override
-            public int compare(FavoritedItem lhs, FavoritedItem rhs) {
-                return lhs.getDate().compareTo(rhs.getDate());
-            }
-        });
+        Collections.sort(rtn, (lhs, rhs) -> lhs.getDate().compareTo(rhs.getDate()));
         return rtn;
     }
 
@@ -267,13 +261,7 @@ public final class DilbertPreferences {
                 }
             }
         }
-        Collections.sort(favorites, new Comparator<FavoritedItem>() {
-
-            @Override
-            public int compare(FavoritedItem lhs, FavoritedItem rhs) {
-                return lhs.getDate().compareTo(rhs.getDate());
-            }
-        });
+        Collections.sort(favorites, (lhs, rhs) -> lhs.getDate().compareTo(rhs.getDate()));
         return favorites;
     }
 

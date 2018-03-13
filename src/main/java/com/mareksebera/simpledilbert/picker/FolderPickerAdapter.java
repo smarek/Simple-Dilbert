@@ -109,12 +109,7 @@ public final class FolderPickerAdapter extends BaseAdapter {
     }
 
     private FileFilter getFileFilter() {
-        return new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return !(!shouldShowHidden && pathname.getName().startsWith(".")) && !(!shouldShowFiles && !pathname.isDirectory());
-            }
-        };
+        return pathname -> !(!shouldShowHidden && pathname.getName().startsWith(".")) && !(!shouldShowFiles && !pathname.isDirectory());
     }
 
     void setShowFiles(boolean showFiles) {
