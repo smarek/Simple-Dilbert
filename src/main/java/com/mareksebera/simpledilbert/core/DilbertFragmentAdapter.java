@@ -13,18 +13,21 @@ import org.joda.time.LocalDate;
 final class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
     private int countCache = 0;
+    private DilbertPreferences preferences;
 
-    DilbertFragmentAdapter(FragmentManager fm) {
+    DilbertFragmentAdapter(FragmentManager fm, DilbertPreferences preferences) {
         super(fm);
         this.countCache = Days.daysBetween(
                 DilbertPreferences.getFirstStripDate(),
                 LocalDate.now()).getDays() + 1;
+        this.preferences = preferences;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
+        String cachedTitle = preferences.getCachedTitle(getDateForPosition(position));
         return getDateForPosition(position).toString(
-                DilbertPreferences.NICE_DATE_FORMATTER);
+                DilbertPreferences.NICE_DATE_FORMATTER) + ((cachedTitle == null || cachedTitle.isEmpty()) ? "" : " : " + cachedTitle);
     }
 
     @Override

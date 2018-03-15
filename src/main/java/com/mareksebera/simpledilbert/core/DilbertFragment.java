@@ -1,5 +1,6 @@
 package com.mareksebera.simpledilbert.core;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,6 +49,7 @@ import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
 
 public final class DilbertFragment extends Fragment {
 
+    public static final String BROADCAST_TITLE_UPDATE = "com.mareksebera.simpledilbert.broadcast.TITLE";
     public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
     private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
             MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5, MENU_OPEN_AT = -6, MENU_OPEN_IN_BROWSER = -7;
@@ -94,7 +97,7 @@ public final class DilbertFragment extends Fragment {
         }
 
         @Override
-        public void displayImage(String url) {
+        public void displayImage(String url, String title) {
             if (image == null)
                 return;
             Glide.with(DilbertFragment.this)
@@ -103,6 +106,10 @@ public final class DilbertFragment extends Fragment {
                     .apply(new RequestOptions().dontAnimate().fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.cancel))
                     .listener(dilbertImageLoadingListener)
                     .into(image);
+            Context c = getContext();
+            if (c != null) {
+                LocalBroadcastManager.getInstance(c).sendBroadcast(new Intent(BROADCAST_TITLE_UPDATE));
+            }
         }
     };
     private DilbertPreferences preferences;
@@ -146,8 +153,9 @@ public final class DilbertFragment extends Fragment {
         this.progress = fragment
                 .findViewById(R.id.fragment_progressbar);
         String cachedUrl = preferences.getCachedUrl(getDateFromArguments());
+        String cachedTitle = preferences.getCachedTitle(getDateFromArguments());
         if (null != cachedUrl) {
-            getStripURIlListener.displayImage(cachedUrl);
+            getStripURIlListener.displayImage(cachedUrl, cachedTitle);
         } else {
             this.loadTask = new GetStripUrl(getStripURIlListener, preferences,
                     getDateFromArguments());

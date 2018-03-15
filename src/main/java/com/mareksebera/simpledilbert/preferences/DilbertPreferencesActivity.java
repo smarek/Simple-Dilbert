@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +47,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
     };
     private CheckBox force_landscape, force_dark, hide_toolbars,
             share_image, reverse_landscape,
-            open_at_latest_strip, widget_always_show_latest;
+            open_at_latest_strip, widget_always_show_latest, widget_show_title;
     private TextView download_path;
     private Button export_urls;
     private DilbertPreferences preferences;
@@ -153,6 +151,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         reverse_landscape = findViewById(R.id.pref_reverse_landscape);
         open_at_latest_strip = findViewById(R.id.pref_open_at_latest_strip);
         widget_always_show_latest = findViewById(R.id.pref_widget_always_latest);
+        widget_show_title = findViewById(R.id.pref_widget_show_title);
         export_urls = findViewById(R.id.pref_export_urls);
         TextView default_zoom_level = findViewById(R.id.pref_default_zoom_level);
         TextView author = findViewById(R.id.app_author);
@@ -188,6 +187,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         reverse_landscape.setChecked(preferences.isReversedLandscape() && preferences.isForceLandscape());
         open_at_latest_strip.setChecked(preferences.isShouldOpenAtLatestStrip());
         widget_always_show_latest.setChecked(preferences.isWidgetAlwaysShowLatest());
+        widget_show_title.setChecked(preferences.isWidgetShowTitle());
         export_urls.setEnabled(true);
     }
 
@@ -211,6 +211,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         preferences.setIsReversedLandscape(reverse_landscape.isChecked());
         preferences.setShouldOpenAtLatestStrip(open_at_latest_strip.isChecked());
         preferences.setWidgetAlwaysShowLatest(widget_always_show_latest.isChecked());
+        preferences.setWidgetShowTitle(widget_show_title.isChecked());
         export_urls.setEnabled(false);
         updateWidgets();
     }

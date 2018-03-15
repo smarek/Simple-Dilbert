@@ -1,6 +1,7 @@
 package com.mareksebera.simpledilbert.utilities;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
@@ -19,15 +20,21 @@ import cz.msebera.android.httpclient.util.EntityUtils;
 final public class FindUrls {
     private static final String LOG_TAG = "FindUrls";
     private static final Pattern url_match_pattern = Pattern
-            .compile("<img.*img-comic.*src=\"([a-zA-Z0-9:/.]*)\"\\s+");
+            .compile(".*content=\"(.*)\".*");
     private static final Pattern date_match_pattern = Pattern
             .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
+    private static final Pattern title_match_pattern = Pattern
+            .compile(".*content=\"(.*)\".*");
 
     private FindUrls() {
     }
 
-    public static String extractUrls(HttpResponse response) {
-        String found = null;
+    @NonNull
+    public static String[] extractUrlAndTitle(HttpResponse response) {
+        String foundUrl = null;
+        String foundTitle = null;
+        boolean hasFoundUrl = false;
+        boolean hasFoundTitle = false;
         try {
             Scanner scan;
             Header contentEncoding = response
@@ -40,18 +47,31 @@ final public class FindUrls {
                 scan = new Scanner(response.getEntity().getContent());
             }
 
-            found = scan.findWithinHorizon(url_match_pattern, 0);
-            if (null != found) {
-                Matcher m = url_match_pattern.matcher(found);
-                if (m.matches())
-                    found = m.group(1);
+            while (!hasFoundUrl || !hasFoundTitle) {
+                if (!scan.hasNextLine()) break;
+
+                String line = scan.nextLine();
+                if (line.contains("twitter:image")) {
+                    Matcher m = url_match_pattern.matcher(line);
+                    if (m.matches()) {
+                        foundUrl = m.group(1);
+                        hasFoundUrl = true;
+                    }
+                } else if (line.contains("twitter:title")) {
+                    Matcher m = title_match_pattern.matcher(line);
+                    if (m.matches()) {
+                        foundTitle = m.group(1);
+                        hasFoundTitle = true;
+                    }
+                }
             }
+
             scan.close();
             EntityUtils.consume(response.getEntity());
         } catch (Throwable t) {
             Log.e(LOG_TAG, "Error Occurred", t);
         }
-        return found;
+        return new String[]{foundUrl, foundTitle};
     }
 
     public static LocalDate extractCurrentDateFromIntentUrl(Uri path) {

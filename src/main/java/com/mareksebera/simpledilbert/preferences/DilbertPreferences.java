@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.FavoritedItem;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.intellij.lang.annotations.MagicConstant;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -26,7 +27,6 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -42,6 +42,7 @@ public final class DilbertPreferences {
     public static final DateTimeFormatter NICE_DATE_FORMATTER = DateTimeFormat.mediumDate();
     private static final String PREF_CURRENT_DATE = "dilbert_current_date";
     private static final String PREF_CURRENT_URL = "dilbert_current_url";
+    private static final String PREF_CURRENT_TITLE = "dilbert_current_url";
     private static final String PREF_DARK_LAYOUT = "dilbert_dark_layout";
     private static final String PREF_FORCE_LANDSCAPE = "dilbert_force_landscape";
     private static final String PREF_HIDE_TOOLBARS = "dilbert_hide_toolbars";
@@ -50,6 +51,7 @@ public final class DilbertPreferences {
     private static final String PREF_REVERSE_LANDSCAPE = "dilbert_reverse_landscape";
     private static final String PREF_OPEN_AT_LATEST = "dilbert_open_at_latest_strip";
     private static final String PREF_WIDGET_ALWAYS_SHOW_LATEST = "dilbert_widget_always_show_latest";
+    private static final String PREF_WIDGET_SHOW_STRIP_TITLE = "dilbert_widget_show_strip_title";
     private static final String PREF_DEFAULT_ZOOM_LEVEL = "dilbert_default_zoom_level";
     private static final String TAG = "DilbertPreferences";
     private final SharedPreferences preferences;
@@ -144,6 +146,19 @@ public final class DilbertPreferences {
     }
 
     /**
+     * Saves retrieved strip title for date
+     *
+     * @param date string identifier of comics strip
+     * @param s    title of strip
+     * @return if saving was successful
+     */
+    public boolean saveCurrentTitle(String date, String s) {
+        editor.putString(PREF_CURRENT_TITLE, s);
+        editor.putString(date + "_title", s);
+        return editor.commit();
+    }
+
+    /**
      * Returns cached URL for provided date
      *
      * @param dateKey LocalDate of item
@@ -151,6 +166,16 @@ public final class DilbertPreferences {
      */
     public String getCachedUrl(LocalDate dateKey) {
         return getCachedUrl(dateKey.toString(DATE_FORMATTER));
+    }
+
+    /**
+     * Returns cached strip title for provided date
+     *
+     * @param dateKey LocalDate of item
+     * @return cached title or null
+     */
+    public String getCachedTitle(LocalDate dateKey) {
+        return StringEscapeUtils.unescapeHtml3(getCachedTitle(dateKey.toString(DATE_FORMATTER) + "_title"));
     }
 
     /**
@@ -180,6 +205,16 @@ public final class DilbertPreferences {
      */
     private String getCachedUrl(String dateKey) {
         return preferences.getString(dateKey, null);
+    }
+
+    /**
+     * Returns cached strip title for provided key
+     *
+     * @param titleKey string key of date
+     * @return cached URL or null
+     */
+    private String getCachedTitle(String titleKey) {
+        return preferences.getString(titleKey, null);
     }
 
     /**
@@ -460,6 +495,14 @@ public final class DilbertPreferences {
 
     public boolean isWidgetAlwaysShowLatest() {
         return preferences.getBoolean(PREF_WIDGET_ALWAYS_SHOW_LATEST, false);
+    }
+
+    public boolean setWidgetShowTitle(boolean showTitle) {
+        return preferences.edit().putBoolean(PREF_WIDGET_SHOW_STRIP_TITLE, showTitle).commit();
+    }
+
+    public boolean isWidgetShowTitle() {
+        return preferences.getBoolean(PREF_WIDGET_SHOW_STRIP_TITLE, true);
     }
 
     public int getDefaultZoomLevel() {

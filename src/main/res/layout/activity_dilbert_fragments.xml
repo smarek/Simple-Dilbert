@@ -3,6 +3,4 @@
     android:id="@+id/view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize" >
-
-</com.mareksebera.simpledilbert.utilities.FixedViewPager>
+    android:layout_marginTop="?actionBarSize"/>

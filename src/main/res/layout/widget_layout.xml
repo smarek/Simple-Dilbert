@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_margin="0dp"
-              android:id="@+id/widget_full_layout"
-              android:background="#ff303030"
-              android:orientation="vertical"
-              android:padding="0dp"
-              tools:ignore="Overdraw">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_full_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="0dp"
+    android:background="#ff303030"
+    android:orientation="vertical"
+    android:padding="0dp"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -22,76 +22,88 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:lines="1"
-            android:layout_marginLeft="5dp"
             android:maxLines="1"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <ImageButton
             android:id="@+id/widget_refresh"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/widget_cd_random"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/widget_cd_random"
             android:scaleType="center"
             android:src="@drawable/ic_menu_refresh"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/widget_random"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/widget_cd_random"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/widget_cd_random"
             android:scaleType="center"
             android:src="@drawable/ic_menu_shuffle"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/widget_previous"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="0dp"
-            android:contentDescription="@string/widget_cd_previous"
-            android:background="@android:color/transparent"
-            android:gravity="center|top"
             android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/widget_cd_previous"
+            android:gravity="center|top"
             android:src="@drawable/widget_previous"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/widget_next"
-            android:background="@android:color/transparent"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="0dp"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/widget_cd_next"
             android:src="@drawable/widget_next"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/widget_latest"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@android:color/transparent"
             android:layout_margin="0dp"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/widget_cd_latest"
             android:src="@drawable/widget_latest"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="3dp"
-        android:padding="0dp"
-        android:background="#ff80cbc4"/>
+        android:background="#ff80cbc4"
+        android:padding="0dp" />
+
+    <TextView
+        android:id="@+id/widget_strip_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="5dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
     <FrameLayout
         android:id="@+id/widget_layout"
@@ -107,14 +119,14 @@
             android:layout_gravity="center"
             android:contentDescription="@string/cd_dilbert_image"
             android:paddingLeft="2dp"
-            android:paddingRight="2dp"/>
+            android:paddingRight="2dp" />
 
         <ProgressBar
             android:id="@+id/widget_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
 </LinearLayout>

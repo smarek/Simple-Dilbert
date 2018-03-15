@@ -18,7 +18,7 @@ import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.impl.client.CloseableHttpClient;
 import cz.msebera.android.httpclient.impl.client.HttpClients;
 
-public final class GetStripUrl extends AsyncTask<Void, Void, String> {
+public final class GetStripUrl extends AsyncTask<Void, Void, String[]> {
 
     private static final String TAG = "GetStripUrl";
     private final DilbertPreferences preferences;
@@ -41,14 +41,14 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected String[] doInBackground(Void... params) {
         if (this.currDate == null) {
             Log.e(TAG, "Cannot load for null date");
             return null;
         }
         String cached = this.preferences.getCachedUrl(this.currDate);
         if (cached != null) {
-            return cached;
+            return new String[]{cached, this.preferences.getCachedTitle(this.currDate)};
         }
         HttpGet get = new HttpGet("http://dilbert.com/strip/"
                 + currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
@@ -63,7 +63,7 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
         if (response == null) {
             return null;
         }
-        String rtn = handleParse(response);
+        String[] rtn = handleParse(response);
 
         try {
             client.close();
@@ -74,18 +74,21 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
         return rtn;
     }
 
-    private String handleParse(HttpResponse response) {
-        String foundUrl = FindUrls.extractUrls(response);
-        if (null != foundUrl) {
+    private String[] handleParse(HttpResponse response) {
+        String[] found = FindUrls.extractUrlAndTitle(response);
+        if (found.length == 2 && found[0] != null && found[1] != null) {
             preferences
                     .saveCurrentUrl(currDate
-                            .toString(DilbertPreferences.DATE_FORMATTER), foundUrl);
+                            .toString(DilbertPreferences.DATE_FORMATTER), found[0]);
+            preferences
+                    .saveCurrentTitle(currDate
+                            .toString(DilbertPreferences.DATE_FORMATTER), found[1]);
         }
-        return foundUrl;
+        return found;
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(String[] result) {
         if (result == null) {
             if (listener != null) {
                 listener.imageLoadFailed(preferences.getCachedUrl(currDate),
@@ -95,7 +98,7 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String> {
             }
         } else {
             if (listener != null) {
-                listener.displayImage(result);
+                listener.displayImage(result[0], result[1]);
             } else {
                 Log.e(TAG, "listener is NULL");
             }

@@ -1,9 +1,13 @@
 package com.mareksebera.simpledilbert.core;
 
 import android.app.DatePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -54,6 +58,12 @@ DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInte
         public void onPageScrollStateChanged(int arg0) {
         }
     };
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setTitle(adapter.getPageTitle(viewPager.getCurrentItem()));
+        }
+    };
 
     private void setCurrentDate(LocalDate date) {
         preferences.saveCurrentDate(date);
@@ -70,7 +80,7 @@ DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInte
             setRequestedOrientation(preferences.getLandscapeOrientation());
         setContentView(R.layout.activity_dilbert_fragments);
         viewPager = findViewById(R.id.view_pager);
-        adapter = new DilbertFragmentAdapter(getSupportFragmentManager());
+        adapter = new DilbertFragmentAdapter(getSupportFragmentManager(), preferences);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(pageChangedListener);
         if (preferences.isToolbarsHidden())
@@ -90,8 +100,15 @@ DilbertFragmentActivity extends AppCompatActivity implements DilbertFragmentInte
     @Override
     protected void onResume() {
         super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DilbertFragment.BROADCAST_TITLE_UPDATE));
         viewPager.setCurrentItem(adapter.getPositionForDate(preferences
                 .getCurrentDate()));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
     @Override

@@ -75,12 +75,16 @@ public final class WidgetProvider extends AppWidgetProvider {
         views.setViewVisibility(R.id.widget_latest, prefs.isWidgetAlwaysShowLatest() ? View.GONE : View.VISIBLE);
 
         final String cachedUrl = prefs.getCachedUrl(currentDate);
+        final String cachedTitle = prefs.getCachedTitle(currentDate);
         views.setViewVisibility(R.id.widget_progress, View.VISIBLE);
-        views.setTextViewText(
-                R.id.widget_title,
-                prefs.getDateForWidgetId(appWidgetId)
-                        .toString(
-                                DilbertPreferences.NICE_DATE_FORMATTER));
+        views.setTextViewText(R.id.widget_title, prefs.getDateForWidgetId(appWidgetId)
+                .toString(DilbertPreferences.NICE_DATE_FORMATTER));
+        if (prefs.isWidgetShowTitle() && cachedTitle != null && !cachedTitle.isEmpty()) {
+            views.setViewVisibility(R.id.widget_strip_title, View.VISIBLE);
+            views.setTextViewText(R.id.widget_strip_title, cachedTitle);
+        } else {
+            views.setViewVisibility(R.id.widget_strip_title, View.GONE);
+        }
         appWidgetManager.updateAppWidget(appWidgetId, views);
         if (cachedUrl == null) {
             new GetStripUrl(new GetStripUrlInterface() {
@@ -97,7 +101,7 @@ public final class WidgetProvider extends AppWidgetProvider {
                 }
 
                 @Override
-                public void displayImage(String url) {
+                public void displayImage(String url, String title) {
                     updateAppWidget(context, appWidgetManager, appWidgetId);
                 }
             }, prefs, currentDate).execute();
