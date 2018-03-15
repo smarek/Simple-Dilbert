@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 4.5
+
+  - New parsing (using twitter:image and twitter:title, for simplicity)
+  - Downloading and saving strip title (only on refresh for already cached strips)
+  - Displaying title in basic browsing and in widget (with option to turn off for widget in preferences)
+  - Updated SDK to v27
+  - Raised minimum Android API version from 9 to 14 (sorry, phones with 7 years obsolete OS)
+
 ## 4.4
 
   - Added offline mode - browsing only downloaded images
