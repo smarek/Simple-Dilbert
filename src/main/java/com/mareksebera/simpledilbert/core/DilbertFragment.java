@@ -218,17 +218,20 @@ public final class DilbertFragment extends Fragment {
 
     private void applyZoomLevel() {
         if (image != null && image.isZoomable()) {
+            final float scale;
             switch (zoomLevel) {
                 case 0:
-                    image.setScale(image.getMinimumScale(), true);
+                default:
+                    scale = image.getMinimumScale();
                     break;
                 case 1:
-                    image.setScale(image.getMediumScale(), true);
+                    scale = image.getMediumScale();
                     break;
                 case 2:
-                    image.setScale(image.getMaximumScale(), true);
+                    scale = image.getMaximumScale();
                     break;
             }
+            image.setScale(scale, 0, 0, true);
         }
     }
 
