@@ -50,7 +50,7 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String[]> {
         if (cached != null) {
             return new String[]{cached, this.preferences.getCachedTitle(this.currDate)};
         }
-        HttpGet get = new HttpGet("http://dilbert.com/strip/"
+        HttpGet get = new HttpGet("https://dilbert.com/strip/"
                 + currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/");
         HttpResponse response = null;
         CloseableHttpClient client = null;
