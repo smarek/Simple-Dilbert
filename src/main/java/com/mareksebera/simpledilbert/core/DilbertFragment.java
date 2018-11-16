@@ -279,7 +279,7 @@ public final class DilbertFragment extends Fragment {
                                         Intent.EXTRA_TEXT,
                                         "Dilbert "
                                                 + date
-                                                + " #simpledilbert http://dilbert.com/strips/comic/"
+                                                + " #simpledilbert https://dilbert.com/strips/comic/"
                                                 + date
                                 );
                             }
