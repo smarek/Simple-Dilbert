@@ -1,14 +1,15 @@
 package com.mareksebera.simpledilbert.favorites;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.mareksebera.simpledilbert.core.DilbertFragment;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 final class DilbertFavoritedFragmentAdapter extends FragmentPagerAdapter {
 

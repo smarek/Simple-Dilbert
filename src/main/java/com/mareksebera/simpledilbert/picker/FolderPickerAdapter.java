@@ -1,7 +1,6 @@
 package com.mareksebera.simpledilbert.picker;
 
 import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,16 @@ import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import androidx.fragment.app.FragmentActivity;
+
 public final class FolderPickerAdapter extends BaseAdapter {
 
     private FragmentActivity context;
     private File currentPath;
     private File[] currentFolder;
     private boolean hasParent = false;
-    private boolean shouldShowHidden = false;
-    private boolean shouldShowFiles = false;
+    private boolean shouldShowHidden;
+    private boolean shouldShowFiles;
 
     FolderPickerAdapter(FragmentActivity activity, boolean shouldShowHidden, boolean shouldShowFiles) {
         assert activity != null;

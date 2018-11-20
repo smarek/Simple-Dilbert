@@ -1,8 +1,6 @@
 package com.mareksebera.simpledilbert.favorites;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,6 +11,9 @@ import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
 import java.util.Random;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
 

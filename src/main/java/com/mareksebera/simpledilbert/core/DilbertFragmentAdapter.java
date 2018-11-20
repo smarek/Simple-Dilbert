@@ -1,18 +1,19 @@
 package com.mareksebera.simpledilbert.core;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+
 final class DilbertFragmentAdapter extends FragmentPagerAdapter {
 
-    private int countCache = 0;
+    private int countCache;
     private DilbertPreferences preferences;
 
     DilbertFragmentAdapter(FragmentManager fm, DilbertPreferences preferences) {

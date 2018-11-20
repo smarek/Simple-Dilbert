@@ -1,11 +1,12 @@
 package com.mareksebera.simpledilbert.utilities;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import org.jetbrains.annotations.NotNull;
+
+import androidx.viewpager.widget.ViewPager;
 
 final public class FixedViewPager extends ViewPager {
 
@@ -34,6 +35,15 @@ final public class FixedViewPager extends ViewPager {
     public boolean onTouchEvent(MotionEvent arg0) {
         try {
             return super.onTouchEvent(arg0);
+        } catch (final Throwable t) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean performClick() {
+        try {
+            return super.performClick();
         } catch (final Throwable t) {
             return false;
         }

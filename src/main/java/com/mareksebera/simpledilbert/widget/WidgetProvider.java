@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -26,6 +25,8 @@ import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
 
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
+
+import androidx.annotation.Nullable;
 
 public final class WidgetProvider extends AppWidgetProvider {
 

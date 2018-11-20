@@ -9,8 +9,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +27,9 @@ import com.mareksebera.simpledilbert.widget.WidgetProvider;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;

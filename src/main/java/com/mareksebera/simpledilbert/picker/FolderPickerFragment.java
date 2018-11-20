@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +21,8 @@ import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 
 import java.io.File;
+
+import androidx.fragment.app.ListFragment;
 
 public final class FolderPickerFragment extends ListFragment {
 

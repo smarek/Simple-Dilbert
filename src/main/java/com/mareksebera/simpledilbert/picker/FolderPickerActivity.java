@@ -1,10 +1,11 @@
 package com.mareksebera.simpledilbert.picker;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.mareksebera.simpledilbert.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public final class FolderPickerActivity extends AppCompatActivity {
 

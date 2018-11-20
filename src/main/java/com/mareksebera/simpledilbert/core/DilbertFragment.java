@@ -7,12 +7,6 @@ import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.FileProvider;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,7 +29,6 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.mareksebera.simpledilbert.BuildConfig;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
@@ -46,6 +39,13 @@ import org.joda.time.LocalDate;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
 
@@ -102,7 +102,7 @@ public final class DilbertFragment extends Fragment {
         public void displayImage(String url, String title) {
             if (image == null)
                 return;
-            Glide.with(DilbertFragment.this)
+            Glide.with(DilbertFragment.this.getContext())
                     .asBitmap()
                     .load(url)
                     .apply(new RequestOptions().dontAnimate().fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.cancel))
@@ -252,7 +252,7 @@ public final class DilbertFragment extends Fragment {
         String url = preferences.getCachedUrl(getDateFromArguments());
         if (url == null)
             return;
-        Glide.with(DilbertFragment.this).asBitmap().load(url)
+        Glide.with(DilbertFragment.this.getContext()).asBitmap().load(url)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap b, @Nullable Transition<? super Bitmap> transition) {

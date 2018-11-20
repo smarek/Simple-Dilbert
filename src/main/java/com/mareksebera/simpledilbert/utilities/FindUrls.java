@@ -1,7 +1,6 @@
 package com.mareksebera.simpledilbert.utilities;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
@@ -13,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
+import androidx.annotation.NonNull;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.util.EntityUtils;
@@ -30,7 +30,7 @@ final public class FindUrls {
     }
 
     @NonNull
-    public static String[] extractUrlAndTitle(HttpResponse response) {
+    static String[] extractUrlAndTitle(HttpResponse response) {
         String foundUrl = null;
         String foundTitle = null;
         boolean hasFoundUrl = false;
