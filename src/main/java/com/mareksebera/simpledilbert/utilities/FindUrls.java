@@ -19,12 +19,13 @@ import cz.msebera.android.httpclient.util.EntityUtils;
 
 final public class FindUrls {
     private static final String LOG_TAG = "FindUrls";
+
     private static final Pattern url_match_pattern = Pattern
-            .compile(".*content=\"(.*)\".*");
+            .compile(".*data-image=\"([^\"]+)\".*");
     private static final Pattern date_match_pattern = Pattern
             .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
     private static final Pattern title_match_pattern = Pattern
-            .compile(".*content=\"(.*)\".*");
+            .compile(".*\"comic-title-name\">([^<]+)<.*");
 
     private FindUrls() {
     }
@@ -51,13 +52,14 @@ final public class FindUrls {
                 if (!scan.hasNextLine()) break;
 
                 String line = scan.nextLine();
-                if (line.contains("twitter:image")) {
+
+                if (line.contains("data-image")) {
                     Matcher m = url_match_pattern.matcher(line);
                     if (m.matches()) {
-                        foundUrl = m.group(1);
+                        foundUrl = "http:" + m.group(1);
                         hasFoundUrl = true;
                     }
-                } else if (line.contains("twitter:title")) {
+                } else if (line.contains("comic-title-name")) {
                     Matcher m = title_match_pattern.matcher(line);
                     if (m.matches()) {
                         foundTitle = m.group(1);
