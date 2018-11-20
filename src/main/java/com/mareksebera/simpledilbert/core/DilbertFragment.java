@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.mareksebera.simpledilbert.BuildConfig;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
@@ -272,7 +274,8 @@ public final class DilbertFragment extends Fragment {
                                 FileOutputStream out = new FileOutputStream(tmp);
                                 b.compress(CompressFormat.JPEG, 100, out);
                                 out.close();
-                                Uri u = Uri.parse("file://" + tmp.getAbsolutePath());
+                                FragmentActivity activity = getActivity();
+                                Uri u = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", tmp);
                                 i.putExtra(Intent.EXTRA_STREAM, u);
                             } else {
                                 i.putExtra(
