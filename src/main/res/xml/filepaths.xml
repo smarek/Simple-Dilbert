@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <files-path name="temp" path="."/>
+    <cache-path name="cache" path="/"/>
+    <external-path name="files" path="."/>
+</paths>
