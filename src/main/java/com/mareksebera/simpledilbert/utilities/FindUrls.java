@@ -62,7 +62,7 @@ final public class FindUrls {
                 } else if (line.contains("comic-title-name")) {
                     Matcher m = title_match_pattern.matcher(line);
                     if (m.matches()) {
-                        foundTitle = FindUrls.correctUrl(m.group(1));
+                        foundTitle = m.group(1);
                         hasFoundTitle = true;
                     }
                 }
