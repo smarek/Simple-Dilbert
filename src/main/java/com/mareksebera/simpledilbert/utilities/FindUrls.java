@@ -56,13 +56,13 @@ final public class FindUrls {
                 if (line.contains("data-image")) {
                     Matcher m = url_match_pattern.matcher(line);
                     if (m.matches()) {
-                        foundUrl = "http:" + m.group(1);
+                        foundUrl = FindUrls.correctUrl(m.group(1));
                         hasFoundUrl = true;
                     }
                 } else if (line.contains("comic-title-name")) {
                     Matcher m = title_match_pattern.matcher(line);
                     if (m.matches()) {
-                        foundTitle = m.group(1);
+                        foundTitle = FindUrls.correctUrl(m.group(1));
                         hasFoundTitle = true;
                     }
                 }
@@ -74,6 +74,23 @@ final public class FindUrls {
             Log.e(LOG_TAG, "Error Occurred", t);
         }
         return new String[]{foundUrl, foundTitle};
+    }
+
+    /**
+     * Will correct urls not starting with http://, https:// and those starting with "//"
+     *
+     * @param foundUrl String url in raw form parsed out of html
+     * @return String corrected URL
+     */
+    private static String correctUrl(String foundUrl) {
+        if (!foundUrl.startsWith("https://") && !foundUrl.startsWith("http://")) {
+            if (foundUrl.startsWith("//")) {
+                foundUrl = "https:" + foundUrl;
+            } else {
+                foundUrl = "https://" + foundUrl;
+            }
+        }
+        return foundUrl;
     }
 
     public static LocalDate extractCurrentDateFromIntentUrl(Uri path) {
