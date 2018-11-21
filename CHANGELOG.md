@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 4.6
+
+  - Updated SDK to v28
+  - Fixed sharing strip and text only, thanks to @oldlauer
+  - Fixed parsing remote HTML, thanks to @3DES
+  - Fixed caching of preferences between processes
+  - Fixed scaling of image, thanks to @jazzzz
+
 ## 4.5
 
   - New parsing (using twitter:image and twitter:title, for simplicity)
