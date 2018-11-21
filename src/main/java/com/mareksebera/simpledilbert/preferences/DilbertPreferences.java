@@ -224,8 +224,10 @@ public final class DilbertPreferences {
      * @return if the removal was successfull
      */
     public boolean removeCache(LocalDate currentDate) {
-        return editor.remove(
-                currentDate.toString(DilbertPreferences.DATE_FORMATTER))
+        String dateString = currentDate.toString(DilbertPreferences.DATE_FORMATTER);
+        return editor
+                .remove(dateString + "_title") // cached title
+                .remove(dateString) // cached url
                 .commit();
     }
 
@@ -466,7 +468,7 @@ public final class DilbertPreferences {
     }
 
     public boolean isSharingImage() {
-        return !preferences.getBoolean(PREF_SHARE_IMAGE, true);
+        return preferences.getBoolean(PREF_SHARE_IMAGE, true);
     }
 
     boolean setIsSharingImage(boolean shouldShareImage) {

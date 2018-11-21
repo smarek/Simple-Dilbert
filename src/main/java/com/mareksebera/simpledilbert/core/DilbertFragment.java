@@ -102,6 +102,11 @@ public final class DilbertFragment extends Fragment {
         public void displayImage(String url, String title) {
             if (image == null)
                 return;
+            Log.d("GetStripUrlListener", "url: " + url);
+            if (url != null) {
+                preferences.saveCurrentUrl(getArguments().getString(ARGUMENT_DATE), url);
+                preferences.saveCurrentTitle(getArguments().getString(ARGUMENT_DATE), title);
+            }
             Glide.with(DilbertFragment.this.getContext())
                     .asBitmap()
                     .load(url)
@@ -249,43 +254,54 @@ public final class DilbertFragment extends Fragment {
     }
 
     private void shareCurrentStrip() {
-        String url = preferences.getCachedUrl(getDateFromArguments());
-        if (url == null)
+        // Share only text
+        String date = getArguments().getString(ARGUMENT_DATE);
+        if (preferences.isSharingImage()) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
+                    + " #simpledilbert");
+            i.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Dilbert "
+                            + date
+                            + " #simpledilbert https://dilbert.com/strip/"
+                            + date
+            );
+            startActivity(Intent.createChooser(i,
+                    getString(R.string.share_chooser)));
             return;
+        }
+
+        // Share image
+        String url = preferences.getCachedUrl(getDateFromArguments());
+        if (url == null) {
+            Log.d("DilbertFragment", "Will not share null URL");
+            return;
+        }
         Glide.with(DilbertFragment.this.getContext()).asBitmap().load(url)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap b, @Nullable Transition<? super Bitmap> transition) {
                         try {
-                            String date = getDateFromArguments().toString(
-                                    DilbertPreferences.DATE_FORMATTER);
+                            String date = getArguments().getString(ARGUMENT_DATE);
                             Intent i = new Intent(Intent.ACTION_SEND);
                             i.setType("image/jpeg");
                             i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
                                     + " #simpledilbert");
-                            if (preferences.isSharingImage()) {
-                                i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
-                                        + " #simpledilbert");
-                                File tmp = File
-                                        .createTempFile("dilbert_", ".jpg",
-                                                getActivity()
-                                                        .getExternalCacheDir()
-                                        );
-                                FileOutputStream out = new FileOutputStream(tmp);
-                                b.compress(CompressFormat.JPEG, 100, out);
-                                out.close();
-                                FragmentActivity activity = getActivity();
-                                Uri u = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", tmp);
-                                i.putExtra(Intent.EXTRA_STREAM, u);
-                            } else {
-                                i.putExtra(
-                                        Intent.EXTRA_TEXT,
-                                        "Dilbert "
-                                                + date
-                                                + date
-                                                + " #simpledilbert https://dilbert.com/strip/"
-                                );
-                            }
+                            i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
+                                    + " #simpledilbert");
+                            File tmp = File
+                                    .createTempFile("dilbert_", ".jpg",
+                                            getActivity()
+                                                    .getExternalCacheDir()
+                                    );
+                            FileOutputStream out = new FileOutputStream(tmp);
+                            b.compress(CompressFormat.JPEG, 100, out);
+                            out.close();
+                            FragmentActivity activity = getActivity();
+                            Uri u = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", tmp);
+                            i.putExtra(Intent.EXTRA_STREAM, u);
                             startActivity(Intent.createChooser(i,
                                     getString(R.string.share_chooser)));
 
