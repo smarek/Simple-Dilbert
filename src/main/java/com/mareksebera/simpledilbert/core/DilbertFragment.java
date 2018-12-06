@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -24,7 +25,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
@@ -32,6 +32,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.DilbertFavoritedActivity;
 import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
+import com.mareksebera.simpledilbert.utilities.CustomTarget;
 import com.mareksebera.simpledilbert.utilities.GetStripUrl;
 import com.mareksebera.simpledilbert.utilities.GetStripUrlInterface;
 
@@ -51,7 +52,7 @@ import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
 
 public final class DilbertFragment extends Fragment {
 
-    public static final String BROADCAST_TITLE_UPDATE = "com.mareksebera.simpledilbert.broadcast.TITLE";
+    static final String BROADCAST_TITLE_UPDATE = "com.mareksebera.simpledilbert.broadcast.TITLE";
     public static final String ARGUMENT_DATE = "string_ARGUMENT_DATE";
     private static final int MENU_SAVE = -1, MENU_FAVORITE = -2,
             MENU_ZOOM = -3, MENU_SHARE = -4, MENU_REFRESH = -5, MENU_OPEN_AT = -6, MENU_OPEN_IN_BROWSER = -7;
@@ -164,7 +165,7 @@ public final class DilbertFragment extends Fragment {
         if (null != cachedUrl) {
             getStripURIlListener.displayImage(cachedUrl, cachedTitle);
         } else {
-            this.loadTask = new GetStripUrl(getStripURIlListener, preferences,
+            this.loadTask = new GetStripUrl(getContext(), getStripURIlListener, preferences,
                     getDateFromArguments());
             this.loadTask.execute();
         }
@@ -247,7 +248,7 @@ public final class DilbertFragment extends Fragment {
         preferences.removeCache(getDateFromArguments());
         if (this.loadTask == null
                 || this.loadTask.getStatus() != Status.PENDING) {
-            this.loadTask = new GetStripUrl(getStripURIlListener, preferences,
+            this.loadTask = new GetStripUrl(getContext(), getStripURIlListener, preferences,
                     getDateFromArguments(), progress);
         }
         this.loadTask.execute();
@@ -280,39 +281,45 @@ public final class DilbertFragment extends Fragment {
             return;
         }
         Glide.with(DilbertFragment.this.getContext()).asBitmap().load(url)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap b, @Nullable Transition<? super Bitmap> transition) {
-                        try {
-                            String date = getArguments().getString(ARGUMENT_DATE);
-                            Intent i = new Intent(Intent.ACTION_SEND);
-                            i.setType("image/jpeg");
-                            i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
-                                    + " #simpledilbert");
-                            i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
-                                    + " #simpledilbert");
-                            File tmp = File
-                                    .createTempFile("dilbert_", ".jpg",
-                                            getActivity()
-                                                    .getExternalCacheDir()
-                                    );
-                            FileOutputStream out = new FileOutputStream(tmp);
-                            b.compress(CompressFormat.JPEG, 100, out);
-                            out.close();
-                            FragmentActivity activity = getActivity();
-                            Uri u = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", tmp);
-                            i.putExtra(Intent.EXTRA_STREAM, u);
-                            startActivity(Intent.createChooser(i,
-                                    getString(R.string.share_chooser)));
+                .into(new CustomTarget<Bitmap>() {
+                          @Override
+                          public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                              try {
+                                  String date = getArguments().getString(ARGUMENT_DATE);
+                                  Intent i = new Intent(Intent.ACTION_SEND);
+                                  i.setType("image/jpeg");
+                                  i.putExtra(Intent.EXTRA_SUBJECT, "Dilbert " + date
+                                          + " #simpledilbert");
+                                  i.putExtra(Intent.EXTRA_TEXT, "Dilbert " + date
+                                          + " #simpledilbert");
+                                  File tmp = File
+                                          .createTempFile("dilbert_", ".jpg",
+                                                  getActivity()
+                                                          .getExternalCacheDir()
+                                          );
+                                  FileOutputStream out = new FileOutputStream(tmp);
+                                  resource.compress(CompressFormat.JPEG, 100, out);
+                                  out.close();
+                                  FragmentActivity activity = getActivity();
+                                  Uri u = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", tmp);
+                                  i.putExtra(Intent.EXTRA_STREAM, u);
+                                  startActivity(Intent.createChooser(i,
+                                          getString(R.string.share_chooser)));
 
-                        } catch (Throwable e) {
-                            if (getActivity() != null)
-                                Toast.makeText(getActivity(),
-                                        R.string.loading_exception_error,
-                                        Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                              } catch (Throwable e) {
+                                  if (getActivity() != null)
+                                      Toast.makeText(getActivity(),
+                                              R.string.loading_exception_error,
+                                              Toast.LENGTH_LONG).show();
+                              }
+                          }
+
+                          @Override
+                          public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                          }
+                      }
+                );
     }
 
     @Override

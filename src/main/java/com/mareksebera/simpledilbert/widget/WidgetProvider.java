@@ -88,7 +88,7 @@ public final class WidgetProvider extends AppWidgetProvider {
         }
         appWidgetManager.updateAppWidget(appWidgetId, views);
         if (cachedUrl == null) {
-            new GetStripUrl(new GetStripUrlInterface() {
+            new GetStripUrl(context, new GetStripUrlInterface() {
 
                 @Override
                 public void imageLoadFailed(String url, Throwable reason) {

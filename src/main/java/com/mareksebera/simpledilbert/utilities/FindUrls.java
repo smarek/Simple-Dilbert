@@ -10,12 +10,8 @@ import org.joda.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPInputStream;
 
 import androidx.annotation.NonNull;
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.util.EntityUtils;
 
 final public class FindUrls {
     private static final String LOG_TAG = "FindUrls";
@@ -31,22 +27,14 @@ final public class FindUrls {
     }
 
     @NonNull
-    static String[] extractUrlAndTitle(HttpResponse response) {
+    static String[] extractUrlAndTitle(String httpResponse) {
         String foundUrl = null;
         String foundTitle = null;
         boolean hasFoundUrl = false;
         boolean hasFoundTitle = false;
         try {
             Scanner scan;
-            Header contentEncoding = response
-                    .getFirstHeader("Content-Encoding");
-            if (contentEncoding != null
-                    && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
-                scan = new Scanner(new GZIPInputStream(response.getEntity()
-                        .getContent()));
-            } else {
-                scan = new Scanner(response.getEntity().getContent());
-            }
+            scan = new Scanner(httpResponse);
 
             while (!hasFoundUrl || !hasFoundTitle) {
                 if (!scan.hasNextLine()) break;
@@ -69,7 +57,6 @@ final public class FindUrls {
             }
 
             scan.close();
-            EntityUtils.consume(response.getEntity());
         } catch (Throwable t) {
             Log.e(LOG_TAG, "Error Occurred", t);
         }
