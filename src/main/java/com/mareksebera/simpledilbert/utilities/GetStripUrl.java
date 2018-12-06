@@ -3,14 +3,14 @@ package com.mareksebera.simpledilbert.utilities;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -19,6 +19,8 @@ import com.mareksebera.simpledilbert.preferences.DilbertPreferences;
 import org.joda.time.LocalDate;
 
 import java.lang.ref.WeakReference;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -32,18 +34,6 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String[]> {
     private final GetStripUrlInterface listener;
     private String[] handledResponse;
     private RequestQueue volleyRequestQueue;
-    private final Response.Listener<String> getSuccess = new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
-
-        }
-    };
-    private final Response.ErrorListener getError = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-
-        }
-    };
 
     public GetStripUrl(Context ctx, GetStripUrlInterface listener,
                        DilbertPreferences preferences, LocalDate currDate) {
@@ -57,7 +47,18 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String[]> {
         this.progressBar = new WeakReference<>(progressBar);
         this.currDate = currDate;
         this.listener = listener;
-        this.volleyRequestQueue = Volley.newRequestQueue(ctx);
+        HurlStack volleyStack = null;
+        // Only use custom TLSSocketFactory when OS provided one, does not support TLS1.1+ by default
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 22) {
+            try {
+                volleyStack = new HurlStack(null, new TLSSocketFactory());
+            } catch (KeyManagementException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+        this.volleyRequestQueue = Volley.newRequestQueue(ctx, volleyStack);
     }
 
     @Override
@@ -72,7 +73,6 @@ public final class GetStripUrl extends AsyncTask<Void, Void, String[]> {
         }
 
         RequestFuture<String> future = RequestFuture.newFuture();
-
         volleyRequestQueue.add(
                 new StringRequest(Request.Method.GET, "https://dilbert.com/strip/"
                         + currDate.toString(DilbertPreferences.DATE_FORMATTER) + "/", future, future)
