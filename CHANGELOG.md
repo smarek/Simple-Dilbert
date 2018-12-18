@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.7
+
+  - Fixed network TLS support for devices 16 <= API <= 21
+  - Fixed fetching strip title in some situations (was blocking widget also)
+  - Replaced HttpClient with Volley and custom HurlStack for TLS handling
+
 ## 4.6
 
   - Updated SDK to v28
