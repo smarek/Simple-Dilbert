@@ -22,6 +22,8 @@ final public class FindUrls {
             .compile(".*([\\d]{4}-[\\d]{2}-[\\d]{2}).*");
     private static final Pattern title_match_pattern = Pattern
             .compile(".*\"comic-title-name\">([^<]+)<.*");
+    private static final Pattern twitter_title_match_pattern = Pattern
+            .compile(".*content=\"(.*)\".*");
 
     private FindUrls() {
     }
@@ -50,6 +52,12 @@ final public class FindUrls {
                 } else if (line.contains("comic-title-name")) {
                     Matcher m = title_match_pattern.matcher(line);
                     if (m.matches()) {
+                        foundTitle = m.group(1);
+                        hasFoundTitle = true;
+                    }
+                } else if (!hasFoundTitle && line.contains("twitter:title")) {
+                    Matcher m = twitter_title_match_pattern.matcher(line);
+                    if(m.matches()) {
                         foundTitle = m.group(1);
                         hasFoundTitle = true;
                     }
