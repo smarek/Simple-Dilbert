@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +22,7 @@ import com.mareksebera.simpledilbert.utilities.ActionBarUtility;
 import java.io.File;
 
 import androidx.fragment.app.ListFragment;
+import androidx.preference.PreferenceManager;
 
 public final class FolderPickerFragment extends ListFragment {
 
@@ -117,7 +117,7 @@ public final class FolderPickerFragment extends ListFragment {
                 getActivity().finish();
                 return true;
             case MENU_GO_DEFAULT:
-                folderPickerAdapter.setPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+                folderPickerAdapter.setPath(getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
                 return true;
         }
         return super.onOptionsItemSelected(item);

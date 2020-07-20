@@ -10,9 +10,10 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.preference.PreferenceManager;
 
 import com.mareksebera.simpledilbert.R;
 import com.mareksebera.simpledilbert.favorites.FavoritedItem;

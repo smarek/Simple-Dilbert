@@ -19,6 +19,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -40,13 +47,6 @@ import org.joda.time.LocalDate;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
 
@@ -101,7 +101,7 @@ public final class DilbertFragment extends Fragment {
 
         @Override
         public void displayImage(String url, String title) {
-            if (image == null)
+            if (image == null || getArguments() == null)
                 return;
             Log.d("GetStripUrlListener", "url: " + url);
             if (url != null) {
@@ -206,7 +206,9 @@ public final class DilbertFragment extends Fragment {
                 return true;
             case MENU_OPEN_AT:
                 preferences.saveCurrentDate(getDateFromArguments());
-                getActivity().finish();
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
                 return true;
             case MENU_OPEN_IN_BROWSER:
                 try {

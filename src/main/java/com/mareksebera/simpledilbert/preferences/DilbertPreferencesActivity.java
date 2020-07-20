@@ -83,7 +83,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             StringBuilder sb = new StringBuilder();
-            for (Map.Entry e : preferences.getCachedUrls().entrySet()) {
+            for (Map.Entry<String, String> e : preferences.getCachedUrls().entrySet()) {
                 sb.append(String.format("%s :: %s\n", e.getKey(), e.getValue()));
             }
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -103,7 +103,7 @@ public final class DilbertPreferencesActivity extends AppCompatActivity {
             return;
         if (data != null) {
             Uri path = data.getData();
-            if (path != null) {
+            if (path != null && path.getPath() != null) {
                 preferences.setDownloadTarget(new File(path.getPath()).getAbsolutePath());
             }
         }
